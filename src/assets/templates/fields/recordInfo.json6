@@ -1,0 +1,185 @@
+
+{
+    usage: 'M',
+    label: 'Údaje o metadatovém záznamu',
+    selector: 'recordInfo',
+    labelKey: 'recordInfo',
+    description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
+    fields: {
+      descriptionStandard: {
+        usage: 'M',
+        label: 'Standard metadat',
+        cols: 2,
+        selector: 'recordInfo/descriptionStandard',
+        labelKey: 'recordInfo/descriptionStandard',
+        description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
+        options: [
+          [
+            'aacr',
+            'aacr'
+          ],
+          [
+            'rda',
+            'rda'
+          ]
+        ]
+      },
+      recordContentSource: {
+        usage: 'R',
+        label: 'Content source',
+        selector: 'recordInfo/recordContentSource',
+        labelKey: 'recordInfo/recordContentSource',
+        description: 'Kód nebo jméno instituce, která záznam vytvořila nebo změnila',
+        fields: {
+          value: {
+            usage: 'R',
+            label: 'Content source',
+            cols: 2,
+            selector: 'recordInfo/recordContentSource',
+            labelKey: 'recordInfo/recordContentSource',
+            help: 'off'
+          },
+          authority: {
+            usage: 'R',
+            label: 'Autorita',
+            defaultValue: 'marcorg',
+            cols: 2,
+            selector: 'recordInfo/recordContentSource/@authority',
+            labelKey: 'recordInfo/recordContentSource/@authority',
+            description: 'authority – hodnota "marcorg"',
+            options: [
+              [
+                'marcorg',
+                'marcorg'
+              ]
+            ]
+          }
+        }
+      },
+      recordCreationDate: {
+        usage: 'M',
+        label: 'Datum vytvoření',
+        selector: 'recordInfo/recordCreationDate',
+        labelKey: 'recordInfo/recordCreationDate',
+        description: 'datum prvního vytvoření záznamu, na úroveň minut',
+        fields: {
+          value: {
+            usage: 'M',
+            required: true,
+            label: 'Datum vytvoření',
+            cols: 2,
+            selector: 'recordInfo/recordCreationDate',
+            labelKey: 'recordInfo/recordCreationDate',
+            help: 'off'
+          },
+          encoding: {
+            usage: 'M',
+            required: true,
+            label: 'Kódování',
+            cols: 2,
+            selector: 'recordInfo/recordCreationDate/@encoding',
+            labelKey: 'recordInfo/recordCreationDate/@encoding',
+            description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
+            options: [
+              [
+                'iso8601',
+                'iso8601'
+              ]
+            ]
+          }
+        }
+      },
+      recordChangeDate: {
+        usage: 'MA',
+        label: 'Datum změny',
+        selector: 'recordInfo/recordChangeDate',
+        labelKey: 'recordInfo/recordChangeDate',
+        description: 'datum změny záznamu ',
+        fields: {
+          value: {
+            usage: 'MA',
+            label: 'Datum změny',
+            cols: 2,
+            selector: 'recordInfo/recordChangeDate',
+            labelKey: 'recordInfo/recordChangeDate',
+            help: 'off'
+          },
+          encoding: {
+            usage: 'M',
+            required: true,
+            label: 'Kódování',
+            cols: 2,
+            selector: 'recordInfo/recordChangeDate/@encoding',
+            labelKey: 'recordInfo/recordChangeDate/@encoding',
+            description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
+            options: [
+              [
+                'iso8601',
+                'iso8601'
+              ]
+            ]
+          }
+        }
+      },
+      recordIdentifier: {
+        usage: 'R',
+        label: 'Identifikátor záznamu',
+        selector: 'recordInfo/recordIdentifier',
+        labelKey: 'recordInfo/recordIdentifier',
+        description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
+        fields: {
+          value: {
+            usage: 'R',
+            label: 'Identifikátor záznamu',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier',
+            labelKey: 'recordInfo/recordIdentifier',
+            help: 'off'
+          },
+          source: {
+            usage: 'R',
+            label: 'Zdroj',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier/@source',
+            labelKey: 'recordInfo/recordIdentifier/@source',
+            description: 'hodnota se přebírá z katalogu pole 003 '
+          }
+        }
+      },
+      recordOrigin: {
+        usage: 'R',
+        label: 'Údaje o vzniku záznamu',
+        selector: 'recordInfo/recordOrigin',
+        labelKey: 'recordInfo/recordOrigin',
+        cols: 2,
+        description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
+        options: [
+          [
+            'machine generated',
+            'machine generated'
+          ],
+          [
+            'human prepared',
+            'human prepared'
+          ]
+        ]
+      },
+      languageOfCataloging: {
+        usage: 'R',
+        label: 'Jazyk záznamu',
+        selector: 'recordInfo/languageOfCataloging',
+        labelKey: 'recordInfo/languageOfCataloging',
+        description: 'jazyk katalogového záznamu',
+        fields: {
+          language: {
+            usage: 'R',
+            label: 'Jazyk',
+            selector: 'recordInfo/languageOfCataloging/languageTerm',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm',
+            description: 'Přesné určení jazyka'
+          }
+        }
+      },
+    }
+  }

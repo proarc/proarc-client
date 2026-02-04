@@ -148,6 +148,12 @@ export class EditorMetadataComponent implements OnInit {
     this.onChangePanelType.emit(t);
   }
 
+  testTmpl() {
+    this.tmpl.getTemplate('rda', 'test').subscribe((tmpl: any) => {
+        console.log(tmpl)
+      })
+  }
+
   loadMetadata(pid: string) {
     if (!pid) {
       return;

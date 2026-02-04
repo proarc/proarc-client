@@ -1,13 +1,13 @@
 import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
-import { ElementField } from "./elementField.model";
+import { ModsFormField } from './mods-form-field'
 import ModsUtils from './utils';
 import { Utils } from "../../utils/utils";
 import { ModsFieldTemplate } from "../mods-template";
 
-export abstract class ModsElement {
+export abstract class ModsFormFieldItem {
     public attrs: any;
-    public modsElement: any;
+    public ModsFormFieldItem: any;
     public collapsed = false;
     public hidden = false;
     public template: ModsFieldTemplate;
@@ -23,73 +23,49 @@ export abstract class ModsElement {
     public available: { [key: string]: boolean } = {};
     public labelKey: { [key: string]: string } = {};
 
-    public fields: {[field: string]: ElementField};
+    private subFields: ModsFormField[];
 
-    constructor(modsElement: any, template: any, attributes: string[] = []) {
+    constructor(ModsFormFieldItem: any, template: any, attributes: string[] = []) {
         this.validationWarning = false;
-        this.fields = {};
+        this.subFields = [];
         //this.controls = new Map<String, FormControl>();
         this.template = template;
-        this.modsElement = modsElement;
-        const fields = Object.keys(this.template.fields ? this.template.fields : []);
-        const attrs = fields.filter(f => this.template.fields[f].selector?.includes("@"));
-        this.initAttributes(attrs);
+        this.ModsFormFieldItem = ModsFormFieldItem;
         if (attributes.length > 0) {
             this.initAttributes(attributes);
         }
-        this.initSubFields();
         this.isRequired = this.isRequired2();
     }
 
-    private initSubFields() {
-        const fields = Object.keys(this.template.fields ? this.template.fields : []);
-        fields.forEach(f => {
-            if (!this.template.fields[f].selector?.includes("@")) {
-                if (f === 'value') {
-                    if (!this.modsElement['_']) {
-                        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
-                    }
-                    this.addControl(f, '_');
-
-                } else {
-                    const subField = new ElementField(this.modsElement, f, this.template.fields[f]);
-                    this.addSubfield(subField);
-                    this.addControl(f);
-                }
-            }
-        });
-        // if (!fields.includes('value') && !this.modsElement['_']) {    
-        //     this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
-        //     this.addControl('value', '_')
-        // }
-        
+    public addSubfield(field: ModsFormField) {
+        this.subFields.push(field);
     }
 
-    public addSubfield(efield: ElementField) {
-        this.fields[efield.id] = efield;
-    }
-
-    public getSubfields(): {[field: string]: ElementField} {
-        return this.fields;
+    public getSubfields(): ModsFormField[] {
+        return this.subFields;
     }
 
     public getEl() {
-        return this.modsElement;
+        return this.ModsFormFieldItem;
     }
 
     private initAttributes(attributes: string[]) {
-        if (!this.modsElement['$']) {
-            this.modsElement['$'] = {};
-        }
-        for (const attribute of attributes) {
-            if (!this.modsElement['$'][attribute]) {
+        if (!this.ModsFormFieldItem['$']) {
+            this.ModsFormFieldItem['$'] = {};
+            for (const attribute of attributes) {
                 if (attribute) {
-                    this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+                    this.ModsFormFieldItem['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
                 }
             }
-            this.addControl(attribute)
         }
-        this.attrs = this.modsElement['$'];
+        for (const attribute of attributes) {
+            if (!this.ModsFormFieldItem['$'][attribute]) {
+                if (attribute) {
+                    this.ModsFormFieldItem['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+                }
+            }
+        }
+        this.attrs = this.ModsFormFieldItem['$'];
     }
 
     public update() {
@@ -105,12 +81,12 @@ export abstract class ModsElement {
     }
 
     public required(field: string): boolean {
-        return this.template['fields']?.[field]?.['required'];
+        return this.template['fields'][field] && this.template['fields'][field]['required'];
     }
 
     public usage2(field: string): string {
         let u = '';
-        if (field && this.template['fields']?.[field]?.['usage']) {
+        if (field && this.template['fields'][field] && this.template['fields'][field]['usage']) {
             u = this.template['fields'][field]['usage'];
         }
         return u;
@@ -123,7 +99,7 @@ export abstract class ModsElement {
     }
 
     public labelKey2(field: string): string {
-        if (field && this.template['fields']?.[field]?.['labelKey']) {
+        if (field && this.template['fields'][field] && this.template['fields'][field]['labelKey']) {
             return this.template['fields'][field]['labelKey'];
         } else {
             return '';
@@ -152,7 +128,7 @@ export abstract class ModsElement {
 
     public showHelp(field: string): boolean {
         let ret = true;
-        if (field && this.template['fields']?.[field]?.['help']) {
+        if (field && this.template['fields'][field] && this.template['fields'][field]['help']) {
             ret = this.template['fields'][field]['help'] != 'off';
         }
         return ret;
@@ -160,7 +136,7 @@ export abstract class ModsElement {
 
     public class(field: string): string {
         let cols = 1;
-        if (field && this.template['fields']?.[field]?.['cols']) {
+        if (field && this.template['fields'][field] && this.template['fields'][field]['cols']) {
             cols = this.template['fields'][field]['cols'];
         }
         return "app-field-col app-field-col-" + cols;
@@ -176,7 +152,7 @@ export abstract class ModsElement {
     // }
 
     public available2(field: string): boolean {
-        this.available[field] = !!(this.template['fields']?.[field] || this.template['attributes']?.[field] );
+        this.available[field] = !!(this.template['fields'] && this.template['fields'][field]);
         return this.available[field];
     }
 
@@ -185,11 +161,11 @@ export abstract class ModsElement {
     }
 
     public getField(field: string) {
-        return this.template['fields']?.[field];
+        return this.template['fields'][field];
     }
 
-    public addControl(field: string, modsElement: string = null) {
-        const me = modsElement ? modsElement as keyof (ModsElement) : field as keyof (ModsElement);
+    public addControl(field: string, ModsFormFieldItem: string = null) {
+        const me = ModsFormFieldItem ? ModsFormFieldItem as keyof (ModsFormFieldItem) : field as keyof (ModsFormFieldItem);
 
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
@@ -206,10 +182,10 @@ export abstract class ModsElement {
                     this[me]['_'] = e;
                     Utils.metadataChanged.update(n => n + 1);
                 });
-            } else if (this.modsElement[me]) {
-                c.patchValue(this.modsElement[me]);
+            } else if (this.ModsFormFieldItem[me]) {
+                c.patchValue(this.ModsFormFieldItem[me]);
                 c.valueChanges.subscribe((e: any) => {
-                    this.modsElement[me] = e;
+                    this.ModsFormFieldItem[me] = e;
                     Utils.metadataChanged.update(n => n + 1);
 
                 });
@@ -237,8 +213,8 @@ export abstract class ModsElement {
     public getControl2(field: string): FormControl {
         // if (!this.controls.hasOwnProperty(field)) {
         //     const c = new FormControl();
-        //     if (this[field as keyof(ModsElement)]) {
-        //         c.setValue(this[field as keyof(ModsElement)]['_']);
+        //     if (this[field as keyof(ModsFormFieldItem)]) {
+        //         c.setValue(this[field as keyof(ModsFormFieldItem)]['_']);
         //     }
 
         //     this.controls[field] = c;
@@ -272,7 +248,7 @@ export abstract class ModsElement {
         return anyValue;
     }
 
-    public validate(parent: ModsElement = null): boolean {
+    public validate(parent: ModsFormFieldItem = null): boolean {
         // console.log(this.template)
         let error = false;
         let anyValue = false;
@@ -313,7 +289,7 @@ export abstract class ModsElement {
             } else {
                 Object.keys(this.controls).forEach((key) => {
                     const value = this.controls[key];
-                    if (this.template.fields?.[key + '']?.required && !value.value) {
+                    if (this.template.fields[key + '']?.required && !value.value) {
                         error = true;
                         value.markAsTouched();
                         // if (parent) {
@@ -333,9 +309,9 @@ export abstract class ModsElement {
             this.validationWarning = false;
         }
 
-        for (const f of Object.keys(this.fields)) {
-            for (const item2 of this.fields[f].getItems()) {
-                item2.validate(this)
+        for (const subfield of this.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
+                //item2.validate(this)
             }
         }
 
@@ -370,8 +346,8 @@ export abstract class ModsElement {
             }
         }
 
-        for (const f of Object.keys(this.fields)) {
-            for (const item2 of this.fields[f].getItems()) {
+        for (const subfield of this.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
                 if (item2.hasChanges()) {
                     return true;
                 }
@@ -382,11 +358,10 @@ export abstract class ModsElement {
     }
 
     public setAsDirty() {
-        const keys = Object.keys(this.controls);
-        if (keys.length === 0) {
-            // set first field as dirty
-            //this.fields[0].getItems()[0].setAsDirty();
+        if (Object.keys(this.controls).length === 0) {
+            this.subFields[0].getItems()[0].setAsDirty();
         } else {
+            const keys = Object.keys(this.controls);
             console.log(keys)
             for (let key of keys) {
                 this.controls[key].markAsDirty();

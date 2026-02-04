@@ -1,0 +1,39 @@
+
+  {
+    usage: 'M',
+    label: 'Žánr',
+    selector: 'genre',
+    labelKey: 'genre',
+    description: 'Bližší údaje o typu dokumentu<br/>\
+      Pro monografie hodnota <strong>volume</strong>',
+    fields: {
+      //      authority: {
+      //        usage: 'MA',
+      //        label: 'Autorita',
+      //        selector: 'genre/@authority',
+      //        labelKey: 'genre/@authority',
+      //        options: [
+      //          [
+      //            'czenas',
+      //            'czenas'
+      //          ],
+      //          [
+      //            'eczenas',
+      //            'eczenas'
+      //          ],
+      //          [
+      //            'rdacontent',
+      //            'rdacontent'
+      //          ]
+      //        ]
+      //      },
+      value: {
+        usage: 'M',
+        required: true,
+        selector: 'genre/value',
+        labelKey: 'genre/value',
+        label: 'Hodnota',
+        help: 'off'
+      }
+    }
+  }

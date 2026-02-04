@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ModsElement } from '../../model/mods/element.model';
@@ -30,12 +30,14 @@ export class AutocompleteComponent implements OnInit {
   @Input() field: string;
   @Input() value: string;
   
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<[string, string][]>;
   @Output() valueChange = new EventEmitter<string>();
 
-  options: string[];
+  options: [string, string][];
 
-  constructor(public settings: UserSettings) {
+  constructor(
+    public settings: UserSettings,
+  private translator: TranslateService) {
   }
 
   ngOnInit() {
@@ -60,9 +62,9 @@ export class AutocompleteComponent implements OnInit {
     );
   }
 
-  private _filter(v: string): string[] {
+  private _filter(v: string): [string, string][] {
     const filterValue = v.toLowerCase();
-    return this.options.filter(option => option[1].toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => this.translator.instant(option[0]).toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

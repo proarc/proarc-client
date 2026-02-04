@@ -19,12 +19,12 @@ export class ModsRole extends ModsElement {
     }
 
     private init() {
-        if (!this.modsElement['roleTerm']) {
-            const attrs = {'type': 'code', 'authority': 'marcrelator'};
-            this.modsElement['roleTerm'] = [ModsUtils.createTextElement('', attrs)];
-        }
-        this.roleTerm = this.modsElement['roleTerm'][0];
-        this.addControl('roleTerm');
+        // if (!this.modsElement['roleTerm']) {
+        //     const attrs = {'type': 'code', 'authority': 'marcrelator'};
+        //     this.modsElement['roleTerm'] = [ModsUtils.createTextElement('', attrs)];
+        // }
+        // this.roleTerm = this.modsElement['roleTerm'][0];
+        // this.addControl('roleTerm');
     }
 
 }

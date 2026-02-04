@@ -50,6 +50,9 @@
             [class.app-expanded]="!item.collapsed">
             <ng-template [ngTemplateOutlet]="templateContent"
             [ngTemplateOutletContext]="{ item: item, first: first, idx: idx  }"></ng-template>
+            <ng-container [ngTemplateOutlet]="templateContentD"
+            [ngTemplateOutletContext]="{ item: item, first: first, idx: idx  }"></ng-container>
+            <ng-content></ng-content>
           </div>
         </div>
         <div class="app-gap-fixer"></div>

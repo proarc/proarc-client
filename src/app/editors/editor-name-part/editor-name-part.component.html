@@ -1,0 +1,6 @@
+<app-editor-field [field]="item.nameParts" [nested]='true'>
+    <ng-template let-namePart="item" #templateContent>
+        <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+    </ng-template>
+</app-editor-field>

@@ -17,7 +17,7 @@
           matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
           [disabled]="item.isNonSortToggleDisabled"
           (change)="item.onNonSotToggleChanged($event)"
-          [checked]='item.nonSort["_"].length > 0' >
+          [checked]='item.nonSort["_"]?.length > 0' >
         </mat-slide-toggle>
       </mat-form-field>
     }

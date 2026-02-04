@@ -1,0 +1,44 @@
+{
+    usage: 'O',
+    label: 'Popis části',
+    selector: 'part',
+    labelKey: 'part',
+    description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
+    fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        selector: 'part/@type',
+        labelKey: 'part/@type',
+        description: 'Hodnota bude vždy "volume" ',
+        options: [
+          [
+            'volume',
+            'volume'
+          ]
+        ]
+      },
+      detail: {
+        usage: 'RA',
+        label: 'Detail',
+        selector: 'part/detail',
+        labelKey: 'part/detail',
+        fields: {
+          caption: {
+            usage: 'RA',
+            label: 'Typ',
+            selector: 'part/detail/caption',
+            labelKey: 'part/detail/caption',
+            description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+          }
+        }
+      },
+      part: {
+        usage: 'O',
+        label: 'Část',
+        selector: 'part',
+        labelKey: 'part',
+        help: 'off'
+      }
+    }
+  }

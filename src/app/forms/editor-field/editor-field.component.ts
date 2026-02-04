@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Directive } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,13 @@ import { ModsElement } from '../../model/mods/element.model';
 import { ElementField } from '../../model/mods/elementField.model';
 import { LayoutService } from '../../services/layout-service';
 import { UserSettings } from '../../shared/user-settings';
+
+
+@Directive({
+  selector: '[templateContent]',
+  standalone: true,
+})
+export class TemplateContentDirective {}
 
 @Component({
   imports: [CommonModule, TranslateModule,
@@ -30,8 +37,15 @@ export class EditorFieldComponent implements OnInit {
   
   @Output() valueChange = new EventEmitter<string>();
 
+    @ContentChild(TemplateContentDirective, {
+    read: TemplateRef,
+    static: true,
+  })  templateContentD?: any;
+
   @ContentChild("templateContent") templateContent : TemplateRef<any>;
   @ContentChild("templateMenu") templateMenu : TemplateRef<any>;
+
+
 
   validationWarning: string;
   //items: ModsElement[];
@@ -87,25 +101,12 @@ export class EditorFieldComponent implements OnInit {
 
   ngOnChanges() {
     // every time the object changes 
-    if (this.field.items.length === 0) {
+    if (!this.field?.items || this.field?.items?.length === 0) {
       return;
     }
     this.validationWarning = this.field.items.map(item => item.validationWarning).join(',');
     //this.items = this.field.items;
   }
-
-  // ngDoCheck() {
-  //   // check for object mutation
-  //   if (this.field.items.length === 0) {
-  //     return;
-  //   }
-  //   const nc = this.field.items.map(item => item.validationWarning).join(',');
-  //     if (this.validationWarning !== nc) {
-  //       this.validationWarning = nc;
-  //       this.cd.markForCheck();
-  //       //this.items = this.field.items;
-  //     }
-  // }
 
   openHelpDialog() {
     this.dialog.open(HelpDialogComponent, { 

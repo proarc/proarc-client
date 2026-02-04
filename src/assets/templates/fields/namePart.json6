@@ -1,0 +1,53 @@
+{
+        usage: 'MA',
+        label: 'Jméno',
+        selector: 'name/namePart',
+        labelKey: 'name/namePart',
+        description: 'Vyplnit údaje o autorovi.',
+        fields: {
+          type: {
+            usage: 'MA',
+            label: 'Typ',
+            selector: 'name/namePart/@type',
+            labelKey: 'name/namePart/@type',
+            cols: 2,
+            description: 'Použít jednu z hodnot:\
+                <ul>\
+                    <li><strong>Křestní jméno</strong> (given)</li>\
+                    <li><strong>Příjmení</strong> (family)</li>\
+                    <li><strong>Datum</strong> (date)</li>\
+                    <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
+                </ul>',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'given',
+                'Křestní jméno'
+              ],
+              [
+                'family',
+                'Příjmení'
+              ],
+              [
+                'date',
+                'Datum'
+              ],
+              [
+                'termsOfAddress',
+                'Ostatní související se jménem'
+              ],
+            ]
+          },
+          value: {
+            label: 'Hodnota',
+            usage: 'M',
+            selector: 'name/namePart',
+            labelKey: 'name/namePart/value',
+            cols: 2,
+            help: 'off'
+          }
+        }
+      }

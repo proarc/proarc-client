@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
-import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
+import { EditorFieldComponent, TemplateContentDirective } from '../../forms/editor-field/editor-field.component';
 import { FieldDropdownComponent } from '../../forms/field-dropdown/field-dropdown.component';
 import { FieldTextComponent } from '../../forms/field-text/field-text.component';
 import { ModsAuthor } from '../../model/mods/author.model';
@@ -21,12 +21,15 @@ import { CatalogDialogComponent } from '../../dialogs/catalog-dialog/catalog-dia
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { UserSettings } from '../../shared/user-settings';
+import { EditorNamePartComponent } from '../editor-name-part/editor-name-part.component';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
     MatIconModule, MatTooltipModule, MatSelectModule,
     MatFormFieldModule, MatInputModule, MatButtonModule,
-    EditorFieldComponent, FieldDropdownComponent, FieldTextComponent
+    EditorFieldComponent, FieldDropdownComponent, FieldTextComponent,
+    // EditorNamePartComponent, 
+    TemplateContentDirective
   ],
   selector: 'app-editor-author',
   templateUrl: './editor-author.component.html',
@@ -61,6 +64,10 @@ export class EditorAuthorComponent implements OnInit {
     public settings: UserSettings) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
+  }
+
+  log(e: any) {
+    return console.log(e);
   }
 
   ngOnInit() {

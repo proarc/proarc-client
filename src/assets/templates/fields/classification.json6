@@ -1,0 +1,61 @@
+
+  {
+    usage: 'R',
+    label: 'Klasifikace',
+    selector: 'classification',
+    labelKey: 'classification',
+    description: 'Klasifikační údaje věcného třídění podle Konspektu.<br/>\
+      Odpovídá poli 072 $a MARC21',
+    fields: {
+      authority: {
+        usage: 'M',
+        label: 'Autorita',
+        selector: 'classification/@authority',
+        labelKey: 'classification/@authority',
+        cols: 2,
+        description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)\
+            </li>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)\
+            </li>\
+          </ul>',
+        options: [
+          [
+            'udc',
+            'udc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
+      edition: {
+        usage: 'MA',
+        label: 'Vydání',
+        selector: 'classification/@edition',
+        labelKey: 'classification/@edition',
+        cols: 2,
+        description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+        options: [
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
+      value: {
+        usage: 'R',
+        selector: 'classification/value',
+        labelKey: 'classification/value',
+        label: 'Hodnota',
+        help: 'off'
+      }
+    }
+  }

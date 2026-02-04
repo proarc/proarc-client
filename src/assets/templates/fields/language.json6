@@ -1,0 +1,54 @@
+
+{
+    usage: 'M',
+    label: 'Jazyk',
+    selector: 'language',
+    labelKey: 'language',
+    description: 'Údaje o jazyce dokumentu',
+    fields: {
+      objectPart: {
+        usage: 'MA',
+        label: 'Část',
+        selector: 'language/@objectPart',
+        labelKey: 'language/@objectPart',
+        description: 'Možnost vyjádřit jazyk konkrétní části svazku <br/>\
+          možné hodnoty<br/>\
+          <ul>\
+            <li><strong>Shrnutí</strong> (summary) – odpovídá poli 041 $b</li>\
+            <li><strong>Obsah</strong> (table of contents) - odpovídá poli 041 $f</li>\
+            <li><strong>Doprovodný materiál</strong> (accompanying material) - odpovídá poli 041 $g</li>\
+            <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>\
+          </ul>',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'summary',
+            'Shrnutí'
+          ],
+          [
+            'table of contents',
+            'Obsah'
+          ],
+          [
+            'accompanying material',
+            'Doprovodný materiál'
+          ],
+          [
+            'translation',
+            'Překlad'
+          ]
+        ]
+      },
+      language: {
+        usage: 'M',
+        required: true,
+        label: 'Jazyk',
+        selector: 'language/languageTerm',
+        labelKey: 'language/languageTerm',
+        description: 'Přesné určení jazyka'
+      }
+    }
+  }

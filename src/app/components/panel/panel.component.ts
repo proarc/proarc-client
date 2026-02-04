@@ -28,7 +28,13 @@ import { EditorIssuesComponent } from "../../editors/editor-issues/editor-issues
 
 @Component({
   selector: 'app-panel',
-  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent],
+  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, 
+    EditorOcrComponent, MediaComponent, ViewerComponent, 
+    MatCardModule, MatIconModule, 
+    EditorCommentComponent, EditorAtmComponent, EditorPageComponent, 
+    EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, 
+    EditorTreeComponent, EditorMetadataComponent, 
+    SongComponent, EditorIssuesComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

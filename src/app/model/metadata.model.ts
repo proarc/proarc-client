@@ -5,6 +5,7 @@ import { ModsElement } from './mods/element.model';
 import { Utils } from '../utils/utils';
 import { inject } from '@angular/core';
 import { UserSettings } from '../shared/user-settings';
+import { ModsFieldTemplate } from './mods-template';
 
 export class Metadata {
 
@@ -19,22 +20,17 @@ export class Metadata {
   private fields: Map<String, ElementField>;
   public invalidFields: string[] = [];
 
-  public template: { [x: string]: any; };
+  public template: { [x: string]: ModsFieldTemplate; };
   public standard: string;
   private userSettings: UserSettings;
 
-  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any, userSettings: UserSettings) {
+  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: { [x: string]: ModsFieldTemplate; }, userSettings: UserSettings) {
     this.pid = pid;
     this.userSettings = userSettings;
     this.timestamp = timestamp;
     this.standard = standard;
     this.model = model;
     this.template = template;
-    // const expanded = localStorage.getItem('codebook.top.ExpandedModels');
-    // if (expanded) {
-    //   const expandedModels = expanded.split(',,');
-    //   localStorage.setItem('metadata.allExpanded', expandedModels.includes(model).toString());
-    // }
 
     this.originalMods = mods.trim();
     this.parseMods(mods);
@@ -67,8 +63,10 @@ export class Metadata {
         }
 
         if (item.hasAnyValue() || item.isRequired) {
-          for (const subfield of item.getSubfields()) {
-            for (const item2 of subfield.getItems()) {
+        for (const f of Object.keys(item.fields)) {
+            for (const item2 of item.fields[f].getItems()) {
+          // for (const subfield of item.getSubfields()) {
+          //   for (const item2 of subfield.getItems()) {
               if (!item2.validate(item)) {
                 valid = false;
                 item2.collapsed = false;
@@ -92,8 +90,10 @@ export class Metadata {
         if (item.isRequired) {
           item.collapsed = false;
         }
-        for (const subfield of item.getSubfields()) {
-          for (const item2 of subfield.getItems()) {
+        for (const f of Object.keys(item.fields)) {
+            for (const item2 of item.fields[f].getItems()) {
+        // for (const subfield of item.getSubfields()) {
+        //   for (const item2 of subfield.getItems()) {
             if (item2.isRequired) {
               valid = false;
               item2.collapsed = false;
@@ -159,6 +159,8 @@ export class Metadata {
     })
 
     this.fields = new Map<String, ElementField>();
+    
+    console.log(data)
     this.mods = data;
     this.mods = this.normalizedCopy();
     let root = null;
@@ -290,8 +292,10 @@ export class Metadata {
         if (item.hasChanges()) {
           return true;
         }
-        for (const subfield of item.getSubfields()) {
-          for (const item2 of subfield.getItems()) {
+        for (const f of Object.keys(item.fields)) {
+            for (const item2 of item.fields[f].getItems()) {
+        // for (const subfield of item.getSubfields()) {
+        //   for (const item2 of subfield.getItems()) {
             if (item2.hasChanges()) {
               return true;
             }
@@ -307,8 +311,11 @@ export class Metadata {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
         item.resetChanges();
-        for (const subfield of item.getSubfields()) {
-          for (const item2 of subfield.getItems()) {
+        for (const f of Object.keys(item.fields)) {
+            for (const item2 of item.fields[f].getItems()) {
+
+        // for (const subfield of item.getSubfields()) {
+        //   for (const item2 of subfield.getItems()) {
             item2.resetChanges();
           }
         }

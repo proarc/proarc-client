@@ -1,0 +1,96 @@
+{
+  usage: 'M',
+  label: 'Název',
+  selector: 'titleInfo',
+  labelKey: 'titleInfo',
+  description: 'Název svazku monografie<br/>\
+    Pro plnění použít katalogizační záznam<br/>\
+    pokud má monografie více typů názvů, element se opakuje podle potřeby',
+  fields: {
+    type: {
+      usage: 'MA',
+      label: 'Typ',
+      selector: 'titleInfo/@type',
+      labelKey: 'titleInfo/@type',
+      cols: 2,
+      description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+        Možné hodnoty\
+        <ul>\
+          <li>Zkrácený název (abbreviated) - pole 210</li>\
+          <li>Alternativní název (alternative) – pole 246</li>\
+          <li>Přeložený název (translated) – pole 242</li>\
+          <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+        </ul>',
+      options: [
+        [
+          '',
+          '-'
+        ],
+        [
+          'abbreviated',
+          'Zkrácený název'
+        ],
+        [
+          'translated',
+          'Přeložený název'
+        ],
+        [
+          'alternative',
+          'Alternativní název'
+        ],
+        [
+          'uniform',
+          'Jednotný název'
+        ]
+      ]
+    },
+    nonSort: {
+      usage: 'O',
+      label: 'Část vynechaná při hledání',
+      selector: 'titleInfo/nonSort',
+      labelKey: 'titleInfo/nonSort',
+      cols: 2,
+      description: 'Část názvu, která má být vynechána při vyhledávána<br/>\
+        např.:\
+        <ul>\
+          <li><nonSort>The</nonSort></li>\
+          <li><title>Beatles</title></li>\
+        </ul>',
+    },
+    title: {
+      usage: 'M',
+      required: true,
+      label: 'Název',
+      selector: 'titleInfo/title',
+      labelKey: 'titleInfo/title',
+      description: 'Názvová informace – název svazku monografie</br>\
+        hodnoty převzít z katalogu<br/>\
+        odpovídající pole a podpole podle typu, viz typ'
+    },
+    subTitle: {
+      usage: 'MA',
+      label: 'Podnázev',
+      selector: 'titleInfo/subTitle',
+      labelKey: 'titleInfo/subTitle',
+      description: 'Podnázev svazku monografie<br/>\
+        odpovídající pole a podpole podle typu, viz typ'
+    },
+    partNumber: {
+      usage: 'MA',
+      label: 'Číslo části',
+      selector: 'titleInfo/partNumber',
+      labelKey: 'titleInfo/partNumber',
+      cols: 2,
+      description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku'
+    },
+    partName: {
+      usage: 'MA',
+      label: 'Název části',
+      selector: 'titleInfo/partName',
+      labelKey: 'titleInfo/partName',
+      cols: 2,
+      description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>\
+        odpovídající pole a podpole podle typu, viz typ'
+    }
+  }
+}

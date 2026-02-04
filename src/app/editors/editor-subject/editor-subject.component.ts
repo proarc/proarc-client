@@ -47,10 +47,10 @@ export class EditorSubjectComponent implements OnInit {
   }
 
   addRepeated(item: any) {
-    const topic = item.getSubfields().find((sf: any) => sf.id === 'topic');
+    const topic = item.fields['topic'];
     const val = topic.items[0].controls['lang'].value;
     const newItem: ModsSubject = <ModsSubject>this.field.addAfterItem(item);
-    const newTopic = newItem.getSubfields().find((sf: any) => sf.id === 'topic');
+    const newTopic = newItem.fields['topic'];
 
     //  topic.items[0].switchCollapsed();
 

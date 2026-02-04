@@ -117,6 +117,8 @@ export class ModelTemplate {
       "model:ndktrack": 'NdkMusicTrack',
       "model:ndkaudiopage": 'NdkMusicAudioPage',
 
+      test: 'test'
+
     }
   }
 

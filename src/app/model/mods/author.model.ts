@@ -33,35 +33,38 @@ export class ModsAuthor extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type', 'usage']);
+        //super(modsElement, template, ['type', 'usage']);
+        super(modsElement, template, []);
         this.init();
     }
 
     private init() {
-        
-        this.addControl('type');
-        this.addControl('usage');
 
-        if (!this.modsElement['affiliation']) {
-            this.modsElement['affiliation'] = ModsUtils.createField(this, 'affiliation');
-        }
-        this.affiliation = this.modsElement['affiliation'][0];
-        this.addControl('affiliation');
-        if(this.available2('namePart')) {
         
-        if (!this.modsElement['namePart']) {
-            this.modsElement['namePart'] = [];
-        }
-            this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
-            this.addSubfield(this.nameParts);
-            this.addControl('namePart');
-        }
+        //this.addControl('type');
+        // this.addControl('usage');
 
-        if (this.available2('role')) {
-            this.roleTerm = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
-            this.addSubfield(this.roleTerm);
-            this.addControl('roleTerm');
-        }
+        // if (!this.modsElement['affiliation']) {
+        //     this.modsElement['affiliation'] = ModsUtils.createField(this, 'affiliation');
+        // }
+        // this.affiliation = this.modsElement['affiliation'][0];
+        // this.addControl('affiliation');
+
+        // if(this.available2('namePart')) {
+        
+        // if (!this.modsElement['namePart']) {
+        //     this.modsElement['namePart'] = [];
+        // }
+        //     this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
+        //     this.addSubfield(this.nameParts);
+        //     this.addControl('namePart');
+        // }
+
+        //  if (this.available2('role')) {
+        //      this.roleTerm = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
+        //      this.addSubfield(this.roleTerm);
+        //      this.addControl('roleTerm');
+        //  }
 
         if (this.available2('displayForm')) {
           this.displayForms = new ElementField(this.modsElement, ModsDisplayForm.getSelector(), this.getField('displayForm'));
@@ -76,10 +79,10 @@ export class ModsAuthor extends ModsElement {
         }
 
 
-        if (!this.modsElement['nameIdentifier']) {
-            this.modsElement['nameIdentifier'] = [];
-        }
-        this.addControl('nameIdentifier');
+        // if (!this.modsElement['nameIdentifier']) {
+        //     this.modsElement['nameIdentifier'] = [];
+        // }
+        // this.addControl('nameIdentifier');
 
         if (!this.modsElement['nameIdentifierOrcId']) {
             this.modsElement['nameIdentifierOrcId'] = [];

@@ -1,0 +1,17 @@
+
+  {
+    usage: 'R',
+    label: 'Abstrakt',
+    selector: 'abstract',
+    labelKey: 'abstract',
+    description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
+    fields: {
+      abstract: {
+        usage: 'R',
+        label: 'Abstrakt',
+        selector: 'abstract',
+        labelKey: 'abstract/value',
+        help: 'off'
+      }
+    }
+  }

@@ -49,15 +49,15 @@
     <app-editor-atm [panel]="panel()" [pid]="lastSelectedItem()?.pid" [panelType]="panelType"
       (onChangePanelType)="changePanelType($event)"></app-editor-atm>
     }
-    <!-- 
-    @case ('premis') {
+    
+    <!-- @case ('premis') {
       @if (numOfSelected < 2) {
           <app-editor-premis [pid]="lastSelectedItem().pid"></app-editor-premis>
       } @else {
           <app-editor-premis-multiple ></app-editor-premis-multiple>
       }
-    }
-     -->
+    } -->
+    
 
     @case ('metadata') {
       @if (showIssuesEditor) {

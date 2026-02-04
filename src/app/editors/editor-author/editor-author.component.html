@@ -9,20 +9,23 @@
     <span class="app-pipe"></span>
   </ng-template>
 
-  <ng-template let-item="item" #templateContent>
+  <ng-container *templateContent="let item = item">
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
+    
     @if (item.available['namePart']) {
-    <app-editor-field [field]="item.nameParts" [nested]='true'>
-      <ng-template let-namePart="item" #templateContent>
+      <!-- <app-editor-name-part [item]="item" ></app-editor-name-part> -->
+    <app-editor-field [field]="item.fields['namePart']" [nested]='true'>
+      <ng-container *templateContent="let namePart = item">
         <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
         <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
-      </ng-template>
+      </ng-container>
     </app-editor-field>
   }
     <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier['_']"></app-field-text>
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>
-    <app-field-text field="affiliation" [item]="item" [(value)]='item.affiliation["_"]'></app-field-text>
+    <div (click)="log(item)">AA</div>
+    <app-field-text field="affiliation" [item]="item" [(value)]='item.controls["affiliation"]'></app-field-text>
     @if (item.available['displayForm']) {
     <app-editor-field [field]="item.displayForms" [nested]='true'>
       <ng-template let-displayForm="item" #templateContent>
@@ -37,23 +40,29 @@
       </ng-template>
     </app-editor-field>
   }
-  @if (item.roleTerm) {
-    <app-editor-field [field]="item.roleTerm" class="app-roles" [nested]='true'>
-      <ng-template let-role="item" #templateContent>
+  @if (item.available['role']) {
+    <app-editor-field [field]="item.fields['role']" class="app-roles" [nested]='true'>
+      <!-- <ng-template let-role="item" #templateContent> -->
+        <ng-container *templateContent="let role = item">
+          <!-- <div (click)="log(item.fields['role'])">KKK</div>
+          <div (click)="log(role)">{{ role.fields.roleTerm.items[0].controls['value'].value }}</div> -->
+          @if (role.available['roleTerm']) {
         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
           <mat-label>{{ 'desc.role' | translate }}</mat-label>
-          <mat-select [formControl]="role.controls['roleTerm']" >
-            @for(role of roles; track $index;) {
-            <mat-option [value]="role.code">
-               {{ role.name }} ({{ role.code }})
+          <mat-select [formControl]="role.fields.roleTerm.items[0].controls['value']" >
+            @for(r of roles; track $index;) {
+            <mat-option [value]="r.code">
+              {{ r.name }} ({{ r.code }})
             </mat-option>
           }
           </mat-select>
         </mat-form-field>
-      </ng-template>
+        }
+        </ng-container>
+      <!-- </ng-template> -->
     </app-editor-field>
   }
-  </ng-template>
+  </ng-container>
 </app-editor-field>
 
 

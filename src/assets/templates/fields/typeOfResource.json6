@@ -1,0 +1,29 @@
+
+  {
+    usage: 'R',
+    label: 'Typ zdroje',
+    selector: 'typeOfResource',
+    labelKey: 'typeOfResource',
+    description: 'Pro monografie hodnota <strong>text</strong><br/>\
+      mělo by se vyčítat z MARC21 katalogizačního\
+      záznamu, z pozice 06 návěští',
+    fields: {
+      value: {
+        usage: 'R',
+        selector: 'typeOfResource/value',
+        labelKey: 'typeOfResource/value',
+        label: 'Typ zdroje',
+        help: 'off',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'text',
+            'text'
+          ]
+        ]
+      }
+    }
+  }

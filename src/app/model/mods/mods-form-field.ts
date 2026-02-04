@@ -55,11 +55,9 @@ import {ModsGeographic} from './geographic.model';
 import {ModsAccessCondition} from './accessCondition.model';
 import { UserSettings } from '../../shared/user-settings';
 import { Utils } from '../../utils/utils';
-import ModsUtils from './utils';
-import { ModsGeneric } from './generic';
 
 
-export class ElementField {
+export class ModsFormField {
 
     public id;
     public root;
@@ -388,8 +386,7 @@ export class ElementField {
             case ModsAccessCondition.getId() :
                 return new ModsAccessCondition(el, this.template);
         }
-        return new ModsGeneric(el, this.template, id);
-        //return undefined;
+        return undefined;
     }
 
 
