@@ -3150,6 +3150,7 @@
       },
       "alert": {
         "done": "The export has been planned.",
+        "done_nightOnly": "The process will starts outside of working hours.",
         "exporting": "The export has been planned.",
         "error": "Export failed."
       }

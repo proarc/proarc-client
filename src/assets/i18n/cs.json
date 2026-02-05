@@ -3184,6 +3184,7 @@
       },
       "alert": {
         "done": "Export byl naplánován.",
+        "done_nightOnly": "Proces se spustí mimo pracovní dobu.",
         "exporting": "Export byl naplánován.",
         "error": "Export se nezdařil."
       }

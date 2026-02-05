@@ -120,7 +120,7 @@ export class ExportDialogComponent implements OnInit {
       }
 
       if (this.errors.length === 0 && this.target) {
-        this.state = 'done';
+        this.state = this.nightOnly ? 'done_nightOnly' : 'done';
       } else {
         this.state = 'error';
       }

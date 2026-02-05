@@ -81,11 +81,11 @@
       }
     </mat-card-content>
   </mat-card>
-} @else if (state==='done') {
+} @else if (state==='done' || state==='done_nightOnly') {
   <mat-card class="app-alert app-success" [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
     <mat-card-content>
       <mat-icon>check_circle</mat-icon>
-      {{ 'dialog.export.alert.done' | translate }}
+      {{ ('dialog.export.alert.done' + (nightOnly ? '_nightOnly' : '')) | translate }}
     </mat-card-content>
   </mat-card>
 }
