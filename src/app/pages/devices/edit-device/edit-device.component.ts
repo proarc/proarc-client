@@ -18,8 +18,12 @@ export class EditDeviceComponent implements OnInit {
 
   captureDevices = ['transmission scanner', 'reflection print scanner', 'digital still camera', 'still from video'];
   resolutionUnits = ['cm', 'in.', 'no absolute unit'];
-  sensors = ['MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'MonochromeArea', 'OneChipColorArea',
-            'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
+
+  scannerSensors = ['MonochromeArea', 'MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'OneChipColourArea',
+    'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
+
+  cameraSensors = ['MonochromeArea', 'MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'OneChipColorArea',
+    'TwoChipColorArea', 'ThreeChipColorArea'];
 
   models = [ 'proarc:audiodevice', 'proarc:device' ];
 

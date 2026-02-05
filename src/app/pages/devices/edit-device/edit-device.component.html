@@ -53,7 +53,7 @@
             </mat-form-field>
             <mat-form-field fxFlex>
               <mat-select required [placeholder]="'device.scannerSensor' | translate" name="scannerSensor" [(value)]="device.scannerSensor">
-                <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{ sensor }}</mat-option>
+                <mat-option *ngFor="let sensor of scannerSensors" [value]="sensor">{{ sensor }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -99,7 +99,7 @@
             </mat-form-field>
             <mat-form-field fxFlex>
               <mat-select [placeholder]="'device.cameraSensor' | translate" name="cameraSensor" [(value)]="device.cameraSensor">
-                <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{ sensor }}</mat-option>
+                <mat-option *ngFor="let sensor of cameraSensors" [value]="sensor">{{ sensor }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
