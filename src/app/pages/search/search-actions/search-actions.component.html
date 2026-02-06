@@ -21,7 +21,7 @@
 <button [disabled]="totalSelected() > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></button>
 <mat-menu #menuMore="matMenu">
   <button mat-menu-item (click)="showFoxml()">FOXML</button>
-  @if (canChangeModel()) {
+  @if (canChangeModel() && auth.user.changeModelFunction) {
     <button mat-menu-item (click)="changeModel()">{{ 'button.conversionsOfModels' | translate }}</button>
   }
   <button mat-menu-item (click)="updateObjects()">{{ 'button.updateAllObjects' | translate }}</button>

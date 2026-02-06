@@ -65,7 +65,7 @@
           <mat-form-field  class="app-fxFlex">
             <mat-label>{{ 'device.scannerSensor' | translate }}</mat-label>
             <mat-select required [placeholder]="'device.scannerSensor' | translate" name="scannerSensor" [(value)]="device.scannerSensor">
-              @for(sensor of sensors; track $index;) {
+              @for(sensor of scannerSensors; track $index;) {
                 <mat-option [value]="sensor">{{ sensor }}</mat-option>
               }
             </mat-select>
@@ -124,7 +124,7 @@
           <mat-form-field  class="app-fxFlex">
             <mat-label>{{ 'device.cameraSensor' | translate }}</mat-label>
             <mat-select [placeholder]="'device.cameraSensor' | translate" name="cameraSensor" [(value)]="device.cameraSensor">
-              @for(sensor of sensors; track $index;) {
+              @for(sensor of cameraSensors; track $index;) {
                 <mat-option [value]="sensor">{{ sensor }}</mat-option>
               }
             </mat-select>
