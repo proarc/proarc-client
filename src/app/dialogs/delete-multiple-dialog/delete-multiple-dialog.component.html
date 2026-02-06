@@ -1,10 +1,11 @@
 <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'button.deleteMultiple' | translate }}</h1>
-<div mat-dialog-content class="app-oh app-oa-y">
+<div mat-dialog-content class="app-oh app-oa-y app-pt-1">
+	<div class="app-fxLayout app-column app-gap-2">
 	<mat-form-field class="app-w-100" [appearance]="settings.appearance">
         <mat-label>PIDS</mat-label>
         <textarea matInput name="pids" rows="5" [(ngModel)]="pids" ></textarea>
     </mat-form-field>
-    
+    </div>
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
