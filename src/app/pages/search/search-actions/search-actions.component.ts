@@ -189,7 +189,8 @@ export class SearchActionsComponent {
           callback(removedPid);
         }
         this.state.update(() => 'success');
-        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.removeObject.success')));
+        const msg = nightOnly ? 'dialog.export.alert.done_nightOnly' : 'snackbar.removeObject.success';
+        this.ui.showInfoSnackBar(String(this.translator.instant(msg)));
         if (refresh) {
           this.reload.emit(null);
         }

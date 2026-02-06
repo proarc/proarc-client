@@ -249,7 +249,9 @@ export class NavbarComponent implements OnInit {
             this.ui.showErrorDialogFromObject(response.response.errors);
           } else {
             this.state.update(() => 'success');
-            this.ui.showInfoSnackBar(this.translator.instant('Hromadné mazání spusteno'))
+            
+            const msg = checkboxes[1].checked ? 'dialog.export.alert.done_nightOnly' : 'Hromadné mazání spusteno';
+            this.ui.showInfoSnackBar(this.translator.instant(msg))
           }
         });
       }
