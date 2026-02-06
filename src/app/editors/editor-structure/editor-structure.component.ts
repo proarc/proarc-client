@@ -1129,7 +1129,7 @@ export class EditorStructureComponent implements OnInit {
         value: 'no',
         color: 'default'
       },
-      checkbox: checkbox
+      checkboxes: [checkbox]
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
       data: data,
@@ -1250,10 +1250,15 @@ export class EditorStructureComponent implements OnInit {
 
   onDelete() {
     let pids = this.layout.items().filter(c => c.selected);
-    const checkbox = {
+
+    const checkboxes = [{
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
-    };
+    },{
+      label: String(this.translator.instant('desc.nightOnly')),
+      checked: false
+    }];
+
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
       message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
@@ -1270,7 +1275,7 @@ export class EditorStructureComponent implements OnInit {
       }
     };
     if (this.isRepo && this.auth.user.deleteActionFunction) {
-      data.checkbox = checkbox;
+      data.checkboxes = checkboxes;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
       data: data,
@@ -1278,18 +1283,18 @@ export class EditorStructureComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteSelectedChildren(checkbox.checked);
+        this.deleteSelectedChildren(checkboxes[0].checked, checkboxes[1].checked);
       }
     });
   }
 
-  deleteSelectedChildren(pernamently: boolean) {
+  deleteSelectedChildren(pernamently: boolean, nightOnly: boolean) {
     this.state = 'loading';
     let pids: string[] = this.layout.items().filter(c => c.selected).map(c => c.pid);
     // const isMultiple = this.layout.items().filter(c => c.selected).length > 1;
     // const first = this.layout.getFirstSelectedIndex();
 
-    this.api.deleteObjects(pids, pernamently, this.layout.batchId).subscribe((response: any) => {
+    this.api.deleteObjects(pids, pernamently, nightOnly, this.layout.batchId).subscribe((response: any) => {
 
       if (response['response'].errors) {
         //this.ui.showErrorDialogFromObject(response['response'].errors);

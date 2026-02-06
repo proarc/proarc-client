@@ -99,6 +99,7 @@
           </div>
           }
           @case ('action') {
+          <div class="app-fxLayout app-row app-center-v" >
           @for(a of actions(); track $index;) {
             @if(a.condition(element)) {
             <button mat-icon-button color="primary" (click)="a.action(element)"
@@ -106,7 +107,7 @@
               <mat-icon [style.color]="a.color ? a.color : '' " >{{ a.icon }}</mat-icon>
             </button>
             }
-          }
+          }</div>
           }
           @case ('state') {
 

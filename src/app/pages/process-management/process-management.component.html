@@ -68,7 +68,7 @@
               {{ 'button.resolveconflict' | translate }}
             </button>
           }
-          @if (canStopProcess()) {
+          @if (canStopProcess(selectedBatch)) {
             <button mat-stroked-button (click)="stopBatch(selectedBatch)">
               {{ 'button.stopProcess' | translate }}
             </button>

@@ -33,6 +33,7 @@ import { PeroModel } from '../../model/pero.model';
 export class ImportComponent implements OnInit {
 
   generateIndex = true;
+  nightOnly = false;
 
   devices: Device[];
   selectedDevice: Device;
@@ -208,7 +209,7 @@ export class ImportComponent implements OnInit {
       return;
     }
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -235,7 +236,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);

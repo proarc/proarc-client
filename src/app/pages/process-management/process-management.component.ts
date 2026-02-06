@@ -167,6 +167,17 @@ export class ProcessManagementComponent {
         this.onShowLog(e);
       }
     });
+    this.actions.push({
+      icon: 'cancel',
+      color: 'var(--app-color-warn)',
+      tooltip: 'button.stop',
+      condition: (e: any) => {
+        return this.canStopProcess(e)
+      },
+      action: (e: any) => {
+        this.stopBatch(e);
+      }
+    });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.loadData();
@@ -885,12 +896,13 @@ export class ProcessManagementComponent {
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
   }
 
-  canStopProcess() {
-    return this.selectedBatch &&
+  canStopProcess(batch: Batch) {
+    return batch && (
       (
-        this.auth.user.name === this.selectedBatch.user || this.auth.user.prepareBatchFunction
+        this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
       ) &&
-      (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
+      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING' || batch.state === 'IMPORT_PLANNED')
+    )
   }
 
   isExportProfile(profile: string) {

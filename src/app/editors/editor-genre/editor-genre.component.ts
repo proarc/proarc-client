@@ -127,7 +127,7 @@ export class EditorGenreComponent implements OnInit {
         value: 'no',
         color: 'default'
       },
-      checkbox,
+      checkboxes: [checkbox],
       rows: 10
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 

@@ -206,7 +206,17 @@ export class NavbarComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(dresult => {
       console.log(dresult)
+
       if (dresult) {
+
+        
+      const checkboxes = [{
+        label: String(this.translator.instant('dialog.removeObject.checkbox')),
+        checked: false
+      },{
+        label: String(this.translator.instant('desc.nightOnly')),
+        checked: false
+      }];
        
         const data: SimpleDialogData = {
       title: String(this.translator.instant('Smazat')),
@@ -223,6 +233,9 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
+    
+      data.checkboxes = checkboxes;
+
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
@@ -230,7 +243,7 @@ export class NavbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state.update(() => 'loading');
-        this.api.deleteObjects(dresult.pids, null, null, dresult.hierarchy).subscribe((response: any) => {
+        this.api.deleteObjects(dresult.pids, checkboxes[0].checked, checkboxes[1].checked, null, dresult.hierarchy).subscribe((response: any) => {
           if (response.response.errors) {
             this.state.update(() => 'error');
             this.ui.showErrorDialogFromObject(response.response.errors);

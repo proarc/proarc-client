@@ -132,10 +132,13 @@ export class SearchActionsComponent {
   }
 
   private onDelete(pids: string[], refresh: boolean, callback: (pids: string[]) => any = null) {
-    const checkbox = {
+    const checkboxes = [{
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
-    };
+    },{
+      label: String(this.translator.instant('desc.nightOnly')),
+      checked: false
+    }];
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
       message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
@@ -152,7 +155,7 @@ export class SearchActionsComponent {
       },
     };
     if (this.auth.user.deleteActionFunction) {
-      data.checkbox = checkbox;
+      data.checkboxes = checkboxes;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
@@ -160,7 +163,7 @@ export class SearchActionsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(pids, checkbox.checked, refresh, callback);
+        this.deleteObject(pids, checkboxes[0].checked, checkboxes[1].checked, refresh, callback);
       }
     });
   }
@@ -173,9 +176,9 @@ export class SearchActionsComponent {
     });
   }
 
-  private deleteObject(pids: string[], pernamently: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
+  private deleteObject(pids: string[], pernamently: boolean, nightOnly: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
     this.state.update(() => 'loading');// = 'loading';
-    this.api.deleteObjects(pids, pernamently).subscribe((response: any) => {
+    this.api.deleteObjects(pids, pernamently, nightOnly).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state.update(() => 'error');

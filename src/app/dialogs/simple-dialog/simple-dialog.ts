@@ -4,7 +4,7 @@ export interface SimpleDialogData {
   alertClass?: string;
   btn1: SimpleDialogButton;
   btn2?: SimpleDialogButton;
-  checkbox?: SimpleDialogCheckbox;
+  checkboxes?: SimpleDialogCheckbox[];
   numberInput?: SimpleDialogNumberInput;
   textInput?: SimpleDialogTextInput;
   width?: number;

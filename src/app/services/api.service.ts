@@ -444,18 +444,20 @@ export class ApiService {
     return this.delete('object/purge');
   }
 
-  deleteObjects(pids: string[], purge: boolean, batchId: any = null, hierarchy: boolean = true): Observable<any> | null {
+  deleteObjects(pids: string[], purge: boolean, nightOnly: boolean, batchId: any = null, hierarchy: boolean = true): Observable<any> | null {
     let url = '';
     let body: any = {};
     //let query = pids.map(pid => `pid=${pid}`).join('&');
     if (batchId) {
       url = `import/batch/item`;
       body.batchId = batchId;
+      body.nightOnly = nightOnly;
       body.pid = pids;
       //query = `import/batch/item?batchId=${batchId}&${query}`;
     } else {
       url = `object`;
       body.purge = purge;
+      body.nightOnly = nightOnly;
       body.hierarchy = hierarchy;
       body.restore = false;
       body.pid = pids;
@@ -941,8 +943,8 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string, peroId: string = '1'): Observable<any> {
-    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}&peroOcrEngine=${peroId}`;
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string = '1'): Observable<any> {
+    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}&peroOcrEngine=${peroId}`;
     return this.post('import/batch', data);
   }
 

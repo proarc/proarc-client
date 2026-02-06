@@ -135,7 +135,7 @@ export class ExportDialogComponent implements OnInit {
   }
 
   formDisabled(): boolean {
-    return this.state === 'saving' || this.state === 'done';
+    return this.state === 'saving' || this.state === 'done' || this.state === 'done_nightOnly';
   }
 
 
