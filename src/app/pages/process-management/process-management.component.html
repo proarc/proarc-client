@@ -31,15 +31,16 @@
           <button mat-stroked-button (click)="reload()">
             {{ 'button.refresh' | translate }}
           </button>
-          <button mat-stroked-button (click)="onDeleteBatches(true)">
-            {{ 'button.delete_batches_by_filter' | translate }}
-          </button>
+          <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()" name="autoRefresh">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
+          <!-- prozatim skryto, moc nasilna funkce, chce vymyslet jeji lepsi umisteni -->
+          <!--          <button mat-stroked-button (click)="onDeleteBatches(true)">-->
+          <!--            {{ 'button.delete_batches_by_filter' | translate }}-->
+          <!--          </button>-->
           @if (totalSelected() > 0) {
           <button mat-stroked-button (click)="onDeleteBatches(false)">
             {{ 'button.delete_selected_batches' | translate }}
           </button>
           }
-          <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()" name="autoRefresh">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
           <button mat-stroked-button (click)="changeView('loadingQueue')">
             {{ 'button.showLoadingQueue' | translate }}
           </button>
