@@ -171,7 +171,7 @@ export abstract class ModsElement {
 
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl('');
-            if (this[me]) {
+            if (this.hasOwnProperty(me) && this[me]) {
                 c.patchValue(this[me]['_']);
                 c.valueChanges.subscribe((e: any) => {
                     this[me]['_'] = e;
@@ -184,10 +184,10 @@ export abstract class ModsElement {
                     Utils.metadataChanged.update(n => n + 1);
 
                 });
-            } else if (this.attrs?.hasOwnProperty(field)) {
-                c.patchValue(this.attrs[field]);
+            } else if (this.attrs?.hasOwnProperty(me)) {
+                c.patchValue(this.attrs[me]);
                 c.valueChanges.subscribe((e: any) => {
-                    this.attrs[field] = e;
+                    this.attrs[me] = e;
                     Utils.metadataChanged.update(n => n + 1);
                 });
             } else {
