@@ -142,6 +142,9 @@ export class ProcessManagementComponent {
     // this.actions.push({
     //   icon: 'delete',
     //   tooltip: 'button.delete',
+    //   condition: (e: any) => {
+    //     return true
+    //   },
     //   action: (e: any) => {
     //     this.deleteBatch(e.id);
     //   }
