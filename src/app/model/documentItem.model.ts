@@ -2,7 +2,7 @@ import { TableItem } from "./table-item.model";
 
 export class DocumentItem extends TableItem {
 
-  
+
   public parent: string;
   public model: string;
   public state: string;
@@ -117,7 +117,6 @@ export class DocumentItem extends TableItem {
       page.pageIndex = json['pageIndex'] || "";
       page.pageNumber = json['pageNumber'] || "";
       page.pageType = json['pageType'] || "";
-      page.pageType = page.pageType.toLowerCase();
       page.pagePosition = json['pagePosition'] || "";
       page.pageRepre = json['pageRepre'] || "";
       let l = page.pageNumber;

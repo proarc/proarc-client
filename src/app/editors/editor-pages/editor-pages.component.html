@@ -40,7 +40,7 @@
                 <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                   <mat-option [value]="''"> </mat-option>
                   @for(pageType of settings.pageTypes; track $index;) {
-                    <mat-option [value]="pageType">{{ pageType }}</mat-option>
+                    <mat-option [value]="pageType">{{ 'pageType.' + pageType | translate }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
@@ -65,7 +65,7 @@
               <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                 <mat-label>{{ 'editor.pages.number_from' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [formControl]="pageNumberFromControl" [class.app-input-invalid]="!numberFromValid()">
-                <button matSuffix [class.app-active]="useBracketsControl.value" [matTooltip]="useBracketsControl.value ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" 
+                <button matSuffix [class.app-active]="useBracketsControl.value" [matTooltip]="useBracketsControl.value ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)"
                 (click)="useBracketsControl.setValue(!useBracketsControl.value)" mat-icon-button>
                   <span class="app-text-icon">[ ]</span>
                 </button>

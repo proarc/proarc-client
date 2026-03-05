@@ -37,7 +37,7 @@
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
                   <mat-option [value]="null"></mat-option>
                   @for(pageType of settings.pageTypes; track $index;) {
-                    <mat-option [value]="pageType">{{ 'pageType.' + pageType.toLowerCase() | translate }}</mat-option>
+                    <mat-option [value]="pageType">{{ 'pageType.' + pageType | translate }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
@@ -52,7 +52,7 @@
                 <mat-label>{{ 'editor.page.number' | translate }}</mat-label>
                 <span class="app-usage app-suffix-exist" [class.app-help-off]="true">M</span>
                 <input (focus)="setFocus('pageNumber')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" #pageNumber>
-                <button matSuffix [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" 
+                <button matSuffix [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)"
                 (click)="switchBrackets()" mat-icon-button>
                   <span class="app-text-icon">[ ]</span>
                   <!-- <mat-icon>data_array</mat-icon> -->

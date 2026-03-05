@@ -126,15 +126,15 @@
                         }
                         @if (!isAkubra) {
                           {{ shortLabels ? item.shortLabel : item.label }}<br />
-                          ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
+                          ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
                         }
                         @if (isAkubra) {
-                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
+                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
                             @if (item.pageNumber) {
                               {{ item.pageNumber }}
                             }
                             @if (item.pageType) {
-                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
                             }
                           </div>
                         }
@@ -146,10 +146,10 @@
                           <mat-icon>warning</mat-icon>
                         }
                         @if (!isAkubra) {
-                          {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                          {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
                         }
                         @if (isAkubra) {
-                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
+                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
                             @if (item.pageNumber) {
                               {{ item.pageNumber }},
                             }
@@ -157,7 +157,7 @@
                               <span class="app-desc">({{ item.pageIndex }})</span>
                             }
                             @if (item.pageType) {
-                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
                             }
                           </div>
                         }
