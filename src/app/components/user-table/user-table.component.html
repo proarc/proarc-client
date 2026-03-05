@@ -6,7 +6,7 @@
     @for(c of selectedColumns; track $index;) {
     <ng-container [matColumnDef]="c.field + '-filter'">
       <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter"  [resizeColumn]="true" >
-        
+
         @switch (c.type) {
           @case ('date') {
 
@@ -111,8 +111,8 @@
           }
           @case ('state') {
 
-            <span (click)="selectedState === 'ALL' ? filter('state', element.state) : false" class="app-badge" [ngClass]="progressMap()[element.id] === '0%' ? 'app-WAITING' : 'app-' + element.state">
-              {{ progressMap()[element.id] === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}
+            <span (click)="selectedState === 'ALL' ? filter('state', element.state) : false" class="app-badge" [ngClass]="'app-' + element.state">
+              {{ 'states.' + element.state | translate }}
               @if (element.isLoading()){<strong class="app-ml-2">{{ progressMap()[element.id] }}</strong>}
             </span>
           }

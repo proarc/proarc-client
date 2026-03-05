@@ -211,8 +211,8 @@
           <ng-container matColumnDef="state">
             <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'state')" [style.width]="getColumnWidthQueue('state')">{{ 'desc.state' | translate }}</th>
             <td mat-cell *matCellDef="let element">
-              <span class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
-                {{ batchProgress(element) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}@if (element.isLoading()) {
+              <span class="app-badge" [ngClass]="'app-' + element.state">
+                {{ 'states.' + element.state | translate }}@if (element.isLoading()) {
                 <strong class="app-ml-2">{{ batchProgress(element) }}</strong>
               }
             </span>
