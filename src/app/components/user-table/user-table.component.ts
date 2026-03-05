@@ -221,6 +221,7 @@ export class UserTableComponent {
       case 'model': return 'model.';
       case 'priority': return 'formField.priorities.';
       case 'profile': return 'formField.profiles.';
+      case 'pageType': return 'pageType.';
       default: return '';
     }
   }

@@ -132,7 +132,7 @@ export class UserSettingsService {
 columnsEditingRepoDefault: TableColumn[] = [
     { field: 'label', selected: true, width: 100, type: 'string' },
     { field: 'filename', selected: true, width: 100, type: 'string' },
-    { field: 'pageType', selected: true, width: 100, type: 'string' },
+    { field: 'pageType', selected: true, width: 100, type: 'translated' },
     { field: 'pageNumber', selected: true, width: 100, type: 'string' },
     { field: 'pageIndex', selected: true, width: 100, type: 'string' },
     { field: 'pagePosition', selected: true, width: 100, type: 'string' },
