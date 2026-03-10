@@ -12,8 +12,12 @@
         </mat-card-content>
       </mat-card>
     }
-    @for (ch of data.checkboxes; track $index) {
-      <mat-checkbox color="primary" [(ngModel)]="ch.checked" class="app-mt-4">{{ ch.label }}</mat-checkbox>
+    @if (data.checkboxes) {
+      <div class="app-checkbox-wrapper">
+        @for (ch of data.checkboxes; track $index) {
+          <mat-checkbox color="primary" [(ngModel)]="ch.checked" class="app-mt-4">{{ ch.label }}</mat-checkbox>
+        }
+      </div>
     }
     @if (data.numberInput || data.textInput || data.textAreaInput) {
       <div class="app-fxLayout app-row app-gap-2 app-mt-4">
