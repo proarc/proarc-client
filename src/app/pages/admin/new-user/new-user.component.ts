@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { User } from '../../../model/user.model';
+import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
@@ -38,7 +39,8 @@ export class NewUserComponent implements OnInit {
     private ui: UIService,
     private config: Configuration,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {
