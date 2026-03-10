@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { User } from '../../../model/user.model';
+import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatSelectModule } from '@angular/material/select';
@@ -35,7 +36,8 @@ export class ChangeOwnerDialogComponent implements OnInit {
     private translator: TranslateService,
     private ui: UIService,
     private api: ApiService,
-    public auth: AuthService
+    public auth: AuthService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {

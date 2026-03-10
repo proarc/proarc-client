@@ -3,8 +3,8 @@
   @if (state=='loading') {
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
-  <div class="app-fxLayout app-row app-gap-4 app-pt-2">
-    <mat-form-field  class="app-fxFlex">
+  <div class="app-fxLayout app-row app-gap-2 app-mb-n4">
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
       <mat-label>{{ 'desc.oldOwner' | translate }}</mat-label>
       <mat-select [placeholder]="'desc.oldOwner' | translate" [(ngModel)]="oldOwner">
         @for(c of data; track $index;) {
@@ -12,7 +12,7 @@
         }
       </mat-select>
     </mat-form-field>
-    <mat-form-field  class="app-fxFlex">
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
       <mat-label>{{ 'desc.newOwner' | translate }}</mat-label>
       <mat-select [placeholder]="'desc.newOwner' | translate" [(ngModel)]="newOwner">
         @for(c of data; track $index;) {
@@ -26,5 +26,5 @@
   @if (auth.user.changeObjectsOwnerFunction) {
     <button matButton="filled" [disabled]="!oldOwner || !newOwner || state=='loading'" (click)="changeOwner()" [matTooltip]="'button.changeOwner' | translate">{{ 'button.changeOwner' | translate }}</button>
   }
-  <button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
+  <button matButton="outlined" [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
 </div>
