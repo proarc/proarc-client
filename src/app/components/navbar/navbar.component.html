@@ -35,85 +35,93 @@
       </svg>
     </a>
     @if (auth.isLoggedIn()) {
-    <a mat-button [routerLink]="['/import']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{
-      "navbar.import" | translate }}</a>
-    <a mat-button [routerLink]="['/process-management']" routerLinkActive="active">{{ "navbar.process-management" |
-      translate }}</a>
-    <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
-    <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
-    @if (config.showWorkflow) {
-    <a mat-button [matMenuTriggerFor]="rd_menu">{{ "navbar.workflow" | translate }}</a>
-    }
-    <mat-menu #rd_menu="matMenu">
-      <button [routerLink]="['/workflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate
-        }}</button>
-      <button [routerLink]="['/workflow/tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.tasks" | translate
-        }}</button>
-      <button [routerLink]="['/workflow/my_tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.my_tasks" |
-        translate }}</button>
-    </mat-menu>
+      <a mat-button [routerLink]="['/import']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ "navbar.import" | translate }}</a>
+      <a mat-button [routerLink]="['/process-management']" routerLinkActive="active">{{ "navbar.process-management" | translate }}</a>
+      <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
+      <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
+      @if (config.showWorkflow) {
+        <a mat-button [matMenuTriggerFor]="rd_menu">{{ "navbar.workflow" | translate }}</a>
+      }
+      <mat-menu #rd_menu="matMenu">
+        <button [routerLink]="['/workflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate }}</button>
+        <button [routerLink]="['/workflow/tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.tasks" | translate }}</button>
+        <button [routerLink]="['/workflow/my_tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.my_tasks" | translate }}</button>
+      </mat-menu>
     }
   </div>
 
   <div class="app-right">
     @if (auth.isLoggedIn()) {
-    @if (auth.user.deviceFunction) {
-    <a mat-button [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
-    }
-    @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction) {
-    <a mat-button [routerLink]="['/admin']" routerLinkActive="active">{{ "navbar.admin" | translate }}</a>
-    }
-
-    @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction) {
-    <a mat-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></a>
-    <mat-menu #menuMore="matMenu">
-      @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
-        <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
-        <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+      @if (auth.user.deviceFunction) {
+        <a mat-button [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
       }
-      @if (auth.user.changePagesFunction) {
-        <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
+      @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction) {
+        <a mat-button [routerLink]="['/admin']" routerLinkActive="active" [class.app-pl-4]="auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction">
+          {{ "navbar.admin" | translate }}
+          @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction) {
+            <mat-icon [matMenuTriggerFor]="menuMore" iconPositionEnd (click)="$event.stopPropagation(); $event.preventDefault();" class="app-fxLayout app-h-100 app-center-v">more_vert</mat-icon>
+          }
+        </a>
+        <mat-menu #menuMore="matMenu">
+          @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
+            <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
+            <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+          }
+          @if (auth.user.changePagesFunction) {
+            <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
+          }
+          @if (auth.user.deleteActionFunction) {
+            <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
+            <button mat-menu-item (click)="deleteMultiple()">{{ 'button.deleteMultiple' | translate }}</button>
+          }
+        </mat-menu>
       }
-      @if (auth.user.deleteActionFunction) {
-        <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
-        <button mat-menu-item (click)="deleteMultiple()">{{ 'button.deleteMultiple' | translate }}</button>
-      }
-    </mat-menu>
-    }
-    <!-- <a  [routerLink]="['/layout']" routerLinkActive="active" mat-button>{{ "navbar.layout" | translate }}</a> -->
-    <a mat-button (click)="showAboutDialog()">{{ "navbar.about" | translate }}</a>
-    <a mat-button [matMenuTriggerFor]="profile_menu">{{ "navbar.profile" | translate }}</a>
-    <mat-menu #profile_menu="matMenu">
-      <button mat-menu-item disabled>
-        <span>{{ auth.user.name }}</span>
-      </button>
-      <button [routerLink]="['/settings']" routerLinkActive="active" mat-menu-item>{{ "navbar.settings" | translate
-        }}</button>
-      <button mat-menu-item (click)="logout()">
-        <span>{{ "navbar.logout" | translate }}</span>
-      </button>
-    </mat-menu>
+      <!-- @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction) {
+        <a mat-button class="app-btn-icon" [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></a>
+        <mat-menu #menuMore="matMenu">
+          @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
+            <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
+            <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+          }
+          @if (auth.user.changePagesFunction) {
+            <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
+          }
+          @if (auth.user.deleteActionFunction) {
+            <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
+            <button mat-menu-item (click)="deleteMultiple()">{{ 'button.deleteMultiple' | translate }}</button>
+          }
+        </mat-menu>
+      } -->
+      <a mat-button (click)="showAboutDialog()">{{ "navbar.about" | translate }}</a>
+      <a mat-button [matMenuTriggerFor]="profile_menu">{{ "navbar.profile" | translate }}</a>
+      <mat-menu #profile_menu="matMenu">
+        <button mat-menu-item disabled>
+          <span>{{ auth.user.name }}</span>
+        </button>
+        <button [routerLink]="['/settings']" routerLinkActive="active" mat-menu-item>{{ "navbar.settings" | translate
+          }}</button>
+        <button mat-menu-item (click)="logout()">
+          <span>{{ "navbar.logout" | translate }}</span>
+        </button>
+      </mat-menu>
     } @else {
-    <a mat-button [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
+      <a mat-button [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
     }
-
 
     <a mat-button [matMenuTriggerFor]="language_menu">{{ 'navbar.lang.code.' + translator.currentLang | translate }}</a>
     <mat-menu #language_menu="matMenu">
       @for(lang of languages; track $index; let idx = $index) {
-      <button mat-menu-item (click)="onLanguageChanged(lang)">
-        <span>{{ 'navbar.lang.desc.' + lang | translate }}</span>
-      </button>
+        <button mat-menu-item (click)="onLanguageChanged(lang)">
+          <span>{{ 'navbar.lang.desc.' + lang | translate }}</span>
+        </button>
       }
     </mat-menu>
-
     @if (auth.isLoggedIn() && config.showLogoutCounter) {
-    <a class="app-session app-clean-cursor-pointer"
-      [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
-      <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
-      <div class="app-line"></div>
-      <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
-    </a>
+      <a class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
+        <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
+        <div class="app-line"></div>
+        <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
+      </a>
     }
   </div>
 </mat-toolbar>
