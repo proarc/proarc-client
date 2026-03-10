@@ -281,6 +281,7 @@
 
        .mat-icon {
         @include app-mixins.setIcon(18);
+        margin-top: 2px;
         flex: 1 1 26px;
         box-sizing: border-box;
         max-width: 26px;
