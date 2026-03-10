@@ -11,12 +11,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { User } from '../../../model/user.model';
+import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import {AuthService} from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
@@ -41,7 +42,8 @@ export class EditUserComponent implements OnInit {
     private ui: UIService,
     private config: Configuration,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {

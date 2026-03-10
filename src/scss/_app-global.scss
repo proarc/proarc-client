@@ -186,6 +186,14 @@ a {
   overflow: hidden;
 }
 
+.app-checkbox-wrapper {
+  .mat-mdc-checkbox {
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }  
+}
+
 
 // fieldset
 fieldset {
