@@ -71,6 +71,12 @@
       max-width: $app-width;
       min-width: $app-width;
     }
+
+    &.app-textarea {
+      @include mat.form-field-overrides((
+        filled-with-label-container-padding-top: 24px
+      ));
+    }
   }
 
   .app-form-view-fill {
