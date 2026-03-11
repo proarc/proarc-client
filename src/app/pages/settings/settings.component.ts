@@ -25,10 +25,11 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
 import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [TranslateModule, FormsModule, DragDropModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule, MatCheckboxModule],
+  imports: [TranslateModule, FormsModule, DragDropModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule, MatCheckboxModule, RouterModule],
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
