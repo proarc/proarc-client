@@ -8,11 +8,11 @@
   </div>
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-import">
-    <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3">
+    <div class="app-fxLayout app-row app-gap-2 app-formbar" [class.app-baseline]="settings.appearance === 'outline'">
       <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
         {{ 'import.load' | translate }}
       </button>
-      <mat-form-field  class="app-fxFlex">
+      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
         <mat-label>{{ 'import.profile' | translate }}</mat-label>
         <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
           @for(profile of profiles; track $index;) {
@@ -20,7 +20,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field  class="app-fxFlex">
+      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
         <mat-label>{{ 'desc.priority' | translate }}</mat-label>
         <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority">
           @for(priority of priorities; track $index;) {
@@ -28,7 +28,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field  class="app-fxFlex">
+      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
         <mat-label>{{ 'import.device' | translate }}</mat-label>
         <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
           @for(device of devices; track $index;) {
@@ -36,7 +36,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field  class="app-fxFlex">
+      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
         <mat-label>{{ 'import.pero' | translate }}</mat-label>
         <mat-select [placeholder]="'import.pero' | translate" [(ngModel)]="selectedPero" >
           @for(p of pero; track $index;) {
@@ -44,8 +44,8 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-checkbox class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
-      <mat-checkbox class="app-import-index" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
+      <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+      <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
     </div>
 
     <div class="app-fxFlex app-tree app-oh app-oa-y app-border-wrapper">
