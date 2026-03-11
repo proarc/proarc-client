@@ -31,7 +31,7 @@
                     <ng-container>{{ 'pageType.' + c | translate }} {{ la ? '' : ', '}}</ng-container>
                   }
                 </span>
-                <button mat-stroked-button (click)="changeCodebookTops('pageType', 'topPageTypes', config.pageTypes)">{{ 'button.edit' | translate }}</button>
+                <button matButton="filled" (click)="changeCodebookTops('pageType', 'topPageTypes', config.pageTypes)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.languages' | translate }}</span>
@@ -41,7 +41,7 @@
                     <ng-container>{{ 'lang.' + c | translate }} {{ la ? '' : ', '}}</ng-container>
                   }
                 </span>
-                <button mat-stroked-button (click)="changeCodebookTops('lang', 'topLanguages', config.languages)">{{ 'button.edit' | translate }}</button>
+                <button matButton="filled" (click)="changeCodebookTops('lang', 'topLanguages', config.languages)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
@@ -55,7 +55,7 @@
                       <em class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
                     }
                   </div>
-                  <button mat-stroked-button (click)="changeCodebookTops('identifier', 'topIdentifiers', config.identifiers)">{{ 'button.edit' | translate }}</button>
+                  <button matButton="filled" (click)="changeCodebookTops('identifier', 'topIdentifiers', config.identifiers)">{{ 'button.edit' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>
                 <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
@@ -65,7 +65,7 @@
                       {{ 'model.' + c | translate }} {{ last ? '' : ', '}}
                     }
                   </span>
-                  <button mat-stroked-button (click)="changeCodebookTops('model', 'expandedModels', config.models, true)">{{ 'button.edit' | translate }}</button>
+                  <button matButton="filled" (click)="changeCodebookTops('model', 'expandedModels', config.models, true)">{{ 'button.edit' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>
                 <span class="app-label">{{ 'desc.formAppearance.label' | translate }}</span>
@@ -74,13 +74,13 @@
                     <mat-checkbox class="app-fxFlex" name="formHighlighting" [(ngModel)]="curSettings.formHighlighting">{{ 'desc.formAppearance.highlightFormBorders' | translate }}</mat-checkbox>
                     <mat-checkbox class="app-fxFlex" name="appearance" (change)="setAppearance()" [(ngModel)]="appearance">{{ 'desc.formAppearance.borderformField' | translate }}</mat-checkbox>
                   </div>
-                  <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                  <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>
                 <span class="app-label">{{ 'desc.searchExpandTreeTitle' | translate }}</span>
                 <div class="app-fxLayout app-row app-gap-4 app-mb-4">
                   <mat-checkbox class="app-fxFlex" name="searchExpandTree" [(ngModel)]="curSettings.searchExpandTree">{{ 'desc.searchExpandTree' | translate }}</mat-checkbox>
-                  <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                  <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
                 </div>
               </div>
             </fieldset>
@@ -95,7 +95,7 @@
                 }
               </div>
               <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
               </div>
             </fieldset>
             <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.columnsSearchTree)">
@@ -109,7 +109,7 @@
                 }
               </div>
               <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
               </div>
             </fieldset>
           </div>
@@ -137,9 +137,9 @@
                 <div class="app-mb-4">
                   <mat-checkbox name="colsEditModeParent" [(ngModel)]="curSettings.colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
                 </div>
-                <div>
-                  <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
-                <button mat-stroked-button (click)="resetRepo()">{{ 'button.reset' | translate }}</button>
+                <div class="app-fxLayout app-row app-gap-2">
+                  <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                  <button matButton="outlined" (click)="resetRepo()">{{ 'button.reset' | translate }}</button>
                 </div>
               </fieldset>
             }
@@ -154,7 +154,7 @@
                 }
               </div>
               <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
               </div>
             </fieldset>
             <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.procMngColumns)">
@@ -169,9 +169,9 @@
                   }
                 }
               </div>
-              <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
-                <button mat-stroked-button (click)="resetOne('procMngColumns')">{{ 'button.reset' | translate }}</button>
+              <div class="app-fxLayout app-row app-gap-2">
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="outlined" (click)="resetOne('procMngColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
             <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.queueColumns)">
@@ -184,9 +184,9 @@
                   </div>
                 }
               </div>
-              <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
-                <button mat-stroked-button (click)="resetOne('queueColumns')">{{ 'button.reset' | translate }}</button>
+              <div class="app-fxLayout app-row app-gap-2">
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="outlined" (click)="resetOne('queueColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
           </div>
@@ -203,9 +203,9 @@
                   </div>
                 }
               </div>
-              <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
-                <button mat-stroked-button (click)="resetOne('markSequenceDialogOrigTableColumns')">{{ 'button.reset' | translate }}</button>
+              <div class="app-fxLayout app-row app-gap-2">
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="outlined" (click)="resetOne('markSequenceDialogOrigTableColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
 
@@ -219,9 +219,9 @@
                   </div>
                 }
               </div>
-              <div>
-                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
-                <button mat-stroked-button (click)="resetOne('markSequenceDialogDestTableColumns')">{{ 'button.reset' | translate }}</button>
+              <div class="app-fxLayout app-row app-gap-2">
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                <button matButton="outlined" (click)="resetOne('markSequenceDialogDestTableColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
           </div>
@@ -257,9 +257,9 @@
                 <input [disabled]="true" matInput [value]='user.home' [placeholder]="'desc.folder' | translate">
               </mat-form-field>
             </div>
-            <div>
-              <button mat-stroked-button [disabled]="!profileChanged()" (click)="seveProfile()" class="app-mr-2">{{ 'button.save' | translate }}</button>
-              <button mat-stroked-button (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
+            <div class="app-fxLayout app-row app-gap-2">
+              <button matButton="filled" [disabled]="!profileChanged()" (click)="seveProfile()">{{ 'button.save' | translate }}</button>
+              <button matButton="outlined" (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
             </div>
           </fieldset>
         }
