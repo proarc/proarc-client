@@ -38,7 +38,7 @@ import { UserSettings } from '../../../shared/user-settings';
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, MatCheckboxModule, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, UserTableComponent, MaterialEditComponent],
+    MatTableModule, MatSortModule, UserTableComponent, MaterialEditComponent, RouterModule],
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
