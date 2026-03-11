@@ -32,7 +32,7 @@
           <mat-label>{{ 'desc.forename' | translate }}</mat-label>
           <input (keyup.enter)="saveUser()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="user.forename">
         </mat-form-field>
-        <mat-form-field  class="app-fxFlex">
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
           <mat-label>{{ 'desc.surname' | translate }}</mat-label>
           <input (keyup.enter)="saveUser()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="user.surname" required #surname>
           @if (!user.surname) {
@@ -108,7 +108,7 @@
     </fieldset>
     <div class="app-mb-2">
       @if (auth.user.createUserFunction) {
-      <button mat-stroked-button (click)="saveUser()">{{ 'button.save' | translate }}</button>
+      <button matButton="filled" (click)="saveUser()">{{ 'button.save' | translate }}</button>
       }
     </div>
   </div>
