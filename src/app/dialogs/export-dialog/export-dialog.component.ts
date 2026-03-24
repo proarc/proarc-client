@@ -21,13 +21,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { UserSettings } from '../../shared/user-settings';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   imports: [TranslateModule, MatDialogModule, MatTableModule, 
     CdkDrag, CdkDragHandle, 
     MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, 
     MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, 
-    MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule],
+    MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule, MatInputModule],
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
   styleUrls: ['./export-dialog.component.scss']
