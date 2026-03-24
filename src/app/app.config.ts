@@ -13,7 +13,7 @@ import { UserSettings, UserSettingsService } from './shared/user-settings';
 import { UIService } from './services/ui.service';
 import { LayoutService } from './services/layout-service';
 import { provideHighlightOptions } from 'ngx-highlightjs';
-import { DatePipe } from '@angular/common';
+import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideMaterialCssVars } from "angular-material-css-vars";
 import { FundService } from './services/fund.service';
@@ -52,6 +52,7 @@ export const appConfig: ApplicationConfig = {
     provideHighlightOptions({
       fullLibraryLoader: () => import('highlight.js')
     }),
+    {provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
     TranslateService, DatePipe,
     Configuration, ApiService, AuthService, FundService, UIService, UserSettings, UserSettingsService,
     LayoutService
