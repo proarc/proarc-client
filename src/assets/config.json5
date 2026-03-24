@@ -143,7 +143,11 @@
     'backEndPaper',
     'backEndSheet',
     'afterword',
-    'conclusion'
+    'conclusion',
+		"calibrationTable",
+		"imprimatur",
+		"fragmentsOfBookbinding",
+		"scaleReference"
 	],
   topPageTypes: [
       'normalPage',

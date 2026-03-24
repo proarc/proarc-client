@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   @for(item of items; track $index;) {
     <div>
-      <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name.toLowerCase() | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name | translate }}</mat-checkbox>
     </div>
   }
 </div>

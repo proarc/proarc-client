@@ -52,7 +52,7 @@ export const appConfig: ApplicationConfig = {
     provideHighlightOptions({
       fullLibraryLoader: () => import('highlight.js')
     }),
-    {provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
+    //{provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
     TranslateService, DatePipe,
     Configuration, ApiService, AuthService, FundService, UIService, UserSettings, UserSettingsService,
     LayoutService

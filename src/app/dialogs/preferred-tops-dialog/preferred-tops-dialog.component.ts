@@ -44,8 +44,10 @@ export class PreferredTopsDialogComponent implements OnInit {
     rest =  this.data.conf.filter((a: string) => !this.data.top.includes(a));
     const kk: string[] = [];
     rest.sort((a: any, b: any) => {
-      const a1: string = this.translator.instant(this.data.prefix + '.' + a.toLocaleLowerCase()).toLocaleLowerCase();
-      const b1: string = this.translator.instant(this.data.prefix + '.' + b.toLocaleLowerCase()).toLocaleLowerCase();
+      // const a1: string = this.translator.instant(this.data.prefix + '.' + a.toLocaleLowerCase()).toLocaleLowerCase();
+      // const b1: string = this.translator.instant(this.data.prefix + '.' + b.toLocaleLowerCase()).toLocaleLowerCase();
+      const a1: string = this.translator.instant(this.data.prefix + '.' + a).toLocaleLowerCase();
+      const b1: string = this.translator.instant(this.data.prefix + '.' + b).toLocaleLowerCase();
       return a1.localeCompare(b1, 'cs')
     });
     top.forEach(a => {

@@ -75,7 +75,7 @@
           {{ element[c.field] | date : 'dd.MM.yyyy'}}
           }
           @case ('datetime') {
-          {{ element[c.field] | date : 'dd.MM.yyyy HH:mm:ss'}}
+          {{ element[c.field] | date : 'dd.MM.yyyy HH:mm:ss' : '+0000'}}
           }
           @case ('list') {
           {{ listValue(c.field, element[c.field])}}
