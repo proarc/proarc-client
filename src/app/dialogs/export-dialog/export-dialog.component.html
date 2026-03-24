@@ -8,29 +8,29 @@
       }
     </mat-select>
   </mat-form-field>
-  @if (selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType ===
-  'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') {
-  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-    <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
-      @for(ins of instances; track $index;) {
-      <mat-option [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  @if (importInstance && importInstance.krameriusInstanceLicenses) {
-  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-    <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
-      @for(lic of importInstance.krameriusInstanceLicenses; track $index;) {
-      <mat-option [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} -
-        ({{lic.krameriusInstanceLicenseName}})</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+  @if (selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') {
+    <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+      <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
+        @for(ins of instances; track $index;) {
+        <mat-option [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if (importInstance && importInstance.krameriusInstanceLicenses) {
+      <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+        <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
+          @for(lic of importInstance.krameriusInstanceLicenses; track $index;) {
+          <mat-option [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} -
+            ({{lic.krameriusInstanceLicenseName}})</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
   }
+<div class="app-mb-2">
+  <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
+</div>
 
-  }
-
-<mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
 
 @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'  || selectedType === 'ndk_sip_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses) {
   <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
@@ -44,7 +44,7 @@
   </mat-form-field>
 }
 @if (selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit') {
-  <mat-radio-group aria-label="'standard'" [(ngModel)]="extendedType" class="app-ml-3">
+  <mat-radio-group aria-label="'standard'" [(ngModel)]="extendedType">
     <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
     <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
     <mat-radio-button value="bv">Bez výběru</mat-radio-button>
@@ -57,7 +57,7 @@
   </mat-form-field>
 }
 @if (extendedType=='pi') {
-  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance" >
     <input required type="text" autocomplete="off" matInput [placeholder]="'Přidat Informaci' | translate"
       [(ngModel)]="addInfoMessage">
   </mat-form-field>
