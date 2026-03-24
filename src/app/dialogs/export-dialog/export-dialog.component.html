@@ -44,11 +44,13 @@
   </mat-form-field>
 }
 @if (selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit') {
-  <mat-radio-group aria-label="'standard'" [(ngModel)]="extendedType">
-    <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
-    <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
-    <mat-radio-button value="bv">Bez výběru</mat-radio-button>
-  </mat-radio-group>
+  <div class="app-mb-4">
+    <mat-radio-group aria-label="'standard'" [(ngModel)]="extendedType">
+      <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
+      <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
+      <mat-radio-button value="bv">Bez výběru</mat-radio-button>
+    </mat-radio-group>
+  </div>
 }
 @if (extendedType=='snkd') {
   <mat-form-field class="app-w-100" [appearance]="settings.appearance">
