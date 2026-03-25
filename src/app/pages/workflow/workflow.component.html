@@ -1,8 +1,8 @@
 @if (loading) {
   <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 }
-@if (!loading) {
-  <div class="app-fxLayout app-column app-fill app-editor-wrapper">
+
+  <div class="app-fxLayout app-column app-fill app-editor-wrapper" [class.app-loading]="loading">
     <div class="app-fxLayout app-row app-center-v app-gap-4 app-breadcrumbsbar">
       <div class="app-fxLayout app-row app-center-v app-inner">
         <a routerLink="/"><mat-icon>home</mat-icon></a>
@@ -264,5 +264,5 @@
       </div>
     </div>
   </div>
-}
+
 
