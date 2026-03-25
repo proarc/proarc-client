@@ -55,6 +55,7 @@ export class Metadata {
   }
 
   validate(parent: ModsElement = null): boolean {
+    return true;
     let valid = true;
     this.invalidFields = [];
     for (const id of this.fieldsIds) {
@@ -161,6 +162,7 @@ export class Metadata {
     this.fields = new Map<String, ElementField>();
     this.mods = data;
     this.mods = this.normalizedCopy();
+    console.log(Utils.clone(this.mods))
     let root = null;
     const modsCollection = this.mods['modsCollection'];
     if (modsCollection) {
@@ -193,6 +195,7 @@ export class Metadata {
       const allExpanded = this.userSettings.expandedModels.includes(this.model) || (this.userSettings.relatedItemExpanded && id.includes('relatedItem'));
       this.fields.set(id, new ElementField(root, id, this.template[id], allExpanded));
     }
+    console.log(Utils.clone(this.mods))
   }
 
   toJson() {

@@ -129,7 +129,6 @@ export class EditorMetadataComponent implements OnInit {
       });
       effect(() => {
         this.metadata = this.data();
-        //  console.log(this.metadata)
         if (this.metadata) {
           this.setFields();
         }
@@ -160,6 +159,9 @@ export class EditorMetadataComponent implements OnInit {
         this.metadata = this.layout.lastSelectedItemMetadata;
         this.setFields();
         this.loading = false;
+        console.log(Utils.clone(this.metadata.mods))
+        
+        console.log(this.metadata.mods['mods']['name']);
       })
     });
   }
@@ -295,6 +297,7 @@ export class EditorMetadataComponent implements OnInit {
 
   onSaveTest() {
     console.log(this.metadata);
+    console.log(this.metadata.mods['mods']['name']);
     console.log(this.metadata.toMods())
   }
 

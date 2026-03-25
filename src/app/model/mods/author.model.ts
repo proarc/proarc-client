@@ -75,11 +75,9 @@ export class ModsAuthor extends ModsElement {
           this.addControl('description');
         }
 
-
         if (!this.modsElement['nameIdentifier']) {
             this.modsElement['nameIdentifier'] = [];
         }
-        this.addControl('nameIdentifier');
 
         if (!this.modsElement['nameIdentifierOrcId']) {
             this.modsElement['nameIdentifierOrcId'] = [];
@@ -95,15 +93,16 @@ export class ModsAuthor extends ModsElement {
             }
         }
 
-        if (this.nameIdentifier == null) {
+        if (!this.nameIdentifier) {
           this.nameIdentifier = ModsUtils.createTextElement('', null);
           nameIdentifiers.push(this.nameIdentifier);
         }
-        if (this.nameIdentifierOrcId == null) {
+        
+        if (!this.nameIdentifierOrcId) {
           this.nameIdentifierOrcId = ModsUtils.createTextElement('', {'type': 'orcid'});
           nameIdentifiers.push(this.nameIdentifierOrcId);
-          this.modsElement['nameIdentifierOrcId'] = [this.nameIdentifierOrcId]; 
         }
+        this.addControl('nameIdentifier');
         this.addControl('nameIdentifierOrcId');
 
         if (!this.modsElement['etal']) {
