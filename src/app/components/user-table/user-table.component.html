@@ -18,7 +18,7 @@
               }
               <mat-select [(ngModel)]="filterFields[c.field]" (ngModelChange)="filter(c.field, filterFields[c.field])">
                 <mat-option [value]="''"> </mat-option>
-                @for(s of lists[c.field]; track $index;) {
+                @for(s of lists()[c.field]; track $index;) {
                 <mat-option [value]="s.code">{{ s.value }}</mat-option>
                 }
               </mat-select>

@@ -72,7 +72,8 @@ export class UserTreeTableComponent {
   treeMaxLevel = 0;
 
   columnTypes: { [field: string]: string } = {};
-  lists: { [field: string]: { code: string, value: string }[] } = {};
+  //lists: { [field: string]: { code: string, value: string }[] } = {};
+  lists = input<{ [field: string]: { code: string, value: string }[] }>({});
   prefixes: { [field: string]: string } = {};
   statuses = [
     "undefined",
@@ -158,7 +159,10 @@ export class UserTreeTableComponent {
   }
 
   listValue(field: string, code: string) {
-    const el = this.lists[field].find(el => el.code === code + '');
+    if (!this.lists()[field]) {
+      return code;
+    }
+    const el = this.lists()[field].find(el => el.code === code + '');
     return el ? el.value : code;
   }
 
@@ -166,7 +170,7 @@ export class UserTreeTableComponent {
     switch (f) {
       case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
       case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
-      default: return [];
+      default: return this.lists()[f];
     }
   }
 
@@ -199,8 +203,11 @@ export class UserTreeTableComponent {
       this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
     }
     this.treeColumns.forEach(c => {
+      
       if (this.columnType(c) === 'list') {
-        this.lists[c] = this.getList(c);
+        if (!this.lists()[c]) {
+          this.lists()[c] = this.getList(c);
+        }
       }
       this.columnTypes[c] = this.columnType(c);
       this.prefixes[c] = this.prefixByType(c);

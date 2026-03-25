@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.isAkubra = this.config.info.storage === 'Akubra';
+    this.isAkubra = this.config.info?.storage === 'Akubra';
   }
 
   ngOnDestroy() {

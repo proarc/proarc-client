@@ -56,7 +56,7 @@
                   <div class="app-fxFlex app-oa-y">
                     <div class="app-editor-content">
                       <app-user-table [withFilters]="true" (sortBy)="sortJobsTable($event)" (selectItem)="jobClick($event)" (onFilter)="filter($event)"
-                        [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" ></app-user-table>
+                        [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" [lists]="lists"></app-user-table>
                     </div>
                   </div>
                 </div>
@@ -106,6 +106,7 @@
                           <app-user-tree-table #treeTable [type]="'TreeWorkFlow'"
                           [inSearch]="false" [treePath]="[selectedJob.id + '']"
                           [rootTreeItem]="selectedJob" [sortable]="true"
+                           [lists]="lists"
                           (onSelectTreeItem)="selectSubJob($event)" (onTreeItemsChanged)="visibleSubJobs = $event"></app-user-tree-table>
                         </div>
                       </div>
@@ -207,7 +208,8 @@
                   </div>
                   <div class="app-fxFlex app-oa-y">
                     <div class="app-editor-content">
-                      <app-user-table (sortBy)="sortTasksTable($event)" (selectItem)="openTask($event)" [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
+                      <app-user-table (sortBy)="sortTasksTable($event)" (selectItem)="openTask($event)" [colsSettingsName]="'columnsWorkFlowTasks'" 
+                      [items]="tasks" [lists]="lists" ></app-user-table>
                     </div>
                   </div>
                 </div>

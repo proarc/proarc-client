@@ -182,12 +182,20 @@ export class WorkFlowComponent implements OnInit {
     const rDevices = this.api.getDevices();
     forkJoin([rUsers, rProfiles, rDevices]).subscribe(([users, profiles, devices]: [User[], any, Device[]]) => {
       this.users = users;
+
       if (profiles['response'].errors) {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
       this.profiles = profiles.response.data;
       this.devices = devices;
+      this.lists['taskUser'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
+      this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      this.lists['deviceID'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
+      this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       this.getWorkflow(false);
     });
   }

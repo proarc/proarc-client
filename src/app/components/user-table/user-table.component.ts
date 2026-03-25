@@ -71,7 +71,8 @@ export class UserTableComponent {
   existingFilters = input<{ [field: string]: string }>({});
 
   prefixes: { [field: string]: string } = {};
-  lists: { [field: string]: { code: string, value: string }[] } = {};
+  //lists: { [field: string]: { code: string, value: string }[] } = {};
+  lists = input<{ [field: string]: { code: string, value: string }[] }>({});
   statuses = [
     "undefined",
     "new",
@@ -99,6 +100,7 @@ export class UserTableComponent {
     effect(() => {
 
       this.scrollToLastClicked(this.layout.lastSelectedItem());
+
       // console.log(this.items())
 
     })
@@ -136,7 +138,9 @@ export class UserTableComponent {
     this.displayedColumns = this.selectedColumns.map(c => c.field);
     this.selectedColumns.forEach(c => {
       if (c.type === 'list') {
-        this.lists[c.field] = this.getList(c.field);
+        if (!this.lists()[c.field]) {
+          this.lists()[c.field] = this.getList(c.field);
+        }
       }
       this.prefixes[c.field] = this.prefixByType(c.field);
 
@@ -184,7 +188,10 @@ export class UserTableComponent {
   }
 
   listValue(field: string, code: string) {
-    const el = this.lists[field].find(el => el.code === code + '');
+    if (!this.lists()[field]) {
+      return code;
+    }
+    const el = this.lists()[field].find(el => el.code === code + '');
     return el ? el.value : code;
   }
 
@@ -192,7 +199,10 @@ export class UserTableComponent {
     switch (f) {
       case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
       case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
-      default: return [];
+      // case 'taskUser': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      // case 'ownerId': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      // case 'state': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      default: return this.lists()[f];
     }
   }
 
