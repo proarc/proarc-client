@@ -237,6 +237,8 @@ export class PageUpdateHolder {
         this.applyToFirst = source.applyToFirst;
         this.repreSelect = source.repreSelect;
 
+        this.useBrackets = source.useBrackets;
+
     }
 
     // getPageIndexFrom(): number {
