@@ -84,7 +84,76 @@ export class RepositoryComponent {
     this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData(false);
     }));
+
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+    console.log(from)
+      setTimeout(() => {
+        this.refreshSelected(from);
+      }, 10)
+
+    }));
+
   }
+
+  refreshSelected(from: string) {
+    if (from === 'metadata') {
+      // this.layout.lastSelectedItemMetadata = null;
+      // const pid = this.layout.lastSelectedItem.pid;
+      // const model = this.layout.lastSelectedItem.model;
+      // const rDoc = this.api.getDocument(this.layout.lastSelectedItem.pid);
+      // const rMetadata = this.api.getMetadata(pid);
+      // forkJoin([rDoc, rMetadata]).subscribe(([item, respMeta]: [DocumentItem, any]) => {
+      //   const selected = this.layout.lastSelectedItem.selected;
+      //   Object.assign(this.layout.lastSelectedItem, item);
+      //   this.layout.lastSelectedItem.selected = selected;
+
+
+      //   const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
+      //   this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
+      //     this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
+      //   })
+      // });
+    } else if (from === 'pages') {
+      this.refreshPages();
+    } else {
+      this.api.getDocument(this.layout.lastSelectedItem().pid).subscribe((item: DocumentItem) => {
+        const selected = this.layout.lastSelectedItem().selected;
+        Object.assign(this.layout.lastSelectedItem, item);
+        this.layout.lastSelectedItem().selected = selected;
+        const index = this.layout.items().findIndex(i => i.selected);
+        if (!!from) {
+          this.layout.shouldMoveToNext(from, index);
+        }
+      });
+    }
+  }
+
+  refreshPages() {
+    const selection: string[] = [];
+    const lastSelected = this.layout.lastSelectedItem().pid;
+    this.layout.items().forEach(item => {
+      if (item.selected) {
+        selection.push(item.pid);
+      }
+    });
+    this.layout.items.set([]);
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
+
+      this.layout.items.set(children);
+      for (let i = 0; i < this.layout.items.length; i++) {
+        const item = this.layout.items()[i];
+        if (selection.includes(item.pid)) {
+          item.selected = true;
+          Object.assign(item, children[i]);
+        }
+        if (item.pid === lastSelected) {
+          this.layout.lastSelectedItem.set(item);
+        }
+      }
+      //this.layout.expandedPath = this.layout.path.map(p => p.pid);
+    });
+  }
+
 
   loadData(keepSelection: boolean) {
     this.loading = true;

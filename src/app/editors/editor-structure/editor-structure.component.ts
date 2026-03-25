@@ -173,7 +173,6 @@ export class EditorStructureComponent implements OnInit {
     }));
 
     this.layout.moveToNext().subscribe((idx: number) => {
-      console.log(idx)
       this.moveToNext(idx);
     });
 
@@ -414,6 +413,8 @@ export class EditorStructureComponent implements OnInit {
   }
 
   moveToNext(idx: number) {
+    setTimeout(() => {
+    }, 1000)
     const index = idx + 1;
     if (index < this.layout.items().length) {
       this.rowClick(this.layout.items()[index], null, index);

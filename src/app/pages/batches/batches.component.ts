@@ -78,9 +78,9 @@ export class BatchesComponent {
       this.loadData(this.batchId, keepSelection);
     }));
 
-    // this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-    //   this.refreshSelected(from);
-    // }));
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      this.refreshSelected(from);
+    }));
 
     const s = this.route.paramMap.pipe(
       switchMap(p => {
@@ -105,10 +105,12 @@ export class BatchesComponent {
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
       const selected = this.layout.lastSelectedItem().selected;
-      Object.assign(this.layout.lastSelectedItem, pages[0]);
-      this.layout.lastSelectedItem().selected = selected;
+      pages[0].selected = true;
+      this.layout.lastSelectedItem.set(pages[0]);
+      const index = this.layout.items().findIndex(i => i.pid === this.layout.lastSelectedItem().pid);
+      
       if (!!from) {
-        //this.layout.shouldMoveToNext(from);
+        this.layout.shouldMoveToNext(from, index);
       }
     });
   }

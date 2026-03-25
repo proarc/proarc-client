@@ -126,32 +126,25 @@ export class EditorPageComponent implements OnInit {
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
     this.state = 'success';
+      setTimeout(() => {
     if (this.layout.movedToNextFrom == 'pageNumber') {
-      setTimeout(() => {
         this.pageNumberField.nativeElement.focus();
-      }, 10);
     } else if (this.layout.movedToNextFrom == 'pageIndex') {
-      setTimeout(() => {
+      
         this.pageIndexField.nativeElement.focus();
-      }, 10);
     } else if (this.layout.movedToNextFrom == 'type') {
-      setTimeout(() => {
         this.typeSelect.focus();
-      }, 10);
     } else if (this.layout.movedToNextFrom == 'position') {
-      setTimeout(() => {
         this.posSelect.focus();
-      }, 10);
     } else if (this.layout.movedToNextFrom == 'genre') {
-      setTimeout(() => {
         this.genreSelect.focus();
-      }, 10);
     }
+      }, 3000);
   }
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    this.page = null;
+    //this.page = null;
     if (this.layout.type === 'kramerius') {
       this.setPage(this.layout.krameriusPage);
       this.state = 'success';
@@ -328,7 +321,6 @@ export class EditorPageComponent implements OnInit {
     if (!this.hasChanged()) {
       if (!!from) {
         const index = this.layout.items().findIndex(i => i.selected);
-        console.log(from, index);
         this.layout.shouldMoveToNext(from, index);
       }
       return;
@@ -382,7 +374,6 @@ export class EditorPageComponent implements OnInit {
       
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
-
       this.layout.refreshSelectedItem(moveToNext, from);
 
       this.state = 'success';

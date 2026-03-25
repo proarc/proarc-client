@@ -90,7 +90,6 @@ export class LayoutService {
     private moveNextSubject = new ReplaySubject<number>(1);
 
     shouldMoveToNext(from: string, index: number) {
-        
         this.movedToNextFrom = from;
         this.movingToNext = true;
         this.moveNextSubject.next(index);
