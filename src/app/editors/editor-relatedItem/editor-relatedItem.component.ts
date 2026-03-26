@@ -21,7 +21,8 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 })
 export class EditorRelatedItemComponent implements OnInit {
 
-  validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
+  // validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
+  validityOptions = ['','yes'];
 
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
     'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
