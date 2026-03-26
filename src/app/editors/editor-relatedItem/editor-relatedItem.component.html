@@ -192,7 +192,7 @@
         <app-editor-field [field]="subject.topics" [nested]='true'>
           <ng-template let-topic="item" #templateContent>
             <app-field-text field="valueURI" [item]="topic" [(value)]="topic.attrs['valueURI']"></app-field-text>
-            <app-field-codebook prefix="lang" field="lang" [item]="topic" [options]="settings.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
+            <app-field-codebook [prefix]="'lang'" field="lang" [item]="topic" [options]="settings.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
             <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
