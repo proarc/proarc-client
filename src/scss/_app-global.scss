@@ -694,4 +694,11 @@ fieldset {
     position: absolute !important;
   }
 
+.app-loading {
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+  opacity: .5;
+}
+
 
