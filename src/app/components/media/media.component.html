@@ -35,16 +35,16 @@
 		@if (streamProfile || !isRepo) {
 		<div class="app-editor-content app-h-100">
 			@if (isRepo && isPdf()) {
-			<app-pdf [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
+			<app-pdf [stream]="streamProfile?.dsid" [pid]="currentPid()"></app-pdf>
 			}
 			@if (isRepo && isEpub()) {
-			<app-epub [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
+			<app-epub [stream]="streamProfile?.dsid" [pid]="currentPid()"></app-epub>
 			}
 			@if (!isRepo || isImage()) {
-			<app-viewer [idViewer]="'app-viewer-media'" [imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
+			<app-viewer [idViewer]="'app-viewer-media'" [imageInfo]="{pid: currentPid(), dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
 			}
 			@if (isRepo && isAudio()) {
-			<app-song [pid]="currentPid"></app-song>
+			<app-song [pid]="currentPid()"></app-song>
 			}
 			@if (isRepo && isUnsupported()) {
 			<mat-card class="app-alert app-info app-m-4" appearance="outlined">

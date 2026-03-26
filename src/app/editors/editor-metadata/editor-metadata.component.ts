@@ -159,9 +159,6 @@ export class EditorMetadataComponent implements OnInit {
         this.metadata = this.layout.lastSelectedItemMetadata;
         this.setFields();
         this.loading = false;
-        console.log(Utils.clone(this.metadata.mods))
-        
-        console.log(this.metadata.mods['mods']['name']);
       })
     });
   }

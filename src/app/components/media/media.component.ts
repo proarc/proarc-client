@@ -1,5 +1,5 @@
 
-import { Component, effect, ElementRef, input, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, input, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,7 +36,7 @@ export class MediaComponent implements OnInit {
 
   @ViewChild('pdfInput') pdfInput: ElementRef;
   @ViewChild('epubInput') epubInput: ElementRef;
-  public currentPid: string;
+  currentPid = signal<string>(null);
   public inputPid: string;
   public currentModel: string;
   public inputModel: string;
@@ -81,7 +81,7 @@ export class MediaComponent implements OnInit {
   }
 
   urlByStream() {
-    return this.api.getStreamUrl(this.currentPid, this.streamProfile.dsid);
+    return this.api.getStreamUrl(this.currentPid(), this.streamProfile.dsid);
   }
 
   isPlainImage() {
@@ -135,7 +135,7 @@ export class MediaComponent implements OnInit {
     if (this.isLocked) {
       return;
     }
-    this.currentPid = pid;
+    this.currentPid.set(pid);
     this.currentModel = model;
     this.canAddPdf = this.allowedModels.includes(model);
     this.getProfiles(pid);
@@ -182,7 +182,7 @@ export class MediaComponent implements OnInit {
   }
 
   generatePdfA() {
-    this.api.generatePdfA(this.currentPid).subscribe((response: any) => {
+    this.api.generatePdfA(this.currentPid()).subscribe((response: any) => {
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(response.response.errors);
@@ -206,7 +206,7 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.uploadFile(files[0], this.currentPid, 'application/pdf').subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), 'application/pdf').subscribe(response => {
       this.state = 'ok';
     });
   }
@@ -218,7 +218,7 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.uploadFile(files[0], this.currentPid, 'application/epub+zip').subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), 'application/epub+zip').subscribe(response => {
       this.state = 'ok';
     });
   }
@@ -231,9 +231,9 @@ export class MediaComponent implements OnInit {
     }
     this.state = 'loading';
     this.streamProfile = null;
-    this.api.uploadFile(files[0], this.currentPid, files[0].type).subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), files[0].type).subscribe(response => {
       this.pdfInput.nativeElement.value = null;
-      this.getProfiles(this.currentPid);
+      this.getProfiles(this.currentPid());
     });
   }
 
@@ -266,10 +266,10 @@ export class MediaComponent implements OnInit {
   }
 
   remove() {
-    this.api.deletePdf(this.currentPid, this.streamProfile.dsid).subscribe(() => {
+    this.api.deletePdf(this.currentPid(), this.streamProfile.dsid).subscribe(() => {
       this.state = 'empty';
       this.ui.showInfoSnackBar("Digitální obsah byl odstraněn");
-      this.getProfiles(this.currentPid);
+      this.getProfiles(this.currentPid());
     });
   }
 
