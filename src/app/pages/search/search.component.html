@@ -157,11 +157,11 @@
         </as-split-area>
 
         <as-split-area [size]="splitArea2Width">
-          @if (selectedTreeItem) {
+          @if (selectedRootTreeItem) {
             <div class="app-fxLayout app-column app-fill">
               <div class="app-fxLayout app-row app-center-v app-gap-4 app-toolbar">
                 <div class="app-fxFlex app-fxLayout app-row app-center-v">
-                  <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <button (click)="reloadTree(selectedItem.pid)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                   <app-search-actions class="app-fxLayout app-row app-center-v" [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems" (reload)="reload($event)" (reloadTree)="reloadTree($event)" [(state)]="state" [forTree]="true"></app-search-actions>
                 </div>
