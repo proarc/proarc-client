@@ -189,12 +189,13 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = profiles.response.data;
       this.devices = devices;
+      this.lists['model'] = this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
       this.lists['taskUser'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
       this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
       this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
       this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
       this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
-      this.lists['deviceID'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
+      this.lists['deviceId'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
       this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       this.getWorkflow(false);
     });

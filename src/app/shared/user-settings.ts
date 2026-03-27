@@ -171,7 +171,7 @@ columnsWorkFlowDefault: TableColumn[] = [
     { field: 'taskDate', selected: false, width: 150, type: 'date' },
     { field: 'note', selected: false, width: 150, type: 'string' },
     { field: 'volume', selected: false, width: 150, type: 'string' },
-    { field: 'deviceLabel', selected: false, width: 150, type: 'string' }
+    { field: 'deviceId', selected: false, width: 150, type: 'list' }
 ];
 
 columnsWorkFlowTasksDefault: TableColumn[] = [

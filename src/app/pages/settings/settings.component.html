@@ -224,6 +224,25 @@
                 <button matButton="outlined" (click)="resetOne('markSequenceDialogDestTableColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
+
+            
+            <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.columnsSearch)">
+              <legend>{{ 'pages.settings.workflow.legend' | translate }}</legend>
+              <div class="app-fxFlex app-pb-4">
+                <div class="app-label app-mb-2">{{ 'pages.settings.worflow.label' | translate }}</div>
+                @for(column of curSettings.columnsWorkFlow; track $index;) {
+                  <div cdkDropListOrientation="vertical" cdkDrag>
+                    <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+                  </div>
+                }
+              </div>
+              <div>
+                <button matButton="filled" (click)="save()">{{ 'button.save' | translate }}</button>
+                  <button matButton="outlined" (click)="resetOne('columnsWorkFlow')">{{ 'button.reset' | translate }}</button>
+              </div>
+            </fieldset>
+
+
           </div>
         }
         @if (view == 'personalSettings') {

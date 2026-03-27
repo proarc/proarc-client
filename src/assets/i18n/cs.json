@@ -170,7 +170,8 @@
     "sigla": "Sigla",
     "ownerId": "Uživatel",
     "rawPath": "Adresář surových skenů",
-    "deviceLabel": "Zařízení"
+    "deviceLabel": "Zařízení",
+    "deviceId": "Zařízení"
   },
   "catalog": {
     "field": {

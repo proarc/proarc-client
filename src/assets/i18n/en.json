@@ -170,7 +170,8 @@
     "sigla": "Sigla",
     "ownerId": "User",
     "rawPath": "Path",
-    "deviceLabel": "Device"
+    "deviceLabel": "Device",
+    "deviceId": "Device"
   },
   "catalog": {
     "field": {
