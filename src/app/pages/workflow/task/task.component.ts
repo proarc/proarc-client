@@ -373,8 +373,8 @@ export class TaskComponent implements OnInit {
     this.getTasks();
   }
 
-  filter(field: string, value: string) {
-    this.workflowTasksFilters[field] = value;
+  filter(e : {field: string, value: string}) {
+    this.workflowTasksFilters[e.field] = e.value;
     this.getTasks();
   }
 
