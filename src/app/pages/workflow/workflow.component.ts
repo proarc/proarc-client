@@ -295,7 +295,11 @@ export class WorkFlowComponent implements OnInit {
 
   refreshSubJobs() {
     this.subJobsMaxLevel = 0;
-    this.subJobs = [this.selectedJob];
+    this.subJobs = [];
+    setTimeout(() => {
+      this.subJobs = [this.selectedJob];
+    }, 10);
+    
   }
 
   isExpandable(job: WorkFlow) {

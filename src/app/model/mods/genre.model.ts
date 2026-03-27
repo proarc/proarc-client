@@ -17,11 +17,11 @@ export class ModsGenre extends ModsElement {
     }
 
     private init() {
-        this.addControl('peer-reviewed');
         // const c = this.getControl('peer-reviewed');
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+        this.addControl('peer-reviewed');
       this.addControl('value', '_');
       this.addControl('authority');
       this.addControl('type');
