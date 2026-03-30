@@ -255,7 +255,7 @@ export class UserTreeTableComponent {
     if (!treeItem.expanded) {
       treeItem.expanded = true;
       if (!treeItem.childrenLoaded) {
-        this.getTreeItems(treeItem, false);
+        this.getTreeItems(treeItem, true);
       }
     } else {
       treeItem.expanded = false;
