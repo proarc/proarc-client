@@ -1,10 +1,11 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Configuration, TableColumn } from "./configuration";
 import { ApiService } from "../services/api.service";
 import { Utils } from "../utils/utils";
 import { UIService } from "../services/ui.service";
 import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class UserSettings {
@@ -79,6 +80,7 @@ export class UserSettings {
 @Injectable()
 export class UserSettingsService {
 
+  readonly translator = inject(TranslateService);
     defaultLayoutConfig: IConfig = {
       columns: [
         {
@@ -351,13 +353,15 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.deviceColumns = Utils.clone(this.deviceColumnsDefault);
 
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
-        this.settings.pageTypes = Utils.mergeOrdered(this.config.topPageTypes, this.config.pageTypes);
+        this.settings.pageTypes = Utils.mergeOrdered(this.settings.topPageTypes, this.config.pageTypes, this.translator, 'pageType');
 
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
-        this.settings.languages = Utils.mergeOrdered(this.config.topLanguages, this.config.languages);
+        this.settings.languages = Utils.mergeOrdered(this.settings.topLanguages, this.config.languages, this.translator, 'lang');
 
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
-        this.settings.identifiers = Utils.mergeOrdered(this.config.topIdentifiers, this.config.identifiers);
+        this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers, this.translator, 'identifier');
+
+        
 
         this.settings.expandedModels = Utils.clone(this.config.expandedModels);
 
@@ -398,9 +402,9 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
 
     save(showInfo?: boolean) {
 
-        this.settings.pageTypes = Utils.mergeOrdered(this.settings.topPageTypes, this.config.pageTypes);
-        this.settings.languages = Utils.mergeOrdered(this.settings.topLanguages, this.config.languages);
-        this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers);
+        this.settings.pageTypes = Utils.mergeOrdered(this.settings.topPageTypes, this.config.pageTypes, this.translator, 'pageType');
+        this.settings.languages = Utils.mergeOrdered(this.settings.topLanguages, this.config.languages, this.translator, 'lang');
+        this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers, this.translator, 'identifier');
 
         this.api.saveUserSettings(this.settings).subscribe(resp => {
           // console.log(resp)
