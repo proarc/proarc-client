@@ -101,6 +101,8 @@ export class EditorPageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //console.log(this.settings.pageTypes)
   }
 
   removeFocus() {

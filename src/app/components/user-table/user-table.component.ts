@@ -94,24 +94,21 @@ export class UserTableComponent {
     public config: Configuration,
     public ui: UIService,
     private layout: LayoutService) {
-    // effect(() => {
-
-    // })
     effect(() => {
-
       this.scrollToLastClicked(this.layout.lastSelectedItem());
-
-      // console.log(this.items())
-
     })
   }
 
   ngOnInit() {
     this.initColumns(this.colsSettingsName());
-
   }
 
   initColumns(colsSettingsName: string) {
+  this.selectedColumns = [];
+  this.displayedColumns = [];
+  this.filterColumns = [];
+  this.filterFields = {};
+
     if (colsSettingsName === 'colsEditingRepo') {
       const models: string[] = [];
       this.items().forEach(i => {

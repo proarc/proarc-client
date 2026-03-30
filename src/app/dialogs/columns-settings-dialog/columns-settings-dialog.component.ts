@@ -92,10 +92,8 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     } else {
       this.settings[this.data.colsSettingsName] = this.columns;
     }
-    console.log(this.data.colsSettingsName, this.settings[this.data.colsSettingsName])
     this.settingsService.save();
     this.dialogRef.close(true);
-    
   }
 
   drop(event: CdkDragDrop<string[]>) {

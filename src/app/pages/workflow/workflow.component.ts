@@ -310,7 +310,7 @@ export class WorkFlowComponent implements OnInit {
       console.log('PROBLEM!! Neni mezi profiles', job.profileName);
       return false;
     }
-    return  p.subjob.length > 0;
+    return p.subjob && p.subjob.length > 0;
   }
 
   selectJob(w: WorkFlow) {
