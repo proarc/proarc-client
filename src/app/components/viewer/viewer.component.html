@@ -47,7 +47,7 @@
 		}
 		<div class="app-pt-2 app-pb-2 app-w-100 app-h-100">
 			@if (!viewOl) {
-			<div class="app-viewer-wrapper"><img [src]="imageUrl" style="width: 100%;"
+			<div class="app-viewer-wrapper"><img [src]="imageUrl" style="max-width: 100%;"
 					(load)="state = 'success'" /></div>
 			}
 			<div [id]="idViewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>

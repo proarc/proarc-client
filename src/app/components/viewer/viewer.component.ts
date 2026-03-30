@@ -196,7 +196,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
       this.api.getStreamUrl(this.inputPid, stream, this.layout.batchId);
 
-    if (this._imageInfo.width > this.maxImageSize || this._imageInfo.height > this.maxImageSize) {
+    if ((this._imageInfo.width > this.maxImageSize) || (this._imageInfo.height > this.maxImageSize) || (stream === 'THUMBNAIL')) {
       this.viewOl = false;
       // this.state = 'success';
     } else {
