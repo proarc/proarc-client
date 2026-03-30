@@ -165,7 +165,12 @@ export class TaskComponent implements OnInit {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
+      
       this.profiles = profiles.response.data;
+      this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
+      this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
       this.initData();
     });
   }

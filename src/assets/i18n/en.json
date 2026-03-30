@@ -171,7 +171,10 @@
     "ownerId": "User",
     "rawPath": "Path",
     "deviceLabel": "Device",
-    "deviceId": "Device"
+    "deviceId": "Device",
+    "jobId": "Job Id",
+    "jobLabel": "Job label",
+    "order": "Order"
   },
   "catalog": {
     "field": {
@@ -3306,7 +3309,8 @@
       "uploadProfile.proarc": "External - Upload to ProArcu",
       "uploadProfile.kramerius": "External - Upload to Krameria",
       "externalProfile.pero": "External - Pero",
-      "externalProfile.pdfa": "External - Generate PDF-A"
+      "externalProfile.pdfa": "External - Generate PDF-A",
+      "externalProfile.thumbnail": "External - Generate PDF thumbnail"
     },
     "users": {
       "tooltipUsername": "Username by pattern: first character a lowercase letter followed by at least 4 characters from a combination of letters, numbers, dashes and underscores.",

@@ -154,7 +154,7 @@
     "partNumberFrom": "Číslo od",
     "barcode": "Čárový kód",
     "taskUser": "Uživatel úkolu",
-    "profileLabel": "Štítek profilu",
+    "profileLabel": "Profil",
     "issue": "Číslo",
     "volume": "Ročník",
     "year": "Rok",
@@ -171,7 +171,10 @@
     "ownerId": "Uživatel",
     "rawPath": "Adresář surových skenů",
     "deviceLabel": "Zařízení",
-    "deviceId": "Zařízení"
+    "deviceId": "Zařízení",
+    "jobId": "Id záměru",
+    "jobLabel": "Název záměru",
+    "order": "Poradí"
   },
   "catalog": {
     "field": {
@@ -3340,7 +3343,8 @@
       "uploadProfile.proarc": "Externí - Upload do ProArcu",
       "uploadProfile.kramerius": "Externí - Upload do Krameria",
       "externalProfile.pero": "Externí - Pero",
-      "externalProfile.pdfa": "Externí - generování PDF-A"
+      "externalProfile.pdfa": "Externí - generování PDF-A",
+      "externalProfile.thumbnail": "Externí - generování náhledu PDF"
     },
     "users": {
       "tooltipUsername": "Jmeno uživatele podle vzoru: první znak malé písmeno následováno alespoň 4 znaky z kombinace písmen, čísel, pomlčky a podtržítka.",

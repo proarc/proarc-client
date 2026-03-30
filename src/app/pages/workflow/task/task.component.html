@@ -36,7 +36,7 @@
               <div class="app-fxFlex app-oa-y">
                 <div class="app-editor-content">
                   <app-user-table (sortBy)="sortTasksTable($event)" (selectItem)="taskClick($event)"
-                   [withFilters]="true" (onFilter)="filter($event)"
+                   [withFilters]="true" (onFilter)="filter($event)" [lists]="lists"
                    [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
                 </div>
               </div>
