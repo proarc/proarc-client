@@ -39,7 +39,7 @@ export class AuthService {
     public initializeApp() {
         this.translator.use('cs');
         return firstValueFrom(
-            this.http.get('assets/config.json5', { responseType: 'text' }).pipe(
+            this.http.get('assets/config.json5?v='+Date.now(), { responseType: 'text' }).pipe(
                     switchMap((cfg: any) => {
                         this.config.mergeConfig(cfg);
                         this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
