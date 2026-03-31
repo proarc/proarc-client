@@ -178,7 +178,7 @@ export abstract class ModsElement {
                     Utils.metadataChanged.update(n => n + 1);
                 });
             } else if (this.modsElement[me]) {
-                c.patchValue(this.modsElement[me]);
+                //c.patchValue(this.modsElement[me]);
                 c.valueChanges.subscribe((e: any) => {
                     this.modsElement[me] = e;
                     Utils.metadataChanged.update(n => n + 1);
@@ -191,7 +191,6 @@ export abstract class ModsElement {
                     Utils.metadataChanged.update(n => n + 1);
                 });
             } else {
-                
                 c.valueChanges.subscribe((e: any) => {
                     Utils.metadataChanged.update(n => n + 1);
                 });
@@ -263,16 +262,16 @@ export abstract class ModsElement {
         if (!anyValue) {
             if (isRequired) {
                 Object.keys(this.controls).forEach((key) => {
-                    const value = this.controls[key];
+                    const control = this.controls[key];
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
-                        !value.value) {
+                        !control.value) {
                         // uprava kvuli issue 627
                         if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
                             error = false;
                         } else {
                             error = true;
-                            value.markAsTouched();
+                            control.markAsTouched();
                             if (parent && (parent.isRequired || parent.hasAnyValue())) {
                                 parent.collapsed = false;
                             }
@@ -283,16 +282,16 @@ export abstract class ModsElement {
                 // error = true;
             } else {
                 Object.keys(this.controls).forEach((key) => {
-                    const value = this.controls[key];
-                    if (this.template.fields[key + '']?.required && !value.value) {
+                    const control = this.controls[key];
+                    if (this.template.fields[key + '']?.required && !control.value) {
                         error = true;
-                        value.markAsTouched();
+                        control.markAsTouched();
                         // if (parent) {
                         //   parent.collapsed = false;
                         // }
                         // this.collapsed = false;
                     } else {
-                        value.markAsUntouched();
+                        //control.markAsUntouched();
                     }
                 });
             }

@@ -234,24 +234,26 @@ export class EditorMetadataComponent implements OnInit {
       if (this.layout.moveFocus) {
         setTimeout(() => {
           this.focusToFirstRequired();
-        }, 30);
+        }, 100);
       }
     }, 20);
   }
 
   focusToFirstRequired() {
-    // find in new object
-    const query = this.notSaved() ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
-    let el: any = document.querySelectorAll(query)[0];
-    if (el) {
-      el.focus();
-      return;
-    }
+    if (!this.focusToFirstInvalid()) {
+      // find in new object
+      const query = this.notSaved() ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
+      let el: any = document.querySelectorAll(query)[0];
+      if (el) {
+        el.focus();
+        return;
+      }
 
-    //find in already exiting object
-    el = document.querySelectorAll('input[required]')[0];
-    if (el) {
-      el.focus();
+      //find in already exiting object
+      el = document.querySelectorAll('input[required]')[0];
+      if (el) {
+        el.focus();
+      }
     }
 
   }
@@ -286,7 +288,7 @@ export class EditorMetadataComponent implements OnInit {
 
   validate() {
     this.isValidMetadata = this.metadata.validate();
-    console.log(this.isValidMetadata, this.model)
+    //console.log(this.isValidMetadata, this.model())
       setTimeout(() => {
         // this.onSizeChanged();
       }, 10);
@@ -447,13 +449,16 @@ export class EditorMetadataComponent implements OnInit {
 
   focusToFirstInvalid() {
     const query = this.notSaved() ?
-      'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .app-editor-container .mat-form-field-invalid mat-select ' :
-      'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .app-editor-container .mat-form-field-invalid mat-select ';
+      'app-new-metadata-dialog .app-expanded .ng-invalid input, app-new-metadata-dialog .app-expanded .ng-invalid textarea, app-new-metadata-dialog .app-editor-container .ng-invalid mat-select ' :
+      'app-editor-metadata .app-expanded .ng-invalid input, app-editor-metadata .app-expanded .ng-invalid textarea, app-editor-metadata .app-editor-container .ng-invalid mat-select ';
     const els = document.querySelectorAll(query);
     if (els.length > 0) {
       (els[0] as any).focus();
+      this.loading = false;
+      return true;
+    } else {
+      return false;
     }
-    this.loading = false;
 
   }
 

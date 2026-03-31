@@ -682,6 +682,15 @@ fieldset {
     color: var(--app-color-warn);
   }
 }
+.mat-mdc-icon-button.app-color-warn .mat-icon{
+  color: var(--app-color-warn) !important;
+
+  .mat-icon {
+    fill: var(--app-color-warn) !important;
+  }
+  
+
+}
 
 .app-dialog-close {
   position: absolute;

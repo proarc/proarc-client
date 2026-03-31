@@ -55,16 +55,15 @@ export class Metadata {
   }
 
   validate(parent: ModsElement = null): boolean {
-    return true;
     let valid = true;
     this.invalidFields = [];
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
         if (!item.validate(parent)) {
-          valid = false;
           item.collapsed = false;
           this.invalidFields.push(id);
+          valid = false;
         }
 
         if (item.hasAnyValue() || item.isRequired) {
