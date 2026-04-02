@@ -100,7 +100,6 @@
                             </mat-menu>
                           </div>
                         </div>
-                      }
                       <div class="app-fxFlex app-oa-y">
                         <div class="app-editor-content">
                           <app-user-tree-table #treeTable [type]="'TreeWorkFlow'"
@@ -110,6 +109,7 @@
                           (onSelectTreeItem)="selectSubJob($event)" (onTreeItemsChanged)="visibleSubJobs = $event"></app-user-tree-table>
                         </div>
                       </div>
+                      }
                     </div>
                   </div>
                 }

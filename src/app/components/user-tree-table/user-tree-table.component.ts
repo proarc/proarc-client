@@ -284,7 +284,7 @@ export class UserTreeTableComponent {
   setToHiddenWorkFlow(treeItem: TreeWorkFlow, idx: number) {
     for (let i = idx; i < this.worflowTreeItems.length; i++) {
       const j = this.worflowTreeItems[i]
-      if (j.parentPid === treeItem.pid) {
+      if ((j.parentId+'') === treeItem.pid) {
         j.hidden = !treeItem.expanded || treeItem.hidden;
         this.setToHiddenWorkFlow(j, i)
       }
@@ -331,7 +331,9 @@ export class UserTreeTableComponent {
         const ti: TreeWorkFlow = <TreeWorkFlow>c;
         ti.level = treeItem.level + 1;
         ti.expandable = true;
-        ti.parentPid = treeItem.pid;
+        ti.parentId = treeItem.id;
+        ti.parentPid = treeItem.id + '';
+        ti.pid = ti.id + '';
         return ti;
       });
 

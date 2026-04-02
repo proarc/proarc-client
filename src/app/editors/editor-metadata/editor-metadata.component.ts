@@ -296,8 +296,8 @@ export class EditorMetadataComponent implements OnInit {
 
   onSaveTest() {
     console.log(this.metadata);
-    console.log(this.metadata.mods['mods']['name']);
-    console.log(this.metadata.toMods())
+    // console.log(this.metadata.mods['mods']['name']);
+    // console.log(this.metadata.toMods())
   }
 
   onSave() {
