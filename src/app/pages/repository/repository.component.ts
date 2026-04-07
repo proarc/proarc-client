@@ -86,7 +86,6 @@ export class RepositoryComponent {
     }));
 
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-    console.log(from)
       setTimeout(() => {
         this.refreshSelected(from);
       }, 10)

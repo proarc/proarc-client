@@ -62,9 +62,10 @@ export class EditorGenreComponent implements OnInit {
 
   switchChanged(e: any) {
     // this.field.isPeerReviewed = e.value === 'peer-reviewed';
+
     if (this.field.isPeerReviewed) {
-      //const item = this.field.addAsFirst();
-      if (this.field.items.length === 1 && this.field.getItems()[0].attrs['type']) {
+      // if (this.field.items.length === 1 && this.field.getItems()[0].attrs['type']) {
+      if (this.field.items.length === 1) {
         const item = this.field.addAsFirst();
       }
       this.field.getItems()[0].controls['peer-reviewed'].setValue(true);
@@ -77,6 +78,7 @@ export class EditorGenreComponent implements OnInit {
       }
       //this.field.remove(0);
     }
+
       this.field.items[0].setAsDirty();
 
       setTimeout(() => {
