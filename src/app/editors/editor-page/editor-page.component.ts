@@ -250,16 +250,16 @@ export class EditorPageComponent implements OnInit {
   }
 
   private validate(): boolean {
-    if (!this.page.number) {
+    if (!this.pageNumberControl.value) {
       return false;
     }
-    if (this.config.showPageIndex && !this.page.index) {
+    if (this.config.showPageIndex && !this.pageIndexControl.value) {
       return false;
     }
-    if (!this.page.type) {
+    if (!this.pageTypeControl.value) {
       return false;
     }
-    if ((this.page.isNdkPage() || this.page.isSttPage()) && !this.page.genre) {
+    if ((this.page.isNdkPage() || this.page.isSttPage()) && !this.genreControl.value) {
       return false;
     }
     return true;
