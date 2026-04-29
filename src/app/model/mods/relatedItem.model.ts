@@ -20,7 +20,6 @@ import { UserSettings } from '../../shared/user-settings';
 export class ModsRelatedItem extends ModsElement {
 
   titleInfos: ElementField;
-  accessConditions: ElementField;
   originInfos: ElementField;
   names: ElementField;
   locations: ElementField;
@@ -57,12 +56,6 @@ export class ModsRelatedItem extends ModsElement {
     this.addControl('otherTypeURI');
     this.addControl('otherTypeAuth');
     this.addControl('otherTypeAuthURI');
-
-    if (this.available2('accessCondition')) {
-      this.accessConditions = new ElementField(this.modsElement, ModsAccessCondition.getSelector(), this.getField('accessCondition'));
-      this.addSubfield(this.accessConditions);
-      this.addControl('accessCondition');
-    }
 
     if (this.available2('titleInfo')) {
       this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'), this.allExpanded);

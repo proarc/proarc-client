@@ -351,7 +351,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_STT_EXTENDED: {
         path = 'export/archive';
-        data = `${data}&package=STT&extendedPackage=true`;
+        data = `${data}&package=STT`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
@@ -373,7 +373,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_STT_EXTENDED_BAGIT: {
         path = 'export/archive';
-        data = `${data}&package=STT&isBagit=true&extendedPackage=true`;
+        data = `${data}&package=STT&isBagit=true`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
@@ -495,12 +495,6 @@ export class ApiService {
 
   changeModel(pid: string, model: string, path: string) {
     const data = `pid=${pid}&model=${model}`;
-    return this.post(path, data);
-  }
-
-  updateSTT(pid: string, model: string) {
-    const data = `pid=${pid}&model=${model}`;
-    const path = `object/updateOldprintPage`;
     return this.post(path, data);
   }
 
@@ -791,12 +785,6 @@ export class ApiService {
       params['type'] = 'ALL';
     }
     return this.get(`${resource}/query`, params);
-  }
-
-  addAuthority(pid: string, mods: string) {
-    let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
-    return this.put('object/mods/addAuthority', data);
-    
   }
 
   getDevices(): Observable<Device[]> {
@@ -1421,4 +1409,3 @@ export class ApiService {
     return this.put('object/mods/editorObjects', data);
   }
 }
-
