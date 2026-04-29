@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -226,7 +225,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -243,7 +241,6 @@
       },
       dateIssued: {
         usage: 'M',
-        required: true,
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -494,7 +491,6 @@
     fields: {
       physicalLocation: {
         usage: 'M',
-        required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -533,7 +529,6 @@
       },
       shelfLocator: {
         usage: 'M',
-        required: true,
         label: 'Signatura',
         selector: 'location/shelfLocator',
         labelKey: 'location/shelfLocator',
@@ -849,7 +844,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -1121,7 +1115,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -1156,7 +1149,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1263,7 +1255,6 @@
       },
       value: {
         usage: 'R',
-        //          required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1344,7 +1335,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1403,7 +1393,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1800,8 +1789,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -2338,7 +2326,6 @@
             fields: {
               type: {
                 usage: 'M',
-                required: true,
                 label: 'Typ',
                 selector: 'name/@type',
                 labelKey: 'name/@type',
@@ -2418,8 +2405,7 @@
                   },
                   value: {
                     label: 'Hodnota',
-                    usage: 'M',
-                    required: true,
+                    usage: 'MA',
                     selector: 'name/namePart',
                     labelKey: 'name/namePart/value',
                     cols: 2,

@@ -22,6 +22,8 @@ export class Page {
 
   public model: string;
 
+  [key: string]: any;
+
   constructor() {
     this.identifiers = [];
     this.originalIdentifiers = [];
@@ -149,6 +151,7 @@ export class Page {
   }
 
   public isValid(): boolean {
+    console.log(this.index,this.number,this.type,this.isNdkPage(),this.genre)
     return !!this.index && !!this.number && !!this.type && (!this.isNdkPage() || !!this.genre);
   }
 

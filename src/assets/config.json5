@@ -1,0 +1,496 @@
+{
+
+  // Css theme properties
+  primaryColor: "#456aa5",
+  accentColor: "#aa0000",
+  warnColor: "#f44336",
+  darkTheme: false,
+  cssVars: [
+  //{name: '--app-color-item-selected', value: '#ee7700'}
+  ],
+
+  exports:[
+    'archive',    // archivni export
+    'archive_extended',   // archivni export s pridanim slozky surovych skenu
+    'archive_bagit',  // archivni export prevedeny do podoby BagIt balicku
+    'archive_extended_bagit', //archivni export s pridanim slozky surovych skenu prevedeny do podoby BagIt balicku
+    'archive_stt',  // archivni export starych tisku
+    'archive_stt_bagit',  // archivni export starych tisku prevedeny do podoby BagIt balicku
+    'archive_stt_extended',   // archivni export starych tisku s pridanim slozky surovych skenu
+    'archive_stt_extended_bagit',   // archivni export starych tisku s pridanim slozky surovych skenu prevedeny do podoby BagIt balicku
+    'kramerius',    // export foxml pro kramerius
+    'kramerius_bagit',    // export foxml pro kramerius prevedeny do podoby BagIt balicku
+    'ndk_psp',    // ndk export pro tistene a zvukove dokumenty
+    'ndk_psp_bagit',    // ndk export pro tistene a zvukove dokumenty prevedeny do podoby BagIt balicku
+    'ndk_psp_upload_cesnet',    // ndk export pro tistene a zvukove dokumenty prevedeny do podoby BagIt balicku a nahrany na LTP Cesnet
+    'ndk_psp_upload_kramerius',    // ndk export pro tistene a zvukove dokumenty nahrany do Krameria
+    'ndk_oldprint',    // ndk export pro stare tisky
+    'ndk_oldprint_bagit',    // ndk export pro stare tisky prevedeny do podoby BagIt balicku
+    'ndk_oldprint_upload_cesnet',    // ndk export pro stare tisky prevedeny do podoby BagIt balicku a nahrany na LTP Cesnet
+    'ndk_oldprint_upload_kramerius',    // ndk export pro stare tisky nahrany do Krameria
+    'ndk_sip',    // ndk export pro eleketornicke dokumenty
+    'ndk_sip_bagit',    // ndk export pro eleketornicke dokumenty prevedeny do podoby BagIt balicku
+    'ndk_sip_upload_kramerius',    // ndk export pro eleketornicke dokumenty nahrany do Krameria
+    'datastream_full', // export datastreamu FULL (u tistenych dokumentu export jpg, u pdf export pdf)
+    'datastream_raw', // export datastreamu RAW (export vstupnich formatu - tiff, pdf, wave, mp3)
+    'datastream_ndkUser', // export uzivatelske kopie (jp2, pdf)
+    'cejsh', // export pro Cejsh
+    'crossref', // export pro Crossref
+    'kwis', // export foxml pro kramerius a spusteni nasledneho merlin scriptu (pouze pro kramerius 5)
+  ],
+  organizations: [
+      'ABA007',
+      'BOA001',
+      'ABA010',
+      'ABA012',
+      'HKA001',
+      'ABE301',
+      'ABG001',
+      'ABD068',
+      'ABD103',
+      'PAG001',
+      'JIG001',
+      "Inovatika"
+  ],
+  models: [
+      'model:bdmarticle',
+      'model:ndkperiodical',
+      'model:ndkperiodicalvolume',
+      'model:ndkperiodicalissue',
+      'model:ndkperiodicalsupplement',
+      'model:ndkarticle',
+      'model:ndkpicture',
+      'model:ndkmonographvolume',
+      'model:ndkmonographtitle',
+      'model:ndkmonographunit',
+      'model:ndkmonographsupplement',
+      'model:ndkchapter',
+      'model:ndkmap',
+      'model:ndkgraphic',
+      'model:ndksheetmusic',
+      'model:ndkpage',
+      'model:page',
+      'model:oldprintomnibusvolume',
+      'model:oldprintmonographtitle',
+      'model:oldprintmonographunit',
+      'model:oldprintvolume',
+      'model:oldprintsupplement',
+      'model:oldprintchapter',
+      'model:oldprintgraphics',
+      'model:oldprintmap',
+      'model:oldprintsheetmusic',
+      'model:oldprintpage',
+      'model:ndkeperiodical',
+      'model:ndkeperiodicalvolume',
+      'model:ndkeperiodicalissue',
+      'model:ndkeperiodicalsupplement',
+      'model:ndkearticle',
+      'model:ndkemonographtitle',
+      'model:ndkemonographunit',
+      'model:ndkemonographvolume',
+      'model:ndkemonographsupplement',
+      'model:ndkechapter',
+      'model:ndkphonographcylinder',
+      'model:ndkmusicdocument',
+      'model:ndksong',
+      'model:ndktrack',
+      'model:ndkaudiopage',
+      'model:chronicletitle',
+      'model:chroniclevolume',
+      'model:chroniclesupplement'
+  ],
+
+  defaultModel: 'model:ndkperiodical',
+  showCommentEditor: true,
+  showWorkflow: true,
+  showLogoutCounter: true,
+  pageTypes: [
+    'normalPage',
+    'bibliography',
+    'colophon',
+    'dedication',
+    'cover',
+    'appendix',
+    'errata',
+    'frontispiece',
+    'spine',
+    'illustration',
+    'imgDisc',
+    'impressum',
+    'map',
+    'sheetMusic',
+    'tableOfContents',
+    'edge',
+    'imprimatur',
+    'blank',
+    'jacket',
+    'preface',
+    'frontCover',
+    'frontEndPaper',
+    'frontEndSheet',
+    'frontJacket',
+    'index',
+    'advertisement',
+    'manuscriptNotes',
+    'listOfIllustrations',
+    'listOfMaps',
+    'listOfTables',
+    'table',
+    'titlePage',
+    'introduction',
+    'flyleaf',
+    'backCover',
+    'backEndPaper',
+    'backEndSheet',
+    'afterword',
+    'conclusion',
+    "calibrationTable",
+    "fragmentsOfBookbinding",
+    "scaleReference"
+  ],
+  topPageTypes: [
+      'normalPage',
+      'blank'
+  ],
+  topLanguages: ['cze', 'ger', 'lat'],
+  languages: [
+    'aar', 'abk', 'ave', 'afr', 'aka', 'amh', 'arg', 'ara', 'asm', 'ava', 'aym', 'aze', 'bak', 'bel', 'bul', 'bih',
+    'bis', 'bam', 'ben', 'tib', 'bre', 'bos', 'cat', 'che', 'cha', 'cos', 'cre', 'cze', 'chu', 'chv',
+    'wel', 'dan', 'ger', 'div', 'dzo', 'ewe', 'gre', 'eng', 'epo', 'spa', 'est', 'baq',
+    'per', 'ful', 'fin', 'fij', 'fao', 'fre', 'fry', 'gle', 'gla', 'glg', 'grn', 'guj', 'glv', 'hau',
+    'heb', 'hin', 'hmo', 'hrv', 'hat', 'hun', 'arm', 'her', 'ina', 'ind', 'ile', 'ibo', 'iii', 'ipk',
+    'ido', 'ice', 'ita', 'iku', 'jpn', 'jav', 'geo', 'kon', 'kik', 'kua', 'kaz', 'kal', 'khm', 'kan',
+    'kor', 'kau', 'kas', 'kur', 'kom', 'cor', 'kir', 'lat', 'ltz', 'lug', 'lim', 'lin', 'lao', 'lit', 'lub', 'lav',
+    'mlg', 'mah', 'mao', 'mac', 'mal', 'mon', 'mar', 'may', 'mlt', 'bur', 'nau',
+    'nob', 'nde', 'nep', 'ndo', 'dut', 'nno', 'nor', 'nbl', 'nav', 'nya', 'oci', 'oji', 'orm', 'ori', 'oss',
+    'pan', 'pli', 'pol', 'pus', 'por', 'que', 'roh', 'run', 'rum', 'rus', 'kin', 'san', 'srd', 'snd', 'sme',
+    'sag', 'sin', 'slo', 'slv', 'smo', 'sna', 'som', 'alb', 'srp', 'ssw', 'sot', 'sun', 'swe',
+    'swa', 'tam', 'tel', 'tgk', 'tha', 'tir', 'tuk', 'tgl', 'tsn', 'ton', 'tur', 'tso', 'tat', 'twi', 'tah', 'uig',
+    'ukr', 'urd', 'uzb', 'ven', 'vie', 'vol', 'wln', 'wol', 'xho', 'yid', 'yor', 'zha', 'chi', 'zul', 'grc',
+    'zxx', 'tai', 'und', 'sla', 'mul', 'inc', 'akk', 'arc', 'rom', 'egy', 'wen', 'egy', 'sux', 'frm', 'syr', 'fro',
+    'cop', 'mis', 'ine', 'dum', 'hit', 'ira', 'haw'
+  ],
+  topLocations: ['BOA001', 'ABA000'],
+  topIdentifiers: [],
+  identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
+  pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
+  lang: 'cs-en',
+  expandedModels: ['model:ndkemonographvolume','model:ndkemonographunit', 'model:ndkearticle'],
+  showFooter: true,
+
+  roleCodes: ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
+        'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
+        'cnd', 'cns', 'coe', 'col', 'com', 'cos', 'cot', 'cov', 'cpc', 'cpe', 'cph', 'cpl', 'cpt', 'cre', 'crp', 'crr', 'csl',
+        'csp', 'cst', 'ctb', 'cte', 'ctg', 'ctr', 'cts', 'ctt', 'cur', 'cwt', 'dfd', 'dfe', 'dft', 'dgg', 'dis', 'dln', 'dnc',
+        'dnr', 'dpc', 'dpt', 'drm', 'drt', 'dsr', 'dst', 'dte', 'dto', 'dub', 'edt', 'egr', 'elt', 'eng', 'etr', 'exp', 'fac',
+        'flm', 'fmo', 'fnd', 'frg', 'grt', 'hnr', 'hst', 'ill', 'ilu', 'ins', 'inv', 'itr', 'ive', 'ivr', 'lbt', 'lee', 'lel',
+        'len', 'let', 'lie', 'lil', 'lit', 'lsa', 'lse', 'lso', 'ltg', 'lyr', 'mdc', 'mod', 'mon', 'mrk', 'mte', 'mus', 'nrt',
+        'opn', 'org', 'orm', 'oth', 'own', 'pat', 'pbd', 'pbl', 'pfr', 'pht', 'plt', 'pop', 'ppm', 'prc', 'prd', 'prf', 'prg',
+        'prm', 'pro', 'prt', 'pta', 'pte', 'ptf', 'pth', 'ptt', 'rbr', 'rce', 'rcp', 'red', 'ren', 'res', 'rev', 'rpt', 'rpy',
+        'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
+        'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'],
+  updateInSource: true,
+  updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
+  'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
+
+  musicDocumentIdentifiers: ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
+  chronicleIdentifiers: ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localid', 'officialNumber'],
+  eDocumentIdentifiers: ['doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'],
+  oldprintIdentifiers: ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'],
+
+  donators: ['ilnorway', 'norway', 'dkrvo19-23', 'dkrvo24-28'],
+
+  showPageIndex: true,
+  showPageIdentifiers: true,
+
+  searchExpandTree: true,
+  allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],
+  profiles: [
+    'profile.default',
+    'profile.defaultocr',
+    'profile.createObjectWithMetadata_import',
+    'profile.default_ndk_import',
+    'profile.default_archive_import',
+    'profile.soundrecording_import',
+    'profile.default_kramerius_import',
+    'profile.stt_kramerius_import',
+    'profile.ndk_monograph_kramerius_import',
+    'profile.ndk_periodical_kramerius_import',
+    'profile.chronicle',
+    'profile.oldprint',
+    'profile.oldprintocr',
+    'profile.replace_stream_import',
+    'profile.ndk_full_import',
+    'profile.generate',
+    'exportProfile.kramerius',
+    'exportProfile.ndk',
+    'exportProfile.archive',
+    'exportProfile.desa',
+    'exportProfile.cejsh',
+    'exportProfile.crossref',
+    'exportProfile.kwis',
+    'exportProfile.datastream',
+    'internalProfile.reindex',
+    'internalProfile.validation',
+    'internalProfile.changeOwners',
+    'internalProfile.urnnbn',
+    'internalProfile.deletion',
+        'internalProfile.updateCatalogRecords',
+    'uploadProfile.proarc',
+    'uploadProfile.kramerius',
+    'externalProfile.pero',
+    'externalProfile.pdfa'
+  ],
+
+
+  modelChanges: [
+    // origin = model nad kterym to lze spustit
+    // originModel = vychozi model z ktereho se prevadi
+    // model = model na ktery se prevadi
+
+    // ndk
+    {
+      origin: 'ndkmonographtitle',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume" },
+        // {model: 'clippingstitle', apiPoint: "object/changeNdkMonographTitleToClippingsTitle"},
+        { model: 'ndkmonographvolume', originmodel: "ndkmonographtitle", apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume" },
+        // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+        { model: 'ndkmonographtitle', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle" },
+        { model: 'ndkmonographunit', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographUnit" },
+      ]
+    },
+    {
+      origin: 'ndkmonographvolume',
+      dest: [
+        { model: 'ndkmonographunit', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographUnit" },
+        // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+        { model: 'ndkmonographtitle', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle" },
+        { model: 'oldprintvolume', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToOldPrintMonographVolume" },
+      ]
+    },
+    {
+      origin: 'ndkmonographunit',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "ndkmonographunit", apiPoint: "object/changeNdkMonographUnitToNdkMonographVolume" },
+      ]
+    },
+    {
+      origin: 'ndkmonographsupplement',
+      dest: [
+        { model: 'oldprintsupplement', originmodel: "ndkmonographsupplement", "apiPoint": "object/changeNdkMonographSupplementToOldPrintMonographSupplement" }
+      ]
+    },
+    {
+      origin: 'ndkperiodical',
+      dest: [
+        { model: 'ndkeperiodical', originmodel: "ndkperiodical", apiPoint: "object/changeNdkPeriodicalToNdkEPeriodical" },
+        { model: 'ndkeperiodicalvolume', originmodel: "ndkperiodicalvolume", apiPoint: "object/changeNdkPeriodicalVolumeToNdkEPeriodicalVolume" },
+        { model: 'ndkeperiodicalissue', originmodel: "ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue" },
+        { model: 'ndkeperiodicalsupplement', originmodel: "ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement" },
+        { model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+        { model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+        { model: 'ndkperiodicalvolume', originmodel: "periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume" },
+        { model: 'ndkperiodicalissue', originmodel: "periodicalitem", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+
+      ]
+    },
+    {
+      origin: 'ndkperiodicalvolume',
+      dest: [
+        { model: 'ndkeperiodicalvolume', originmodel: "ndkperiodicalvolume", apiPoint: "object/changeNdkPeriodicalVolumeToNdkEPeriodicalVolume" },
+        { model: 'ndkeperiodicalissue', originmodel: "ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue" },
+        { model: 'ndkeperiodicalsupplement', originmodel: "ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement" },
+        { model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+        { model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+        { model: 'ndkperiodicalissue', originmodel: "periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+      ]
+    },
+    {
+      origin: 'ndkperiodicalissue',
+      dest: [
+        { model: 'ndkeperiodicalissue', originmodel: "ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue" },
+        { model: 'ndkeperiodicalsupplement', originmodel: "ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement" },
+        { model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+        { model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+      ]
+    },
+    {
+      origin: 'ndkperiodicalsupplement',
+      dest: [
+        { model: 'ndkeperiodicalsupplement', originmodel: "ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement" },
+        { model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+        { model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+      ]
+    },
+    {
+      origin: 'ndkarticle',
+      dest: [
+        { model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+      ]
+    },
+    {
+      origin: 'bdmarticle',
+      dest: [
+        { model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+      ]
+    },
+    {
+      origin: 'ndkmap',
+      dest: [
+        { model: 'oldprintmap', originmodel: "ndkmap", "apiPoint": "object/changeNdkCartographicToOldPrintCartographic" }
+      ]
+    },
+    {
+      origin: 'ndkchapter',
+      dest: [
+        { model: 'oldprintchapter', originmodel: "ndkchapter", "apiPoint": "object/changeNdkChapterToOldPrintChapter" }
+      ]
+    },
+    {
+      origin: 'ndksheetmusic',
+      dest: [
+        { model: 'oldprintsheetmusic', originmodel: "ndksheetmusic", "apiPoint": "object/changeNdkMusicSheetToOldPrintMusicSheet" }
+      ]
+    },
+    {
+      origin: 'ndkpicture',
+      dest: [
+        { model: 'oldprintgraphics', originmodel: "ndkpicture", "apiPoint": "object/changeNdkPictureToOldPrintGraphic" }
+      ]
+    },
+
+    {
+      origin: 'ndkemonographtitle',
+      dest: [
+        { model: 'ndkemonographvolume', originmodel: "ndkemonographunit", apiPoint: "object/changeNdkEMonographUnitToNdkEMonographVolume" },
+        { model: 'ndkemonographunit', originmodel: "ndkemonographvolume", apiPoint: "object/changeNdkEMonographVolumeToNdkEMonographUnit" },
+      ]
+    },
+    {
+      origin: 'ndkemonographunit',
+      dest: [
+        { model: 'ndkemonographvolume', originmodel: "ndkemonographunit", apiPoint: "object/changeNdkEMonographUnitToNdkEMonographVolume" },
+      ]
+    },
+    {
+      origin: 'ndkemonographvolume',
+      dest: [
+        { model: 'ndkemonographunit', originmodel: "ndkemonographvolume", apiPoint: "object/changeNdkEMonographVolumeToNdkEMonographUnit" },
+      ]
+    },
+
+    // oldprint
+    {
+      origin: 'oldprintmap',
+      dest: [
+        { model: 'ndkmap', originmodel: "oldprintmap", "apiPoint": "object/changeOldPrintCartographicToNdkCartographic" }
+      ]
+    },
+    {
+      origin: 'oldprintchapter',
+      dest: [
+        { model: 'ndkchapter', originmodel: "oldprintchapter", "apiPoint": "object/changeOldPrintChapterToNdkChapter" }
+      ]
+    },
+    {
+      origin: 'oldprintsupplement',
+      dest: [
+        { model: 'ndkmonographsupplement', originmodel: "oldprintsupplement", "apiPoint": "object/changeOldPrintMonographSupplementToNdkMonographSupplement" }
+      ]
+    },
+    {
+      origin: 'oldprintsheetmusic',
+      dest: [
+        { model: 'ndksheetmusic', originmodel: "oldprintsheetmusic", "apiPoint": "object/changeOldPrintMusicSheetToNdkMusicSheet" }
+      ]
+    },
+    {
+      origin: 'oldprintgraphics',
+      dest: [
+        { model: 'ndkpicture', originmodel: "oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToNdkPicture" },
+        { model: 'oldprintvolume', originmodel: "oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToOldprintMonographVolume" }
+      ]
+    },
+    {
+      origin: 'oldprintmonographtitle',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToNdkMonographVolume" },
+        { model: 'oldprintgraphics', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintGraphic" },
+        { model: 'oldprintsheetmusic', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet" },
+        { model: 'oldprintmonographunit', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMonographUnit"},
+        { model: 'oldprintvolume', originmodel: "oldprintmonographunit", apiPoint: "object/changeOldPrintMonographUnitToOldPrintMonographVolume" },
+      ]
+    },
+    {
+      origin: 'oldprintvolume',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToNdkMonographVolume" },
+        { model: 'oldprintgraphics', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintGraphic" },
+        { model: 'oldprintsheetmusic', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet" },
+        { model: 'oldprintmonographunit', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMonographUnit"}
+      ]
+    },
+    {
+      origin: 'oldprintmonographunit',
+      dest: [
+        { model: 'oldprintvolume', originmodel: "oldprintmonographunit", apiPoint: "object/changeOldPrintMonographUnitToOldPrintMonographVolume" },
+      ]
+    },
+
+    // k4
+    {
+      origin: 'monograph',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "monograph", apiPoint: "object/changeK4MonographToNdkMonographVolume" },
+        { model: 'ndkmonographvolume', originmodel: "monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume" },
+      ]
+    },
+    {
+      origin: 'monographunit',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume" },
+        { model: 'ndkmonographunit', originmodel: "monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographUnit" },
+      ]
+    },
+    {
+      origin: 'periodicalvolume',
+      dest: [
+        { model: 'ndkperiodicalissue', originmodel: "periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+        { model: 'ndkperiodicalvolume', originmodel: "periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume" },
+      ]
+    },
+    {
+      origin: 'periodical',
+      dest: [
+        { model: 'ndkperiodicalissue', originmodel: "periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+        { model: 'ndkperiodical', originmodel: "periodical", apiPoint: "object/changeK4PeriodicalToNdkPeriodical" },
+        { model: 'ndkperiodicalvolume', originmodel: "periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume" },
+      ]
+    },
+    {
+      origin: 'periodicalitem',
+      dest: [
+        { model: 'ndkperiodicalissue', originmodel: "periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+      ]
+    },
+
+
+    // clippings
+    {
+      origin: 'clippingstitle',
+      dest: [
+        { model: 'ndkmonographtitle', apiPoint: "object/changeClippingsTitleToNdkMonographTitle" },
+        { model: 'ndkmonographvolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume" },
+      ]
+    },
+    {
+      origin: 'clippingsvolume',
+      dest: [
+        { model: 'ndkmonographvolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume" },
+      ]
+    },
+  ],
+
+  // navbarColor: '#442200'
+}

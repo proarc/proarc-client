@@ -1,9 +1,10 @@
-// --- ROOT ---
+@use "angular-material-css-vars" as mat-css-vars;
+@use 'scss/app-variables';
+@use 'scss/app-layout';
+@use 'scss/app-flex-layout';
+@use 'scss/app-global';
+@use 'scss/app-mat-override';
+@use 'scss/app-form';
+@include mat-css-vars.init-material-css-vars();
 
-@import 'sass/app-variables';
-@import "sass/app-mixins";
-@import 'sass/app-global';
-@import 'sass/app-mat-override';
-@import 'sass/app-layout';
-@import 'sass/app-form';
-//@import 'sass/app-johny';
+@import 'highlight.js/styles/atom-one-light.css';

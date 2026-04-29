@@ -1,13 +1,21 @@
-import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
+import { Component, Input, OnInit, ElementRef, ViewChild, effect, input } from '@angular/core';
 import Book from 'epubjs/types/book';
 import { NavItem } from 'epubjs/types/navigation';
 import Rendition from 'epubjs/types/rendition';
 import Epub from 'epubjs';
-import { LayoutService } from 'src/app/services/layout.service';
 import { Subscription } from 'rxjs';
 
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { ApiService } from '../../services/api.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+
 @Component({
+  imports: [TranslateModule, FormsModule, MatCardModule, MatButtonModule, MatMenuModule, MatIconModule, MatTooltipModule],
   selector: 'app-epub',
   templateUrl: './epub.component.html',
   styleUrls: ['./epub.component.scss']
@@ -28,22 +36,12 @@ export class EpubComponent implements OnInit {
   epubUrl: string;
 
   subscriptions: Subscription[] = [];
-  
+  stream = input<string>();
+  pid = input<string>();
   private currentStream: string;
-  @Input()
-  set stream(stream: string) {
-    this.currentStream = stream;
-    this.onPidChanged(this.currentPid);
-  }
-
   private currentPid: string;
-  @Input() 
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
 
   onPidChanged(pid: string) {
-    this.currentPid = pid;
     this.state = 'loading';
     this.epubUrl = this.api.getStreamUrl(pid, this.currentStream);
     if (!pid) {
@@ -53,9 +51,13 @@ export class EpubComponent implements OnInit {
   }
 
   constructor(
-    private api: ApiService,
-    private layout: LayoutService
+    private api: ApiService
   ) {
+    effect(() => {
+      this.currentPid = this.pid();
+      this.currentStream = this.stream();
+      this.onPidChanged(this.currentPid);
+    })
   }
 
   ngOnDestroy() {

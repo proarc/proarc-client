@@ -1,8 +1,14 @@
 
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
+  standalone: true,
+  imports: [TranslateModule, MatDialogModule, MatButtonModule, MatTooltipModule],
   selector: 'app-log-dialog',
   templateUrl: './log-dialog.component.html',
   styleUrls: ['./log-dialog.component.scss']

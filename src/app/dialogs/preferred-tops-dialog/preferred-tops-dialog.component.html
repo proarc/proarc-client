@@ -1,15 +1,17 @@
-<h1 mat-dialog-title>{{ 'dialog.preferredTops.title.' + data | translate }}</h1>
+<h1 mat-dialog-title>{{ 'dialog.preferredTops.title.' + data.prefix | translate }}</h1>
 <div mat-dialog-content>
-
-  <div *ngFor="let item of items">
-    <mat-checkbox color="primary" [(ngModel)]="checked[item.code]">{{ item.name }}</mat-checkbox>
-  </div>
+  @for(item of items; track $index;) {
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name | translate }}</mat-checkbox>
+    </div>
+  }
 </div>
-<div>
-  <mat-slide-toggle *ngIf="this.data === 'ExpandedModels'" [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
+<div class="app-pr-6 app-pl-6 app-pt-4 app-pb-4">
+  @if (this.data.expanded) {
+    <mat-slide-toggle [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
+  }
 </div>
-<div mat-dialog-actions cdkFocusRegionstart> 
-   
-  <button mat-flat-button color="primary" (click)="onSave()" >{{ 'button.save' | translate }}</button>
-  <button mat-flat-button [mat-dialog-close]="'close'" >{{ 'button.close' | translate }}</button>
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button matButton="filled" (click)="onSave()" >{{ 'button.save' | translate }}</button>
+  <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
 </div>

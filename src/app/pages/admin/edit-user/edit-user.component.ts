@@ -1,12 +1,26 @@
+
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { User } from 'src/app/model/user.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { UIService } from 'src/app/services/ui.service';
-import { ConfigService } from 'src/app/services/config.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { User } from '../../../model/user.model';
+import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { Configuration } from '../../../shared/configuration';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
@@ -19,17 +33,17 @@ export class EditUserComponent implements OnInit {
 
   public id: number;
   selectedUser: any;
-
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   constructor(
-    private api: ApiService,        
+    private api: ApiService,
     private translator: TranslateService,
     private route: ActivatedRoute,
     private ui: UIService,
-    private config: ConfigService,
-    private router: Router
+    private config: Configuration,
+    private router: Router,
+    public auth: AuthService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +86,7 @@ export class EditUserComponent implements OnInit {
       this.api.newUser(this.selectedUser).subscribe((response: any) => {
         if (response['response'].errors) {
           this.ui.showErrorDialogFromObject(response['response'].errors);
-          return; 
+          return;
         }
         const user: User =  User.fromJson(response['response']['data'][0]);
         this.getUser();
@@ -86,5 +100,5 @@ export class EditUserComponent implements OnInit {
       });
     }
   }
-  
+
 }

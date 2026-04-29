@@ -1,23 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { User } from 'src/app/model/user.model';
-import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UIService } from 'src/app/services/ui.service';
-import { CodebookService } from 'src/app/services/codebook.service';
-import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
-import { ConfigService } from 'src/app/services/config.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { DocumentItem } from '../../model/documentItem.model';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { User } from '../../model/user.model';
+import { ApiService } from '../../services/api.service';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { Configuration } from '../../shared/configuration';
+import { UIService } from '../../services/ui.service';
+import { AuthService } from '../../services/auth.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
+import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
+  imports: [TranslateModule, FormsModule, DragDropModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule, MatCheckboxModule, RouterModule],
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
@@ -29,108 +41,82 @@ export class SettingsComponent implements OnInit {
   state = 'none';
   user: User | null;
 
+  appearance: boolean;
+
   forename: string;
   surname: string;
 
   // searchCols: any;
   selectedModels = new FormControl('');
 
-  relatedItemExpanded: boolean;
-
-  formHighlighting: boolean;
-
+  // relatedItemExpanded: boolean;
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
 
 
-  public selectedColumnsEditingRepo = [
-    { field: 'label', selected: true, width: 140 },
-    { field: 'filename', selected: true, width: 140 },
-    { field: 'pageType', selected: true, width: 140 },
-    { field: 'pageNumber', selected: true, width: 140 },
-    { field: 'pageIndex', selected: true, width: 140 },
-    { field: 'pagePosition', selected: true, width: 140 },
-    { field: 'model', selected: true, width: 140 },
-    { field: 'pid', selected: false, width: 140 },
-    { field: 'owner', selected: false, width: 140 },
-    { field: 'created', selected: false, width: 140 },
-    { field: 'modified', selected: true, width: 140 },
-    { field: 'status', selected: false, width: 140 }
-  ];
-
-  public selectedColumnsEditingImport = [
-    { field: 'filename', selected: true, width: 140 },
-    { field: 'pageType', selected: true, width: 140 },
-    { field: 'pageNumber', selected: true, width: 140 },
-    { field: 'pageIndex', selected: true, width: 140 },
-    { field: 'pagePosition', selected: true, width: 140 },
-    { field: 'model', selected: true, width: 140 },
-    { field: 'pid', selected: false, width: 140 },
-    { field: 'owner', selected: false, width: 140 },
-    { field: 'created', selected: false, width: 140 },
-    { field: 'modified', selected: true, width: 140 },
-    { field: 'status', selected: false, width: 140 }
-  ];
-
   modelForColumns: string;
-  colsEditModeParent: boolean = true;
+  // colsEditModeParent: boolean = true;
   columnsSearchTree: any;
-  searchExpandTree: boolean = true;
+  // searchExpandTree: boolean = true;
+
+  curSettings: UserSettings;
 
   constructor(
     private api: ApiService,
     private translator: TranslateService,
     private dialog: MatDialog,
     private ui: UIService,
-    public codebook: CodebookService,
-    public properties: LocalStorageService,
-    public config: ConfigService,
+    // public codebook: CodebookService,
+    // public settings: UserSettings,
+    public settingsService: UserSettingsService,
+    public settings: UserSettings, 
+    public config: Configuration,
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.properties.getSearchColumns();
-    this.properties.getSearchColumnsTree();
-    this.initSelectedColumnsEditingImport();
-    this.properties.getProcMngColumns();
-    this.properties.getQueueColumns();
+    this.curSettings = this.settingsService.cloneSettings();
+    this.appearance = this.curSettings.appearance === 'outline';
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
 
-    // this.searchCols = {};
-    // for (const col of this.properties.availableSearchColumns) {
-    //   this.searchCols[col] = this.properties.isSearchColEnabled(col);
-    // }
-
-    if (localStorage.getItem('expandedModels')) {
-      this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
-    }
-
-
-    if (localStorage.getItem('relatedItemExpanded')) {
-      this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
-    }
-
-    if (localStorage.getItem('formHighlighting')) {
-      this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
-    }
-
-    this.models = this.config.allModels;
+    this.models = this.config.models;
     this.modelForColumns = this.models[0];
-    this.colsEditModeParent = this.properties.getColsEditingRepo();
-
-    this.searchExpandTree = this.properties.getBoolProperty('searchExpandTree', true);
   }
+
+  save() {
+    this.settingsService.setSettings(this.curSettings);
+  }
+    setAppearance() {
+      this.curSettings.appearance = this.appearance ? 'outline'  : 'fill';
+    }
 
   getColumnsForModel() {
     // this.initSelectedColumnsEditingRepo();
   }
 
-  changeCodebookTops(type: any) {
-    this.dialog.open(PreferredTopsDialogComponent, { data: type });
+  changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
+    const top: string[] = this.curSettings[listName];
+    const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
+      data: { prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded },
+      panelClass: ['app-dialog-preferred-tops', 'app-form-view-' + this.settings.appearance]
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.curSettings[listName] = [];
+        result.top.forEach((r: string) => {
+          this.curSettings[listName].push(r);
+        });
+        this.curSettings.relatedItemExpanded = result.relatedItemExpanded;
+
+        this.settingsService.setSettings(this.curSettings);
+      }
+    });
   }
 
 
@@ -153,74 +139,21 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-
-  // seveSearchCols() {
-  //   for (const col of this.properties.availableSearchColumns) {
-  //     this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
-  //   }
-  //   this.ui.showInfo('snackbar.settings.search.updated');
-  // }
-
-
   changePassword() {
     this.dialog.open(NewPasswordDialogComponent, {
       width: '550px',
-      panelClass: 'app-dialog-new-password'
+      panelClass: ['app-dialog-new-password', 'app-form-view-' + this.settings.appearance]
     });
   }
 
-  changeExpandedModels() {
-    localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
-    localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
+  resetOne(s: string) {
+    this.settingsService.resetOne(s);
+    this.curSettings = this.settingsService.cloneSettings();
   }
 
-  highlightForm() {
-    localStorage.setItem('formHighlighting', JSON.stringify(this.formHighlighting));
-    this.ui.showInfo('snackbar.changeSaved');
-  }
-
-  setSearchExpandTree() {
-    this.properties.setBoolProperty('searchExpandTree', this.searchExpandTree);
-    this.ui.showInfo('snackbar.changeSaved');
-  }
-
-  setSelectedColumnsSearch() {
-    this.properties.setSelectedColumnsSearch();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsProcMng() {
-    this.properties.setSelectedColumnsProcMng();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsQueue() {
-    this.properties.setSelectedColumnsQueue();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsSearchTree() {
-    
-    this.properties.setSelectedColumnsSearchTree(this.properties.searchColumnsTree);
-    // this.properties.setColumnsSearchTree(this.searchColumnsTree);
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsEditingRepo() {
-    this.properties.setColumnsEditingRepo(this.colsEditModeParent);
-    
-    this.ui.showInfo('snackbar.settings.columns.updated');
-
-  }
-
-  initSelectedColumnsEditingImport() {
-    this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
-  }
-
-  setSelectedColumnsEditingImport() {
-    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
-    this.initSelectedColumnsEditingImport();
-    this.ui.showInfo('snackbar.settings.columns.updated');
+  resetRepo() {
+    this.settingsService.resetRepo();
+    this.curSettings = this.settingsService.cloneSettings();
   }
 
   resetSettings() {
@@ -239,14 +172,15 @@ export class SettingsComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        localStorage.clear();
-        this.initSelectedColumnsEditingImport();
-        this.properties.getSearchColumns();
-        this.properties.getSearchColumnsTree();
-        this.colsEditModeParent =  this.properties.getColsEditingRepo();
+        this.settingsService.reset();
+        this.settingsService.save(false);
+        this.curSettings = this.settingsService.cloneSettings();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }
     });

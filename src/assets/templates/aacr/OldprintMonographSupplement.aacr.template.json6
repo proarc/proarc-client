@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -30,7 +29,6 @@
       },
       partNumber: {
         usage: 'MA',
-        //          required: true,
         label: 'Číslo přílohy',
         selector: 'titleInfo/partNumber',
         labelKey: 'titleInfo/partNumber',
@@ -58,7 +56,6 @@
     fields: {
       type: {
         usage: 'MA',
-        //          required: true,
         label: 'Typ',
         selector: 'name/@type',
         labelKey: 'name/@type',
@@ -400,7 +397,6 @@
           value: {
             label: 'Hodnota',
             usage: 'RA',
-            //              required: true,
             selector: 'originInfo/frequency',
             labelKey: 'originInfo/frequency',
             help: 'off'
@@ -631,7 +627,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'R',
-                //                  required: true,
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -664,7 +659,6 @@
   },
   language: {
     usage: 'MA',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -698,7 +692,6 @@
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -731,7 +724,6 @@
       },
       form: {
         usage: 'M',
-        required: true,
         label: 'Forma',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
@@ -904,7 +896,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -923,7 +914,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1133,7 +1123,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1192,7 +1181,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

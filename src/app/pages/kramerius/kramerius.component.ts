@@ -1,18 +1,37 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
 import { combineLatest, Subscription } from 'rxjs';
-import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
-import { DocumentItem } from 'src/app/model/documentItem.model';
-import { Metadata } from 'src/app/model/metadata.model';
-import { Mods } from 'src/app/model/mods.model';
-import { Page } from 'src/app/model/page.model';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { TemplateService } from 'src/app/services/template.service';
-import { UIService } from 'src/app/services/ui.service';
 import { parseString } from 'xml2js';
+import { PanelComponent } from '../../components/panel/panel.component';
+import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
+import { Metadata } from '../../model/metadata.model';
+import { Mods } from '../../model/mods.model';
+import { Page } from '../../model/page.model';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { TemplateService } from '../../services/template.service';
+import { UIService } from '../../services/ui.service';
+import { UserSettings } from '../../shared/user-settings';
+import { MatSelectModule } from "@angular/material/select";
+import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
+import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { KrameriusModsComponent } from "./kramerius-mods/kramerius-mods.component";
+import { ViewerComponent } from "../../components/viewer/viewer.component";
 
 @Component({
+  imports: [TranslateModule, FormsModule, AngularSplitModule, RouterModule,
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
+    MatTooltipModule, MatMenuModule, MatSelectModule, EditorPageComponent, EditorMetadataComponent,
+    KrameriusModsComponent, ViewerComponent],
   selector: 'app-kramerius',
   templateUrl: './kramerius.component.html',
   styleUrls: ['./kramerius.component.scss']
@@ -38,6 +57,8 @@ export class KrameriusComponent implements OnInit {
     canEdit: true
   };
 
+  panelType: string;
+
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -46,6 +67,7 @@ export class KrameriusComponent implements OnInit {
     private ui: UIService,
     public layout: LayoutService,
     private tmpl: TemplateService,
+        public settings: UserSettings,
     private api: ApiService) { }
 
   ngOnDestroy() {
@@ -54,6 +76,7 @@ export class KrameriusComponent implements OnInit {
 
   ngOnInit(): void {
     this.layout.type = 'kramerius';
+    this.panelType = this.panel.type;;
 
     this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData();
@@ -73,11 +96,15 @@ export class KrameriusComponent implements OnInit {
       });
   }
 
+  changePanelType(newType: string) {
+    this.panelType = newType;
+  }
+
   loadData() {
     this.state = 'loading';
     this.hasImage = false;
     this.layout.lastSelectedItemMetadata = null;
-    this.layout.lastSelectedItem = null;
+    this.layout.lastSelectedItem.set(null);
     this.api.getKrameriusMods(this.pid, this.instance).subscribe((response: any) => {
       if (response && response['response'] && response['response']['data']) {
         // stranka
@@ -93,7 +120,7 @@ export class KrameriusComponent implements OnInit {
 
         const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
         this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
-          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp'], standard, tmpl);
+          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp'], standard, tmpl, this.settings);
         });
 
         //this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);

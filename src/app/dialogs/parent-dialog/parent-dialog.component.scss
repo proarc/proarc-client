@@ -1,4 +1,8 @@
+::ng-deep .mat-mdc-dialog-surface {
+  resize: both;
+}
+
 .app-breadcrumbsbar {
-  padding: 0 !important;
+  min-height: 36px;
 }
 

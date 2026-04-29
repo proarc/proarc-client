@@ -1,25 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { UIService } from 'src/app/services/ui.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 // -- table to expand --
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Sort, SortDirection } from '@angular/material/sort';
-import { User } from 'src/app/model/user.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { TaskssEditDialogComponent } from '../tasks-edit-dialog/tasks-edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { WorkFlowProfile } from 'src/app/model/workflow.model';
 import { forkJoin } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
-// -- table to expand --
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularSplitModule } from 'angular-split';
+import { UserTableComponent } from '../../../components/user-table/user-table.component';
+import { User } from '../../../model/user.model';
+import { WorkFlowProfile } from '../../../model/workflow.model';
+import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
+import { LayoutService } from '../../../services/layout-service';
+import { UIService } from '../../../services/ui.service';
+import { MaterialEditComponent } from '../material-edit/material-edit.component';
+import { Configuration } from '../../../shared/configuration';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, MatCheckboxModule, 
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatTableModule, MatSortModule, UserTableComponent, MaterialEditComponent, RouterModule],
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
@@ -34,6 +53,8 @@ import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings
   // -- table to expand --
 })
 export class TaskComponent implements OnInit {
+
+  loading: boolean;
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
@@ -50,10 +71,12 @@ export class TaskComponent implements OnInit {
   colsWidthTasks: { [key: string]: number } = {};
 
 
-  selectedColumns: string[] = [];
   filterTasksColumns: string[] = [];
   // tasksSortField: string = 'created';
   // tasksSortDir: SortDirection = 'desc';
+
+  workflowTasksSort: {active: string, direction: SortDirection} = {active: 'created', direction: 'desc'} ;
+  workflowTasksFilters: { [field: string]: string } = {};
 
 
   columnTypes: { [field: string]: string } = {};
@@ -109,17 +132,16 @@ export class TaskComponent implements OnInit {
     private dialog: MatDialog,
     private translator: TranslateService,
     private route: ActivatedRoute,
-    private config: ConfigService,
-    public properties: LocalStorageService,
+    private config: Configuration,
     private api: ApiService,
     public auth: AuthService,
     private ui: UIService,
-    public layout: LayoutService
+    public layout: LayoutService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {
     this.profileNames = this.config.getValueMap('proarc.workflow.tasks');
-    this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
     // this.tasksColumns.forEach(c => {
     //   this.filterTasksColumns.push(c + '-filter');
     // });
@@ -143,34 +165,16 @@ export class TaskComponent implements OnInit {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
+      
       this.profiles = profiles.response.data;
-      this.setSelectedColumnsTasks();
+      this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
+      this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
       this.initData();
     });
   }
 
-  setSelectedColumnsTasks() {
-    this.filterTasksColumns = [];
-    this.selectedColumns = this.columnsTasks.filter(c => c.selected).map(c => c.field);
-
-    this.selectedColumns.forEach(c => {
-      this.filterTasksColumns.push(c + '-filter');
-      this.filterFields[c] = this.layout.workflowTasksFilters[c];
-      if (this.columnTasksType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnTasksType(c);
-    });
-
-    this.setColumnsWidthTasks();
-  }
-
-  setColumnsWidthTasks() {
-    this.colsWidthTasks = {};
-    this.columnsTasks.forEach((c: any) => {
-      this.colsWidthTasks[c.field] = c.width;
-    });
-  }
 
   initData() {
     this.api.getUsers().subscribe((users: User[]) => {
@@ -181,7 +185,7 @@ export class TaskComponent implements OnInit {
       this.imageColors = this.config.getValueMap('wf.valuemap.imageColor');
       this.dpis = this.config.getValueMap('wf.valuemap.dpi');
       this.profileNames = this.config.getValueMap('proarc.workflow.tasks');
-      this.layout.ready = true;
+      this.loading = false;
       if (this.id) {
         this.loadTask(this.id);
       } else {
@@ -219,9 +223,10 @@ export class TaskComponent implements OnInit {
   }
 
   getTasks() {
+    this.loading = true;
     let params = '?';
-    if (this.layout.workflowTasksSort.direction) {
-      params += '_sortBy=' + (this.layout.workflowTasksSort.direction === 'desc' ? '-' : '') + this.layout.workflowTasksSort.field;
+    if (this.workflowTasksSort.direction) {
+      params += '_sortBy=' + (this.workflowTasksSort.direction === 'desc' ? '-' : '') + this.workflowTasksSort.active;
     }
 
     if (this.onlyMyTasks) {
@@ -229,10 +234,10 @@ export class TaskComponent implements OnInit {
       // params += '&state=READY&ownerId=' + this.auth.getUserId();
     }
 
-    const keys: string[] = Object.keys(this.layout.workflowTasksFilters);
+    const keys: string[] = Object.keys(this.workflowTasksFilters);
     keys.forEach((k: string) => {
-      if (this.layout.workflowTasksFilters[k] !== '') {
-        params += `&${k}=${this.layout.workflowTasksFilters[k]}`;
+      if (this.workflowTasksFilters[k] !== '') {
+        params += `&${k}=${this.workflowTasksFilters[k]}`;
       }
     });
 
@@ -256,8 +261,7 @@ export class TaskComponent implements OnInit {
         this.selectTask(null);
         this.totalSelected = 0;
       }
-      
-
+      this.loading = false;
     });
   }
 
@@ -325,6 +329,10 @@ export class TaskComponent implements OnInit {
 
   }
 
+  gotoJob(id: string) {
+    this.router.navigate(['/workflow/jobs', id]);
+  }
+
   saveTasks() {
 
   }
@@ -366,49 +374,49 @@ export class TaskComponent implements OnInit {
     if (this.id) {
       return;
     }
-    this.layout.workflowTasksSort = {field: e.active, direction: e.direction};
+    this.workflowTasksSort = {active: e.active, direction: e.direction};
     this.getTasks();
   }
 
-  filter(field: string, value: string) {
-    this.layout.workflowTasksFilters[field] = value;
+  filter(e : {field: string, value: string}) {
+    this.workflowTasksFilters[e.field] = e.value;
     this.getTasks();
   }
 
-  taskClick(item: any, event?: MouseEvent, idx?: number) {
-    if (event && (event.metaKey || event.ctrlKey)) {
-      item.selected = !item.selected;
-      this.startShiftClickIdx = idx;
-    } else if (event && event.shiftKey) {
+  taskClick(e: {item: any, event?: MouseEvent, idx?: number}) {
+    if (e.event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
       if (this.startShiftClickIdx > -1) {
         const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
         const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
         for (let i = oldFrom; i <= oldTo; i++) {
           this.tasks[i].selected = false;
         }
-        const from = Math.min(this.startShiftClickIdx, idx);
-        const to = Math.max(this.startShiftClickIdx, idx);
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
         for (let i = from; i <= to; i++) {
           this.tasks[i].selected = true;
         }
       } else {
         // nic neni.
         this.tasks.forEach(i => i.selected = false);
-        item.selected = true;
-        this.startShiftClickIdx = idx;
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
       }
     } else {
       this.tasks.forEach(i => i.selected = false);
-      item.selected = true;
-      this.startShiftClickIdx = idx;
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
     }
 
-    this.lastClickIdx = idx;
+    this.lastClickIdx = e.idx;
     this.totalSelected = this.tasks.filter(i => i.selected).length;
     this.isSelectionSameType = true;
     if (this.totalSelected > 1) {
 
-      let profileLabel = item.profileLabel;
+      let profileLabel = e.item.profileLabel;
       this.tasks.filter(i => i.selected).forEach(i => {
         if (i.profileLabel !== profileLabel) {
           this.isSelectionSameType = false;
@@ -418,7 +426,7 @@ export class TaskComponent implements OnInit {
 
 
     if (this.totalSelected > 0) {
-      this.selectTask(item);
+      this.selectTask(e.item);
     }
   }
 
@@ -433,7 +441,8 @@ export class TaskComponent implements OnInit {
         users: this.users,
         parameters: this.parameters,
         tasks: this.tasks.filter(i => i.selected)
-      }
+      },
+      panelClass: ['app-dialog-tasks-edit', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -442,14 +451,14 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  saveColumnsSizes(e: any, field?: string) {
-    this.colsWidthTasks[field] = e;
-    this.columnsTasks.forEach((c: any) => {
-      c.width = this.colsWidthTasks[c.field];
-    });
+  // saveColumnsSizes(e: any, field?: string) {
+  //   this.colsWidthTasks[field] = e;
+  //   this.columnsTasks.forEach((c: any) => {
+  //     c.width = this.colsWidthTasks[c.field];
+  //   });
 
-    this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
-  }
+  //   this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
+  // }
 
 
   listValue(field: string, code: string) {
@@ -482,36 +491,36 @@ export class TaskComponent implements OnInit {
       case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       // case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
       default: return [];
     }
   }
 
-  selectColumns(type: string) {
-    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
-      data: {
-        type: type,
-        isRepo: false,
-        isImport: false,
-        isWorkFlow: type === 'jobs',
-        isWorkFlowSubJobs: type === 'subjobs',
-        isWorkFlowTasks: type === 'tasks'
-      },
-      width: '600px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        switch (type) {
-          case 'tasks':
-            this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
-            this.setSelectedColumnsTasks();
-            break;
-          default:
+  // selectColumns(type: string) {
+  //   const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+  //     data: {
+  //       type: type,
+  //       isRepo: false,
+  //       isImport: false,
+  //       isWorkFlow: type === 'jobs',
+  //       isWorkFlowSubJobs: type === 'subjobs',
+  //       isWorkFlowTasks: type === 'tasks'
+  //     },
+  //     width: '600px',
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       switch (type) {
+  //         case 'tasks':
+  //           this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+  //           this.setSelectedColumnsTasks();
+  //           break;
+  //         default:
 
-        }
+  //       }
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 
 }

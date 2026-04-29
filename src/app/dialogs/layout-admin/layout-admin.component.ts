@@ -1,17 +1,28 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export const localStorageName = 'proarc-layout';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { Utils } from '../../utils/utils';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 export interface ILayoutPanel {
-    id: string,
-    visible: boolean,
-    isEmpty?: boolean,
-    size: number,
-    type: string,
-    isDirty: boolean,
-    canEdit: boolean
-  }
+  id: string,
+  visible: boolean,
+  isEmpty?: boolean,
+  size: number,
+  type: string,
+  isDirty: boolean,
+  canEdit: boolean
+}
 
 export interface IConfig {
   columns: Array<{
@@ -22,51 +33,30 @@ export interface IConfig {
   disabled: boolean
 }
 
-export const defaultLayoutConfig: IConfig = {
-  columns: [
-    {
-      visible: true,
-      size: 33,
-      rows: [
-        { id: 'panel1', visible: true, size: 25, type: 'structure-list', isDirty: false, canEdit: true },
-        { id: 'panel2', visible: true, size: 75, type: 'metadata', isDirty: false, canEdit: true },
-      ],
-    },
-    {
-      visible: true,
-      size: -1,
-      rows: [
-        { id: 'panel3', visible: true, size: 20, type: 'mods', isDirty: false, canEdit: true },
-        { id: 'panel4', visible: false, size: 30, type: 'ocr', isDirty: false, canEdit: true },
-        { id: 'panel5', visible: false, size: 50, type: 'comment', isDirty: false, canEdit: true },
-      ],
-    },
-    {
-      visible: true,
-      size: 33,
-      rows: [
-        { id: 'panel6', visible: true, size: 40, type: 'image', isDirty: false, canEdit: true },
-        { id: 'panel7', visible: true, size: 60, type: 'atm', isDirty: false, canEdit: true },
-      ],
-    },
-  ],
-  disabled: false,
-}
+
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
+    MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatTooltipModule, MatSelectModule, MatDialogModule
+  ],
   selector: 'app-layout-admin',
   templateUrl: './layout-admin.component.html',
   styleUrls: ['./layout-admin.component.scss']
 })
 export class LayoutAdminComponent implements OnInit {
 
-  
+
   config: IConfig = null;
+  saved: boolean;
 
   types = ['structure-list', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'premis', 'comment', 'image', 'media']; // structure-grid has been removed
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {layout: string}) { }
+    @Inject(MAT_DIALOG_DATA) public data: { layout: string },
+    public settings: UserSettings,
+    private settingsService: UserSettingsService) { }
 
   ngOnInit() {
     if (!this.data.layout) {
@@ -78,25 +68,26 @@ export class LayoutAdminComponent implements OnInit {
     }
 
     let idx = 0;
-    
-    if (localStorage.getItem(localStorageName + '-' + this.data.layout)) {
-      this.config = JSON.parse(localStorage.getItem(localStorageName + '-' + this.data.layout));
-      this.config.columns.forEach(c => {
-        c.rows.forEach(r => {
-          if (!r.id) {
-            r.id = 'panel' + idx++;
-          }
-          r.canEdit = true;
-        });
-      });
+
+    if (this.data.layout === 'repo') {
+      this.config = Utils.clone(this.settings.repositoryLayout);
     } else {
-      this.resetConfig()
+      this.config = Utils.clone(this.settings.importLayout);
     }
+
+
+    this.config.columns.forEach(c => {
+      c.rows.forEach(r => {
+        if (!r.id) {
+          r.id = 'panel' + idx++;
+        }
+        r.canEdit = true;
+      });
+    });
   }
 
   resetConfig() {
-    this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    localStorage.removeItem(localStorageName + '-' + this.data.layout)
+    this.config = Utils.clone(this.settingsService.defaultLayoutConfig);
   }
 
   onDragEnd(columnindex: number, e: any) {
@@ -113,12 +104,12 @@ export class LayoutAdminComponent implements OnInit {
         .forEach((row, index) => (row.size = e.sizes[index]))
     }
 
-    this.saveLocalStorage()
+    this.settingsService.save();
   }
 
-  toggleDisabled() {
-    this.config.disabled = !this.config.disabled;
-    this.saveLocalStorage()
+  toggleColumnVisibility(r: ILayoutPanel) {
+    r.visible = !r.visible; 
+    this.refreshColumnVisibility();
   }
 
   refreshColumnVisibility() {
@@ -126,20 +117,17 @@ export class LayoutAdminComponent implements OnInit {
     this.config.columns.forEach((column, index) => {
       column.visible = column.rows.some((row) => row.visible === true)
     })
-
-    this.saveLocalStorage()
   }
 
-  setLayoutConfig() {
-    if (localStorage.getItem(localStorageName + '-' + this.data.layout)) {
-      this.config = JSON.parse(localStorage.getItem(localStorageName + '-' + this.data.layout))
+  save() {
+    if (this.data.layout === 'repo') {
+      this.settings.repositoryLayout = Utils.clone(this.config);
     } else {
-      this.resetConfig()
+      this.settings.importLayout = Utils.clone(this.config);
     }
-  }
-
-  saveLocalStorage() {
-    localStorage.setItem(localStorageName + '-' + this.data.layout, JSON.stringify(this.config))
+    this.settingsService.save();
+    this.saved = true;
+    this.dialogRef.close(this.saved);
   }
 
 }

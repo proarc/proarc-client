@@ -1,11 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Catalogue, CatalogueField } from 'src/app/model/catalogue.model';
-import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { Catalogue, CatalogueField } from '../../../model/catalogue.model';
+import { CatalogueEntry } from '../../../model/catalogueEntry.model';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule,
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatDividerModule,
+    MatRadioModule, MatFormFieldModule, MatSelectModule, MatCardModule
+  ],
   selector: 'app-new-job-dialog',
   templateUrl: './new-job-dialog.component.html',
   styleUrls: ['./new-job-dialog.component.scss']

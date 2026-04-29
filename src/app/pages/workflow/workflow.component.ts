@@ -1,36 +1,51 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { transformGeometryWithOptions } from 'ol/format/Feature';
-import { WorkFlow, WorkFlowMaterial, WorkFlowProfile, WorkFlowProfileSubjob } from 'src/app/model/workflow.model';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
-import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LayoutService } from 'src/app/services/layout.service';
-import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 // -- table to expand --
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Sort, SortDirection } from '@angular/material/sort';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { User } from 'src/app/model/user.model';
-import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
-import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { WorkFlowTree } from './workflowTree.model';
+import { MatSortModule, Sort, SortDirection } from '@angular/material/sort';
 import { forkJoin } from 'rxjs';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { Device } from 'src/app/model/device.model';
-// -- table to expand --
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularSplitModule } from 'angular-split';
+import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
+import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { Device } from '../../model/device.model';
+import { User } from '../../model/user.model';
+import { WorkFlowProfile, WorkFlow, WorkFlowMaterial } from '../../model/workflow.model';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
+import { LayoutService } from '../../services/layout-service';
+import { UIService } from '../../services/ui.service';
+import { Configuration } from '../../shared/configuration';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { MaterialEditComponent } from "./material-edit/material-edit.component";
+import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
+    AngularSplitModule, MatTableModule, RouterModule,
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule,
+    MatSortModule, UserTableComponent, MaterialEditComponent, UserTreeTableComponent],
   selector: 'app-workflow',
   templateUrl: './workflow.component.html',
   styleUrls: ['./workflow.component.scss'],
@@ -47,16 +62,11 @@ import { Device } from 'src/app/model/device.model';
 
 export class WorkFlowComponent implements OnInit {
 
+
   @ViewChild('subJobsTable') subJobsTable: MatTable<any>;
 
+  loading: boolean;
   state: string;
-
-  columnsWorkFlow: { field: string, selected: boolean, type: string }[];
-  colsWidth: { [key: string]: number } = {};
-  columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
-  colsWidthSubJobs: { [key: string]: number } = {};
-  columnsTasks: { field: string, selected: boolean, type: string }[];
-  colsWidthTasks: { [key: string]: number } = {};
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
@@ -88,15 +98,14 @@ export class WorkFlowComponent implements OnInit {
   physicalDocument: any;
 
   subJobs: WorkFlow[] = [];
-  visibleSubJobs: WorkFlow[] = [];
-  public subJobsTree: WorkFlowTree;
+  visibleSubJobs: any[] = [];
   selectedSubJob: WorkFlow;
   subJobsMaxLevel = 0;
 
-  // jobsSortField: string = 'created';
-  // jobsSortDir: SortDirection = 'desc';
-  // subjobsSortField: string = 'created';
-  // subjobsSortDir: SortDirection = 'desc';
+  workflowJobsSort: Sort = {active: 'created', direction: 'desc'} ;
+  workflowJobsFilters: { [field: string]: string } = {};
+
+  workflowSubjobsSort: Sort = {active: 'created', direction: 'desc'} ;
 
   selectedTask: any;
 
@@ -134,24 +143,22 @@ export class WorkFlowComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    public properties: LocalStorageService,
     private translator: TranslateService,
     public auth: AuthService,
-    private config: ConfigService,
+    private config: Configuration,
+    public settings: UserSettings,
+    public settingsService: UserSettingsService,
     private api: ApiService,
     private ui: UIService,
     public layout: LayoutService,
     private clipboard: Clipboard) { }
 
   ngOnInit(): void {
-    this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
-    this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-    this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+    // this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
+    // this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
+    // this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
     this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
 
-    // this.api.getUsers().subscribe((users: User[]) => {
-    //   this.users = users;
-    // });
     this.getWorkflowProfiles();
   }
 
@@ -160,7 +167,7 @@ export class WorkFlowComponent implements OnInit {
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
-      panelClass: 'app-dialog-layout-settings'
+      panelClass: ['app-dialog-layout-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
@@ -175,30 +182,27 @@ export class WorkFlowComponent implements OnInit {
     const rDevices = this.api.getDevices();
     forkJoin([rUsers, rProfiles, rDevices]).subscribe(([users, profiles, devices]: [User[], any, Device[]]) => {
       this.users = users;
+
       if (profiles['response'].errors) {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
       this.profiles = profiles.response.data;
       this.devices = devices;
-
-      this.lists['taskName'] = this.getList('taskName');
-      this.setSelectedColumns();
-      // this.jobsSortField = this.workFlowColumns[0];
-      this.setSelectedColumnsSubJobs();
-      this.setSelectedColumnsTasks();
+      this.lists['model'] = this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      this.lists['taskUser'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
+      this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      this.lists['deviceId'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
+      this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       this.getWorkflow(false);
     });
   }
 
-  // getXML(id: string) {
-  //   this.api.getWorkflowXML(id).subscribe((response: any) => {
-  //     console.log(response)
-  //   });
-  // }
-
   getWorkflow(keepSelection: boolean) {
-    this.state = 'loading';
+    this.loading = true;
     let id = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : null;
     if (keepSelection) {
       id = this.selectedJob.id;
@@ -206,12 +210,12 @@ export class WorkFlowComponent implements OnInit {
     this.jobs = [];
     this.subJobs = [];
     let params = '?';
-    params += '_sortBy=' + (this.layout.workflowJobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowJobsSort.field;
+    params += '_sortBy=' + (this.workflowJobsSort.direction === 'desc' ? '-' : '') + this.workflowJobsSort.active;
 
-    const keys: string[] = Object.keys(this.layout.workflowJobsFilters);
+    const keys: string[] = Object.keys(this.workflowJobsFilters);
     keys.forEach((k: string) => {
-      if (this.layout.workflowJobsFilters[k] !== '') {
-        params += `&${k}=${this.layout.workflowJobsFilters[k]}`;
+      if (this.workflowJobsFilters[k] !== '') {
+        params += `&${k}=${this.workflowJobsFilters[k]}`;
       }
     });
 
@@ -235,41 +239,11 @@ export class WorkFlowComponent implements OnInit {
         this.selectJob(this.jobs[0]);
       }
       this.state = 'success';
-      this.layout.ready = true;
+      this.loading = false;
     });
   }
 
-  getSubJobs(job: WorkFlow) {
-
-    let params = '?parentId=' + job.id;
-    params += '&_sortBy=' + (this.layout.workflowSubjobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowSubjobsSort.field;
-
-    this.api.getWorkflow(params).subscribe((response: any) => {
-      if (response['response'].errors) {
-        this.ui.showErrorDialogFromObject(response['response'].errors);
-        return;
-      }
-
-      job.expanded = true;
-      job.childrenLoaded = true;
-      job.hasChildren = response.response.data.length > 0;
-
-      const idx = this.subJobs.findIndex(j => j.id === job.id) + 1;
-
-      response.response.data.forEach((j: WorkFlow) => {
-        j.level = job.level + 1;
-        j.expandable = this.isExpandable(j);
-      });
-
-      if (response.response.data.length > 0) {
-        this.subJobsMaxLevel = Math.max(job.level + 1, this.subJobsMaxLevel);
-      }
-
-      this.subJobs.splice(idx, 0, ...response.response.data);
-
-      this.refreshVisibleSubJobs();
-    });
-  }
+  
 
   getMaterial() {
     this.api.getWorkflowMaterial(this.activeJob.id).subscribe((response: any) => {
@@ -322,8 +296,11 @@ export class WorkFlowComponent implements OnInit {
 
   refreshSubJobs() {
     this.subJobsMaxLevel = 0;
-    this.subJobs = [this.selectedJob];
-    this.getSubJobs(this.selectedJob);
+    this.subJobs = [];
+    setTimeout(() => {
+      this.subJobs = [this.selectedJob];
+    }, 10);
+    
   }
 
   isExpandable(job: WorkFlow) {
@@ -333,7 +310,7 @@ export class WorkFlowComponent implements OnInit {
       console.log('PROBLEM!! Neni mezi profiles', job.profileName);
       return false;
     }
-    return  p.subjob.length > 0;
+    return p.subjob && p.subjob.length > 0;
   }
 
   selectJob(w: WorkFlow) {
@@ -376,7 +353,7 @@ export class WorkFlowComponent implements OnInit {
     const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px',
-      panelClass: 'app-dialog-new-object'
+      panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['data']) {
@@ -385,6 +362,7 @@ export class WorkFlowComponent implements OnInit {
             disableClose: true,
             height: '90%',
             width: '680px',
+            panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
             data: {
               isWorkFlow: true,
               jobId: result.data.id,
@@ -418,7 +396,7 @@ export class WorkFlowComponent implements OnInit {
       btn1: {
         label: "OK",
         value: 'yes',
-        color: 'warn'
+        color: 'mat-primary'
       },
       btn2: {
         label: "Storno",
@@ -426,7 +404,10 @@ export class WorkFlowComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         //console.log(data.textInput.value)
@@ -447,7 +428,11 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  openTask(id: string) {
+  openTask(e: {item: WorkFlow, event?: MouseEvent, idx?: number}) {
+    this.router.navigate(['workflow/task', e.item.id])
+  }
+
+  openTask_(id: string) {
     this.router.navigate(['workflow/task', id])
   }
 
@@ -466,13 +451,8 @@ export class WorkFlowComponent implements OnInit {
   }
 
   sortJobsTable(e: Sort) {
-    this.layout.workflowJobsSort = {field: e.active, direction: e.direction};
+    this.workflowJobsSort = {active: e.active, direction: e.direction};
     this.getWorkflow(false);
-  }
-
-  sortSubjobsTable(e: Sort) {
-    this.layout.workflowSubjobsSort = {field: e.active, direction: e.direction};
-    //this.getSubJobs();
   }
 
   sortTasksTable(e: Sort) {
@@ -481,176 +461,9 @@ export class WorkFlowComponent implements OnInit {
     this.getTasks();
   }
 
-  filter(field: string, value: string) {
-    // const f = this.filters.find(f => f.field === field);
-    // if (this.filters[field]) {
-    //   f.value = value;
-    // } else {
-    //   this.filters.push({ field, value });
-    // }
-    this.layout.workflowJobsFilters[field] = value;
+  filter(e : {field: string, value: string}) {
+    this.workflowJobsFilters[e.field] = e.value;
     this.getWorkflow(false);
-  }
-
-  selectColumns(type: string) {
-    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
-      data: {
-        type: type,
-        isRepo: false,
-        isImport: false,
-        isWorkFlow: type === 'jobs',
-        isWorkFlowSubJobs: type === 'subjobs',
-        isWorkFlowTasks: type === 'tasks'
-      },
-      width: '600px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        switch(type) {
-          case 'jobs':
-          this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
-          this.setSelectedColumns();
-          break;
-          case 'subjobs':
-          this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-          this.setSelectedColumnsSubJobs();
-          break;
-          case 'tasks':
-          this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
-          this.setSelectedColumnsTasks();
-          break;
-          default:
-
-        }
-
-      }
-    });
-  }
-
-  columnType(f: string) {
-    return this.columnsWorkFlow.find(c => c.field === f).type;
-  }
-
-  columnTasksType(f: string) {
-    return this.columnsTasks.find(c => c.field === f).type;
-  }
-
-  getList(f: string): { code: string, value: string }[] {
-    switch (f) {
-      case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
-      case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
-      case 'deviceID': return this.devices.map(p => { return { code: p.id + '', value: p.label } });
-      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
-      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
-      default: return [];
-    }
-  }
-
-  listValue(field: string, code: string) {
-    // field profileName je rozdilne pro job a task
-    // pro job bereme z profiles
-    // pro task z allTasks
-    const el = this.lists[field].find(el => el.code === code + '');
-    return el ? el.value : code;
-  }
-
-  translatedField(f: string): string {
-    switch (f) {
-      case 'taskName': return 'taskLabel'
-      default: return f
-    }
-  }
-
-
-  setSelectedColumns() {
-
-    this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
-    this.filterWorkFlowColumns = [];
-    this.workFlowColumns.forEach(c => {
-      this.filterWorkFlowColumns.push(c + '-filter');
-      this.filterFields[c] = this.layout.workflowJobsFilters[c];
-      if (this.columnType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnType(c);
-
-    });
-    this.setColumnsWith();
-  }
-
-  setSelectedColumnsSubJobs() {
-
-    this.workFlowColumnsSubJobs = this.columnsWorkFlowSubJobs.filter(c => c.selected).map(c => c.field);
-    this.workFlowColumnsSubJobs.forEach(c => {
-      if (this.columnType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnType(c);
-    });
-
-    this.setColumnsWithSubJobs();
-  }
-
-  setSelectedColumnsTasks() {
-
-    this.workFlowColumnsTasks = this.columnsTasks.filter(c => c.selected).map(c => c.field);
-    this.workFlowColumnsTasks.forEach(c => {
-      if (this.columnTasksType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnTasksType(c);
-    });
-
-    this.setColumnsWidthTasks();
-  }
-
-  setColumnsWith() {
-    this.colsWidth = {};
-    this.columnsWorkFlow.forEach((c: any) => {
-      this.colsWidth[c.field] = c.width;
-    });
-  }
-
-  setColumnsWithSubJobs() {
-    this.colsWidthSubJobs = {};
-    this.columnsWorkFlowSubJobs.forEach((c: any) => {
-      this.colsWidthSubJobs[c.field] = c.width;
-    });
-  }
-
-  setColumnsWidthTasks() {
-    this.colsWidthTasks = {};
-    this.columnsTasks.forEach((c: any) => {
-      this.colsWidthTasks[c.field] = c.width;
-    });
-  }
-
-  saveColumnsSizes(e: any, field?: string) {
-    this.colsWidth[field] = e;
-    this.columnsWorkFlow.forEach((c: any) => {
-      c.width = this.colsWidth[c.field];
-    });
-
-    this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
-  }
-
-  saveColumnsSizesSubJobs(e: any, field?: string) {
-    this.colsWidthSubJobs[field] = e;
-    this.columnsWorkFlowSubJobs.forEach((c: any) => {
-      c.width = this.colsWidthSubJobs[c.field];
-    });
-    this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlowSubJobs);
-  }
-
-  saveColumnsSizesTasks(e: any, field?: string) {
-    this.colsWidthTasks[field] = e;
-    this.columnsTasks.forEach((c: any) => {
-      c.width = this.colsWidthTasks[c.field];
-    });
-    this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
   }
 
   removeJobs(isSubJobs: boolean) {
@@ -678,54 +491,58 @@ export class WorkFlowComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
-      data: data
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
+          if (res.response.errorMessage) {
+            this.ui.showErrorDialogFromString(res.response.errorMessage);
+          }
           this.getWorkflow(isSubJobs);
         })
       }
     });
   }
 
-  subJobClick(item: WorkFlow, event?: MouseEvent, idx?: number) {
-    if (event && (event.metaKey || event.ctrlKey)) {
-      item.selected = !item.selected;
-      this.startShiftClickIdx = idx;
-    } else if (event && event.shiftKey) {
+  subJobClick(e:{item: WorkFlow, event?: MouseEvent, idx?: number}) {
+    if (e.event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
       if (this.startShiftClickIdx > -1) {
         const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
         const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
         for (let i = oldFrom; i <= oldTo; i++) {
           this.subJobs[i].selected = false;
         }
-        const from = Math.min(this.startShiftClickIdx, idx);
-        const to = Math.max(this.startShiftClickIdx, idx);
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
         for (let i = from; i <= to; i++) {
           this.subJobs[i].selected = true;
         }
       } else {
         // nic neni.
         this.subJobs.forEach(i => i.selected = false);
-        item.selected = true;
-        this.startShiftClickIdx = idx;
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
       }
     } else {
       this.subJobs.forEach(i => i.selected = false);
-      item.selected = true;
-      this.startShiftClickIdx = idx;
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
     }
 
-    this.lastClickIdx = idx;
+    this.lastClickIdx = e.idx;
     this.totalSelected = this.subJobs.filter(i => i.selected).length;
 
     if (this.totalSelected > 0) {
-      this.selectSubJob(item);
+      this.selectSubJob(e.item);
     }
   }
 
-  selectSubJob(job: WorkFlow) {
+  selectSubJob(job: any) {
     this.selectedSubJob = job;
     this.activeJob = job;
 
@@ -734,7 +551,7 @@ export class WorkFlowComponent implements OnInit {
 
     this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
     if (!job.childrenLoaded) {
-      this.getSubJobs(job);
+      //this.getSubJobs(job);
     }
 
 
@@ -749,14 +566,14 @@ export class WorkFlowComponent implements OnInit {
     if (!job.expanded) {
       job.expanded = true;
       if (!job.childrenLoaded) {
-        this.getSubJobs(job);
+        //this.getSubJobs(job);
       }
     } else {
       job.expanded = false;
     }
 
     this.setToHidden(job, this.subJobs.indexOf(job));
-    this.refreshVisibleSubJobs();
+    
   }
 
   setToHidden(job: WorkFlow, idx: number) {
@@ -769,10 +586,7 @@ export class WorkFlowComponent implements OnInit {
     }
   }
 
-  refreshVisibleSubJobs() {
-    this.visibleSubJobs = this.subJobs.filter(j => !j.hidden);
-    this.subJobsTable.renderRows();
-  }
+  
 
   taskStep(task: string) {
 
@@ -785,6 +599,7 @@ export class WorkFlowComponent implements OnInit {
         disableClose: true,
         height: '90%',
         width: '680px',
+        panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
         data: {
           title: 'dialog.newMetadata.title_edit',
           isWorkFlow: true,
@@ -832,39 +647,39 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  jobClick(item: WorkFlow, event?: MouseEvent, idx?: number) {
-    if (event && (event.metaKey || event.ctrlKey)) {
-      item.selected = !item.selected;
-      this.startShiftClickIdx = idx;
-    } else if (event && event.shiftKey) {
+  jobClick(e: {item: WorkFlow, event?: MouseEvent, idx?: number}) {
+    if (e.event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
       if (this.startShiftClickIdx > -1) {
         const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
         const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
         for (let i = oldFrom; i <= oldTo; i++) {
           this.jobs[i].selected = false;
         }
-        const from = Math.min(this.startShiftClickIdx, idx);
-        const to = Math.max(this.startShiftClickIdx, idx);
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
         for (let i = from; i <= to; i++) {
           this.jobs[i].selected = true;
         }
       } else {
         // nic neni.
         this.jobs.forEach(i => i.selected = false);
-        item.selected = true;
-        this.startShiftClickIdx = idx;
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
       }
     } else {
       this.jobs.forEach(i => i.selected = false);
-      item.selected = true;
-      this.startShiftClickIdx = idx;
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
     }
 
-    this.lastClickIdx = idx;
+    this.lastClickIdx = e.idx;
     this.totalSelected = this.jobs.filter(i => i.selected).length;
 
     if (this.totalSelected > 0) {
-      this.selectJob(item);
+      this.selectJob(e.item);
     }
   }
 
@@ -877,7 +692,8 @@ export class WorkFlowComponent implements OnInit {
         states: this.states,
         priorities: this.priorities,
         ids: this.jobs.filter(i => i.selected).map(p => p.id)
-      }
+      },
+      panelClass: ['app-dialog-jobs-edit', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

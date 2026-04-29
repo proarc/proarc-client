@@ -1,17 +1,26 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Metadata } from 'src/app/model/metadata.model';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { TemplateService } from 'src/app/services/template.service';
-import { UIService } from 'src/app/services/ui.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
 import { ILayoutPanel } from '../layout-admin/layout-admin.component';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { Metadata } from '../../model/metadata.model';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { TemplateService } from '../../services/template.service';
+import { UIService } from '../../services/ui.service';
+import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
+import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
+import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { UserSettings } from '../../shared/user-settings';
+
 @Component({
+  imports: [TranslateModule, MatDialogModule, CdkDrag, CdkDragHandle, MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
   selector: 'app-new-metadata-dialog',
   templateUrl: './new-metadata-dialog.component.html',
   styleUrls: ['./new-metadata-dialog.component.scss']
@@ -42,30 +51,30 @@ export class NewMetadataDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NewMetadataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ui: UIService,
+    private userSettings: UserSettings,
     private api: ApiService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
-    private layout: LayoutService,
+    // private layout: LayoutService,
     private translator: TranslateService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    // setTimeout(() => {
+    // }, 100);
       this.load();
-    }, 100);
     this.title = this.data.title ? this.data.title : 'dialog.newMetadata.title';
-    this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
+    this.formHighlighting = this.userSettings.formHighlighting;
   }
 
   load() {
     let standard: string;
-    let xml: string;
+    let xml: string = this.data.content;
     let model: string;
 
-      standard = Metadata.resolveStandardFromXml(this.data.content);
-      xml = this.data.content;
+    standard = Metadata.resolveStandardFromXml(this.data.content);
 
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
-      this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl);
+      this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl, this.userSettings);
       // setTimeout(() => {
       // this.metadata.expandRequired();
       // }, 100);
@@ -102,7 +111,6 @@ export class NewMetadataDialogComponent implements OnInit {
     let data = `model=${this.data.model}`;
     data = `${data}&pid=${this.data.pid}`;
     data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
-    // data = `${data}&xml=${encodeURIComponent(this.editor.page.toXml())}`;
     if (this.data.parent) {
       data = `${data}&parent=${this.data.parent}`;
     }
@@ -113,7 +121,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
-      this.layout.selectedParentItem.notSaved = false;
+      // this.layout.selectedParentItem.notSaved = false;
       this.state = 'success';
       this.metadata.resetChanges();
       this.dialogRef.close(response['response']['data'][0]);
@@ -136,12 +144,15 @@ export class NewMetadataDialogComponent implements OnInit {
         color: 'default'
       },
     };
-    const d = this.dialog.open(SimpleDialogComponent, { data: data });
+    const d = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
+    });
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
         this.state = 'success';
         // this.editor.init(this.editorParams);
-        this.dialogRef.close('close');
+        this.dialogRef.close(null);
       }
     });
 
@@ -213,7 +224,7 @@ export class NewMetadataDialogComponent implements OnInit {
     } else {
       // this.validating = true;
       setTimeout(() => {
-        this.layout.setMetadataResized();
+        //this.layout.setMetadataResized();
         this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), false, gotoEdit);
       }, 10);
     }
@@ -235,7 +246,10 @@ export class NewMetadataDialogComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

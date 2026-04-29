@@ -1,18 +1,24 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
+
+import { Component, OnInit, OnDestroy, Input, effect, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+
 
 @Component({
+  imports: [TranslateModule, MatIconModule, MatProgressSpinnerModule, MatTooltipModule],
   selector: 'app-song',
   templateUrl: './song.component.html',
   styleUrls: ['./song.component.scss']
 })
 export class SongComponent implements OnInit, OnDestroy {
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
+  currentPid: string;
+  pid = input<string>();
 
   playing: boolean;
   canPlay: boolean;
@@ -25,6 +31,10 @@ export class SongComponent implements OnInit, OnDestroy {
   audio: any;
 
   constructor(private api: ApiService, private layout: LayoutService) {
+    effect(() => {
+      this.currentPid = this.pid();
+      this.onPidChanged(this.currentPid);
+    })
   }
 
   ngOnDestroy(): void {
@@ -46,7 +56,7 @@ export class SongComponent implements OnInit, OnDestroy {
     this.playing = false;
     this.canPlay = false;
     this.state = 'loading';
-    const url = this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
+    const url = this.api.getStreamUrl(pid, 'FULL', this.layout.batchId);
     if (this.audio) {
       this.audio.setAttribute('src', url);
       this.audio.load();
@@ -68,16 +78,12 @@ export class SongComponent implements OnInit, OnDestroy {
       }
       this.trackPosition = Math.round(this.audio.currentTime);
       this.trackPositionText = this.formatTime(this.trackPosition);
-      console.log('this.trackDuration', this.trackDuration);
     };
     this.audio.onended = () => {
     };
     this.audio.oncanplay = () => {
       this.state = 'success';
       this.canPlay = true;
-      // if (autoplay) {
-      //   this.playTrack();
-      // }
     };
   }
 
@@ -87,7 +93,6 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   playTrack() {
-    console.log('play');
     if (this.audio && this.canPlay) {
       this.playing = true;
       this.audio.play();
@@ -95,7 +100,6 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   pauseTrack() {
-    console.log('pause');
     if (this.audio && this.canPlay) {
       this.playing = false;
       this.audio.pause();

@@ -1,0 +1,9 @@
+@if (item.available[field]) {
+  <mat-form-field [class]="item.clazz[field]" [appearance]="settings.appearance">
+    <mat-label>{{ 'mods.' + item.labelKey[field] | translate }}</mat-label>
+    <app-usage [item]="item" [field]="field"></app-usage>
+    <input [required]="item.isMandatory[field]" [name]="item.constructor.name"
+      [formControl]="item.controls[field]" autocomplete="off" matInput
+      [placeholder]="'mods.' + item.labelKey[field] | translate">
+    </mat-form-field>
+  }

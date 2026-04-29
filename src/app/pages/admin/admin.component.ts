@@ -1,17 +1,33 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { User } from 'src/app/model/user.model';
-import { ApiService } from 'src/app/services/api.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UIService } from 'src/app/services/ui.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ChangeOwnerDialogComponent } from './change-owner-dialog/change-owner-dialog.component';
 
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { User } from '../../model/user.model';
+import { ResizecolDirective } from '../../resizecol.directive';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
+import { UIService } from '../../services/ui.service';
+import { Configuration, TableColumn } from '../../shared/configuration';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { Utils } from '../../utils/utils';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
+
 @Component({
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatPaginatorModule, MatTableModule, MatSortModule, ResizecolDirective],
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
@@ -24,7 +40,6 @@ export class AdminComponent implements OnInit {
 
   users: User[];
   selectedUser: User;
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   public selectedColumns = [
@@ -33,30 +48,45 @@ export class AdminComponent implements OnInit {
     { field: 'surname', selected: true, width: 100 },
     { field: 'email', selected: true, width: 100 },
     { field: 'organization', selected: true, width: 100 },
-    { field: 'role', selected: true, width: 100 },
     { field: 'home', selected: true, width: 100 },
-    { field: 'changeModelFunction', selected: true, width: 100 },
-    { field: 'updateModelFunction', selected: true, width: 100 },
-    { field: 'lockObjectFunction', selected: true, width: 100 },
-    { field: 'unlockObjectFunction', selected: true, width: 100 },
-    { field: 'importToProdFunction', selected: true, width: 100 },
-    { field: 'czidloFunction', selected: true, width: 100 },
-    { field: 'importToCatalogFunction', selected: true, width: 100},
-    { field: 'wfDeleteJobFunction', selected: true, width: 100},
+    // { field: 'changeModelFunction', selected: true, width: 100},
+    // { field: 'changePagesFunction', selected: true, width: 100},
+    // { field: 'lockObjectFunction', selected: true, width: 100},
+    // { field: 'unlockObjectFunction', selected: true, width: 100},
+    // { field: 'importToCatalogFunction', selected: true, width: 100},
+    // { field: 'czidloFunction', selected: true, width: 100},
+    // { field: 'deleteActionFunction', selected: true, width: 100},
+    // { field: 'changeObjectsOwnerFunction', selected: true, width: 100},
+    // { field: 'prepareBatchFunction', selected: true, width: 100},
+    // { field: 'allObjectsFunction', selected: true, width: 100},
+    // { field: 'importToProdFunction', selected: true, width: 100},
+    // { field: 'deviceFunction', selected: true, width: 100},
+    // { field: 'createUserFunction', selected: true, width: 100},
+    // { field: 'updateUserFunction', selected: true, width: 100},
+    // { field: 'deleteUserFunction', selected: true, width: 100},
+    // { field: 'solrFunction', selected: true, width: 100},
+    // { field: 'sysAdminFunction', selected: true, width: 100},
+    // { field: 'wfCreateJobFunction', selected: true, width: 100},
+    // { field: 'wfDeleteJobFunction', selected: true, width: 100},
     { field: 'action', selected: true, width: 100 }
   ];
 
-  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction',
-    'lockObjectFunction', 'unlockObjectFunction', 'importToProdFunction', 'czidloFunction', 'importToCatalogFunction', 'wfDeleteJobFunction', 'action'];
+  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'home',
+    // 'changeModelFunction', 'changePagesFunction', 'lockObjectFunction', 'unlockObjectFunction',
+    // 'importToCatalogFunction', 'czidloFunction', 'deleteActionFunction', 'changeObjectsOwnerFunction', 'prepareBatchFunction',
+    // 'allObjectsFunction', 'importToProdFunction', 'deviceFunction', 'createUserFunction', 'updateUserFunction', 'deleteUserFunction',
+    // 'solrFunction', 'sysAdminFunction', 'wfCreateJobFunction', 'wfDeleteJobFunction',
+    'action'];
 
   constructor(
     private translator: TranslateService,
-    private config: ConfigService,
+    private config: Configuration,
     public auth: AuthService,
     private dialog: MatDialog,
     private api: ApiService,
     private ui: UIService,
-    public properties: LocalStorageService) { }
+    public settings: UserSettings,
+    public settingsService: UserSettingsService) { }
 
   ngOnInit(): void {
     this.getUsers(-1);
@@ -89,7 +119,8 @@ export class AdminComponent implements OnInit {
   changeOwner(){
     const dialogRef = this.dialog.open(ChangeOwnerDialogComponent, {
       data: this.users,
-      width: '680px'
+      width: '680px',
+      panelClass: ['app-dialog-change-owner', 'app-form-view-' + this.settings.appearance]
      });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -133,7 +164,7 @@ export class AdminComponent implements OnInit {
   }
 
   newUser() {
-    const newUser: User = User.fromJson({name: 'user_name', role: 'user', userId: -1});
+    const newUser: User = User.fromJson({name: 'user_name', userId: -1});
     this.users.push(newUser);
     this.selectedUser = newUser;
   }
@@ -157,7 +188,7 @@ export class AdminComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       width: '400px',
-      panelClass: 'app-simple-dialog',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance],
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -172,18 +203,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // resizable columns
-  setColumns() {
+
+
+  initSelectedColumns() {
+    const colsSettings: TableColumn[] = Utils.clone(this.settings['adminColumns']);
+    this.selectedColumns = colsSettings.filter(c => c.selected);
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
   }
 
-  initSelectedColumns() {
-    const prop = this.properties.getStringProperty('adminColumns');
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    }
-    this.setColumns();
-  }
 
   getColumnWidth(field: string) {
     const el = this.selectedColumns.find((c: any)=> c.field === field);
@@ -195,13 +222,14 @@ export class AdminComponent implements OnInit {
   }
 
   saveColumnsSizes(e: any, field?: string) {
-    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    const el = this.settings['adminColumns'].find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('adminColumns', JSON.stringify(this.selectedColumns));
+
+    this.settingsService.save();
   }
   // end
 

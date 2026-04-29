@@ -1,20 +1,31 @@
-import { Device } from 'src/app/model/device.model';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { Profile } from 'src/app/model/profile.model';
 import { forkJoin } from 'rxjs';
-import { Folder } from 'src/app/model/folder.model';
-import { Batch } from 'src/app/model/batch.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { Router } from '@angular/router';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { UIService } from 'src/app/services/ui.service';
-import { ProArc } from 'src/app/utils/proarc';
-import { TranslateService } from '@ngx-translate/core';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { Batch } from '../../model/batch.model';
+import { Device } from '../../model/device.model';
+import { Folder } from '../../model/folder.model';
+import { Profile } from '../../model/profile.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { ProArc } from '../../utils/proarc';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserSettings } from '../../shared/user-settings';
+import { PeroModel } from '../../model/pero.model';
 
 @Component({
+  imports: [TranslateModule, FormsModule, RouterModule, 
+    MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
   selector: 'app-import',
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
@@ -22,9 +33,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class ImportComponent implements OnInit {
 
   generateIndex = true;
+  nightOnly = false;
 
   devices: Device[];
   selectedDevice: Device;
+
+  pero: PeroModel[] = [];
+  selectedPero: PeroModel;
 
   profiles: Profile[];
   selectedProfile: Profile;
@@ -53,16 +68,19 @@ export class ImportComponent implements OnInit {
     private ui: UIService,
     //public importService: ImportService,
     private router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    public settings: UserSettings) { }
 
 
   ngOnInit() {
     //this.importService.init();
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
-    forkJoin([rDevice, rProfiles]).subscribe(([devices, profiles]: [Device[], Profile[]]) => {
+    const rPero = this.api.getPero();
+    forkJoin([rDevice, rProfiles, rPero]).subscribe(([devices, profiles, pero]: [Device[], Profile[], PeroModel[] ]) => {
       this.profiles = profiles;
       this.devices = devices;
+      this.pero = pero;
       if (this.profiles.length > 0) {
         this.selectedProfile = this.profiles[0];
       }
@@ -166,7 +184,7 @@ export class ImportComponent implements OnInit {
     if (!folder.states) {
       return false;
     }
-    const p:{profile: string, state: string} = folder.states.find(s => s.state === 'IMPORTED');
+    const p:{profile: string, state: string} = folder.states.find(s => s.profile === this.selectedProfile.id && s.state === 'IMPORTED');
     if (p) {
       return true;
     } else {
@@ -191,7 +209,7 @@ export class ImportComponent implements OnInit {
       return;
     }
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice?.id, this.selectedPriority).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -207,7 +225,10 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
             this.router.navigate(['/process-management']);
@@ -215,7 +236,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -231,7 +252,7 @@ export class ImportComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ImportDialogComponent, {
           data: { batch: batch.id },
-          panelClass: 'app-dialog-import',
+          panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
           width: '600px'
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -244,7 +265,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPero?.id).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
@@ -260,7 +281,10 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
             this.router.navigate(['/process-management']);

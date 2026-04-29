@@ -1,27 +1,47 @@
 
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { DocumentItem } from 'src/app/model/documentItem.model';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { User } from 'src/app/model/user.model';
-import { Tree } from 'src/app/model/mods/tree.model';
-import { SearchService } from 'src/app/services/search.service';
-import { SplitComponent, SplitAreaDirective } from 'angular-split';
-import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { TranslateService } from '@ngx-translate/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { SplitComponent, AngularSplitModule } from 'angular-split';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
-import { UIService } from 'src/app/services/ui.service';
-import { Sort } from '@angular/material/sort';
-import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
+import { MatSortModule, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { MatSelect } from '@angular/material/select';
-import {CodebookService} from '../../services/codebook.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { DocumentItem, TreeDocumentItem } from '../../model/documentItem.model';
+import { ModelTemplate } from '../../model/modelTemplate';
+import { Tree } from '../../model/mods/tree.model';
+import { User } from '../../model/user.model';
+import { ResizecolDirective } from '../../resizecol.directive';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { Configuration } from '../../shared/configuration';
+import { Utils } from '../../utils/utils';
+import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
+import { ViewerComponent } from "../../components/viewer/viewer.component";
+import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatTableModule, MatSortModule, MatDialogModule, ViewerComponent, UserTableComponent, UserTreeTableComponent],
   selector: 'app-parent-dialog',
   templateUrl: './parent-dialog.component.html',
   styleUrls: ['./parent-dialog.component.scss']
@@ -29,10 +49,6 @@ import {CodebookService} from '../../services/codebook.service';
 export class ParentDialogComponent implements OnInit {
 
   @ViewChild('scroll') scroll: ElementRef;
-
-  @ViewChild('split') split: SplitComponent;
-  @ViewChild('area1') area1: SplitAreaDirective;
-  @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   splitArea1Width: number;
   splitArea2Width: number;
@@ -40,10 +56,10 @@ export class ParentDialogComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
   selectedDestItem: DocumentItem;
-  selectedInSearch: DocumentItem;
+  selectedTreeItem: TreeDocumentItem;
+  selectedRootTreeItem: TreeDocumentItem;
   selectedTree: Tree;
   models: string[];
-  model: string;
   query = '';
   queryField: string;
   searchMode: string = 'phrase';
@@ -89,91 +105,57 @@ export class ParentDialogComponent implements OnInit {
   hasChanges = false;
 
 
-  public selectedColumns = [
-    { field: 'label', selected: true },
-    { field: 'model', selected: false },
-    { field: 'pid', selected: false },
-    { field: 'processor', selected: false },
-    { field: 'organization', selected: false },
-    { field: 'status', selected: false },
-    { field: 'created', selected: false },
-    { field: 'modified', selected: true },
-    { field: 'owner', selected: false },
-    { field: 'export', selected: false },
-    { field: 'isLocked', selected: false }
-  ];
+  colsWidth: { [key: string]: string } = {};
+  columnTypes: { [field: string]: string } = {};
+  lists: { [field: string]: { code: string, value: string }[] } = {};
+  prefixes: { [field: string]: string } = {};
+  statuses = [
+    "undefined",
+    "new",
+    "assign",
+    "connected",
+    "processing",
+    "described",
+    "exported"]
 
-
-  public selectedColumnsLeftTable = [
-    { field: 'pid', selected: true, width: 100 },
-    { field: 'label', selected: true, width: 100 },
-    { field: 'filename', selected: true, width: 100 },
-    { field: 'pageType', selected: true, width: 100 },
-    { field: 'pageIndex', selected: true, width: 100 },
-    { field: 'pageNumber', selected: true, width: 100 },
-    { field: 'pagePosition', selected: true, width: 100 },
-    { field: 'model', selected: true, width: 100 },
-    { field: 'owner', selected: true, width: 100 },
-    { field: 'created', selected: true, width: 100 },
-    { field: 'modified', selected: true, width: 100 },
-    { field: 'status', selected: true, width: 100 }
-  ];
-
-  public selectedColumnsRightTable = [
-    { field: 'label', selected: true, width: 100 },
-    { field: 'model', selected: true, width: 100 },
-    { field: 'pid', selected: true, width: 100 },
-    { field: 'processor', selected: true, width: 100 },
-    { field: 'organization', selected: true, width: 100 },
-    { field: 'status', selected: true, width: 100 },
-    { field: 'created', selected: true, width: 100 },
-    { field: 'modified', selected: true, width: 100 },
-    { field: 'owner', selected: true, width: 100 },
-    { field: 'export', selected: true, width: 100 },
-    { field: 'isLocked', selected: true, width: 100 }
-  ];
-
-  displayedColumns: string[] = [];
+  displayedColumnsRight: string[] = [];
+  displayedColumnsLeft: string[] = [];
   @ViewChild('searchTable') searchTable: MatTable<DocumentItem>;
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
-    public properties: LocalStorageService,
+    public settings: UserSettings,
+    public settingsService: UserSettingsService,
     private translator: TranslateService,
     private dialog: MatDialog,
     private router: Router,
-    public search: SearchService,
     private ui: UIService,
-    public config: ConfigService,
+    public config: Configuration,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { }
 
   ngOnInit() {
 
-    // this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
-    this.models = this.config.allModels;
-    this.initSelectedColumns();
-    this.initSelectedColumnsLeftTable();
+    this.models = this.config.models;
     this.initSelectedColumnsRightTable();
 
     // this.splitArea1Width = parseInt(this.properties.getStringProperty('parent.split.0', "60"));
     // this.splitArea2Width = 100 - this.splitArea1Width;
 
 
-    this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
     if (this.data.isRepo) {
-      this.sortField = this.properties.getStringProperty('parent.sort_field', 'created');
-      this.sortAsc = this.properties.getBoolProperty('parent.sort_asc', false);
+      this.sortField = this.settings.parentSortField;
+      this.sortAsc = this.settings.parentSortAsc;
     } else {
       this.sortField = 'modified';
       this.sortAsc = false;
     }
-    this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
+    this.queryField = this.settings.parentQueryField;
     this.organizations = this.config.organizations;
-    this.organization = this.properties.getStringProperty('seaparentrch.organization', '-');
-    this.owner = this.properties.getStringProperty('parent.owner', '-');
-    this.processor = this.properties.getStringProperty('parent.processor', '-');
-    if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
+    this.organization = this.settings.parentOrganization;
+    this.owner = this.settings.parentOwner;
+    this.processor = this.settings.parentProcessor;
+    if (this.settings.parentModel !== 'all' && this.settings.parentModel !== 'model:page' && this.settings.parentModel !== 'model:ndkpage') {
       this.reload();
     } else {
       this.state = 'success';
@@ -198,16 +180,16 @@ export class ParentDialogComponent implements OnInit {
     if (this.data.isRepo) {
       // No selected. Should take data.item element as origin.
       // Selected. Check allowed in selection
-      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.getSelected()[0].model))
-             || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.data.item.model));
+      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedDestItem.model).includes(this.getSelected()[0].model))
+        || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedDestItem.model).includes(this.data.item.model));
     } else {
 
       return this.selectedDestItem &&
         (
           // Pri importu pokud je na importu strana nebo ndk audio strana tak maji zvukove modely vyjimku a da se napojit na jakykoli model ze zvukovych.
-          ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.orig[0].model) ||
+          ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedDestItem.model).includes(this.orig[0].model) ||
           (this.selectedDestItem.isMusicDocument() &&
-              ('model:ndkaudiopage' === this.orig[0].model || 'model:page' === this.orig[0].model)
+            ('model:ndkaudiopage' === this.orig[0].model || 'model:page' === this.orig[0].model)
           )
         );
     }
@@ -241,19 +223,20 @@ export class ParentDialogComponent implements OnInit {
       this.sortAsc = false;
     }
     this.sortField = field;
-    this.properties.setStringProperty('search.sort_field', this.sortField);
-    this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
     this.reload();
   }
 
   reload(page: number = 0) {
-    this.properties.setStringProperty('parent.model', this.model);
+
+    this.settings.parentSortField = this.sortField;
+    this.settings.parentSortAsc = this.sortAsc;
     if (this.data.isRepo) {
-      this.properties.setStringProperty('parent.query_field', this.queryField);
-      this.properties.setStringProperty('parent.organization', this.organization);
-      this.properties.setStringProperty('parent.owner', this.owner);
-      this.properties.setStringProperty('parent.processor', this.processor);
+      this.settings.parentQueryField = this.queryField;
+      this.settings.parentOwner = this.owner;
+      this.settings.parentProcessor = this.processor;
+      this.settings.parentOrganization = this.organization;
     }
+    this.settingsService.save();
 
     this.hierarchy = [];
     this.selectedDestItem = null;
@@ -261,7 +244,7 @@ export class ParentDialogComponent implements OnInit {
     this.state = 'loading';
     const options = {
       type: this.searchMode,
-      model: this.model,
+      model: this.settings.parentModel,
       query: this.query,
       queryField: this.queryField,
       page: this.pageIndex,
@@ -277,7 +260,7 @@ export class ParentDialogComponent implements OnInit {
 
     }
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
-      
+
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
@@ -294,9 +277,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   findAndSelect() {
-    if (this.properties.getStringProperty('parent.expandedPath')) {
-      this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
-    }
+    this.expandedPath = Utils.clone(this.settings.parentExpandedPath);
+    
     if (this.expandedPath) {
       const root = this.expandedPath[this.expandedPath.length - 1];
       if (root) {
@@ -305,12 +287,11 @@ export class ParentDialogComponent implements OnInit {
           this.selectItem(item);
           setTimeout(() => {
             document.getElementById(root).scrollIntoView({ block: 'center' });
-            // this.search.selectedTreePid = this.expandedPath[0];
             const lastParent = this.expandedPath[0];
             if (lastParent) {
-                setTimeout(() => {
-                  document.getElementById('tree_' +  lastParent).scrollIntoView({ block: 'center' });
-                }, 550);
+              setTimeout(() => {
+                document.getElementById('tree_' + lastParent).scrollIntoView({ block: 'center' });
+              }, 550);
             }
 
           }, 550);
@@ -343,9 +324,8 @@ export class ParentDialogComponent implements OnInit {
     } else {
       this.expandedPath = [this.selectedDestItem.pid]
     }
-    this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
-    this.properties.setStringProperty('parent.model', this.model);
-
+    this.settings.parentExpandedPath = Utils.clone(this.expandedPath);
+    this.settingsService.save();
     this.relocateOutside(this.orig.filter(i => i.selected), this.selectedDestItem.pid);
   }
 
@@ -371,24 +351,27 @@ export class ParentDialogComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
 
-          this.state = 'saving';
-          const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid: this.data.item.pid;
-          const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent;
-          this.api.deleteParent(pid, parent).subscribe((response: any) => {
-            if (response['response'].errors) {
-              this.ui.showErrorDialogFromObject(response['response'].errors);
-              this.state = 'error';
-              return;
-            } else {
-              this.state = 'success';
-              this.ui.showInfoSnackBar('Vazba zrusena');
-              this.hasChanges = true;
-            }
-          });
+        this.state = 'saving';
+        const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid : this.data.item.pid;
+        const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent;
+        this.api.deleteParent(pid, parent).subscribe((response: any) => {
+          if (response['response'].errors) {
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            this.state = 'error';
+            return;
+          } else {
+            this.state = 'success';
+            this.ui.showInfoSnackBar('Vazba zrusena');
+            this.hasChanges = true;
+          }
+        });
 
       }
     });
@@ -396,11 +379,11 @@ export class ParentDialogComponent implements OnInit {
 
   private relocateOutside(items: DocumentItem[], destinationPid: string) {
     const title = this.data.isRepo ?
-                  String(this.translator.instant('editor.children.relocate_dialog.titleRepo')) :
-                  String(this.translator.instant('editor.children.relocate_dialog.titleImport'));
+      String(this.translator.instant('editor.children.relocate_dialog.titleRepo')) :
+      String(this.translator.instant('editor.children.relocate_dialog.titleImport'));
     const message = this.data.isRepo ?
-                  String(this.translator.instant('editor.children.relocate_dialog.messageRepo')) :
-                  String(this.translator.instant('editor.children.relocate_dialog.messageImport'));
+      String(this.translator.instant('editor.children.relocate_dialog.messageRepo')) :
+      String(this.translator.instant('editor.children.relocate_dialog.messageImport'));
     const data: SimpleDialogData = {
       title,
       message,
@@ -416,7 +399,10 @@ export class ParentDialogComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (!this.data.isRepo) {
@@ -439,7 +425,10 @@ export class ParentDialogComponent implements OnInit {
   private ingestBatch(parentPid: string) {
     this.state = 'saving';
     const bathId = parseInt(this.data.batchId);
-    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    const dialogRef = this.dialog.open(IngestDialogComponent, { 
+      data: { batch: bathId, parent: parentPid },
+      panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.state = 'success';
       if (result == 'open') {
@@ -504,21 +493,34 @@ export class ParentDialogComponent implements OnInit {
 
   clearSelected() {
     this.selectedDestItem = null;
-    this.selectedInSearch = null;
-    this.search.selectedTreePid = null;
+    this.selectedRootTreeItem = null;
     this.tree = null;
   }
 
+  selectDest(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.selectItem(e.item);
+  }
+
   selectItem(item: DocumentItem) {
-    //this.selectedItem = null;
-    //setTimeout(() => {
-
+    this.items.forEach(i => i.selected = false);
+    item.selected = true;
     this.selectedDestItem = item;
-    this.selectedInSearch = item;
-    this.search.selectedTreePid = item.pid;
-    this.tree = new Tree(item);
-    //}, 10);
+    if (this.selectedRootTreeItem) {
+      // reset
+      this.selectedRootTreeItem.expanded = false;
+      this.selectedRootTreeItem.childrenLoaded = false;
+    }
 
+    this.selectedRootTreeItem = <TreeDocumentItem>this.selectedDestItem;
+    this.selectedRootTreeItem.level = 0;
+    this.selectedRootTreeItem.expandable = true;
+    this.selectedTreeItem = this.selectedRootTreeItem;
+
+  }
+
+  onSelectTreeItem(item: any) {
+    this.selectedTreeItem = item;
+    this.selectedDestItem = item;
   }
 
   open(item: DocumentItem, index: number = -1) {
@@ -547,16 +549,17 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectFromTree(tree: Tree) {
-    this.search.selectedTreePid = tree.item.pid;
     this.selectedTree = tree;
     this.selectedDestItem = tree.item;
   }
 
-  dragEnd(e: any) {
-    // this.splitArea1Width = e.sizes[0];
-    // this.splitArea2Width = e.sizes[1];
-    this.properties.setStringProperty('parent.split.0', e.sizes[0]);
-    this.properties.setStringProperty('parent.split.1', e.sizes[1]);
+  splitDragEnd(e: any) {
+    this.settings.parentSplit = e.sizes[0];
+    this.settingsService.save();
+  }
+
+  selectOrig(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.select(this.orig, e.item, e.idx, e.event, 'dest');
   }
 
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
@@ -594,40 +597,9 @@ export class ParentDialogComponent implements OnInit {
     return this.orig.filter(i => i.selected);
   }
 
-  setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-  }
-
-  initSelectedColumns() {
-    this.properties.getSearchColumnsTree();
-    const prop = this.properties.getStringProperty('searchColumnsParent');
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    }
-    this.setColumns();
-  }
-
-  setSelectedColumns() {
-    this.properties.setStringProperty('searchColumnsParent', JSON.stringify(this.selectedColumns));
-    this.initSelectedColumns();
-    this.searchTable.renderRows();
-  }
-
-  // resizable columns
-  setColumnsLeftTable() {
-    this.origTable = this.selectedColumnsLeftTable.filter(c => c.selected).map(c => c.field);
-  }
-
-  initSelectedColumnsLeftTable() {
-    const prop = this.properties.getStringProperty('parentDialogLeftTableColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsLeftTable, JSON.parse(prop));
-    }
-    this.setColumnsLeftTable();
-  }
 
   getColumnWidthLeftTable(field: string) {
-    const el = this.selectedColumnsLeftTable.find((c: any)=> c.field === field);
+    const el = this.settings.columnsParentLeft.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -636,29 +608,37 @@ export class ParentDialogComponent implements OnInit {
   }
 
   saveColumnsSizesLeftTable(e: any, field?: string) {
-    const el = this.selectedColumnsLeftTable.find((c: any)=> c.field === field);
+    const el = this.settings.columnsParentLeft.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('parentDialogLeftTableColumns', JSON.stringify(this.selectedColumnsLeftTable));
-  }
-
-  setColumnsRightTable() {
-    this.displayedColumns = this.selectedColumnsRightTable.filter(c => c.selected).map(c => c.field);
+    this.settingsService.save();
   }
 
   initSelectedColumnsRightTable() {
-    const prop = this.properties.getStringProperty('parentDialogRightTableColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsRightTable, JSON.parse(prop));
-    }
-    this.setColumnsRightTable();
+    this.displayedColumnsRight = this.settings.columnsParentRight.filter(c => c.selected).map(c => c.field);
+    this.displayedColumnsRight.forEach(c => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnType(c);
+      this.prefixes[c] = this.prefixByType(c);
+
+    });
+    this.data.displayedColumns.forEach((c: string) => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnType(c);
+      this.prefixes[c] = this.prefixByType(c);
+
+    });
   }
 
   getColumnWidthRightTable(field: string) {
-    const el = this.selectedColumnsRightTable.find((c: any)=> c.field === field);
+    const el = this.settings.columnsParentRight.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -667,19 +647,44 @@ export class ParentDialogComponent implements OnInit {
   }
 
   saveColumnsSizesRightTable(e: any, field?: string) {
-    const el = this.selectedColumnsRightTable.find((c: any)=> c.field === field);
+    const el = this.settings.columnsParentRight.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('parentDialogRightTableColumns', JSON.stringify(this.selectedColumnsRightTable));
+    this.settingsService.save();
   }
   // end
 
   enterModel(e: any) {
     this.modelSelect.close();
     this.reload();
+  }
+
+  listValue(field: string, code: string) {
+    const el = this.lists[field].find(el => el.code === code + '');
+    return el ? el.value : code;
+  }
+
+  getList(f: string): { code: string, value: string }[] {
+    switch (f) {
+      case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
+      case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      default: return [];
+    }
+  }
+
+  columnType(f: string) {
+    return this.settings.columnsParentRight.find(c => c.field === f).type;
+  }
+
+  prefixByType(f: string): string {
+    switch (f) {
+      case 'status': return 'editor.atm.statuses.';
+      case 'model': return 'model.';
+      default: return '';
+    }
   }
 
 }

@@ -23,7 +23,7 @@ export class ModsNamePart extends ModsElement {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
       
-      this.addControl('value');
+      this.addControl('value', '_');
       this.addControl('type');
     }
 

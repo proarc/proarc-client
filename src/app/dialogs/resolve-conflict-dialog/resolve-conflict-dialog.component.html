@@ -5,8 +5,8 @@
   </mat-card> 
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-    <button mat-flat-button color="primary" (click)="useNew()">{{ 'button.useNew' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="useOriginal()">{{ 'button.useOriginal' | translate }}</button>
+    <button matButton="filled" (click)="useNew()">{{ 'button.useNew' | translate }}</button>
+    <button matButton="filled" (click)="useOriginal()">{{ 'button.useOriginal' | translate }}</button>
     <button mat-stroked-button (click)="close()">{{ 'button.cancel' | translate }}</button>
 </div>
 

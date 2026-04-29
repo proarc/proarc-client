@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -692,7 +691,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -799,6 +797,42 @@
           [
             'unspecified',
             'unspecified'
+          ],
+          [
+            'annotation',
+            'annotation'
+          ],
+          [
+            'afterword',
+            'afterword'
+          ],
+          [
+            'bibliographicalPortrait',
+            'bibliographicalPortrait'
+          ],
+          [
+            'sheetMusic',
+            'sheetMusic'
+          ],
+          [
+            'tableOfContents',
+            'tableOfContents'
+          ],
+          [
+            'summary',
+            'summary'
+          ],
+          [
+            'interview',
+            'interview'
+          ],
+          [
+            'conclusion',
+            'conclusion'
+          ],
+          [
+            'subchapter',
+            'subchapter'
           ]
         ]
       }
@@ -806,7 +840,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -974,7 +1007,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1033,7 +1065,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

@@ -1,11 +1,20 @@
+
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { Catalogue } from 'src/app/model/catalogue.model';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Catalogue } from '../../model/catalogue.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { FormsModule } from '@angular/forms';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, FormsModule, MatSelectModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule],
   selector: 'app-update-in-source-dialog',
   templateUrl: './update-in-source-dialog.component.html',
   styleUrls: ['./update-in-source-dialog.component.scss']
@@ -23,6 +32,7 @@ export class UpdateInSourceDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {

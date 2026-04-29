@@ -1,32 +1,35 @@
-@import './src/sass/app-variables.scss';
-@import "./src/sass/app-mixins";
-@import './src/sass/app-global.scss';
+@use "../../../scss/app-mixins";
 
-.mat-dialog-content {
+::ng-deep .mat-mdc-dialog-surface {
+  resize: both;
+}
+
+.mat-mdc-dialog-content {
+  --mat-dialog-supporting-text-size: 14px;
   max-height: 100%;
 
   .app-desc {
-    @extend .app-p-4;
-    border: 1px solid $app-gray-3;
-    background-color: $app-gray-1;
+    padding: 16px;
+    border: 1px solid var(--app-color-gray-3);
+    background-color: var(--app-color-gray-1);
   }
   
   .app-layout-controller {
     width: 500px;
     min-height: 160px;
   
-    .app-item {
-      @extend .app-cursor-pointer;
+    .app-layout-item {
+      cursor: pointer;
       position: relative;
   
-      &.app-active {
-        background-color: rgba($app-layout-active-color, .15);
-        color: $app-layout-active-color;
+      &.app-selected {
+        background-color: rgba(var(--app-layout-active-color), .15);
+        color: var(--app-layout-active-color);
       }
     
-      &.app-disabled {
-        background-color: rgba($app-layout-disabled-color, .1);
-        color: $app-layout-disabled-color;
+      &.app-not-selected {
+        background-color: rgba(var(--app-layout-disabled-color), .1);
+        color: rgb(var(--app-layout-disabled-color));
   
         .mat-icon {
           position: absolute;
@@ -35,14 +38,14 @@
           right: auto;
   
           opacity: .1;
-          @include setIcon(50);
+          @include app-mixins.setIcon(50);
         }
       }
     }
   }
   
   .app-layout-preview {
-    background-color: $app-gray-2;
+    background-color: var(--app-color-gray-2);
   
     .as-split-area {
       .mat-form-field {
@@ -59,10 +62,3 @@
     } 
   }
 }
-
-// split override
-/* ::ng-deep {
-  .as-split-gutter {
-    background-color: $app-color-lightnes !important;
-  }
-} */

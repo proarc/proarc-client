@@ -1,4 +1,5 @@
-import { ApiService } from "src/app/services/api.service";
+
+import { ApiService } from "../../services/api.service";
 import { DocumentItem } from "../documentItem.model";
 
 export class Tree {

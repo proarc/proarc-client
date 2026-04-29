@@ -1,0 +1,85 @@
+<div class="app-fxLayout app-column app-fill" [class.app-form-highlighting]="formHighlighting">
+  @if (lastSelectedItem()) {
+  <div class="app-fxFlex">
+    @switch (panelType) {
+    @case ('tree') {
+    <div class="app-editor-content app-tree">
+      <app-editor-tree [panel]="panel()" [rootItem]="rootItem()" [selectedItem]="lastSelectedItem()"></app-editor-tree>
+    </div>
+    }
+    @case ('structure-list') {
+    <app-editor-structure [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    }
+    @case ('structure-grid') {
+    <app-editor-structure [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    }
+    @case ('structure-icons') {
+    <app-editor-structure [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    }
+    @case ('image') {
+    @if (itemModel === 'page') {
+    <app-viewer [imageInfo]="imageInfo"></app-viewer>
+    } @else {
+    <div class="app-fxLayout app-row app-fill app-center-v app-center-h">
+      <mat-card class="app-alert app-info" appearance="outlined">
+        <mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}
+      </mat-card>
+    </div>
+    }
+    }
+    @case ('media') {
+    <app-media [lastSelectedItem]="lastSelectedItem()"></app-media>
+    }
+    @case ('song') {
+    <app-song [pid]="lastSelectedItem().pid"></app-song>
+    }
+    @case ('mods') {
+    <app-editor-mods [panel]="panel()" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-mods>
+    }
+    @case ('ocr') {
+    <app-editor-ocr [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
+    }
+    @case ('comment') {
+    <app-editor-comment [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-comment>
+    }
+    @case ('atm') {
+    <app-editor-atm [panel]="panel()" [pid]="lastSelectedItem()?.pid" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-atm>
+    }
+    <!-- 
+    @case ('premis') {
+      @if (numOfSelected < 2) {
+          <app-editor-premis [pid]="lastSelectedItem().pid"></app-editor-premis>
+      } @else {
+          <app-editor-premis-multiple ></app-editor-premis-multiple>
+      }
+    }
+     -->
+
+    @case ('metadata') {
+      @if (showIssuesEditor) {
+      <app-editor-issues [panel]="panel()"></app-editor-issues>
+      } @else if (showPagesEditor) {
+      <app-editor-pages [panel]="panel()"></app-editor-pages>
+      } @else if (showAudioPagesEditor) {
+      <app-editor-audioPages [panel]="panel()"></app-editor-audioPages>
+      } @else if (itemModel === 'page') {
+      <app-editor-page [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"
+        [panelType]="panelType" (onChangePanelType)="changePanelType($event)">
+      </app-editor-page>
+      } @else if (itemModel === 'song') {
+      <app-editor-audioPage [panel]="panel()" [model]="lastSelectedItem().model"
+        [pid]="lastSelectedItem().pid"></app-editor-audioPage>
+      } @else {
+      <app-editor-metadata [panel]="panel()" [panelType]="panelType" [pid]="lastSelectedItem().pid"
+        [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
+      </app-editor-metadata>
+      }
+    }
+    }
+  </div>
+  }
+</div>

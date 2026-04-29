@@ -1,15 +1,27 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DocumentItem } from 'src/app/model/documentItem.model';
-import { Metadata } from 'src/app/model/metadata.model';
-import { Page } from 'src/app/model/page.model';
-import { ApiService } from 'src/app/services/api.service';
-import { TemplateService } from 'src/app/services/template.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {AudioPage} from '../../model/audioPage.model';
 import { ILayoutPanel } from '../layout-admin/layout-admin.component';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { DocumentItem } from '../../model/documentItem.model';
+import { Metadata } from '../../model/metadata.model';
+import { Page } from '../../model/page.model';
+import { ApiService } from '../../services/api.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TemplateService } from '../../services/template.service';
+import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [CommonModule, TranslateModule, MatDialogModule,
+    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
+    MatProgressBarModule, EditorMetadataComponent],
   templateUrl: './children-validation-dialog.component.html',
   styleUrls: ['./children-validation-dialog.component.scss']
 })
@@ -35,15 +47,16 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private userSettings: UserSettings,
     private tmpl: TemplateService,
     public dialogRef: MatDialogRef<ChildrenValidationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.children = data.children;
-    this.count = this.children.length;
-    dialogRef.disableClose = true;
   }
 
   ngOnInit() {
+    this.children = this.data.children;
+    this.count = this.children.length;
+    this.dialogRef.disableClose = true;
     if (this.count == 0) {
       this.onFinish();
       return;
@@ -66,15 +79,10 @@ export class ChildrenValidationDialogComponent implements OnInit {
   }
 
   revalidate() {
-
-    // this.index = 0;
-    // this.numberOfInvalid = 0;
-    // this.numberOfValid = 0;
     console.log(this.metadatas)
     this.metadatas.forEach(m => {
       const v = m.metadata.validate();
       m.item.invalid = !v;
-      // m.item.invalid = false;
       if (m.item.invalid) {
         this.numberOfInvalid += 1;
       } else {
@@ -123,7 +131,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.tmpl.getTemplate(standard, item.model).subscribe((tmpl: any) => {
             this.metadatas.push({
               item: item,
-              metadata: new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl)
+              metadata: new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl, this.userSettings)
           });
           })
         }

@@ -5,39 +5,30 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { UserSettings } from '../shared/user-settings';
 
 @Injectable()
 export class UIService {
 
-  private refreshSubject = new Subject<boolean>();
-  public refresh : Observable<boolean> = this.refreshSubject.asObservable();
 
   // public toolbarTooltipPosition: any = 'above';
-
-  private selectionSubject = new Subject<string>();
-  public selection : Observable<string> = this.selectionSubject.asObservable();
 
   dialogRef: MatDialogRef<AlertDialogComponent>;
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private clipboard: Clipboard,
+    public settings: UserSettings
   ) {
-  }
-
-  public shoulRefresh() {
-    this.refreshSubject.next(true);
-  }
-
-  public setSelection(pid: string) {
-    this.selectionSubject.next(pid);
   }
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
     return this.dialog.open(AlertDialogComponent, {
          data,
          width: '600px',
-         panelClass: 'app-alert-dialog'
+         panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]
     });
   }
 
@@ -50,7 +41,7 @@ export class UIService {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
          data,
          width: '400px',
-         panelClass: 'app-alert-dialog'
+         panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterOpened().subscribe(_ => {
       setTimeout(() => {
@@ -147,6 +138,11 @@ export class UIService {
       }
     });
     return messages.map(m => m.key + ': ' + m.msg).join('\n');
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
 }

@@ -1,0 +1,49 @@
+<div class="app-fxLayout app-column app-fill">
+  @if (switchable) {
+    <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-metadata">
+      <div class="app-fxFlex">
+        <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
+      </div>
+      <div class="app-h-100">
+        @if (layout.type === 'repo') {
+          <button mat-icon-button [matMenuTriggerFor]="menuPero" [matTooltip]="'button.pero' | translate">
+            <mat-icon>history_edu</mat-icon>
+          </button>
+          <!-- <a mat-button [matMenuTriggerFor]="menuPero" [matTooltip]="'button.pero' | translate"><mat-icon>history_edu</mat-icon></a> -->
+          <mat-menu #menuPero="matMenu">
+            @for (p of pero; track p) {
+              <button mat-menu-item (click)="onPERO(p)" [matTooltip]="p.description">{{ p.label }}</button>
+            }
+          </mat-menu>
+
+
+
+        }
+        <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
+  <div class="app-fxFlex app-oa-y">
+    @if (state ==='loading') {
+      <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+    }
+    @if (state !== 'loading') {
+      <div class="app-fxLayout app-column app-fill app-view-edit">
+        @if (editting) {
+          <textarea [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
+        }
+        @if (!editting) {
+          <pre class="app-text-content">{{ ocr.original }}</pre>
+        }
+      </div>
+    }
+  </div>
+</div>

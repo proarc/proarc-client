@@ -58,6 +58,17 @@ export class WorkFlow {
   hidden: boolean;
 }
 
+
+
+export interface TreeWorkFlow extends WorkFlow {
+  parentPid?: string;
+  level: number;
+  expandable: boolean;
+  expanded: boolean;
+  childrenLoaded: boolean;
+  hidden: boolean;
+}
+
 export class WorkFlowProfile {
   disabled: boolean;
   hint: string;

@@ -1,14 +1,29 @@
-import { UIService } from 'src/app/services/ui.service';
 import { Component, OnInit } from '@angular/core';
-import { Device } from 'src/app/model/device.model';
-import { ApiService } from 'src/app/services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SimpleDialogData } from '../../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../../dialogs/simple-dialog/simple-dialog.component';
+import { Device } from '../../../model/device.model';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { MatTableModule } from '@angular/material/table';
+import {AuthService} from '../../../services/auth.service';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, FormsModule, RouterModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatTableModule],
   selector: 'app-device',
   templateUrl: './device.component.html',
   styleUrls: ['./device.component.scss']
@@ -26,6 +41,8 @@ export class DeviceComponent implements OnInit {
               private router: Router,
               private translator: TranslateService,
               private ui: UIService,
+              public auth: AuthService,
+              public settings: UserSettings,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -60,7 +77,10 @@ export class DeviceComponent implements OnInit {
           color: 'warn'
         }
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, {
+        data: data,
+        panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.state = 'loading';
@@ -89,7 +109,10 @@ export class DeviceComponent implements OnInit {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';

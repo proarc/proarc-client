@@ -1,26 +1,19 @@
-@import './src/sass/app-variables';
-@import './src/sass/app-mixins';
-@import './src/sass/app-global';
-
 .mat-toolbar {
-  height: $app-navbar-height;
-  //border-bottom: 1px solid $app-navbar-border-color;
-
   .app-left {
     .app-logo {
       img,
       svg {
-        @extend .app-mr-4;
+        margin-right: 16px;
         height: 16px;
         vertical-align: middle;
       }
     }
   }
 
-  .mat-button-base {
+  .mat-mdc-button-base {
     &:hover, &.active {
       color: inherit;
-      background-color: $app-navbar-active-item-color;
+      background-color: var(--app-navbar-active-item-color);
     }
   }
 
@@ -35,7 +28,7 @@
     position: relative;
 
     .app-block {
-      background-color: white;
+      background-color: var(--app-color-lightnes);
       position: absolute;
       bottom: 0;
       height: 1px;
@@ -51,7 +44,7 @@
 
     .app-text {
       z-index: 1;
-      color: $app-color-lightnes;
+      color: var(--app-color-lightnes);
       width: 100%;
       text-align: center;
     }

@@ -1,14 +1,39 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { ResizedEvent } from 'angular-resize-event';
-import { DocumentItem } from 'src/app/model/documentItem.model';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UIService } from 'src/app/services/ui.service';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
+import { ViewerComponent } from '../../components/viewer/viewer.component';
+import { DocumentItem } from '../../model/documentItem.model';
+import { ResizecolDirective } from '../../resizecol.directive';
+import { ResizedDirective, ResizedEvent } from '../../resized.directive';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { UIService } from '../../services/ui.service';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatCheckboxModule,
+    MatTableModule, MatSortModule, ResizecolDirective, ResizedDirective, MatDialogModule, ViewerComponent],
   selector: 'app-mark-sequence-dialog',
   templateUrl: './mark-sequence-dialog.component.html',
   styleUrls: ['./mark-sequence-dialog.component.scss']
@@ -20,8 +45,6 @@ export class MarkSequenceDialogComponent implements OnInit {
   dest: any[] = [];
   origTable: any;
   destTable: any;
-  // origViewMode = 'icons';
-  // destViewMode = 'icons';
   meta: any;
 
   pageType: boolean = true;
@@ -37,29 +60,6 @@ export class MarkSequenceDialogComponent implements OnInit {
   maxIconWidth: any = { orig: 91, dest: 91 };
   rectSize: any = {};
 
-  public selectedColumnsOrigTable = [
-    { field: 'filename', selected: true, width: 100 },
-    { field: 'pageType', selected: true, width: 100 },
-    { field: 'pageNumber', selected: true, width: 100 },
-    { field: 'pageIndex', selected: true, width: 100 },
-    { field: 'pagePosition', selected: true, width: 100 }
-  ];
-
-  public selectedColumnsDestTable = [
-    { field: 'pid', selected: false, width: 100 },
-    { field: 'label', selected: false, width: 100 },
-    { field: 'filename', selected: true, width: 100 },
-    { field: 'pageType', selected: true, width: 100 },
-    { field: 'pageIndex', selected: true, width: 100 },
-    { field: 'pageNumber', selected: true, width: 100 },
-    { field: 'pagePosition', selected: true, width: 100 },    
-    { field: 'model', selected: false, width: 100 },
-    { field: 'owner', selected: false, width: 100 },
-    { field: 'created', selected: false, width: 100 },
-    { field: 'modified', selected: false, width: 100 },
-    { field: 'status', selected: false, width: 100 }
-  ];
-
   // název souboru, typ strany, číslo, index +přidat: pozice
   displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']; // 
 
@@ -68,13 +68,14 @@ export class MarkSequenceDialogComponent implements OnInit {
     private ui: UIService,
     public dialogRef: MatDialogRef<MarkSequenceDialogComponent>,
     private layout: LayoutService,
-    public properties: LocalStorageService,
+    public settings: UserSettings,
+    private settingsService: UserSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
     this.initLists();
-    this.lastSelectedItemPid = this.layout.lastSelectedItem.pid;
+    this.lastSelectedItemPid = this.layout.lastSelectedItem().pid;
     this.initSelectedColumnsOrigTable();
     this.initSelectedColumnsDestTable();
   }
@@ -184,15 +185,15 @@ export class MarkSequenceDialogComponent implements OnInit {
 
   refreshPages() {
     const selection: string[] = [];
-    const lastSelected = this.layout.lastSelectedItem.pid;
-    this.layout.items.forEach(item => {
+    const lastSelected = this.layout.lastSelectedItem().pid;
+    this.layout.items().forEach(item => {
       if (item.selected) {
         selection.push(item.pid);
       }
     });
-    this.layout.items = [];
+    this.layout.setItems([]);
     this.data.items = [];
-    this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
+    this.api.getBatchPages(this.layout.batchId).subscribe((response: any) => {
 
       if (response['response'].status === -1) {
         this.ui.showErrorSnackBar(response['response'].data);
@@ -201,15 +202,14 @@ export class MarkSequenceDialogComponent implements OnInit {
       }
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-      console.log(pages, selection, lastSelected)
-      this.layout.items = pages;
-      for (let i = 0; i < this.layout.items.length; i++) {
-        const item = this.layout.items[i];
+      this.layout.setItems(pages);
+      for (let i = 0; i < this.layout.items().length; i++) {
+        const item = this.layout.items()[i];
         if (selection.includes(item.pid)) {
           item.selected = true;
         }
         if (item.pid === lastSelected) {
-          this.layout.lastSelectedItem = item;
+          this.layout.setLastSelectedItem(item);
         }
       }
       this.data.items = pages;
@@ -221,19 +221,14 @@ export class MarkSequenceDialogComponent implements OnInit {
   // resizable columns
   // orig table
   setColumnsOrigTable() {
-    this.displayedColumns = this.selectedColumnsOrigTable.filter(c => c.selected).map(c => c.field);
   }
 
   initSelectedColumnsOrigTable() {
-    const prop = this.properties.getStringProperty('markSequenceDialogOrigTableColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsOrigTable, JSON.parse(prop));
-    }
-    this.setColumnsOrigTable();
+    this.displayedColumns = this.settings.markSequenceDialogOrigTableColumns.filter(c => c.selected).map(c => c.field);
   }
 
   getColumnWidthOrigTable(field: string) {
-    const el = this.selectedColumnsOrigTable.find((c: any)=> c.field === field);
+    const el = this.settings.markSequenceDialogOrigTableColumns.find((c: any)=> c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -242,30 +237,22 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   saveColumnsSizesOrigTable(e: any, field?: string) {
-    const el = this.selectedColumnsOrigTable.find((c: any)=> c.field === field);
+    const el = this.settings.markSequenceDialogOrigTableColumns.find((c: any)=> c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     } 
-    this.properties.setStringProperty('markSequenceDialogOrigTableColumns', JSON.stringify(this.selectedColumnsOrigTable));
+    this.settingsService.save();
   }
 
   // dest table
-  setColumnsDestTable() {
-    this.data.displayedColumns = this.selectedColumnsDestTable.filter(c => c.selected).map(c => c.field);
-  }
-
   initSelectedColumnsDestTable() {
-    const prop = this.properties.getStringProperty('markSequenceDialogDestTableColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsDestTable, JSON.parse(prop));
-    }
-    this.setColumnsDestTable();
+    this.data.displayedColumns = this.settings.markSequenceDialogDestTableColumns.filter(c => c.selected).map(c => c.field);
   }
 
   getColumnWidthDestTable(field: string) {
-    const el = this.selectedColumnsDestTable.find((c: any)=> c.field === field);
+    const el = this.settings.markSequenceDialogDestTableColumns.find((c: any)=> c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -274,13 +261,13 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   saveColumnsSizesDestTable(e: any, field?: string) {
-    const el = this.selectedColumnsDestTable.find((c: any)=> c.field === field);
+    const el = this.settings.markSequenceDialogDestTableColumns.find((c: any)=> c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     } 
-    this.properties.setStringProperty('markSequenceDialogDestTableColumns', JSON.stringify(this.selectedColumnsDestTable));
+    this.settingsService.save();
   }
   // end
 

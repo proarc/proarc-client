@@ -1,8 +1,11 @@
-<h1 mat-dialog-title>{{ 'desc.errorDetail' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'desc.logInfo' | translate }}</h1>
 <div mat-dialog-content class="app-oh app-oa-y"> 
-  <strong>{{ data.title }}</strong>
-  <pre class="app-ws-pw">{{ data.content }}</pre>
+  @for (d of data; track d) {
+    <strong>{{ d.title | translate }}</strong>
+    <pre class="app-ws-pw">{{ d.content }}</pre>
+    <hr/>
+  }
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" [mat-dialog-close]="'close'" >{{ 'button.close' | translate }}</button>
+  <button matButton="filled" [mat-dialog-close]="'close'" >{{ 'button.close' | translate }}</button>
 </div>

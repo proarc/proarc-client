@@ -1,30 +1,55 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { Batch } from 'src/app/model/batch.model';
-import { User } from 'src/app/model/user.model';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
+import { ResizecolDirective } from '../../resizecol.directive';
 import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
-import { Profile } from 'src/app/model/profile.model';
-import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { DatePipe } from '@angular/common';
-import { UIService } from 'src/app/services/ui.service';
-import { ConfigService } from '../../services/config.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
+import { Batch } from '../../model/batch.model';
+import { Profile } from '../../model/profile.model';
+import { User } from '../../model/user.model';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
+import { UIService } from '../../services/ui.service';
+import { ProArc } from '../../utils/proarc';
+import { Configuration } from '../../shared/configuration';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { ResolveConflictDialogComponent } from 'src/app/dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
-import { ProArc } from 'src/app/utils/proarc';
-import {delay} from 'rxjs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ReloadBatchDialogComponent } from '../../dialogs/reload-batch-dialog/reload-batch-dialog.component';
+import { ResolveConflictDialogComponent } from '../../dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
+import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 
 @Component({
   selector: 'app-process-management',
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, RouterModule,
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
+    MatDatepickerModule, MatCheckboxModule,
+    MatTableModule, MatSortModule, ResizecolDirective, UserTableComponent],
   templateUrl: './process-management.component.html',
-  styleUrls: ['./process-management.component.scss']
+  styleUrl: './process-management.component.scss'
 })
-export class ProcessManagementComponent implements OnInit, OnDestroy {
+export class ProcessManagementComponent {
+
 
   state = 'none';
 
@@ -45,7 +70,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   private timer: any;
   autoRefresh = false;
 
-  private progressMap: any = {};
+  progressMapSignal = signal<{ [key: string]: string }>({});
+  progressMap: { [key: string]: string } = {};
 
   description: string;
   user: string;
@@ -56,28 +82,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   modifiedFrom: Date;
   modifiedTo: Date;
 
-  public selectedColumnsOverview = [
-    { field: 'description', selected: true, width: 100 },
-    { field: 'create', selected: true, width: 100 },
-    { field: 'timestamp', selected: true, width: 100 },
-    { field: 'state', selected: true, width: 100 },
-    { field: 'profile', selected: true, width: 100 },
-    { field: 'user', selected: true, width: 100 },
-    { field: 'priority', selected: true, width: 100 },
-    { field: 'actions', selected: true, width: 100 }
-  ];
-
-  public selectedColumnsQueue = [
-    { field: 'description', selected: true, width: 100 },
-    { field: 'create', selected: true, width: 100 },
-    { field: 'timestamp', selected: true, width: 100 },
-    { field: 'state', selected: true, width: 100 },
-    { field: 'pageCount', selected: true, width: 100 },
-    { field: 'user', selected: true, width: 100 }
-  ];
-
-  displayedColumnsOverview: string[] = ['description', 'create', 'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
-  displayedColumnsQueue: string[] = ['description', 'create', 'timestamp', 'state', 'pageCount', 'user'];
+  displayedColumnsOverview: string[] = ['description', 'create', 'itemUpdated', 'updated', 'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
+  displayedColumnsQueue: string[] = ['description', 'create', 'itemUpdated', 'updated', 'timestamp', 'state', 'pageCount', 'user'];
 
 
   batchStates = [
@@ -116,43 +122,65 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     'highest'
   ];
 
-  profiles: string[];
-  // 'profile.default',
-  // 'profile.createObjectWithMetadata_import',
-  // 'profile.default_archive_import',
-  // 'profile.soundrecording_import',
-  // 'profile.default_kramerius_import',
-  // 'profile.stt_kramerius_import',
-  // 'profile.ndk_monograph_kramerius_import',
-  // 'profile.ndk_periodical_kramerius_import',
-  // 'profile.chronicle',
-  // 'profile.oldprint',
-  // 'profile.ndk_full_import',
-  // 'exportProfile.kramerius',
-  // 'exportProfile.ndk',
-  // 'exportProfile.archive',
-  // 'exportProfile.desa',
-  // 'exportProfile.cejsh',
-  // 'exportProfile.crossref',
-  // 'exportProfile.kwis',
-  // // 'exportProfile.aleph',
-  // 'internalProfile.reindex'
-  // ]
+  actions: { icon: string, color?: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string }[] = [];
 
   constructor(
     private datePipe: DatePipe,
     public auth: AuthService,
     private api: ApiService,
-    private ui: UIService,
+    public ui: UIService,
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private config: ConfigService,
+    public config: Configuration,
     private translator: TranslateService,
-    public properties: LocalStorageService,
+    public settings: UserSettings,
+    public settingsService: UserSettingsService,
     private clipboard: Clipboard) { }
 
   ngOnInit() {
+    // this.actions.push({
+    //   icon: 'delete',
+    //   tooltip: 'button.delete',
+    //   condition: (e: any) => {
+    //     return true
+    //   },
+    //   action: (e: any) => {
+    //     this.deleteBatch(e.id);
+    //   }
+    // });
+    this.actions.push({
+      icon: 'info',
+      tooltip: 'button.viewErrorDetail',
+      color: 'var(--app-color-warn)',
+      condition: (e: any) => {
+        return e.failure
+      },
+      action: (e: any) => {
+        this.onShowLog(e);
+      }
+    });
+    this.actions.push({
+      icon: 'info',
+      tooltip: 'button.viewDetail',
+      condition: (e: any) => {
+        return e.parameters && !e.failure
+      },
+      action: (e: any) => {
+        this.onShowLog(e);
+      }
+    });
+    this.actions.push({
+      icon: 'cancel',
+      color: 'var(--app-color-warn)',
+      tooltip: 'button.stop',
+      condition: (e: any) => {
+        return this.canStopProcess(e)
+      },
+      action: (e: any) => {
+        this.stopBatch(e);
+      }
+    });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.loadData();
@@ -160,7 +188,6 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
-    this.profiles = this.config.profiles;
     this.initSelectedColumnsOverview();
     this.initSelectedColumnsQueue();
     // this.timer= setInterval(() => {
@@ -199,6 +226,50 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  startShiftClickIdx: number;
+  lastClickIdx: number;
+  totalSelected = signal<number>(0);
+  selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
+    // this.batches.forEach(i => i.selected = false);
+    // e.item.selected = true;
+
+    // this.selectBatch(e.item);
+
+    if (event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.batches[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
+        for (let i = from; i <= to; i++) {
+          this.batches[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.batches.forEach(i => i.selected = false);
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
+      }
+      window.getSelection().empty();
+    } else {
+      this.batches.forEach(i => i.selected = false);
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
+    }
+
+    this.lastClickIdx = e.idx;
+    this.totalSelected.set(this.batches.filter(i => i.selected).length);
+    this.selectBatch(e.item);
+
+  }
+
   selectBatch(batch: Batch) {
     this.selectedBatch = batch;
   }
@@ -211,7 +282,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     if (batch.state === 'INGESTED' && batch.parentPid) {
       this.router.navigate(['/repository', batch.parentPid]);
     } else if (batch.state === 'LOADED') {
-      this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
+      this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
     }
   }
 
@@ -221,6 +292,137 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     } else if (this.view == 'loadingQueue') {
       this.reloadLoadingQueue();
     }
+  }
+
+  deleteBatch(id: number) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Smazání procesu')),
+      message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.deleteBatch(id).subscribe((resp: any) => {
+          if (resp.response.errors) {
+            this.state = 'error';
+            this.ui.showErrorDialogFromObject(resp.response.errors);
+            return;
+          }
+          this.state = 'success';
+          this.reload();
+
+        });
+      }
+    });
+
+  }
+
+  onDeleteSelectedBatches() {
+
+  }
+
+  onDeleteBatches(byFilters: boolean) {
+    const title = byFilters ? 'button.delete_batches_by_filter' : 'button.delete_selected_batches';
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant(title)),
+      message: String(this.translator.instant('Opravdu chcete smazat procesy?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.deleteBatches(byFilters);
+      }
+    });
+
+  }
+
+  deleteBatches(byFilters: boolean) {
+    this.selectedBatch = null;
+    this.state = 'loading';
+    let params: any = {};
+
+    if (byFilters) {
+
+      if (this.selectedState && this.selectedState !== 'ALL') {
+        params['state'] = this.selectedState;
+      };
+
+      if (this.description) {
+        params['description'] = this.description;
+      }
+
+      if (this.user) {
+        params['userId'] = this.user;
+      }
+
+      if (this.priority) {
+        params['priority'] = this.priority;
+      }
+
+      if (this.profile) {
+        params['profile'] = this.profile;
+      }
+
+      if (this.createFrom) {
+        params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
+      }
+
+      if (this.createTo) {
+        params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+      }
+
+      if (this.modifiedFrom) {
+        params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+      }
+
+      if (this.modifiedTo) {
+        params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+      }
+
+      // createFrom: 2022-05-01T10:36:00.000
+      // createTo: 2022-06-03T10:36:00.000
+      // modifiedTo modifiedTo
+    } else {
+      params['id'] = this.batches.filter(b => b.selected).map(b => b.id);
+    }
+
+
+    this.api.deleteBatches(params).subscribe((resp: any) => {
+      if (resp.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(resp.response.errors);
+        return;
+      }
+      this.reload();
+    });
   }
 
   changeView(view: string) {
@@ -299,12 +501,19 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
+  sort: Sort = { active: 'timestamp', direction: 'desc' };
+  sortTable(e: Sort) {
+    this.sort = { active: e.active, direction: e.direction };
+    this.loadData();
+  }
+
   reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
     let params: any = {
-      _sortBy: '-timestamp',
+      // sortBy: '-timestamp',
+      _sortBy: (this.sort.direction === 'desc' ? '-' : '') + this.sort.active,
       _startRow: start,
       _endRow: start + this.pageSize,
       _size: this.pageSize
@@ -351,6 +560,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
     this.api.getImportBatches(params).subscribe((resp: any) => {
       this.batches = resp.data.map((d: any) => Batch.fromJson(d));
+      this.totalSelected.set(this.batches.filter(i => i.selected).length);
       this.resultCount = resp.totalRows;
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.batches);
@@ -420,6 +630,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
             } else {
               this.progressMap[batch.id] = Math.round((done * 1.0 / count) * 100) + '%';
             }
+            this.progressMapSignal.update(pm => this.progressMap);
           });
       }
     }
@@ -430,7 +641,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     console.log(this.selectedBatch.profile);
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
       data: null,
-      panelClass: 'app-dialog-reload-batch',
+      panelClass: ['app-dialog-reload-batch', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -445,8 +656,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       return;
     }
     const dialogRef = this.dialog.open(ResolveConflictDialogComponent, {
-      data: this.selectedBatch ,
-      panelClass: 'app-dialog-import',
+      data: this.selectedBatch,
+      panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -466,7 +677,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       this.ingestBatch(this.selectedBatch.parentPid);
       return;
     }
-    this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
+    this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
   }
 
 
@@ -479,7 +690,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     }
     const dialogRef = this.dialog.open(ImportDialogComponent, {
       data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
-      panelClass: 'app-dialog-import',
+      panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -502,7 +713,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
-        panelClass: 'app-dialog-import',
+        panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -518,10 +729,24 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   onShowLog(batch: Batch) {
-    const data = {
-      content: batch.failure
+    const data = [];
+    if (batch.failure) {
+      data.push({
+        title: 'desc.errorDetail',
+        content: batch.failure
+      });
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+
+    if (batch.parameters) {
+      data.push({
+        title: 'desc.params',
+        content: batch.parameters
+      });
+    }
+    this.dialog.open(LogDialogComponent, {
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   onEditBatchObject() {
@@ -575,7 +800,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
       const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
-        panelClass: 'app-dialog-import',
+        panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -617,20 +842,13 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   // resizable columns
-  setColumnsOverview() {
-    this.displayedColumnsOverview = this.selectedColumnsOverview.filter(c => c.selected).map(c => c.field);
-  }
 
   initSelectedColumnsOverview() {
-    const prop = this.properties.getProcMngColumns();
-
-    Object.assign(this.selectedColumnsOverview, JSON.parse(JSON.stringify(this.properties.procMngColumns)));
-
-    this.displayedColumnsOverview = this.properties.procMngColumns.filter(c => c.selected).map(c => c.field);
+    this.displayedColumnsOverview = this.settings.procMngColumns.filter(c => c.selected).map(c => c.field);
   }
 
   getColumnWidthOverview(field: string) {
-    const el = this.selectedColumnsOverview.find((c: any) => c.field === field);
+    const el = this.settings.procMngColumns.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -639,28 +857,21 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   saveColumnsSizesOverview(e: any, field?: string) {
-    const el = this.selectedColumnsOverview.find((c: any) => c.field === field);
+    const el = this.settings.procMngColumns.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('procMngColumns', JSON.stringify(this.selectedColumnsOverview));
-  }
-
-  setColumnsQueue() {
-    this.displayedColumnsQueue = this.selectedColumnsQueue.filter(c => c.selected).map(c => c.field);
+    this.settingsService.save();
   }
 
   initSelectedColumnsQueue() {
-    const prop = this.properties.getQueueColumns();
-    Object.assign(this.selectedColumnsQueue, JSON.parse(JSON.stringify(this.properties.queueColumns)));
-    this.displayedColumnsQueue = this.properties.queueColumns.filter(c => c.selected).map(c => c.field);
-
+    this.displayedColumnsQueue = this.settings.queueColumns.filter(c => c.selected).map(c => c.field);
   }
 
   getColumnWidthQueue(field: string) {
-    const el = this.selectedColumnsQueue.find((c: any) => c.field === field);
+    const el = this.settings.queueColumns.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -669,13 +880,13 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   saveColumnsSizesQueue(e: any, field?: string) {
-    const el = this.selectedColumnsQueue.find((c: any) => c.field === field);
+    const el = this.settings.queueColumns.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('queueColumns', JSON.stringify(this.selectedColumnsQueue));
+    this.settingsService.save();
   }
   // end
 
@@ -688,18 +899,13 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
   }
 
-  copyTextToClipboard(val: string) {
-    this.clipboard.copy(val);
-    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
-  }
-
-  canStopProcess() {
-    return this.selectedBatch &&
-    (
-      this.auth.isAdmin() || this.auth.isSuperAdmin() ||
-      this.auth.user.name === this.selectedBatch.user
-    ) &&
-    (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
+  canStopProcess(batch: Batch) {
+    return batch && (
+      (
+        this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
+      ) &&
+      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING' || batch.state === 'IMPORT_PLANNED')
+    )
   }
 
   isExportProfile(profile: string) {
@@ -707,4 +913,5 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       profile === 'exportProfile.desa' || profile === 'exportProfile.cejsh' || profile === 'exportProfile.crossref' ||
       profile === 'exportProfile.kwis' || profile === 'exportProfile.aleph' || profile === 'exportProfile.datastream');
   }
+
 }

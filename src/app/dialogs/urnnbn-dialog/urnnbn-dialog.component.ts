@@ -1,13 +1,30 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
-import { Registrar } from 'src/app/model/registrar.model';
-import { UIService } from 'src/app/services/ui.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Registrar } from '../../model/registrar.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { MatSelectModule } from '@angular/material/select';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [CommonModule, TranslateModule, MatDialogModule,
+    MatTableModule, MatProgressBarModule, MatSelectModule,
+    MatIconModule, MatButtonModule, MatTooltipModule,
+    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule
+  ],
   selector: 'app-urnnbn-dialog',
   templateUrl: './urnnbn-dialog.component.html',
   styleUrls: ['./urnnbn-dialog.component.scss']
@@ -32,6 +49,7 @@ export class UrnnbnDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string[]) { }
 
   ngOnInit() {
@@ -95,7 +113,10 @@ export class UrnnbnDialogComponent implements OnInit {
       title: '',
       content: error
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

@@ -1,11 +1,16 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {UIService} from '../../services/ui.service';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ApiService } from '../../services/api.service';
 
 @Component({
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './convert-dialog.component.html',
   styleUrls: ['./convert-dialog.component.scss']
 })
@@ -27,16 +32,7 @@ export class ConvertDialogComponent implements OnInit {
   }
 
   convert(type: string) {
-    console.log('convert, ', type);
     this.inProgress = true;
-    // this.api.convertPages(this.data.pid, this.data.model, type).subscribe(result => {
-    //   console.log('ok', result);
-    //   this.dialogRef.close( { status: 'ok' } );
-    // },
-    // (error) => {
-    //   console.log('error', error);
-    //   this.dialogRef.close( { status: 'failure' } );
-    // });
     this.api.convertPages(this.data.pid, this.data.model, type).subscribe((response: any) => {
       if (response.response.errors) {
         this.ui.showErrorDialogFromObject(response.response.errors);

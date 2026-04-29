@@ -1,41 +1,58 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+import { Component, effect, ElementRef, input, Input, OnInit, signal, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { StreamProfile } from 'src/app/model/stream-profile';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { UIService } from 'src/app/services/ui.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { StreamProfile } from '../../model/stream-profile';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { UIService } from '../../services/ui.service';
+import { DocumentItem } from '../../model/documentItem.model';
+import { PdfComponent } from "../pdf/pdf.component";
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { EpubComponent } from "../epub/epub.component";
+import { SongComponent } from "../song/song.component";
+import { ViewerComponent } from "../viewer/viewer.component";
+import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatCardModule, MatSelectModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, PdfComponent, EpubComponent, SongComponent, ViewerComponent],
   selector: 'app-media',
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent implements OnInit {
 
+
+  lastSelectedItem = input<DocumentItem>();
+
   @ViewChild('pdfInput') pdfInput: ElementRef;
   @ViewChild('epubInput') epubInput: ElementRef;
-  public currentPid: string;
+  currentPid = signal<string>(null);
   public inputPid: string;
+  public currentModel: string;
+  public inputModel: string;
   isLocked = false;
   isRepo = true;
   canAddPdf = false;
   allowedModels = [
-  'model:ndkeperiodicalissue',
-  'model:ndkeperiodicalsupplement',
-  'model:ndkearticle',
-  'model:ndkemonographsupplement',
-  'model:ndkemonographvolume',
-  'model:ndkechapter',
-  'model:chroniclesupplement',
-  'model:bdmarticle']
+    'model:ndkeperiodicalissue',
+    'model:ndkeperiodicalsupplement',
+    'model:ndkearticle',
+    'model:ndkemonographvolume',
+    'model:ndkemonographunit',
+    'model:ndkechapter',
+    'model:chroniclesupplement',
+    'model:bdmarticle']
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
-  // pdfUrl: string;
   state = 'loading';
 
   streamProfile: StreamProfile;
@@ -48,7 +65,11 @@ export class MediaComponent implements OnInit {
   constructor(private api: ApiService,
     private dialog: MatDialog,
     private ui: UIService,
-    private layout: LayoutService) {
+    private layout: LayoutService,
+    public settings: UserSettings) {
+    effect(() => {
+      this.onPidChanged(this.lastSelectedItem().pid, this.lastSelectedItem().model);
+    })
   }
 
   ngOnInit() {
@@ -60,7 +81,7 @@ export class MediaComponent implements OnInit {
   }
 
   urlByStream() {
-    return this.api.getStreamUrl(this.currentPid, this.streamProfile.dsid);
+    return this.api.getStreamUrl(this.currentPid(), this.streamProfile.dsid);
   }
 
   isPlainImage() {
@@ -103,18 +124,20 @@ export class MediaComponent implements OnInit {
   changeLockPanel() {
     this.isLocked = !this.isLocked;
     if (!this.isLocked) {
-      this.onPidChanged(this.inputPid)
+      this.onPidChanged(this.inputPid, this.inputModel)
     }
   }
 
-  onPidChanged(pid: string) {
+  onPidChanged(pid: string, model: string) {
     this.isRepo = this.layout.type === 'repo';
     this.inputPid = pid;
+    this.inputModel = model;
     if (this.isLocked) {
       return;
     }
-    this.currentPid = pid;
-    this.canAddPdf = this.allowedModels.includes(this.layout.lastSelectedItem.model);
+    this.currentPid.set(pid);
+    this.currentModel = model;
+    this.canAddPdf = this.allowedModels.includes(model);
     this.getProfiles(pid);
   }
 
@@ -136,7 +159,7 @@ export class MediaComponent implements OnInit {
             this.streamProfile = this.streamProfiles[0];
           }
 
-          this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.getBatchId());
+          this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.batchId);
           this.canAddPDF_A = this.streamProfiles.findIndex(sp => sp.dsid === 'RAW' && sp.mime === 'application/pdf') > -1;
 
         } else {
@@ -159,7 +182,7 @@ export class MediaComponent implements OnInit {
   }
 
   generatePdfA() {
-    this.api.generatePdfA(this.currentPid).subscribe((response: any) => {
+    this.api.generatePdfA(this.currentPid()).subscribe((response: any) => {
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(response.response.errors);
@@ -183,7 +206,7 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.uploadFile(files[0], this.currentPid, 'application/pdf').subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), 'application/pdf').subscribe(response => {
       this.state = 'ok';
     });
   }
@@ -195,7 +218,7 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.uploadFile(files[0], this.currentPid, 'application/epub+zip').subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), 'application/epub+zip').subscribe(response => {
       this.state = 'ok';
     });
   }
@@ -208,9 +231,9 @@ export class MediaComponent implements OnInit {
     }
     this.state = 'loading';
     this.streamProfile = null;
-    this.api.uploadFile(files[0], this.currentPid, files[0].type).subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid(), files[0].type).subscribe(response => {
       this.pdfInput.nativeElement.value = null;
-      this.getProfiles(this.currentPid);
+      this.getProfiles(this.currentPid());
     });
   }
 
@@ -230,7 +253,10 @@ export class MediaComponent implements OnInit {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';
@@ -240,10 +266,10 @@ export class MediaComponent implements OnInit {
   }
 
   remove() {
-    this.api.deletePdf(this.currentPid, this.streamProfile.dsid).subscribe(() => {
+    this.api.deletePdf(this.currentPid(), this.streamProfile.dsid).subscribe(() => {
       this.state = 'empty';
       this.ui.showInfoSnackBar("Digitální obsah byl odstraněn");
-      this.getProfiles(this.currentPid);
+      this.getProfiles(this.currentPid());
     });
   }
 

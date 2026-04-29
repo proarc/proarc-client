@@ -1,32 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { combineLatest, forkJoin, Subscription } from 'rxjs';
-import { IngestDialogComponent } from 'src/app/dialogs/ingest-dialog/ingest-dialog.component';
-import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { Batch } from 'src/app/model/batch.model';
-import { DocumentItem } from 'src/app/model/documentItem.model';
-import { Page } from 'src/app/model/page.model';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { RepositoryService } from 'src/app/services/repository.service';
-import { UIService } from 'src/app/services/ui.service';
-import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { IConfig, defaultLayoutConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
+import { Subscription, combineLatest, of, switchMap } from 'rxjs';
+import { IngestDialogComponent } from '../../dialogs/ingest-dialog/ingest-dialog.component';
+import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
+import { ParentDialogComponent } from '../../dialogs/parent-dialog/parent-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { Batch } from '../../model/batch.model';
+import { DocumentItem } from '../../model/documentItem.model';
+import { ResizecolDirective } from '../../resizecol.directive';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { UIService } from '../../services/ui.service';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { PanelComponent } from "../../components/panel/panel.component";
 
 @Component({
   selector: 'app-batches',
+  imports: [TranslateModule, FormsModule, RouterModule,
+    AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, 
+    MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './batches.component.html',
-  styleUrls: ['./batches.component.scss']
+  styleUrl: './batches.component.scss'
 })
-export class BatchesComponent implements OnInit {
+export class BatchesComponent {
 
-  localStorageName = 'proarc-layout-import';
-  // config: IConfig = null;
+  loading: boolean;
   state: string;
   batchId: string;
   parent: DocumentItem | null;
@@ -40,7 +58,8 @@ export class BatchesComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public layout: LayoutService,
-    private properties: LocalStorageService,
+    public settings: UserSettings,
+    private settingsService: UserSettingsService,
     private ui: UIService,
     private translator: TranslateService,
     private api: ApiService
@@ -48,12 +67,12 @@ export class BatchesComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-    this.layout.lastSelectedItem = null;
+    this.layout.setLastSelectedItem(null);
   }
 
   ngOnInit(): void {
-    this.initConfig();
     this.layout.type = 'import';
+    this.initConfig();
 
     this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData(this.batchId, keepSelection);
@@ -63,15 +82,18 @@ export class BatchesComponent implements OnInit {
       this.refreshSelected(from);
     }));
 
-    combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
-      results => {
-        const p = results[0];
-        const q = results[1];
+    const s = this.route.paramMap.pipe(
+      switchMap(p => {
         this.batchId = p.get('batch_id');
         if (this.batchId) {
           this.loadData(this.batchId, false);
         }
-      });
+        return of(true);
+      })
+    );
+    s.subscribe();
+
+
   }
 
   refreshSelected(from: string) {
@@ -79,28 +101,30 @@ export class BatchesComponent implements OnInit {
       this.refreshPages();
       return;
     }
-    this.api.getBatchPage(this.layout.getBatchId(), this.layout.lastSelectedItem.pid).subscribe((response: any) => {
+    this.api.getBatchPage(this.layout.batchId, this.layout.lastSelectedItem().pid).subscribe((response: any) => {
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-      const selected = this.layout.lastSelectedItem.selected;
-      Object.assign(this.layout.lastSelectedItem, pages[0]);
-      this.layout.lastSelectedItem.selected = selected;
+      const selected = this.layout.lastSelectedItem().selected;
+      pages[0].selected = true;
+      this.layout.lastSelectedItem.set(pages[0]);
+      const index = this.layout.items().findIndex(i => i.pid === this.layout.lastSelectedItem().pid);
+      
       if (!!from) {
-        this.layout.shouldMoveToNext(from);
+        this.layout.shouldMoveToNext(from, index);
       }
     });
   }
 
   refreshPages() {
     const selection: string[] = [];
-    const lastSelected = this.layout.lastSelectedItem.pid;
-    this.layout.items.forEach(item => {
+    const lastSelected = this.layout.lastSelectedItem().pid;
+    this.layout.items().forEach(item => {
       if (item.selected) {
         selection.push(item.pid);
       }
     });
 
-    this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
+    this.api.getBatchPages(this.layout.batchId).subscribe((response: any) => {
 
       if (response['response'].status === -1) {
         this.ui.showErrorSnackBar(response['response'].data);
@@ -109,14 +133,14 @@ export class BatchesComponent implements OnInit {
       }
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-      this.layout.items = pages;
+      this.layout.setItems(pages);
       for (let i = 0; i < this.layout.items.length; i++) {
-        const item = this.layout.items[i];
+        const item = this.layout.items()[i];
         if (selection.includes(item.pid)) {
           item.selected = true;
         }
         if (item.pid === lastSelected) {
-          this.layout.lastSelectedItem = item;
+          this.layout.setLastSelectedItem(item);
         }
       }
     });
@@ -127,7 +151,7 @@ export class BatchesComponent implements OnInit {
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
-      panelClass: 'app-dialog-layout-settings'
+      panelClass: ['app-dialog-layout-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
@@ -139,14 +163,8 @@ export class BatchesComponent implements OnInit {
   initConfig() {
     let idx = 0;
     this.layout.panels = [];
-    if (localStorage.getItem(this.localStorageName)) {
-      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName));
 
-    } else {
-      this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    }
-    
-    this.layout.layoutConfig.columns.forEach(c => {
+    this.settings.importLayout.columns.forEach(c => {
       c.rows.forEach(r => {
         if (!r.id) {
           r.id = 'panel' + idx++;
@@ -162,27 +180,24 @@ export class BatchesComponent implements OnInit {
   loadData(id: string, keepSelection: boolean) {
     const selection: string[] = [];
     if (keepSelection) {
-      this.layout.items.forEach(item => {
+      this.layout.items().forEach(item => {
         if (item.selected) {
           selection.push(item.pid);
         }
       })
     }
-    this.layout.ready = false;
-
-    this.layout.path = [];
-    this.layout.tree = null;
+    this.loading = true;
     this.layout.selectedParentItem = null;
 
     const obj = new DocumentItem();
     obj.pid = id;
     this.api.getImportBatch(parseInt(id)).subscribe((batch: Batch) => {
       obj.parent = batch.parentPid;
-      this.layout.setBatchId(id);
+      this.layout.batchId = id;
       this.api.getBatchPages(id).subscribe((response: any) => {
         if (response['response'].errors) {
-          const a =this.ui.showErrorDialogFromObject(response['response'].errors);
-          
+          const a = this.ui.showErrorDialogFromObject(response['response'].errors);
+
           a.afterClosed().subscribe(result => {
             this.router.navigate(['/process-management']);
           });
@@ -190,25 +205,24 @@ export class BatchesComponent implements OnInit {
         }
         if (response['response'].status === -1) {
           this.ui.showErrorSnackBar(response['response'].data);
-          // this.router.navigate(['/import/history']);
           return;
         }
         const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
         this.layout.item = obj;
-        this.layout.items = pages;
-        this.layout.lastSelectedItem = this.layout.items[0];
+        this.layout.setItems(pages);
+        this.layout.setLastSelectedItem(this.layout.items()[0]);
         this.layout.selectedParentItem = obj;
         if (keepSelection) {
-          this.layout.items.forEach(item => {
+          this.layout.items().forEach(item => {
             if (selection.includes(item.pid)) {
               item.selected = true;
             }
           })
         } else if (this.layout.items.length > 0) {
-          this.layout.items[0].selected = true;
+          this.layout.items()[0].selected = true;
         }
 
-        this.layout.ready = true;
+        this.loading = false;
 
         this.layout.setSelection(false, null);
 
@@ -233,7 +247,7 @@ export class BatchesComponent implements OnInit {
   validatePages(): number {
     let valid = true;
     let invalidCount = 0;
-    this.layout.items.forEach((p: DocumentItem) => {
+    this.layout.items().forEach((p: DocumentItem) => {
       if (p.isPage()) {
         valid = valid && p.isValidPage();
         p.invalid = !p.isValidPage();
@@ -246,7 +260,7 @@ export class BatchesComponent implements OnInit {
         if (p.invalid) {
           invalidCount++
         }
-    }
+      }
 
     });
     return invalidCount;
@@ -271,7 +285,10 @@ export class BatchesComponent implements OnInit {
         //   color: 'default'
         // },
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        data: data,
+        panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.ingest();
@@ -310,17 +327,12 @@ export class BatchesComponent implements OnInit {
       this.ingestBatch(batchParent);
     } else {
 
-      let expandedPath: string[];
-      if (this.properties.getStringProperty('parent.expandedPath')) {
-        expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
-      }
 
       const dialogRef = this.dialog.open(ParentDialogComponent, {
         data: {
           btnLabel: 'editor.children.relocate_label',
           parent: null,
-          items: this.layout.items,
-          expandedPath: expandedPath,
+          items: this.layout.items(),
           displayedColumns: ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition'],
           isRepo: false,
           batchId: this.batchId
@@ -331,6 +343,7 @@ export class BatchesComponent implements OnInit {
         width: '95%',
         maxWidth: '100vw',
         height: '90%',
+        panelClass: ['app-dialog-parent', 'app-form-view-' + this.settings.appearance]
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result && result.pid) {
@@ -343,7 +356,10 @@ export class BatchesComponent implements OnInit {
   private ingestBatch(parentPid: string) {
     this.state = 'loading';
     const bathId = parseInt(this.batchId);
-    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    const dialogRef = this.dialog.open(IngestDialogComponent, { 
+      data: { batch: bathId, parent: parentPid },
+      panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.state = 'success';
       if (result == 'open') {
@@ -379,23 +395,23 @@ export class BatchesComponent implements OnInit {
     return `${c} stran`;
   }
 
-
-
   onDragEnd(columnindex: number, e: any) {
     // Column dragged
     if (columnindex === -1) {
       // Set size for all visible columns
-      this.layout.layoutConfig.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
+      this.settings.importLayout.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
     }
     // Row dragged
     else {
       // Set size for all visible rows from specified column
-      this.layout.layoutConfig.columns[columnindex].rows
+      this.settings.repositoryLayout.columns[columnindex].rows
         .filter((r) => r.visible === true)
         .forEach((row, index) => (row.size = e.sizes[index]))
     }
-
-    localStorage.setItem(this.localStorageName, JSON.stringify(this.layout.layoutConfig));
+    this.settingsService.save()
+    // this.layout.setResized();
   }
+
+
 
 }

@@ -1,40 +1,34 @@
-import { Folder } from './../model/folder.model';
-import { CatalogueEntry } from './../model/catalogueEntry.model';
-import { Catalogue } from '../model/catalogue.model';
-import { Atm } from './../model/atm.model';
-import { DocumentItem } from './../model/documentItem.model';
-import { Metadata } from 'src/app/model/metadata.model';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
-import { Device } from '../model/device.model';
-
-import { map } from 'rxjs/operators';
-import { Ocr } from '../model/ocr.model';
-import { Note } from '../model/note.model';
-import { Mods } from '../model/mods.model';
-import { Page } from '../model/page.model';
-import { Profile } from '../model/profile.model';
-import { Batch } from '../model/batch.model';
-import { User } from '../model/user.model';
+import { catchError, finalize, map } from 'rxjs/operators';
+import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
-import { Registrar } from '../model/registrar.model';
-import { ConfigService } from './config.service';
-import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
-import { WorkFlow } from '../model/workflow.model';
+import { Profile } from '../model/profile.model';
+import { Atm } from '../model/atm.model';
 import { AudioPage } from '../model/audioPage.model';
-import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
-import { ActivatedRoute, Router, RouterState } from '@angular/router';
+import { Batch } from '../model/batch.model';
+import { Catalogue } from '../model/catalogue.model';
+import { Device } from '../model/device.model';
+import { DocumentItem } from '../model/documentItem.model';
+import { Mods } from '../model/mods.model';
+import { Note } from '../model/note.model';
+import { Ocr } from '../model/ocr.model';
+import { Page } from '../model/page.model';
+import { User } from '../model/user.model';
+import { WorkFlow } from '../model/workflow.model';
+import { Metadata } from '../model/metadata.model';
+import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
+import { PageUpdateHolder } from './layout-service';
+import { PeroModel } from '../model/pero.model';
 
 @Injectable()
 export class ApiService {
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private http: HttpClient,
-    private config: ConfigService) {
+    public config: Configuration) {
   }
 
   private getLang(): string {
@@ -46,12 +40,8 @@ export class ApiService {
     }
   }
 
-  public getBaseUrl(): string {
-    return this.config.proarcBackendUrl;
-  }
-
   public getApiUrl(): string {
-    return `${this.getBaseUrl()}/rest/v2/`
+    return this.config.proarcUrl + `/rest/v2/`
   }
 
   private get(path: string, params = {}): Observable<Object> {
@@ -247,12 +237,12 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
     });
-
+    data = `${data}&nightOnly=${nightOnly}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
     }
@@ -418,6 +408,11 @@ export class ApiService {
       .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
   }
 
+  getPero(): Observable<PeroModel[]> {
+    return this.get('valuemap/pero')
+      .pipe(map((response: any) => response['response']['data'][0]? response['response']['data'][0].values : []));
+  }
+
   setParent(pid: string, dstParent: string): Observable<any> {
     const data = `pid=${pid}&parent=${dstParent}`;
     return this.post('object/member', data);
@@ -443,21 +438,30 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
-  deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
+
+
+  purgeObjects() {
+    return this.delete('object/purge');
+  }
+
+  deleteObjects(pids: string[], purge: boolean, nightOnly: boolean, batchId: any = null, hierarchy: boolean = true): Observable<any> | null {
     let url = '';
     let body: any = {};
     //let query = pids.map(pid => `pid=${pid}`).join('&');
     if (batchId) {
       url = `import/batch/item`;
       body.batchId = batchId;
+      body.nightOnly = nightOnly;
       body.pid = pids;
       //query = `import/batch/item?batchId=${batchId}&${query}`;
     } else {
       url = `object`;
       body.purge = purge;
-      body.hierarchy = true;
+      body.nightOnly = nightOnly;
+      body.hierarchy = hierarchy;
       body.restore = false;
       body.pid = pids;
+
       // query = `object?purge=${purge}&hierarchy=true&${query}`;
     }
     //return this.delete(query);
@@ -593,7 +597,8 @@ export class ApiService {
   }
 
   editModsXml(pid: string, xml: string, timestamp: number, standard: string, ignoreValidation: boolean, batchId: any = null, catalogId: string = null): Observable<any> {
-    const xmlText = xml.replace(/&/g, '%26');
+    //const xmlText = xml.replace(/&/g, '%26');
+    const xmlText = encodeURIComponent(xml.replace(/&/g, '%26'));
     let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
     if (standard) {
       data = `${data}&standard=${standard}`;
@@ -626,8 +631,8 @@ export class ApiService {
     return this.put('object/ocr', data).pipe(map((response: any) => Ocr.fromJson(response['record'])));
   }
 
-  generateAlto(pid: string): Observable<any> {
-    let data = `pid=${pid}`;
+  generateAlto(pid: string, peroId: string): Observable<any> {
+    let data = `pid=${pid}&peroOcrEngine=${peroId}`;
     return this.post('object/generateAlto', data);
   }
 
@@ -814,63 +819,60 @@ export class ApiService {
     return this.put('device', data).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
-  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    if (holder.pageType !== '') {
-      data += `&pageType=${holder.pageType}`;
-    }
-    if (holder.pageIndex !== null) {
-      data += `&startIndex=${holder.pageIndex}`;
-    }
-    if (holder.useBrackets) {
-      data += `&useBrackets=${holder.useBrackets}`;
-    }
-    if (holder.repreSelect != null) {
-      data += `&isReprePage=${holder.repreSelect}`;
-    }
-    if (holder.doubleColumns) {
-      data += `&doubleColumns=${holder.doubleColumns}`;
-    }
-    if (holder.numberFromValid()) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
-    }
-    if (holder.applyTo > 1) {
-      data += `&applyToFirstPage=${holder.applyToFirst}`;
-    }
-    if (holder.pagePosition !== '') {
-      data += `&pagePosition=${holder.pagePosition}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.put('object/mods/editorPages', data);
-  }
+  // editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   if (holder.editType) {
+  //     data += `&pageType=${holder.pageType}`;
+  //   }
+  //   if (holder.editIndex) {
+  //     data += `&startIndex=${holder.pageIndex}`;
+  //   }
+  //   if (holder.useBrackets) {
+  //     data += `&useBrackets=${holder.useBrackets}`;
+  //   }
+  //   if (holder.doubleColumns) {
+  //     data += `&doubleColumns=${holder.doubleColumns}`;
+  //   }
+  //   if (holder.editNumber) {
+  //     data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
+  //   }
+  //   if (holder.applyTo > 1) {
+  //     data += `&applyToFirstPage=${holder.applyToFirst}`;
+  //   }
+  //   if (holder.editPosition) {
+  //     data += `&pagePosition=${holder.pagePosition}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.put('object/mods/editorPages', data);
+  // }
 
-  editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    if (holder.editIndex) {
-      data += `&startIndex=${holder.pageIndex}`;
-    }
-    if (holder.applyTo > 1) {
-      data += `&applyToFirstPage=${holder.applyToFirst}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.put('object/mods/editorPages', data);
-  }
+  // editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   if (holder.editIndex) {
+  //     data += `&startIndex=${holder.pageIndex}`;
+  //   }
+  //   if (holder.applyTo > 1) {
+  //     data += `&applyToFirstPage=${holder.applyToFirst}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.put('object/mods/editorPages', data);
+  // }
 
-  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
-    const action = useBrackets ? 'addBrackets' : 'removeBrackets';
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.post('object/mods/' + action, data);
-  }
+  // editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
+  //   const action = useBrackets ? 'addBrackets' : 'removeBrackets';
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.post('object/mods/' + action, data);
+  // }
 
 
   editRelations(parentPid: string, pidArray: string[]): Observable<any> {
@@ -922,6 +924,14 @@ export class ApiService {
     return this.post('import/batchStopped', data);
   }
 
+  deleteBatch(id: number): Observable<any> {
+    return this.delete('import/batch?id=' + id);
+  }
+
+  deleteBatches(params: any): Observable<any> {
+    return this.delete('import/batch', params);
+  }
+
   reloadBatch(id: number, profile: string): Observable<Batch> {
     const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
@@ -945,8 +955,8 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string): Observable<any> {
-    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string = '1'): Observable<any> {
+    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}&peroOcrEngine=${peroId}`;
     return this.post('import/batch', data);
   }
 
@@ -955,8 +965,8 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string) {
-    const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string = '1') {
+    const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}&peroOcrEngine=${peroId}`;
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
@@ -1108,12 +1118,12 @@ export class ApiService {
   }
 
   editUser(user: User, forename: string, surname: string): Observable<User> {
-    const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
+    const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   saveUser(user: User): Observable<User> {
-    let data = `userId=${user.userId}&surname=${user.surname}&role=${user.role}`;
+    let data = `userId=${user.userId}&surname=${user.surname}`;
     if (user.password) {
       data = `${data}&password=${user.password}`;
     }
@@ -1127,15 +1137,21 @@ export class ApiService {
       data = `${data}&organization=${user.organization}`;
     }
 
-    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&changeModelFunction=${user.changeModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
     data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
     data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`
+    data = `${data}&changeObjectsOwnerFunction=${user.changeObjectsOwnerFunction}&deviceFunction=${user.deviceFunction}`;
+    data = `${data}&changePagesFunction=${user.changePagesFunction}&wfCreateJobFunction=${user.wfCreateJobFunction}`;
+    data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
+    data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
+    data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   newUser(user: User): Observable<any> {
-    let data = `name=${user.name}&surname=${user.surname}&role=${user.role}&password=${user.password}`;
+    let data = `name=${user.name}&surname=${user.surname}&password=${user.password}`;
     if (user.forename) {
       data = `${data}&forename=${user.forename}`;
     }
@@ -1145,10 +1161,16 @@ export class ApiService {
     if (user.organization) {
       data = `${data}&organization=${user.organization}`;
     }
-    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&changeModelFunction=${user.changeModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
     data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
-    data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`
+    data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`;
+    data = `${data}&changeObjectsOwnerFunction=${user.changeObjectsOwnerFunction}&deviceFunction=${user.deviceFunction}`;
+    data = `${data}&changePagesFunction=${user.changePagesFunction}&wfCreateJobFunction=${user.wfCreateJobFunction}`;
+    data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
+    data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
+    data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.post('user', data);
   }
 
@@ -1158,7 +1180,7 @@ export class ApiService {
   }
 
   editUserPassword(user: User, password: string): Observable<any> {
-    const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&role=${user.role}&password=${password}`;
+    const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&password=${password}`;
     return this.put('user', data)
   }
 
@@ -1271,6 +1293,16 @@ export class ApiService {
     return this.post('indexer', null);
   }
 
+  indexParents(): Observable<any> {
+    return this.post('indexer/parents', null);
+  }
+
+  updateNdkPage(): Observable<any> {
+    return this.post('object/updateNdkPage/pageType', null);
+  }
+
+
+
   getValuemap(): Observable<any> {
     let url = `valuemap`;
     return this.get(url);
@@ -1278,6 +1310,17 @@ export class ApiService {
 
   getConfig(): Observable<any> {
     return this.get('info/file?type=config');
+  }
+
+  getUserSettings(): Observable<any> {
+    return this.get('user/userSetting');
+  }
+
+  saveUserSettings(userSetting: any) {
+    //let data = `userSetting=${JSON.stringify(userSetting)}`;
+    let data = `userSetting=${JSON.stringify(userSetting)}`;
+    return this.post('user/userSetting', data);
+
   }
 
   validateObject(pid: string): Observable<any> {
@@ -1294,6 +1337,88 @@ export class ApiService {
   addReference(pid: string, structured: boolean, reference: string) {
     let data = `pid=${pid}&structured=${structured}&reference=${reference}`;
     return this.post('object/mods/addRefenrence', data);
+  }
+
+  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null, numberFromValid: boolean, getPageIndexFrom: number) {
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (holder.pageType !== '') {
+      data += `&pageType=${holder.pageType}`;
+    }
+    if (holder.pageIndex !== null) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.useBrackets) {
+      data += `&useBrackets=${holder.useBrackets}`;
+    }
+    if (holder.repreSelect != null) {
+      data += `&isReprePage=${holder.repreSelect}`;
+    }
+    if (holder.doubleColumns) {
+      data += `&doubleColumns=${holder.doubleColumns}`;
+    }
+    if (numberFromValid) {
+      data += `&sequence=${holder.pageNumberNumbering}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${getPageIndexFrom}&incrementNumber=${holder.pageNumberIncrement}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
+    }
+    if (holder.pagePosition) {
+      data += `&pagePosition=${holder.pagePosition}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
+  }
+
+  editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (holder.editIndex) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
+  }
+
+  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
+    const action = useBrackets ? 'addBrackets' : 'removeBrackets';
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.post('object/mods/' + action, data);
+  }
+
+  addAuthority(pid: string, mods: string) {
+    let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
+    return this.put('object/mods/addAuthority', data);
+
+  }
+
+  editorObjects(pids: string[], signatura: string, partNumber: number, sigla: string): Observable<any> {
+    // pid={uuid1}&pid={uuidValue2}&signatura={signaturaValue}&partNumber={partNumberValue}&sigla={siglaValue}
+    let data = '';
+    pids.forEach(pid => {
+      data = `${data}&pid=${pid}`;
+    });
+    if (signatura) {
+      data = `${data}&signatura=${signatura}`;
+    }
+    if (partNumber) {
+      data = `${data}&partNumber=${partNumber}`;
+    }
+    if (sigla) {
+      data = `${data}&sigla=${sigla}`;
+    }
+    return this.put('object/mods/editorObjects', data);
   }
 }
 

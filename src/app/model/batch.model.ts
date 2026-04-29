@@ -1,10 +1,11 @@
-import { DocumentItem } from "./documentItem.model";
+import { TableItem } from "./table-item.model";
 
-export class Batch {
+export class Batch extends TableItem {
 
   public id: number;
   public description: string;
-  public timestamp: Date;
+  public itemUpdated: Date;
+  public updated: Date;
   public create: Date;
   public state: string;
   public userId: number;
@@ -15,29 +16,40 @@ export class Batch {
   public pageCount: number;
   public folderPah: string;
   public priority: string;
+  public parameters: string;
 
   public static fromJson(json: any): Batch {
-      const batch = new Batch();
-      batch.id = json['id'];
-      batch.description = json['description'];
-      batch.timestamp = new Date(json['timestamp']);
-      batch.create = new Date(json['create']);
-      batch.state = json['state'];
-      batch.userId = json['userId'];
-      batch.user = json['user'];
-      batch.profile = json['profile'];
-      batch.parentPid = json['parentPid'];
-      batch.failure = json['failure'];
-      batch.pageCount = json['pageCount'] ? parseInt(json['pageCount']) : 0;
-      batch.folderPah = json['folderPath'];
-      batch.priority = json['priority'];
-      return batch;
+    const batch = new Batch();
+    batch.id = json['id'];
+    batch.pid = json['id'] + '';
+    batch.description = json['description'];
+    if (json['itemUpdated']) {
+      batch.itemUpdated = new Date(json['itemUpdated']);
+    }
+
+    if (json['updated']) {
+      batch.updated = new Date(json['updated']);
+    }
+
+    batch.timestamp = new Date(json['timestamp']);
+    batch.create = new Date(json['create']);
+    batch.state = json['state'];
+    batch.userId = json['userId'];
+    batch.user = json['user'];
+    batch.profile = json['profile'];
+    batch.parentPid = json['parentPid'];
+    batch.failure = json['failure'];
+    batch.pageCount = json['pageCount'] ? parseInt(json['pageCount']) : 0;
+    batch.folderPah = json['folderPath'];
+    batch.priority = json['priority'];
+    batch.parameters = json['parameters'];
+    return batch;
   }
 
   public static fromJsonArray(jsonArray: any[]): Batch[] {
     const array: Batch[] = [];
     for (const json of jsonArray) {
-        array.push(Batch.fromJson(json));
+      array.push(Batch.fromJson(json));
     }
     return array;
   }

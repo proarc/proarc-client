@@ -1,18 +1,35 @@
 
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { Uuid } from 'src/app/utils/uuid';
-import { ApiService } from 'src/app/services/api.service';
-import { DatePipe } from '@angular/common';
-import { UIService } from 'src/app/services/ui.service';
+import { Component, OnInit, Inject, ViewChild, ElementRef, inject, signal } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CatalogDialogComponent } from '../catalog-dialog/catalog-dialog.component';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { FormControl, Validators } from '@angular/forms';
-import { WorkFlowProfile } from 'src/app/model/workflow.model';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { WorkFlowProfile } from '../../model/workflow.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { Utils } from '../../utils/utils';
+import { MatInputModule } from '@angular/material/input';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
+import {provideMomentDateAdapter,  MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+//import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import 'moment/locale/cs';
 
 export class MultiDateFormat {
   value = '';
@@ -64,12 +81,32 @@ export class MultiDateFormat {
 
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
+    CdkDrag, CdkDragHandle,
+    MatDialogModule, MatDatepickerModule, MatInputModule,
+    MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
+    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
+    MatFormFieldModule, MatCheckboxModule
+  ],
   selector: 'app-new-object-dialog',
   templateUrl: './new-object-dialog.component.html',
-  providers: [{ provide: MAT_DATE_FORMATS, useClass: MultiDateFormat }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useClass: MultiDateFormat }
+  ],
   styleUrls: ['./new-object-dialog.component.scss']
 })
 export class NewObjectDialogComponent implements OnInit {
+
+  
+  private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
+  private readonly _intl = inject(MatDatepickerIntl);
+  private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
 
   state = 'none';
   isMultiple: boolean;
@@ -80,7 +117,7 @@ export class NewObjectDialogComponent implements OnInit {
   frequency = new FormControl();
   // frequency: string = null;
 
-  seriesTotalNumbers = new FormControl({value: '', disabled: true});
+  seriesTotalNumbers = new FormControl({ value: '', disabled: true });
 
   withPartNumber: boolean;
   withDateIssued: boolean;
@@ -113,9 +150,12 @@ export class NewObjectDialogComponent implements OnInit {
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
+    // this._locale.set('cs');
+    // this._adapter.setLocale(this._locale());
     if (this.data.isJob) {
       this.changeProfile(this.data.profile);
     } else {
@@ -132,7 +172,7 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid));
+    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Utils.validateUUID(this.data.pid));
   }
 
   changeWithPartNumber() {
@@ -267,7 +307,8 @@ export class NewObjectDialogComponent implements OnInit {
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
       data: { type: 'full', create: true },
-      width: '1200px'
+      width: '1200px',
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {

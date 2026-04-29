@@ -1,10 +1,21 @@
 
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { Profile } from 'src/app/model/profile.model';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { Profile } from '../../model/profile.model';
+import { ApiService } from '../../services/api.service';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-reload-batch-dialog',
   templateUrl: './reload-batch-dialog.component.html',
   styleUrls: ['./reload-batch-dialog.component.scss']
@@ -18,6 +29,7 @@ export class ReloadBatchDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ReloadBatchDialogComponent>,
     private api: ApiService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit() {

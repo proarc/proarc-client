@@ -1,10 +1,24 @@
+
 import { Component, OnInit } from '@angular/core';
-import { Device } from 'src/app/model/device.model';
-import { ApiService } from 'src/app/services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UIService } from 'src/app/services/ui.service';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Device } from '../../../model/device.model';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
 
 @Component({
+  imports: [TranslateModule, FormsModule, RouterModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatTableModule],
   selector: 'app-edit-device',
   templateUrl: './edit-device.component.html',
   styleUrls: ['./edit-device.component.scss']

@@ -1,9 +1,20 @@
+
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { Device } from 'src/app/model/device.model';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { Device } from '../../model/device.model';
+import { ApiService } from '../../services/api.service';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { Router, RouterModule } from '@angular/router';
+import { Sort } from '@angular/material/sort';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
+  imports: [TranslateModule, RouterModule, MatIconModule, MatButtonModule, MatTooltipModule, MatProgressBarModule, UserTableComponent],
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.scss']
@@ -12,60 +23,44 @@ export class DevicesComponent implements OnInit {
 
   state = 'none';
   devices: Device[];
-
-  displayedColumns: string[] = ['model', 'label', 'action'];
-
-  public selectedColumns = [
-    { field: 'model', selected: true, width: 100 },
-    { field: 'label', selected: true, width: 100 },
-    { field: 'action', selected: true, width: 100 }
-  ];
+  actions: {icon: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string}[] = [];
 
   constructor(
+    private router: Router,
     private api: ApiService,
-    public properties: LocalStorageService) { }
+    public settings: UserSettings,
+    public auth: AuthService,
+    public settingsService: UserSettingsService
+  ) { }
 
   ngOnInit() {
     this.state = 'loading';
+    this.actions.push({
+      icon: 'edit_note',
+      tooltip: 'button.edit',
+      condition: (e: any) => {
+        return true
+      },
+      action: (e: any) => {
+        this.router.navigate(['/devices', e.id])
+      }
+    });
     this.api.getDevices().subscribe((devices: Device[]) => {
       this.devices = devices;
-      this.state = 'success';
-      console.log('devices', devices);
+      this.state = 'success'
     });
-    this.initSelectedColumns();
   }
 
-   // resizable columns
-   setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  sortBy(e: Sort) {
+
   }
 
-  initSelectedColumns() {
-    const prop = this.properties.getStringProperty('devicesColumns');
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    }
-    this.setColumns();
+  selectRow(e: {item: Device, event?: MouseEvent, idx?: number}) {
+
   }
 
-  getColumnWidth(field: string) {
-    const el = this.selectedColumns.find((c: any)=> c.field === field);
-    if (el) {
-      return el.width + 'px';
-    } else {
-      return '';
-    }
-  }
+  openItem(device: Device) {
 
-  saveColumnsSizes(e: any, field?: string) {
-    const el = this.selectedColumns.find((c: any)=> c.field === field);
-    if (el) {
-      el.width = e;
-    } else {
-      console.log("nemelo by")
-    } 
-    this.properties.setStringProperty('devicesColumns', JSON.stringify(this.selectedColumns));
   }
-  // end
 
 }

@@ -1,12 +1,34 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
-import { ConfigService } from 'src/app/services/config.service';
-import { UIService } from 'src/app/services/ui.service';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { Configuration } from '../../shared/configuration';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
+  imports: [TranslateModule, MatDialogModule, MatTableModule, 
+    CdkDrag, CdkDragHandle, 
+    MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, 
+    MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, 
+    MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule, MatInputModule],
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
   styleUrls: ['./export-dialog.component.scss']
@@ -14,11 +36,12 @@ import { UIService } from 'src/app/services/ui.service';
 export class ExportDialogComponent implements OnInit {
 
   state = 'none';
-  types =  this.config.exports;
+  types: string[];
 
 
   selectedType: string;
   policyPublic: boolean;
+  nightOnly = false;
   cesnetLtpToken: string;
   //isBagit: boolean = false;
   target: string;
@@ -38,9 +61,10 @@ export class ExportDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
     private api: ApiService,
-    private config: ConfigService,
+    private config: Configuration,
     private ui: UIService,
     private dialog: MatDialog,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}[]) { }
 
   ngOnInit() {
@@ -74,7 +98,7 @@ export class ExportDialogComponent implements OnInit {
     this.target = null;
     this.api.export(this.selectedType, pids, policy, 
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
-      this.extendedType, this.noTifMessage, this.addInfoMessage).subscribe((response: any) => {
+      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -97,7 +121,7 @@ export class ExportDialogComponent implements OnInit {
       }
 
       if (this.errors.length === 0 && this.target) {
-        this.state = 'done';
+        this.state = this.nightOnly ? 'done_nightOnly' : 'done';
       } else {
         this.state = 'error';
       }
@@ -112,7 +136,7 @@ export class ExportDialogComponent implements OnInit {
   }
 
   formDisabled(): boolean {
-    return this.state === 'saving' || this.state === 'done';
+    return this.state === 'saving' || this.state === 'done' || this.state === 'done_nightOnly';
   }
 
 
@@ -121,7 +145,10 @@ export class ExportDialogComponent implements OnInit {
       title: error.message,
       content: error.pid + (error.log ? (': ' + error.log) : '')
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

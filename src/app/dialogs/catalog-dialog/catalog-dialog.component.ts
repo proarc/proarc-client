@@ -1,13 +1,35 @@
 
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { Catalogue, CatalogueField } from 'src/app/model/catalogue.model';
-import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';
-import { ConfigService } from 'src/app/services/config.service';
-import { UIService } from 'src/app/services/ui.service';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { Catalogue, CatalogueField } from '../../model/catalogue.model';
+import { CatalogueEntry } from '../../model/catalogueEntry.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { Configuration } from '../../shared/configuration';
+import { MatInputModule } from '@angular/material/input';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
+    CdkDrag, CdkDragHandle, 
+    MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
+    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
+    FormsModule, MatFormFieldModule, MatCheckboxModule
+  ],
   selector: 'app-catalog-dialog',
   templateUrl: './catalog-dialog.component.html',
   styleUrls: ['./catalog-dialog.component.scss']
@@ -36,13 +58,14 @@ export class CatalogDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CatalogDialogComponent>,
     private api: ApiService,
     private ui: UIService,
-    private config: ConfigService,
+    private config: Configuration,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
   ngOnInit() {
     this.state = 'loading';
-    this.models = this.config.allModels;
+    this.models = this.config.models;
     this.type = this.data['type'];
     if (this.type == 'authors') {
       this.api.getAuthorityCatalogs().subscribe((catalogs: Catalogue[]) => {

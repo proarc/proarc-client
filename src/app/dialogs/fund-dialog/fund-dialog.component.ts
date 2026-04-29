@@ -1,9 +1,19 @@
 
+
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FundService } from 'src/app/services/fund.service';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { FundService } from '../../services/fund.service';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule],
   templateUrl: './fund-dialog.component.html',
   styleUrls: ['./fund-dialog.component.scss']
 })
@@ -19,6 +29,7 @@ export class FundDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<FundDialogComponent>,
     private fund: FundService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) private data: string) { 
       this.archive = data;
   }

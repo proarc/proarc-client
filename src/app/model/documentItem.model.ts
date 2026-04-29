@@ -1,7 +1,8 @@
+import { TableItem } from "./table-item.model";
 
-export class DocumentItem {
+export class DocumentItem extends TableItem {
 
-  public pid: string;
+
   public parent: string;
   public model: string;
   public state: string;
@@ -22,8 +23,6 @@ export class DocumentItem {
 
   public shortLabel: string;
 
-  public selected = false;
-
   public filename: string;
   public pageIndex: string;
   public pageNumber: string;
@@ -32,13 +31,12 @@ export class DocumentItem {
   public pageRepre: string;
 
 
-  public invalid: boolean;
+  public invalid: boolean = false;
 
   public isLocked: boolean;
   public notSaved: boolean;
   public content: string;
 
-  public timestamp: number;
   public writeExports: string;
 
   validationProcess: string;
@@ -46,9 +44,6 @@ export class DocumentItem {
 
   descriptionStandard: string;
   urnNbn : string;
-  constructor() {
-    this.invalid = false;
-  }
 
   public static fromJson(json: any): DocumentItem {
     if (!json) {
@@ -82,7 +77,7 @@ export class DocumentItem {
     if (json['created']) {
       item.created = new Date(json['created']);
     }
-    if (item.label.indexOf(',') > -1) {
+    if (item.label?.indexOf(',') > -1) {
       item.shortLabel = item.label.split(',')[0];
     } else {
       item.shortLabel = item.label;
@@ -122,7 +117,6 @@ export class DocumentItem {
       page.pageIndex = json['pageIndex'] || "";
       page.pageNumber = json['pageNumber'] || "";
       page.pageType = json['pageType'] || "";
-      page.pageType = page.pageType.toLowerCase();
       page.pagePosition = json['pagePosition'] || "";
       page.pageRepre = json['pageRepre'] || "";
       let l = page.pageNumber;
@@ -200,6 +194,7 @@ export class DocumentItem {
       'model:ndkearticle',
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
+      'model:ndkemonographunit',
       'model:ndkechapter',
       'model:bdmarticle'
     ].indexOf(this.model) >= 0;
@@ -225,4 +220,13 @@ export class DocumentItem {
     return exports;
   }
 
+}
+
+export interface TreeDocumentItem extends DocumentItem {
+  parentPid?: string;
+  level: number;
+  expandable: boolean;
+  expanded: boolean;
+  childrenLoaded: boolean;
+  hidden: boolean;
 }

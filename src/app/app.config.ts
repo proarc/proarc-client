@@ -1,0 +1,62 @@
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthService } from './services/auth.service';
+import { Configuration } from './shared/configuration';
+import { ApiService } from './services/api.service';
+import { UserSettings, UserSettingsService } from './shared/user-settings';
+import { UIService } from './services/ui.service';
+import { LayoutService } from './services/layout-service';
+import { provideHighlightOptions } from 'ngx-highlightjs';
+import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideMaterialCssVars } from "angular-material-css-vars";
+import { FundService } from './services/fund.service';
+
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json?v=' + Date.now());
+}
+
+function initializeApp(auth: AuthService) {
+  return auth.initializeApp();
+}
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    provideNativeDateAdapter(),
+    provideMaterialCssVars({
+      // all optional
+      isAutoContrast: true,
+      primary: "#3f51b5",
+      // ...
+    }),
+    provideAppInitializer(() => initializeApp(inject(AuthService))),
+    importProvidersFrom(TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })),
+    provideHighlightOptions({
+      fullLibraryLoader: () => import('highlight.js')
+    }),
+    //{provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
+    TranslateService, DatePipe, UserSettings,
+    Configuration, ApiService, AuthService, FundService, UIService, UserSettingsService,
+    LayoutService
+  ]
+};
+
+

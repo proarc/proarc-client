@@ -1,9 +1,10 @@
-
+.app-viewer-bg {
+  background-color: #eee;  
+}
 .app-viewer-wrapper {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  //background-color: #eee;    
+  overflow: hidden;  
   position: relative;
 
   .app-view-controls-wrapper {

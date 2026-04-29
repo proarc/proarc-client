@@ -1,39 +1,24 @@
-<!-- <div class="reader-container" [ngClass]="{'nav-open' : navOpen}">
-  <div id="titlebar">
-    <div id="metainfo">
-      <span id="book-title">{{ bookTitle + (chapterTitle === bookTitle ? '' : ' - ' + chapterTitle) }}</span>
-      <span id="title-seperator">&nbsp;&nbsp;–&nbsp;&nbsp;</span>
-      <span id="chapter-title"></span>
-    </div>
-  </div>
-  <div class="sidebar-nav" (click)="toggleNav()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="sidenav">
-    <a class="toc-link" *ngFor="let chapter of chapters" (click)="displayChapter(chapter)">{{ chapter.label }}</a>
-  </div>
-  <div id="divider"></div>
-</div> -->
-
-
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-      <div class="app-toolbar-label">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-wrap app-view-pub">
+   	<div class="app-fxFlex">
+      <div class="app-toolbar-label app-pl-2">
         <span class="app-text">E-pub</span>&#160;
         <span >{{ bookTitle }}</span>
-        <span *ngIf="chapterTitle && bookTitle.trim() !== chapterTitle.trim()"> - {{ chapterTitle }}</span>
+        @if (chapterTitle && bookTitle.trim() !== chapterTitle.trim()) {
+        <span> - {{ chapterTitle }}</span>
+        }
       </div>
     </div>
-    <div *ngIf="rendition?.location">
+    @if (rendition?.location) {
+    <div class="app-h-100">
       <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
         [matTooltip]="'button.chapters' | translate">
         <mat-icon>format_list_numbered</mat-icon>
       </button>
       <mat-menu #chapters_menu="matMenu">
-        <div *ngFor="let chapter of chapters" mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+        @for(chapter of chapters; track $index; let idx = $index) {
+        <div mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+        }
       </mat-menu>
       <button mat-icon-button (click)="showPrev()" [disabled]="rendition.location.start.index === 0" [matTooltip]="'button.prev_page' | translate">
         <mat-icon>keyboard_arrow_left</mat-icon>
@@ -42,9 +27,9 @@
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
+  }
   </div>
-  <div fxFlex class="app-oa-y">
-    <!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
+  <div class="app-fxFlex app-oa-y">
     <div class="app-editor-content app-h-100">
       <div class="app-pdf-wrapper" style="height: 100%;">
         <div id="epub_viewer" #epubViewer style="height: 100%;"></div>

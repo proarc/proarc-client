@@ -1,0 +1,23 @@
+<app-editor-field [field]="field">
+  <ng-template let-item="item" #templateContent>
+    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+      <mat-label>{{ 'editor.chronicle.location.archive' | translate }}</mat-label>
+      <mat-select [(ngModel)]='item.physicalLocation["$"]["type"]' [placeholder]="'editor.chronicle.location.archive' | translate">
+        @for(archive of archives; track $index;) {
+          <mat-option [value]="archive.code">
+            {{ archive.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+      <mat-label>{{ 'editor.chronicle.location.fund' | translate }}</mat-label>
+      <button class="app-lookup-fund" (click)='lookupFund(item.physicalLocation)' [matTooltip]="'editor.chronicle.location.lookup_fund' | translate" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input disabled="true" autocomplete="off" matInput [value]='fund.getName(item.physicalLocation["_"])' [placeholder]="'editor.chronicle.location.fund' | translate">
+    </mat-form-field>
+  </ng-template>
+</app-editor-field>
+  

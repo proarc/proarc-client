@@ -1,12 +1,24 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input, ViewChild, ElementRef, input, effect } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { StreamProfile } from 'src/app/model/stream-profile';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { MatIconModule } from '@angular/material/icon';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, 
+    NgxExtendedPdfViewerModule, MatIconModule,
+    MatCardModule, MatProgressBarModule, MatTooltipModule
+  ],
   selector: 'app-pdf',
   templateUrl: './pdf.component.html',
   styleUrls: ['./pdf.component.scss']
@@ -16,25 +28,25 @@ export class PdfComponent implements OnInit {
   @ViewChild('pdfInput') pdfInput: ElementRef;
   @ViewChild('pdfViewer') pdfViewer: ElementRef;
 
-  private currentStream: string;
-  @Input()
-  set stream(stream: string) {
-    this.currentStream = stream;
-    this.onPidChanged(this.currentPid);
-  }
+  stream = input<string>();
+  pid = input<string>();
 
+  private currentStream: string;
   private currentPid: string;
-  @Input() 
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
 
   pdfUrl: string;
   state = 'loading';
 
   constructor(private api: ApiService,
      private dialog: MatDialog,
-     private ui: UIService) {
+     private ui: UIService,
+     public settings: UserSettings
+    ) {
+      effect(() => {
+        this.currentPid = this.pid();
+        this.currentStream = this.stream();
+        this.onPidChanged(this.currentPid);
+      })
   }
 
   ngOnInit() {
@@ -50,7 +62,6 @@ export class PdfComponent implements OnInit {
   }
 
   onPidChanged(pid: string) {
-    this.currentPid = pid;
     this.state = 'loading';
     this.pdfUrl = this.api.getStreamUrl(pid, this.currentStream);
     if (!pid) {
@@ -66,7 +77,6 @@ export class PdfComponent implements OnInit {
       } else {
         this.state = 'error';
       }
-      
     });
   }
 
@@ -110,7 +120,10 @@ onRemove() {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';

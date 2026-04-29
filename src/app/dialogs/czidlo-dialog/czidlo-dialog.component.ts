@@ -1,14 +1,33 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
-import { UrnnbnDialogComponent } from '../urnnbn-dialog/urnnbn-dialog.component';
-import { Registrar } from 'src/app/model/registrar.model';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
-import { CodebookService } from 'src/app/services/codebook.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Registrar } from '../../model/registrar.model';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
+import { Configuration } from '../../shared/configuration';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
+  imports: [CommonModule, TranslateModule, MatDialogModule,
+    MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
+    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
+    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule, MatInputModule
+  ],
   selector: 'app-czidlo-dialog',
   templateUrl: './czidlo-dialog.component.html',
   styleUrls: ['./czidlo-dialog.component.scss']
@@ -39,11 +58,13 @@ export class CzidloDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CzidloDialogComponent>,
-    public codebook: CodebookService,
+    public config: Configuration,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
+    public settingsService: UserSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit(): void {
@@ -64,7 +85,7 @@ export class CzidloDialogComponent implements OnInit {
       this.state = 'none';
     });
 
-    this.identifiers =  this.codebook.getIdentifiers(this.data.model)
+    this.identifiers =  this.settingsService.getIdentifiers(this.data.model)
     .filter(id => id.code !== 'ccnb' && id.code !== 'urnnbn' && id.code !== 'isbn' );
     //console.log()
   }
@@ -230,7 +251,10 @@ export class CzidloDialogComponent implements OnInit {
       title: '',
       content: error
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

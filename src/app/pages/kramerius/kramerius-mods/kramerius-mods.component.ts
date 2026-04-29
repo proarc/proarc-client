@@ -1,10 +1,25 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Mods } from 'src/app/model/mods.model';
-import { ApiService } from 'src/app/services/api.service';
-import { LayoutService } from 'src/app/services/layout.service';
-import { UIService } from 'src/app/services/ui.service';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { AngularSplitModule } from 'angular-split';
+import { Mods } from '../../../model/mods.model';
+import { ApiService } from '../../../services/api.service';
+import { LayoutService } from '../../../services/layout-service';
+import { UIService } from '../../../services/ui.service';
+import { HighlightAuto } from 'ngx-highlightjs';
 
 @Component({
+  imports: [TranslateModule, FormsModule, AngularSplitModule, RouterModule, HighlightAuto,
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
+    MatTooltipModule, MatMenuModule, MatSelectModule],
   selector: 'app-kramerius-mods',
   templateUrl: './kramerius-mods.component.html',
   styleUrls: ['./kramerius-mods.component.scss']

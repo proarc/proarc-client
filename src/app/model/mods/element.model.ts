@@ -2,6 +2,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
 import ModsUtils from './utils';
+import { Utils } from "../../utils/utils";
 
 export abstract class ModsElement {
     public attrs: any;
@@ -158,25 +159,46 @@ export abstract class ModsElement {
         return this.template['fields'][field];
     }
 
-    public addControl(field: string) {
-        if (!this.controls.hasOwnProperty(field)) {
-            const c = new FormControl('');
-            if (field === 'dateIssued') {
-            }
+    public addControl(field: string, modsElement: string = null) {
+        const me = modsElement ? modsElement as keyof (ModsElement) : field as keyof (ModsElement);
 
-            if (this[field as keyof (ModsElement)]) {
-                c.setValue(this[field as keyof (ModsElement)]['_']);
-            }
-
-            this.controls[field] = c;
-            // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
-        }
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);
         this.hasHelp[field] = this.showHelp(field);
         this.available[field] = this.available2(field);
         this.labelKey[field] = this.labelKey2(field);
+
+        if (!this.controls.hasOwnProperty(field)) {
+            const c = new FormControl('');
+            if (this.hasOwnProperty(me) && this[me]) {
+                c.patchValue(this[me]['_']);
+                c.valueChanges.subscribe((e: any) => {
+                    this[me]['_'] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+                });
+            } else if (this.modsElement[me]) {
+                //c.patchValue(this.modsElement[me]);
+                c.valueChanges.subscribe((e: any) => {
+                    this.modsElement[me] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+
+                });
+            } else if (this.attrs?.hasOwnProperty(me)) {
+                c.patchValue(this.attrs[me]);
+                c.valueChanges.subscribe((e: any) => {
+                    this.attrs[me] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+                });
+            } else {
+                c.valueChanges.subscribe((e: any) => {
+                    Utils.metadataChanged.update(n => n + 1);
+                });
+            }
+
+            this.controls[field] = c;
+            // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
+        }
         if (field === 'nonSort') {
 
         }
@@ -240,36 +262,36 @@ export abstract class ModsElement {
         if (!anyValue) {
             if (isRequired) {
                 Object.keys(this.controls).forEach((key) => {
-                    const value = this.controls[key];
+                    const control = this.controls[key];
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
-                        !value.value) {
-                      // uprava kvuli issue 627
-                      if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
-                        error = false;
-                      } else {
-                        error = true;
-                        value.markAsTouched();
-                        if (parent && (parent.isRequired || parent.hasAnyValue()) ) {
-                          parent.collapsed = false;
+                        !control.value) {
+                        // uprava kvuli issue 627
+                        if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
+                            error = false;
+                        } else {
+                            error = true;
+                            control.markAsTouched();
+                            if (parent && (parent.isRequired || parent.hasAnyValue())) {
+                                parent.collapsed = false;
+                            }
+                            this.collapsed = false;
                         }
-                        this.collapsed = false;
-                      }
                     }
                 });
                 // error = true;
             } else {
                 Object.keys(this.controls).forEach((key) => {
-                    const value = this.controls[key];
-                    if (this.template.fields[key + '']?.required && !value.value) {
+                    const control = this.controls[key];
+                    if (this.template.fields[key + '']?.required && !control.value) {
                         error = true;
-                        value.markAsTouched();
+                        control.markAsTouched();
                         // if (parent) {
                         //   parent.collapsed = false;
                         // }
                         // this.collapsed = false;
                     } else {
-                        value.markAsUntouched();
+                        //control.markAsUntouched();
                     }
                 });
             }
@@ -313,11 +335,9 @@ export abstract class ModsElement {
     public hasChanges(): boolean {
         const keys = Object.keys(this.controls);
         for (let key of keys) {
-            // keys.forEach(( key: string) => {
             if (this.controls[key].dirty) {
                 return true;
             }
-            //});
         }
 
         for (const subfield of this.getSubfields()) {

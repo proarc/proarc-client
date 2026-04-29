@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import * as JSON5 from 'json5';
-import { ModelTemplate } from '../templates/modelTemplate';
-var JSON6 = require('json-6');
+import { ModelTemplate } from '../model/modelTemplate';
+//var JSON6 = require('json-6');
+//import JSON6 = require('json-6');
+declare var JSON6: any;
 
 @Injectable({
   providedIn: 'root'

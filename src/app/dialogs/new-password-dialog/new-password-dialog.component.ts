@@ -1,12 +1,24 @@
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UIService } from 'src/app/services/ui.service';
-import { TranslateService } from '@ngx-translate/core';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
+import { UIService } from '../../services/ui.service';
+import { MatInputModule } from '@angular/material/input';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
+  standalone: true,
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatInputModule, MatProgressBarModule],
   selector: 'app-new-password-dialog',
   templateUrl: './new-password-dialog.component.html',
   styleUrls: ['./new-password-dialog.component.scss']
@@ -24,7 +36,8 @@ export class NewPasswordDialogComponent implements OnInit {
     private auth: AuthService,
     private ui: UIService,
     private translator: TranslateService,
-    private api: ApiService) { }
+    private api: ApiService,
+    public settings: UserSettings) { }
 
   ngOnInit() {
     this.password1 = '';

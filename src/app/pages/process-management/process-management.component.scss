@@ -1,16 +1,47 @@
-.app-process-management {
-  .app-formbar {
-    .mat-form-field {
-      &.app-resized {
-        $app-size: 120px;
-        flex: 1 1 $app-size;
-        max-width: $app-size;
-        min-width: $app-size;
-      }
+// form bar
+.app-formbar {
+  flex-wrap: wrap;
 
-      &.app-state {
-        max-width: 300px !important;
+  .mat-mdc-outlined-button {
+    margin-bottom: 8px;
+  }
+
+  .mat-mdc-form-field {
+    &.app-state,
+    &.app-pid {
+      //$app-width: 260px;
+      $app-width: 370px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+  
+    &.app-priority {
+      $app-width: 120px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+
+    &.app-user {
+      $app-width: 180px;
+      flex: 1 1 $app-width;
+      max-width: 300px;
+      min-width: $app-width;
+    }
+
+    &.app-profile {
+      $app-width: 300px;
+      flex: 1 1 $app-width;
+      max-width: 420px;
+      min-width: $app-width;
+    }
+
+    ::ng-deep {
+      .mat-mdc-form-field-subscript-wrapper {
+        line-height: 8px !important;
       }
     }
   }
 }
+

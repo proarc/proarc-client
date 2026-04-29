@@ -1,11 +1,24 @@
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
-import { WorkFlow } from 'src/app/model/workflow.model';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { NewMetadataDialogComponent } from '../../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { WorkFlow } from '../../../model/workflow.model';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
+  imports: [TranslateModule, FormsModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatInputModule, MatButtonModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-material-edit',
   templateUrl: './material-edit.component.html',
   styleUrls: ['./material-edit.component.scss']
@@ -20,7 +33,8 @@ export class MaterialEditComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
-    private ui: UIService) { }
+    private ui: UIService,
+    public settings: UserSettings) { }
 
   ngOnInit(): void {
   }
@@ -43,6 +57,7 @@ export class MaterialEditComponent implements OnInit {
         disableClose: true,
         height: '90%',
         width: '680px',
+        panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
         data: {
           title: 'dialog.newMetadata.title_edit',
           isWorkFlow: true,

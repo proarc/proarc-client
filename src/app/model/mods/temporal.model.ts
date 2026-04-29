@@ -25,7 +25,7 @@ export class ModsTemporal extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
-      this.addControl('value');
+      this.addControl('value', '_');
       this.addControl('lang');
       this.addControl('valueURI');
 

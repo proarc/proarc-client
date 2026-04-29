@@ -1,4 +1,4 @@
-.app-disabled {
-    opacity: .3;
-    pointer-events: none;
-}
+::ng-deep.app-dialog-new-object .mat-mdc-dialog-surface {
+    // overflow: hidden;
+    resize: both;
+  } 

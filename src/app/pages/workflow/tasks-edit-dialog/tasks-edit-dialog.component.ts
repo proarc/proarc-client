@@ -1,10 +1,23 @@
+
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { ConfigService } from 'src/app/services/config.service';
-import { UIService } from 'src/app/services/ui.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+//import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { Configuration } from '../../../shared/configuration';
 
 @Component({
+  imports: [TranslateModule, FormsModule, 
+  //  FlexLayoutModule, 
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-taskss-edit-dialog',
   templateUrl: './tasks-edit-dialog.component.html',
   styleUrls: ['./tasks-edit-dialog.component.scss']
@@ -17,7 +30,7 @@ export class TaskssEditDialogComponent implements OnInit {
   isSelectionSameType: boolean;
 
   constructor(
-    public config: ConfigService,
+    public config: Configuration,
     private api: ApiService,
     private ui: UIService,
     public dialogRef: MatDialogRef<TaskssEditDialogComponent>,

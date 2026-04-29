@@ -1,12 +1,26 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
-import { User } from 'src/app/model/user.model';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ConfigService } from 'src/app/services/config.service';
-import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Router, RouterModule } from '@angular/router';
+
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { User } from '../../../model/user.model';
+import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
+import { ApiService } from '../../../services/api.service';
+import { UIService } from '../../../services/ui.service';
+import { Configuration } from '../../../shared/configuration';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.scss']
@@ -17,15 +31,16 @@ export class NewUserComponent implements OnInit {
   @ViewChild('password') password: ElementRef;
 
   user: User;
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   constructor(
     private translator: TranslateService,
     private api: ApiService,
     private ui: UIService,
-    private config: ConfigService,
-    private router: Router
+    private config: Configuration,
+    private router: Router,
+    public auth: AuthService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +50,8 @@ export class NewUserComponent implements OnInit {
 
 
   newUser() {
-    const newUser: User = User.fromJson({name: null, role: 'user', userId: -1});
+    const newUser: User = User.fromJson({name: null, userId: -1});
     this.user = newUser;
-    console.log(this.user )
   }
 
   setControleFieldTimeout(selectedFiled: any) {
@@ -66,7 +80,7 @@ export class NewUserComponent implements OnInit {
     this.api.newUser(this.user).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
-        return; 
+        return;
       }
       const user: User =  User.fromJson(response['response']['data'][0]);
       this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.addNewUser.success')));
