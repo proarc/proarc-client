@@ -278,8 +278,6 @@ export class ElementField {
 
     private newElement(id: any, el: {}): ModsElement | undefined {
         switch (id) {
-            case ModsAccessCondition.getId() :
-                return new ModsAccessCondition(el, this.template);
             case ModsTitle.getId():
                 return new ModsTitle(el, this.template);
             case ModsLanguage.getId():

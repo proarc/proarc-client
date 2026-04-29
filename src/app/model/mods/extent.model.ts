@@ -32,7 +32,9 @@ export class ModsExtent extends ModsElement {
       this.addControl('end');
 
       if (!this.modsElement['total']) {
-        this.modsElement['total'] = ModsUtils.createField(this, 'total');
+        const attrs = {'type': 'pages'};
+        this.modsElement['total'] = [ModsUtils.createTextElement('', attrs)];
+        this.addControl('type');
       }
       this.addControl('total');
 

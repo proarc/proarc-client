@@ -84,24 +84,6 @@ export class EditorAuthorComponent implements OnInit {
           this.layout.clearPanelEditing();
             this.layout.refreshSelectedItem(true, 'metadata');
         });
-
-        // const standard = Metadata.resolveStandard(mods);
-        // this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
-        //   const metadata = new Metadata('', this.model, mods, 0, standard, tmpl);
-        //   const nameField = metadata.getField(ModsAuthor.getSelector());
-        //   //const items = nameField.getItems();
-        //   if (nameField && nameField.items.length > 0) {
-        //     this.field.addAfterItem(item, nameField.items[0]);
-        //     setTimeout(() => {
-        //       this.field.removeItem(item);
-        //       setTimeout(() => {
-        //         this.layout.setMetadataResized();
-        //       }, 10);
-        //     }, 10);
-        //   }
-
-
-        // });
       }
     });
   }

@@ -57,7 +57,7 @@ export class ProcessManagementComponent {
   pageSize = 20;
   resultCount = 200;
 
-  selectedState = 'ALL';
+  selectedState = 'LOADED';
 
   users: User[];
   batches: Batch[];
