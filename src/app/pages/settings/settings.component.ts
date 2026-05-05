@@ -101,13 +101,14 @@ export class SettingsComponent implements OnInit {
   changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
     const top: string[] = this.curSettings[listName];
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
-      data: { prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded },
+      data: { prefix, top, conf: [...conf], expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded },
       panelClass: ['app-dialog-preferred-tops', 'app-form-view-' + this.settings.appearance]
     });
 
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+
         this.curSettings[listName] = [];
         result.top.forEach((r: string) => {
           this.curSettings[listName].push(r);

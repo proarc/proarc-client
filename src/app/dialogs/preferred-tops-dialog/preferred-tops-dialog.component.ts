@@ -59,27 +59,6 @@ export class PreferredTopsDialogComponent implements OnInit {
     });
     this.relatedItemExpanded = this.data.relatedItemExpanded;
 
-
-    // if (this.data == 'PageTypes') {
-    //   this.items = this.codebook.pageTypes;
-    // } else if (this.data == 'Languages') {
-    //   this.items = this.codebook.languages;
-    // } else if (this.data == 'Locations') {
-    //   this.items = this.codebook.locations;
-    // } else if (this.data == 'Identifiers') {
-    //   this.items = this.codebook.identifiers;
-    // } else if (this.data == 'ExpandedModels') {
-    //   this.items = this.codebook.expandedModels;
-    // } else {
-    //   this.items = [];
-    // }
-    // this.checked = {};
-    // for (const code of this.codebook.getTopCodes(this.data)) {
-    //   this.checked[code] = true;
-    // }
-    // if (localStorage.getItem('relatedItemExpanded')) {
-    //   this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
-    // }
   }
 
   onSave() {
@@ -89,16 +68,6 @@ export class PreferredTopsDialogComponent implements OnInit {
         this.data.top.push(i.name)
       }
     });
-    // const codes = [];
-    // for (const item of this.items) {
-    //   if (this.checked[item.code]) {
-    //     codes.push(item.code);
-    //   }
-    // }
-    // this.codebook.setNewTopsInCollection(this.data, codes);
-    // if (this.data == 'ExpandedModels') {
-    //   localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
-    // }
     this.dialogRef.close({top: this.data.top, relatedItemExpanded: this.relatedItemExpanded});
   }
 
