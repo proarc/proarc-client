@@ -189,7 +189,7 @@ export class RepositoryComponent {
           if (selection.includes(ch.pid)) {
             ch.selected = true;
           }
-          console.log(ch)
+          // console.log(ch)
           if (ch.pid === lastSelected) {
             this.layout.setLastSelectedItem(ch);
           }

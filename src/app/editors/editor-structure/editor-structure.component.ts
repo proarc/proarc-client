@@ -140,7 +140,6 @@ export class EditorStructureComponent implements OnInit {
     effect(() => {
       const lastSelectedItem = this.layout.lastSelectedItem();
       this.pageChildren = this.layout.items().findIndex(it => it.isPage()) > -1;
-      console.log(this.layout.items().filter(i => i.selected))
       // this.refreshChildren(selection);
       this.scrollToLastClicked();
     });
@@ -195,8 +194,6 @@ export class EditorStructureComponent implements OnInit {
           item.selected = true;
         }
       }
-      
-        console.log('A')
       this.layout.items.set([...children]);
 
     });
@@ -763,7 +760,7 @@ export class EditorStructureComponent implements OnInit {
 
 
   dragFromTable(e: any) {
-    console.log(e[1].label)
+    // console.log(e[1].label)
     this.layout.setItems(e);
     this.hasChanges = true;
     this.layout.setSelectionChanged(true, this.panel);
@@ -901,7 +898,7 @@ export class EditorStructureComponent implements OnInit {
           } else {
             this.layout.items().push(...items);
           }
-        console.log('B')
+          
           this.layout.items.set([...items]);
           const item = items[0];
           item.selected = true;
@@ -935,7 +932,6 @@ export class EditorStructureComponent implements OnInit {
                 items.push(item);
               }
               
-        console.log('C')
               this.layout.items.set([...items]);
               
               if (res.gotoEdit) {

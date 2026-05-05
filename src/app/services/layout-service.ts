@@ -75,8 +75,6 @@ export class LayoutService {
 
     public items = signal<DocumentItem[]>(null); // all children items
     public setItems(val: DocumentItem[]) {
-        
-        console.log('D')
         this.items.set([...val])
     }
 
