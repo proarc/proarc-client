@@ -123,7 +123,7 @@ export class EditorMetadataComponent implements OnInit {
         const m = Utils.metadataChanged();
         this.hasChanges = m > 0;
         if (m > 0) {
-          this.hasPendingChanges();
+          this.hasPendingChanges(m===3);
         }
 
       });
@@ -470,7 +470,7 @@ export class EditorMetadataComponent implements OnInit {
     this.hasChanges = false;
   }
 
-  hasPendingChanges(): boolean {
+  hasPendingChanges(force: boolean = false): boolean {
     if (!this.metadata) {
       return false;
     }
@@ -484,7 +484,7 @@ export class EditorMetadataComponent implements OnInit {
       return false;
     }
     const isChild = panel.contains(focused);
-    if (isChild && this.hasChanges && this.layout.editingPanel !== this.panel().id) {
+    if (force || (isChild && this.hasChanges && this.layout.editingPanel !== this.panel().id)) {
       this.layout.setPanelEditing(this.panel());
     }
     return this.hasChanges;
