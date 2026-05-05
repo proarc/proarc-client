@@ -6,6 +6,7 @@ import { UIService } from "../services/ui.service";
 import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
 import { TranslateService } from "@ngx-translate/core";
+import { ModelTemplate } from "../model/modelTemplate";
 
 @Injectable()
 export class UserSettings {
@@ -308,8 +309,11 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
       this.config.models.forEach((model: string) => {
             this.settings.colsEditingRepo[model] = Utils.clone(this.columnsEditingRepoDefault);
             // pro modely stranek zapneme jejich cols
+            const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, model).join(',');
+            const canHavePages = allowedAsString.includes('page');
+
             this.settings.colsEditingRepo[model].forEach(col => {
-                col.selected = (model.indexOf('page') < 0 && col.field.indexOf('page') < 0) || (model.indexOf('page') > -1 && col.field.indexOf('page') > -1);
+                col.selected = canHavePages || (model.indexOf('page') < 0 && col.field.indexOf('page') < 0) || (model.indexOf('page') > -1 && col.field.indexOf('page') > -1);
             });
         });
     }
