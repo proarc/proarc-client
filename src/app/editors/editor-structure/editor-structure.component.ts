@@ -140,7 +140,7 @@ export class EditorStructureComponent implements OnInit {
     effect(() => {
       const lastSelectedItem = this.layout.lastSelectedItem();
       this.pageChildren = this.layout.items().findIndex(it => it.isPage()) > -1;
-      // console.log(this.layout.items())
+      console.log(this.layout.items().filter(i => i.selected))
       // this.refreshChildren(selection);
       this.scrollToLastClicked();
     });
@@ -189,13 +189,15 @@ export class EditorStructureComponent implements OnInit {
       children.forEach(item => {
         item.selected = selection.includes(item.pid);
       });
-      if (this.layout.lastSelectedItem) {
+      if (this.layout.lastSelectedItem()) {
         const item = children.find(item => item.pid === this.layout.lastSelectedItem().pid);
         if (item) {
           item.selected = true;
         }
       }
-      this.layout.items.set(children);
+      
+        console.log('A')
+      this.layout.items.set([...children]);
 
     });
   }
@@ -213,12 +215,12 @@ export class EditorStructureComponent implements OnInit {
           return;
         }
         const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-        this.layout.setItems(pages);
-        this.layout.items().forEach(item => {
+        pages.forEach(item => {
           if (selection.includes(item.pid)) {
             item.selected = true;
           }
         })
+        this.layout.setItems(pages);
       });
     });
 
@@ -414,11 +416,11 @@ export class EditorStructureComponent implements OnInit {
 
   moveToNext(idx: number) {
     setTimeout(() => {
+      const index = idx + 1;
+      if (index < this.layout.items().length) {
+        this.rowClick(this.layout.items()[index], null, index);
+      }
     }, 1000)
-    const index = idx + 1;
-    if (index < this.layout.items().length) {
-      this.rowClick(this.layout.items()[index], null, index);
-    }
   }
 
   changeViewMode(view: string) {
@@ -899,7 +901,8 @@ export class EditorStructureComponent implements OnInit {
           } else {
             this.layout.items().push(...items);
           }
-          this.layout.items.set(items);
+        console.log('B')
+          this.layout.items.set([...items]);
           const item = items[0];
           item.selected = true;
           this.rowClick(item, null, this.lastClickIdx + 1);
@@ -911,7 +914,7 @@ export class EditorStructureComponent implements OnInit {
               this.scrollToSelected('end');
             }, 1000);
           }
-          this.layout.refreshSelectedItem(true, 'pages');
+          this.layout.refreshSelectedItem(false, 'pages');
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
@@ -931,8 +934,9 @@ export class EditorStructureComponent implements OnInit {
               } else {
                 items.push(item);
               }
-              //this.layout.items.set(items);
-              this.layout.items.update(vals => [...items]);
+              
+        console.log('C')
+              this.layout.items.set([...items]);
               
               if (res.gotoEdit) {
                 this.onSave(true);
@@ -1197,7 +1201,7 @@ export class EditorStructureComponent implements OnInit {
         if (this.layout.items().length > 0 && !isMultiple) {
           this.layout.setSelection(true, this.panel);
         }
-        this.layout.refreshSelectedItem(true, 'pages');
+        this.layout.refreshSelectedItem(false, 'pages');
         this.state = 'success';
         // this.dataSource = new MatTableDataSource(this.layout.items);
       } else {
@@ -1339,7 +1343,6 @@ export class EditorStructureComponent implements OnInit {
         if (items.length > 0) {
           this.rowClick(items[nextSelection], null, nextSelection);
         }
-        //this.layout.items.set(items);
 
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
         this.layout.setShouldRefresh(true);

@@ -375,7 +375,7 @@ export class EditorPageComponent implements OnInit {
       
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
-      this.layout.refreshSelectedItem(moveToNext, from);
+    this.layout.refreshSelectedItem(moveToNext, from);
 
       this.state = 'success';
     });

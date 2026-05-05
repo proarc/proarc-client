@@ -75,7 +75,9 @@ export class LayoutService {
 
     public items = signal<DocumentItem[]>(null); // all children items
     public setItems(val: DocumentItem[]) {
-        this.items.set(val)
+        
+        console.log('D')
+        this.items.set([...val])
     }
 
     public lastItemIdxClicked: number; // last item clicked
