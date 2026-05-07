@@ -55,7 +55,7 @@ export class NewMetadataDialogComponent implements OnInit {
     private api: ApiService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
-    // private layout: LayoutService,
+    private layout: LayoutService,
     private translator: TranslateService) { }
 
   ngOnInit(): void {
@@ -214,6 +214,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'success';
         this.state = 'success';
         this.metadata.resetChanges();
+        this.layout.clearPanelEditing();
         this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
         // if (gotoEdit) {
         // } else {
