@@ -118,9 +118,9 @@ export class Page {
     }
     return {
       'identifiers': ids,
-      'pageNumber': this.number,
-      'pageIndex': this.index,
-      'pageType': this.type,
+      'number': this.number,
+      'index': this.index,
+      'type': this.type,
       'note': this.note,
     };
   }
