@@ -36,9 +36,9 @@ export class Page {
       page.timestamp = json['timestamp'];
       if (json['jsonData']) {
         const data = json['jsonData'];
-        page.index = data['pageIndex'];
-        page.number = data['pageNumber'];
-        page.type = data['pageType'];
+        page.index = data['index'];
+        page.number = data['number'];
+        page.type = data['type'];
         page.note = data['note'];
         if (page.type && page.type.length > 0) {
           page.type = page.type.substr(0, 1).toLowerCase() + page.type.substr(1);
