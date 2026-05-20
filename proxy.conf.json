@@ -1,7 +1,6 @@
 {
     "/api": {
-      "target": "https://proarc-master.inovatika.dev",
-      "target1": "https://proarc-akubra.inovatika.dev",
+      "target": "https://proarc-dev.inovatika.dev",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true
