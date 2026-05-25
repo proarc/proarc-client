@@ -16,6 +16,7 @@ export class LayoutService {
     editingPanel: string;
     dragging: boolean;
     lastPageUpdateHolder: PageUpdateHolder;
+    lastPagesSelection: string;
 
     constructor(
         public settings: UserSettings,

@@ -96,7 +96,7 @@ export class EditorPagesComponent implements OnInit {
   subscriptions: Subscription[] = [];
   numberingExample = signal<string>('');
 
-  lastSelection: string[];
+  
   selectionChanged: boolean;
 
   constructor(
@@ -144,8 +144,9 @@ export class EditorPagesComponent implements OnInit {
     }));
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
-      const pages = this.layout.items().filter(item => item.selected && item.isPage()).map(item => item.pid).sort();
-      this.selectionChanged = this.lastSelection !== pages;
+      const pages = this.layout.items().filter(item => item.selected && item.isPage()).map(item => item.pid).sort().join(',');
+      this.selectionChanged = this.layout.lastPagesSelection !== pages;
+      //console.log(pages, this.layout.lastPagesSelection, this.selectionChanged)
       if (this.selectionChanged) {
 
         this.holder = new PageUpdateHolder();
@@ -156,7 +157,7 @@ export class EditorPagesComponent implements OnInit {
         this.initControls();
         this.setPageHolder();
       }
-      this.lastSelection = pages;
+      this.layout.lastPagesSelection = pages;
     }));
   }
 
