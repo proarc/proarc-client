@@ -220,6 +220,15 @@ export class PageUpdateHolder {
         this.repreSelect = null;
     }
 
+    
+
+    keepAfterSelectionChanged(source: PageUpdateHolder) {
+        
+        this.pageNumberIncrement = 1;
+        this.pageNumberNumbering = source.pageNumberNumbering;
+
+    }
+
     fillValues(source: PageUpdateHolder) {
         this.pageType = source.pageType;
         this.pageIndex = source.pageIndex;
