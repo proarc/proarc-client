@@ -75,6 +75,11 @@
             align-items: center;
             justify-content: center;
             border-radius: 0 !important;
+            
+            .mat-mdc-button-touch-target {
+              width: var(--mat-icon-button-state-layer-size) !important;
+              height: var(--mat-icon-button-state-layer-size) !important;
+            }
           }
 
           &:not(.mat-primary) {
