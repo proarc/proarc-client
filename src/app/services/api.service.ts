@@ -626,7 +626,10 @@ export class ApiService {
   }
 
   generateAlto(pid: string, peroId: string): Observable<any> {
-    let data = `pid=${pid}&peroOcrEngine=${peroId}`;
+    let data = `pid=${pid}`;
+    if (peroId) {
+      data += `&peroOcrEngine=${peroId}`;
+    }
     return this.post('object/generateAlto', data);
   }
 
@@ -943,8 +946,11 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string = '1'): Observable<any> {
-    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}&peroOcrEngine=${peroId}`;
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string): Observable<any> {
+    let data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}`;
+    if (peroId) {
+      data += `&peroOcrEngine=${peroId}`;
+    }
     return this.post('import/batch', data);
   }
 
@@ -953,8 +959,11 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string = '1') {
-    const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}&peroOcrEngine=${peroId}`;
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string) {
+    let data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
+    if (peroId) {
+      data += `&peroOcrEngine=${peroId}`;
+    }
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
