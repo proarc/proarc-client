@@ -111,7 +111,7 @@ export class ExportDialogComponent implements OnInit {
           this.canContinue = true;
         }
         if (d.errors && d.errors.length > 0) {
-          this.errors.push(d.errors[0]);
+          this.errors = [...d.errors];
           if(d.errors[0].ignoreMissingUrnNbn && this.data[0].model.indexOf('oldprint') > -1) {
             this.canContinue = true;
           }
@@ -146,7 +146,7 @@ export class ExportDialogComponent implements OnInit {
       content: error.pid + (error.log ? (': ' + error.log) : '')
     }
     this.dialog.open(LogDialogComponent, { 
-      data: data,
+      data: [data],
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });
   }
