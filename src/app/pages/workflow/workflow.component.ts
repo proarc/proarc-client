@@ -550,6 +550,7 @@ export class WorkFlowComponent implements OnInit {
     // job.selected = true;
 
     this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
+    console.log(this.selectedSubJobProfile)
     if (!job.childrenLoaded) {
       //this.getSubJobs(job);
     }

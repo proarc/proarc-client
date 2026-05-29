@@ -30,7 +30,7 @@
                       @if (selectedProfile) {
                         <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                         <mat-menu #object_menu="matMenu">
-                          @for(model of selectedProfile.model; track $index;) {
+                          @for(model of selectedProfile.models; track $index;) {
                             <button mat-menu-item (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
                           }
                         </mat-menu>
@@ -83,7 +83,7 @@
                             @if (selectedSubJobProfile) {
                               <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                               <mat-menu #object_menu="matMenu">
-                                @for(model of selectedSubJobProfile.model; track $index;) {
+                                @for(model of selectedSubJobProfile.models; track $index;) {
                                   <button mat-menu-item (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
                                 }
                               </mat-menu>
