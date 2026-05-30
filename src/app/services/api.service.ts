@@ -803,9 +803,16 @@ export class ApiService {
   }
 
   editDevice(device: Device): Observable<Device> {
-    let data = `id=${device.id}&label=${device.label}&model=${device.model}&timestamp=${device.timestamp}&description=${device.description()}`;
+    let data = new HttpParams()
+      .set('id', device.id)
+      .set('label', device.label)
+      .set('model', device.model)
+      .set('timestamp', String(device.timestamp))
+      .set('description', device.description());
     if (device.isAudio()) {
-      data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;
+        data = data
+          .set('audiotimestamp', String(device.audiotimestamp))
+          .set('audiodescription', device.audioDescription());
     }
     return this.put('device', data).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
