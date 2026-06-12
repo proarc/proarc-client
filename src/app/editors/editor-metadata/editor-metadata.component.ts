@@ -123,8 +123,13 @@ export class EditorMetadataComponent implements OnInit {
         const m = Utils.metadataChanged();
         this.hasChanges = m > 0;
         if (m > 0) {
-          this.hasPendingChanges(m===3);
-        }
+          if (m === 4) {
+            this.revert();
+          } else {
+            this.hasPendingChanges(m===3);
+          }
+          
+        } 
 
       });
       effect(() => {
