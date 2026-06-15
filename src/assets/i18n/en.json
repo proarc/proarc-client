@@ -17,6 +17,8 @@
     "move_down": "Move Down",
     "expand": "Expand",
     "collapse": "Collapse",
+    "expand_all": "Expand all elements of this type",
+    "collapse_all": "Collapse all elements of this type",
     "nothing_to_save": "No changes made",
     "save": "Save",
     "publish": "Save & Publish",

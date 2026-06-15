@@ -17,6 +17,8 @@
     "move_down": "Přesunout dolů",
     "expand": "Rozbalit",
     "collapse": "Sbalit",
+    "expand_all": "Rozbalit vsechny elementy toho typu",
+    "collapse_all": "Sbalit vsechny elementy toho typu",
     "nothing_to_save": " Nebyly provedeny žádné změny",
     "save": "Uložit",
     "publish": "Uložit a zveřejnit",

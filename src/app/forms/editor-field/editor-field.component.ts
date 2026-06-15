@@ -44,6 +44,13 @@ export class EditorFieldComponent implements OnInit {
     private layout: LayoutService) {
   }
 
+  switchCollapsedAll(collapsed: boolean) {
+    this.field.items.forEach(item => {
+      item.collapsed = collapsed;
+    })
+    this.setMetadataResized();
+  }
+
   switchCollapsed(item: ModsElement) {
     item.switchCollapsed();
     this.setMetadataResized();

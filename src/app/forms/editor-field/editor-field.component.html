@@ -11,12 +11,21 @@
                     (click)="switchCollapsed(item)" mat-icon-button>
                     <mat-icon>expand_more</mat-icon>
                   </button>
+                  <!-- <button class="app-collapse-all" matTooltip="{{ 'common.collapse_all' | translate }}"
+                    (click)="switchCollapsedAll(false)" mat-icon-button>
+                    <mat-icon>keyboard_double_arrow_down</mat-icon>
+                  </button> -->
                 }
                 @if (!item.collapsed) {
                   <button class="app-collapse" matTooltip="{{ 'common.collapse' | translate }}"
                     (click)="switchCollapsed(item)" mat-icon-button>
                     <mat-icon>expand_less</mat-icon>
                   </button>
+                  
+                  <!-- <button class="app-collapse-all" matTooltip="{{ 'common.collapse_all' | translate }}"
+                    (click)="switchCollapsedAll(true)" mat-icon-button>
+                    <mat-icon>keyboard_double_arrow_up</mat-icon>
+                  </button> -->
                 }
               }
               <span [matTooltip]="field.labelKey" class="app-form-title" [class.app-no-collapse]="!collapsable">

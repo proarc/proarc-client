@@ -82,6 +82,18 @@
             }
           }
 
+          &.app-collapse {
+            width: 20px;
+            margin-left: 8px;
+            margin-right: 2px;
+          }
+
+          &.app-collapse-all {
+            width: 20px;
+            margin-left: 2px;
+            margin-right: 4px;
+          }
+
           &:not(.mat-primary) {
             color: var(--app-form-header-button-color);
           }
