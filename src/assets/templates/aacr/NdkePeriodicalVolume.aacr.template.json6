@@ -323,7 +323,6 @@
       },
       validity: {
         usage: 'MA',
-        required: true,
         label: 'Platnost',
         selector: 'identifier/@invalid',
         labelKey: 'identifier/@invalid',

@@ -132,13 +132,15 @@ export class SearchActionsComponent {
   }
 
   private onDelete(pids: string[], refresh: boolean, callback: (pids: string[]) => any = null) {
-    const checkboxes = [{
+    const removeObjectCheckbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
-    },{
+    };
+    const nightOnlyCheckbox = {
       label: String(this.translator.instant('desc.nightOnly')),
       checked: false
-    }];
+    };
+    const checkboxes = this.auth.user.deleteActionFunction ? [removeObjectCheckbox, nightOnlyCheckbox] : [nightOnlyCheckbox];
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
       message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
@@ -153,17 +155,15 @@ export class SearchActionsComponent {
         value: 'no',
         color: 'default'
       },
+      checkboxes
     };
-    if (this.auth.user.deleteActionFunction) {
-      data.checkboxes = checkboxes;
-    }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(pids, checkboxes[0].checked, checkboxes[1].checked, refresh, callback);
+        this.deleteObject(pids, removeObjectCheckbox.checked, nightOnlyCheckbox.checked, refresh, callback);
       }
     });
   }
