@@ -412,7 +412,9 @@ export class UserTreeTableComponent {
   }
 
   openTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
-    this.router.navigate(['/repository', treeItem.pid]);
+    if (this.type() !== 'TreeWorkFlow') {
+      this.router.navigate(['/repository', treeItem.pid]);
+    }
   }
 
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem, idx: number) {
