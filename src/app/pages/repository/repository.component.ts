@@ -416,9 +416,12 @@ export class RepositoryComponent {
 
   batchInfo: string;
   onShowLog() {
-    const data = {
+    const data = [];
+    data.push({
+      title: 'desc.errorDetail',
       content: this.batchInfo
-    }
+    });
+
     this.dialog.open(LogDialogComponent, {
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
