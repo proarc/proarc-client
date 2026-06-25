@@ -483,6 +483,7 @@ export class EditorMetadataComponent implements OnInit {
       return false;
     }
     this.hasChanges = this.metadata.hasChanges();
+    console.log()
     const focused = document.activeElement;
     const panel = document.getElementById(this.panel().id);
     if (!panel) {

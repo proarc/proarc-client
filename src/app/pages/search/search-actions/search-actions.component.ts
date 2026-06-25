@@ -74,7 +74,7 @@ export class SearchActionsComponent {
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
       this.items().filter(i => i.selected).map(i => i.pid) :
-      [this.selectedTreeItem().pid];
+      this.treeItems().filter(i => i.selected).map(i => i.pid);
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: pids,
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
