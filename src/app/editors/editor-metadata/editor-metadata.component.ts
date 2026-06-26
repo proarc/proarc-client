@@ -284,6 +284,7 @@ export class EditorMetadataComponent implements OnInit {
         }, 100);
         return;
       }
+      this.loadMetadata(this.metadata.pid);
       this.loading = false;
       this.layout.refreshSelectedItem(false, 'metadata');
     });
