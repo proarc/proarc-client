@@ -175,24 +175,24 @@ export abstract class ModsElement {
                 c.patchValue(this[me]['_']);
                 c.valueChanges.subscribe((e: any) => {
                     this[me]['_'] = e;
-                    Utils.metadataChanged.set(3);
+                    Utils.metadataChanged.update(n => n + 2);
                 });
             } else if (this.modsElement[me]) {
                 //c.patchValue(this.modsElement[me]);
                 c.valueChanges.subscribe((e: any) => {
                     this.modsElement[me] = e;
-                    Utils.metadataChanged.set(3);
+                    Utils.metadataChanged.update(n => n + 2);
 
                 });
             } else if (this.attrs?.hasOwnProperty(me)) {
                 c.patchValue(this.attrs[me]);
                 c.valueChanges.subscribe((e: any) => {
                     this.attrs[me] = e;
-                    Utils.metadataChanged.set(3);
+                    Utils.metadataChanged.update(n => n + 2);
                 });
             } else {
                 c.valueChanges.subscribe((e: any) => {
-                    Utils.metadataChanged.set(3);
+                    Utils.metadataChanged.update(n => n + 2);
                 });
             }
 

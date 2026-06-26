@@ -236,7 +236,7 @@ export class ElementField {
         this.root.splice(index + 1, 0, item.getEl());
         setTimeout(() => {
             item.setAsDirty();
-            Utils.metadataChanged.set(3);
+            Utils.metadataChanged.set(-1);
         }, 100);
         return item;
     }
@@ -260,9 +260,9 @@ export class ElementField {
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
-            setTimeout(() => {item.setAsDirty(); Utils.metadataChanged.set(3);}, 100);
+            setTimeout(() => {item.setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
         } else {
-            setTimeout(() => {this.items[0].setAsDirty(); Utils.metadataChanged.set(3);}, 100);
+            setTimeout(() => {this.items[0].setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
         }
 
     }

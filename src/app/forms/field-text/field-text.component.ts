@@ -37,7 +37,7 @@ export class FieldTextComponent implements OnInit {
       }
       this.item.controls[this.field].valueChanges.subscribe((e: any) => {
         this.valueChange.emit(e);
-        Utils.metadataChanged.set(3);
+        Utils.metadataChanged.update(n => n + 2);
       });
     }
   }

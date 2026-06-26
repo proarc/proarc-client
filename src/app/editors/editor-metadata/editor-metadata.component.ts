@@ -122,14 +122,12 @@ export class EditorMetadataComponent implements OnInit {
       effect(() => {
         const m = Utils.metadataChanged();
         this.hasChanges = m > 0;
-        if (m > 0) {
-          if (m === 4) {
+          if (m === 0) {
             this.revert();
           } else {
-            this.hasPendingChanges(m===3);
+            this.hasPendingChanges(m===1);
           }
           
-        } 
 
       });
       effect(() => {
@@ -471,7 +469,7 @@ export class EditorMetadataComponent implements OnInit {
     this.layout.clearPanelEditing();
     this.metadata = null;
     this.loadMetadata(this.pid());
-    Utils.metadataChanged.set(0);
+    // Utils.metadataChanged.set(0);
     this.hasChanges = false;
   }
 

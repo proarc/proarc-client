@@ -86,7 +86,7 @@ export class EditorAuthorComponent implements OnInit {
           this.layout.refreshSelectedItem(true, 'metadata');
 
           setTimeout(() => {
-              Utils.metadataChanged.set(4);
+              Utils.metadataChanged.set(0);
           }, 100);
                   
         });
