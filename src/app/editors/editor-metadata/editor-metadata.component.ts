@@ -62,6 +62,7 @@ import { UserSettings } from '../../shared/user-settings';
 })
 export class EditorMetadataComponent implements OnInit {
 
+  notSaved = input<boolean>(false);
   panel = input<ILayoutPanel>();
   panelType = input<string>();
   pid = input<string>();
@@ -70,7 +71,6 @@ export class EditorMetadataComponent implements OnInit {
   onChangePanelType = output<string>();
   instance = input<string>(null);
 
-  notSaved = input<boolean>();
   _validating = false;
   validating = input<boolean>();
   loading: boolean;
@@ -109,12 +109,7 @@ export class EditorMetadataComponent implements OnInit {
       effect(() => {
         const pid = this.pid();
         if (!this.notSaved()) {
-        //   this.metadata = this.data();
-        //   if (this.metadata) {
-        //     this.setFields();
-        //   }
-
-        // } else {
+          console.log('kk')
           this.loadMetadata(pid);
         }
         this.hasChanges = false;
@@ -284,9 +279,18 @@ export class EditorMetadataComponent implements OnInit {
         }, 100);
         return;
       }
-      this.loadMetadata(this.metadata.pid);
-      this.loading = false;
+
+      this.metadata.resetChanges();
+      this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
       this.layout.refreshSelectedItem(false, 'metadata');
+      this.layout.clearPanelEditing();
+      this.loading = false;
+      this.loadMetadata(this.metadata.pid);
+
+
+      // this.loadMetadata(this.metadata.pid);
+      // this.loading = false;
+      // this.layout.refreshSelectedItem(false, 'metadata');
     });
   }
 
@@ -469,6 +473,7 @@ export class EditorMetadataComponent implements OnInit {
   revert() {
     this.layout.clearPanelEditing();
     this.metadata = null;
+    console.log('aa')
     this.loadMetadata(this.pid());
     // Utils.metadataChanged.set(0);
     this.hasChanges = false;
