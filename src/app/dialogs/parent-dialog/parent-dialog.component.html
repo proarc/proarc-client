@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="app-oa-y">
-      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="orig" ></app-user-table>
+      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="origToRender()" ></app-user-table>
     </div>
   </div>
 </ng-template>

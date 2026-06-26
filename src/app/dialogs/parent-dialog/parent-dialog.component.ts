@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, signal } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { SplitComponent, AngularSplitModule } from 'angular-split';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -93,7 +93,7 @@ export class ParentDialogComponent implements OnInit {
   lastSelectedItemPid: string;
   lastSelectedItem: DocumentItem;
   orig: any[] = [];
-  origTable: any;
+  origToRender = signal<any[]>([]);
 
   searchedModel: string;
   searchedQuery: string;
@@ -167,7 +167,7 @@ export class ParentDialogComponent implements OnInit {
     this.data.items.forEach((item: DocumentItem) => {
       const di = JSON.parse(JSON.stringify(item));
       this.orig.push(di);
-      this.origTable = new MatTableDataSource(this.orig);
+      this.origToRender.set([...this.orig]);
     });
 
     this.reload();
@@ -465,7 +465,7 @@ export class ParentDialogComponent implements OnInit {
         nextSelection = 0;
       }
 
-      this.origTable = new MatTableDataSource(this.orig);
+      this.origToRender.set([...this.orig]);
       this.state = 'success';
       const item = this.items.find(item => pid);
       this.selectItem(item);
