@@ -109,7 +109,6 @@ export class EditorMetadataComponent implements OnInit {
       effect(() => {
         const pid = this.pid();
         if (!this.notSaved()) {
-          console.log('kk')
           this.loadMetadata(pid);
         }
         this.hasChanges = false;
@@ -473,7 +472,6 @@ export class EditorMetadataComponent implements OnInit {
   revert() {
     this.layout.clearPanelEditing();
     this.metadata = null;
-    console.log('aa')
     this.loadMetadata(this.pid());
     // Utils.metadataChanged.set(0);
     this.hasChanges = false;

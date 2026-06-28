@@ -57,7 +57,7 @@ export class ParentDialogComponent implements OnInit {
   items: DocumentItem[];
   selectedDestItem: DocumentItem;
   selectedTreeItem: TreeDocumentItem;
-  selectedRootTreeItem: TreeDocumentItem;
+  selectedRootTreeItem = signal<TreeDocumentItem>(null);
   selectedTree: Tree;
   models: string[];
   query = '';
@@ -86,6 +86,7 @@ export class ParentDialogComponent implements OnInit {
 
   tree: Tree;
   expandedPath: string[] = [];
+  currentPath: string[] = [];
 
 
   lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
@@ -156,7 +157,7 @@ export class ParentDialogComponent implements OnInit {
     this.owner = this.settings.parentOwner;
     this.processor = this.settings.parentProcessor;
     if (this.settings.parentModel !== 'all' && this.settings.parentModel !== 'model:page' && this.settings.parentModel !== 'model:ndkpage') {
-      this.reload();
+      //this.reload();
     } else {
       this.state = 'success';
     }
@@ -278,28 +279,18 @@ export class ParentDialogComponent implements OnInit {
 
   findAndSelect() {
     this.expandedPath = Utils.clone(this.settings.parentExpandedPath);
-    
     if (this.expandedPath) {
-      const root = this.expandedPath[this.expandedPath.length - 1];
+      //const root = this.expandedPath[this.expandedPath.length - 1];
+      const root = this.expandedPath[0];
       if (root) {
         const item = this.items.find(i => i.pid === root);
         if (item) {
-          this.selectItem(item);
+          this.selectItem(item, false);
           setTimeout(() => {
-            document.getElementById(root).scrollIntoView({ block: 'center' });
-            const lastParent = this.expandedPath[0];
-            if (lastParent) {
-              setTimeout(() => {
-                document.getElementById('tree_' + lastParent).scrollIntoView({ block: 'center' });
-              }, 550);
-            }
-
+            document.getElementById('tr_' + root).scrollIntoView({ block: 'center' });
           }, 550);
-
         }
-
       }
-
     }
   }
 
@@ -318,13 +309,13 @@ export class ParentDialogComponent implements OnInit {
     if (!this.selectedDestItem) {
       return;
     }
-    if (this.selectedTree) {
-      this.expandedPath = [];
-      this.setExpandedPath(this.selectedTree);
-    } else {
-      this.expandedPath = [this.selectedDestItem.pid]
-    }
-    this.settings.parentExpandedPath = Utils.clone(this.expandedPath);
+    // if (this.selectedTree) {
+    //   this.expandedPath = [];
+    //   this.setExpandedPath(this.selectedTree);
+    // } else {
+    //   this.expandedPath = [this.selectedDestItem.pid]
+    // }
+    this.settings.parentExpandedPath = Utils.clone(this.currentPath);
     this.settingsService.save();
     this.relocateOutside(this.orig.filter(i => i.selected), this.selectedDestItem.pid);
   }
@@ -468,7 +459,7 @@ export class ParentDialogComponent implements OnInit {
       this.origToRender.set([...this.orig]);
       this.state = 'success';
       const item = this.items.find(item => pid);
-      this.selectItem(item);
+      this.selectItem(item, false);
       this.findAndSelect();
       // this.tree = new Tree(this.selectedItem);
       this.hasChanges = true;
@@ -493,34 +484,39 @@ export class ParentDialogComponent implements OnInit {
 
   clearSelected() {
     this.selectedDestItem = null;
-    this.selectedRootTreeItem = null;
+    this.selectedRootTreeItem.set(null);
     this.tree = null;
   }
 
   selectDest(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
-    this.selectItem(e.item);
+    this.selectItem(e.item, true);
   }
 
-  selectItem(item: DocumentItem) {
+  selectItem(item: DocumentItem, setPath: boolean) {
     this.items.forEach(i => i.selected = false);
     item.selected = true;
     this.selectedDestItem = item;
-    if (this.selectedRootTreeItem) {
+    if (setPath) {
+      this.expandedPath = [item.pid]
+    }
+    
+    if (this.selectedRootTreeItem()) {
       // reset
-      this.selectedRootTreeItem.expanded = false;
-      this.selectedRootTreeItem.childrenLoaded = false;
+      this.selectedRootTreeItem().expanded = false;
+      this.selectedRootTreeItem().childrenLoaded = false;
     }
 
-    this.selectedRootTreeItem = <TreeDocumentItem>this.selectedDestItem;
-    this.selectedRootTreeItem.level = 0;
-    this.selectedRootTreeItem.expandable = true;
-    this.selectedTreeItem = this.selectedRootTreeItem;
+    this.selectedRootTreeItem.set(<TreeDocumentItem>this.selectedDestItem);
+    this.selectedRootTreeItem().level = 0;
+    this.selectedRootTreeItem().expandable = true;
+    this.selectedTreeItem = this.selectedRootTreeItem();
 
   }
 
-  onSelectTreeItem(item: any) {
-    this.selectedTreeItem = item;
-    this.selectedDestItem = item;
+  onSelectTreeItem(e: {path: string, item: any}) {
+    this.selectedTreeItem = e.item;
+    this.selectedDestItem = e.item;
+    this.currentPath = e.path.split('/');
   }
 
   open(item: DocumentItem, index: number = -1) {

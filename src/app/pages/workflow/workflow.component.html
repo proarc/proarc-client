@@ -103,8 +103,9 @@
                       <div class="app-fxFlex app-oa-y">
                         <div class="app-editor-content">
                           <app-user-tree-table #treeTable [type]="'TreeWorkFlow'"
-                          [inSearch]="false" [treePath]="[selectedJob.id + '']"
-                          [rootTreeItem]="selectedJob" [sortable]="true"
+                          [container]="'workflow'"
+                          [initData]="{treePath: [selectedJob.id + ''], rootTreeItem:selectedJob}"
+                          [inSearch]="false" [sortable]="true"
                            [lists]="lists"
                           (onSelectTreeItem)="selectSubJob($event)" (onTreeItemsChanged)="visibleSubJobs = $event"></app-user-tree-table>
                         </div>

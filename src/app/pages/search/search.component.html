@@ -175,7 +175,9 @@
                 }
               </div>
               <div class="app-fxFlex app-fxLayut app-column app-fill app-oa-y app-tree">
-                <app-user-tree-table #treeTable [inSearch]="true" [treePath]="[selectedRootTreeItem.pid]" [rootTreeItem]="selectedRootTreeItem"
+                <app-user-tree-table #treeTable [inSearch]="true" 
+                  [container]="'search'"
+                  [initData]="{treePath: [selectedRootTreeItem.pid], rootTreeItem:selectedRootTreeItem}"
                   (onSelectTreeItem)="onSelectTreeItem($event)"
                   (onTreeItemsChanged)="onTreeItemsChanged($event)"
                 (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>

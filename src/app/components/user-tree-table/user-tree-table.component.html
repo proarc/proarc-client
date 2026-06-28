@@ -71,5 +71,5 @@
 	<tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
 	<tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index" (dblclick)="openTreeItem($event, row)"
 		(click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"
-		[class.app-repre]="row.pageRepre === 'reprePage'"></tr>
+		[class.app-repre]="row.pageRepre === 'reprePage'" [id]="container() + '_' + row.pid"></tr>
 </table>
