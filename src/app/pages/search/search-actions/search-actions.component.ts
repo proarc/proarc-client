@@ -328,6 +328,9 @@ export class SearchActionsComponent {
       return false;
     }
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
+    if (!item.model) {
+      return false;
+    }
     return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
   }
 
