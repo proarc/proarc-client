@@ -106,6 +106,7 @@ export class UserTreeTableComponent {
       // const path = this.treePath();
       // const root = this.rootTreeItem();
       const initData = this.initData();
+      console.log(initData)
       if (initData) {
         this.generateTree(initData.treePath, initData.rootTreeItem);
       }
@@ -146,6 +147,7 @@ export class UserTreeTableComponent {
       return;
     }
     root.level = 0;
+    root.childrenLoaded = false;
     if (this.type() === 'TreeWorkFlow') {
       this.worflowTreeItems = [root as TreeWorkFlow];
     } else {

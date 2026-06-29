@@ -85,7 +85,7 @@ export class ParentDialogComponent implements OnInit {
   hierarchy: DocumentItem[];
 
   tree: Tree;
-  expandedPath: string[] = [];
+  expandedPath = signal<string[]>([]);
   currentPath: string[] = [];
 
 
@@ -278,10 +278,10 @@ export class ParentDialogComponent implements OnInit {
   }
 
   findAndSelect() {
-    this.expandedPath = Utils.clone(this.settings.parentExpandedPath);
+    this.expandedPath.set([...Utils.clone(this.settings.parentExpandedPath)]);
     if (this.expandedPath) {
       //const root = this.expandedPath[this.expandedPath.length - 1];
-      const root = this.expandedPath[0];
+      const root = this.expandedPath()[0];
       if (root) {
         const item = this.items.find(i => i.pid === root);
         if (item) {
@@ -294,12 +294,12 @@ export class ParentDialogComponent implements OnInit {
     }
   }
 
-  setExpandedPath(tree: Tree) {
-    this.expandedPath.push(tree.item.pid);
-    if (tree.parent) {
-      this.setExpandedPath(tree.parent);
-    }
-  }
+  // setExpandedPath(tree: Tree) {
+  //   this.expandedPath.push(tree.item.pid);
+  //   if (tree.parent) {
+  //     this.setExpandedPath(tree.parent);
+  //   }
+  // }
 
   onPageChanged(page: any) {
     this.reload(page.pageIndex);
@@ -459,7 +459,7 @@ export class ParentDialogComponent implements OnInit {
       this.origToRender.set([...this.orig]);
       this.state = 'success';
       const item = this.items.find(item => pid);
-      this.selectItem(item, false);
+      //this.selectItem(item, true);
       this.findAndSelect();
       // this.tree = new Tree(this.selectedItem);
       this.hasChanges = true;
@@ -497,7 +497,7 @@ export class ParentDialogComponent implements OnInit {
     item.selected = true;
     this.selectedDestItem = item;
     if (setPath) {
-      this.expandedPath = [item.pid]
+      this.expandedPath.set([...item.pid]);
     }
     
     if (this.selectedRootTreeItem()) {
