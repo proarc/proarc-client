@@ -97,12 +97,19 @@ export class ElementField {
             if (el) {
                 const newEl = this.newElement(id, el);
                 this.items.push(newEl);
+                if (this.allExpanded) {
+                    newEl.collapsed = false;
+                    newEl.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+                }
             }
         }
 
         if (this.items.length === 0) {
             const item = this.add();
-            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
+            if (this.allExpanded) {
+                item.collapsed = false;
+                item.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+            } else if (!this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
             }
         }
