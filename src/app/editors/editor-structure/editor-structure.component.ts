@@ -840,9 +840,11 @@ export class EditorStructureComponent implements OnInit {
     if (this.layout.getNumOfSelected() > 1) {
       // this.reorderMultiple(to + 1);
     } else {
-      const item = this.layout.items()[from];
-      this.layout.items().splice(from, 1);
-      this.layout.items().splice(to, 0, item);
+      const items = this.layout.items();
+      const item = items[from];
+      items.splice(from, 1);
+      items.splice(to, 0, item);
+      this.layout.items.set([...items]);
     }
   }
 
@@ -1386,9 +1388,9 @@ export class EditorStructureComponent implements OnInit {
       if (result === 'yes') {
         const toIndex = input.value - 1;
         if (toIndex >= 0 && toIndex < this.layout.items().length) {
-          this.reorder(fromIndex, input.value - 1);
+          this.reorder(fromIndex, toIndex);
+          this.layout.setPanelEditing(this.panel)
         }
-        this.layout.setPanelEditing(this.panel)
       }
     });
   }
