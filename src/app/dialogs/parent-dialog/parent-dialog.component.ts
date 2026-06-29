@@ -315,8 +315,6 @@ export class ParentDialogComponent implements OnInit {
     // } else {
     //   this.expandedPath = [this.selectedDestItem.pid]
     // }
-    this.settings.parentExpandedPath = Utils.clone(this.currentPath);
-    this.settingsService.save();
     this.relocateOutside(this.orig.filter(i => i.selected), this.selectedDestItem.pid);
   }
 
@@ -396,6 +394,8 @@ export class ParentDialogComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
+        this.settings.parentExpandedPath = Utils.clone(this.currentPath);
+        this.settingsService.save(); 
         if (!this.data.isRepo) {
           this.ingestBatch(destinationPid);
         } else if (this.getNumOfSelected() > 0) {

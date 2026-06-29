@@ -106,7 +106,6 @@ export class UserTreeTableComponent {
       // const path = this.treePath();
       // const root = this.rootTreeItem();
       const initData = this.initData();
-      console.log(initData)
       if (initData) {
         this.generateTree(initData.treePath, initData.rootTreeItem);
       }
@@ -156,7 +155,7 @@ export class UserTreeTableComponent {
     const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (path.length > 1) {
-      this.expandTreeUntilSelected(root, path.slice(1));
+      this.expandTreeUntilSelected(root, path.slice(1), 0);
     } else if (this.settings.searchExpandTree || !canHavePages) {
       this.getTreeItems(root, true);
     }
@@ -535,15 +534,14 @@ export class UserTreeTableComponent {
     }
   }
 
-  expandTreeUntilSelected(treeItem: TreeDocumentItem | TreeWorkFlow, path: string[]) {
+  expandTreeUntilSelected(treeItem: TreeDocumentItem | TreeWorkFlow, path: string[], idx: number) {
     treeItem.expanded = true;
     if (!treeItem.childrenLoaded) {
       this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
         // callback
         if (path.length === 0) {
           //treeItem.selected = true;
-          console.log(treeItem.pid)
-          this.selectTreeItem(null, <TreeDocumentItem>treeItem, 0);
+          this.selectTreeItem(null, <TreeDocumentItem>treeItem, idx);
           // const lastParent = this.initData().treePath[this.initData().treePath.length - 1];
           // if (lastParent) {
           //   setTimeout(() => {
@@ -551,11 +549,11 @@ export class UserTreeTableComponent {
           //   }, 550);
           // }
         } else {
-          const child = children.find(ch => ch.pid = path[0]);
-          if (child) {
-            this.expandTreeUntilSelected(child, path.slice(1));
+          const childIdx = children.findIndex(ch => ch.pid === path[0]);
+          if (childIdx >- 1) {
+            this.expandTreeUntilSelected(children[childIdx], path.slice(1), childIdx);
           } else {
-            this.selectTreeItem(null, <TreeDocumentItem>treeItem, 0);
+            this.selectTreeItem(null, <TreeDocumentItem>treeItem, idx);
           }
         }
       });
