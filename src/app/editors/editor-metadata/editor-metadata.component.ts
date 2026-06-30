@@ -262,9 +262,33 @@ export class EditorMetadataComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.saveModsFromCatalog(result['mods'], result['catalogId']);
+        if (this.instance() != null) {
+            this.saveModsFromCatalogK7(result['mods'], result['catalogId']);
+        } else {
+            this.saveModsFromCatalog(result['mods'], result['catalogId']);
+        }
       }
     });
+  }
+
+  saveModsFromCatalogK7(xml: string, catalogId: string) {
+      this.api.saveKrameriusMods(this.metadata.pid, this.instance(), xml, this.metadata.timestamp).subscribe((response: any) => {
+        if (response && response['response'] && response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          this.loading = false;
+          return;
+        } else {
+          this.metadata.timestamp = response['response'].data[0].timestamp;
+          this.metadata.resetChanges();
+          this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+          this.layout.setShouldRefresh(false);
+          this.layout.clearPanelEditing();
+          this.checkVisibility();
+          //this.loadMetadata(this.metadata.pid);
+        }
+          this.loading = false;
+      });
   }
 
   saveModsFromCatalog(xml: string, catalogId: string) {

@@ -1258,6 +1258,26 @@ export class ApiService {
     return this.post('kramerius/updateMods', data);
   }
 
+  
+
+  editKrameriusModsXml(pid: string, xml: string, timestamp: number, standard: string, ignoreValidation: boolean, batchId: any = null, catalogId: string = null): Observable<any> {
+    //const xmlText = xml.replace(/&/g, '%26');
+    const xmlText = encodeURIComponent(xml.replace(/&/g, '%26'));
+    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    if (standard) {
+      data = `${data}&standard=${standard}`;
+    }
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (catalogId) {
+      data = `${data}&catalogId=${catalogId}`;
+    }
+    // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    return this.put('kramerius/updateMods', data).pipe(map((response: any) => response['response']));
+  }
+
+
   saveKrameriusJSON(pid: string, instance: string, json: string, timestamp: number): Observable<any> {
     let data = `pid=${pid}&instance=${instance}&jsonData=${json}&timestamp=${timestamp}`;
     return this.post('kramerius/updateMods', data);
