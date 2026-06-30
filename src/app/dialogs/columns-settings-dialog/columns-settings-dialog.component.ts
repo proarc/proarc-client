@@ -83,6 +83,7 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   }
 
   reset() {
+    this.settingsService.resetOne(this.data.colsSettingsName);
     this.initColumns();
   }
 

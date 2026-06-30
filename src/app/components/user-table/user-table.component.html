@@ -119,7 +119,7 @@
           @default {
           @if (c.field !== 'validationStatus') {
             <div class="app-fxLayout app-row app-center-v">
-              @if (element[c.field]?.startsWith('uuid')) {
+              @if (element[c.field]?.toString().startsWith('uuid')) {
                 <button mat-icon-button color="primary" class="app-icon-copy app-mr-1"
                   (click)="ui.copyTextToClipboard(element[c.field])" [matTooltip]="'button.copyTextToClipboard' | translate">
                   <mat-icon class="app-16">content_copy</mat-icon>
