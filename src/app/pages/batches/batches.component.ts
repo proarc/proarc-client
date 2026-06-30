@@ -133,16 +133,15 @@ export class BatchesComponent {
       }
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-      this.layout.setItems(pages);
-      for (let i = 0; i < this.layout.items.length; i++) {
-        const item = this.layout.items()[i];
+      pages.forEach(item => {
         if (selection.includes(item.pid)) {
           item.selected = true;
         }
         if (item.pid === lastSelected) {
           this.layout.setLastSelectedItem(item);
         }
-      }
+      });
+      this.layout.setItems(pages);
     });
   }
 

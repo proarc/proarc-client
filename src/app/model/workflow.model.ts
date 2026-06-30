@@ -72,7 +72,7 @@ export interface TreeWorkFlow extends WorkFlow {
 export class WorkFlowProfile {
   disabled: boolean;
   hint: string;
-  model: { disabled: boolean, name: string, title: string }[];
+  models: { disabled: boolean, name: string, title: string }[];
   name: string;
   subjob: WorkFlowProfileSubjob[];
   task: { disabled: boolean, hint: string, name: string, title: string }[];

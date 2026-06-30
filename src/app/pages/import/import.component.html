@@ -30,7 +30,7 @@
       </mat-form-field>
       <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
         <mat-label>{{ 'import.device' | translate }}</mat-label>
-        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
+        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="!selectedProfile || selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
           @for(device of devices; track $index;) {
             <mat-option [value]="device">{{ device.label }}</mat-option>
           }

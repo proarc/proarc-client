@@ -75,6 +75,23 @@
             align-items: center;
             justify-content: center;
             border-radius: 0 !important;
+            
+            .mat-mdc-button-touch-target {
+              width: var(--mat-icon-button-state-layer-size) !important;
+              height: var(--mat-icon-button-state-layer-size) !important;
+            }
+          }
+
+          &.app-collapse {
+            width: 20px;
+            margin-left: 8px;
+            margin-right: 2px;
+          }
+
+          &.app-collapse-all {
+            width: 20px;
+            margin-left: 2px;
+            margin-right: 4px;
           }
 
           &:not(.mat-primary) {

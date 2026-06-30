@@ -16,6 +16,7 @@ export class LayoutService {
     editingPanel: string;
     dragging: boolean;
     lastPageUpdateHolder: PageUpdateHolder;
+    lastPagesSelection: string;
 
     constructor(
         public settings: UserSettings,
@@ -75,7 +76,7 @@ export class LayoutService {
 
     public items = signal<DocumentItem[]>(null); // all children items
     public setItems(val: DocumentItem[]) {
-        this.items.set(val)
+        this.items.set([...val])
     }
 
     public lastItemIdxClicked: number; // last item clicked
@@ -218,6 +219,15 @@ export class PageUpdateHolder {
         this.applyTo = 1;
         this.applyToFirst = true;
         this.repreSelect = null;
+    }
+
+    
+
+    keepAfterSelectionChanged(source: PageUpdateHolder) {
+        
+        this.pageNumberIncrement = 1;
+        this.pageNumberNumbering = source.pageNumberNumbering;
+
     }
 
     fillValues(source: PageUpdateHolder) {

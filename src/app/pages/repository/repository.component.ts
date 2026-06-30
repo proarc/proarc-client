@@ -33,7 +33,7 @@ import { Utils } from '../../utils/utils';
 @Component({
   selector: 'app-repository',
   imports: [TranslateModule, FormsModule, AngularSplitModule, RouterModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, 
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
   styleUrl: './repository.component.scss'
@@ -45,8 +45,8 @@ export class RepositoryComponent {
   path: { pid: string, label: string, model: string }[] = [];
 
   repositoryLayout: IConfig;
-  
-    subscriptions: Subscription[] = [];
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -60,7 +60,7 @@ export class RepositoryComponent {
     private settingsService: UserSettingsService,
     public layout: LayoutService
     // private tmpl: TemplateService
-  ) { 
+  ) {
   }
 
   ngOnDestroy() {
@@ -138,17 +138,16 @@ export class RepositoryComponent {
     this.layout.items.set([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
 
-      this.layout.items.set(children);
-      for (let i = 0; i < this.layout.items.length; i++) {
-        const item = this.layout.items()[i];
+      children.forEach(item => {
         if (selection.includes(item.pid)) {
           item.selected = true;
-          Object.assign(item, children[i]);
         }
         if (item.pid === lastSelected) {
           this.layout.lastSelectedItem.set(item);
         }
-      }
+      });
+
+      this.layout.items.set([...children]);
       //this.layout.expandedPath = this.layout.path.map(p => p.pid);
     });
   }
@@ -184,13 +183,13 @@ export class RepositoryComponent {
     const rParent = this.api.getParent(pid);
     forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
       this.layout.item = item;
-      this.layout.items.set(children);
+      this.layout.items.set([...children]);
       if (keepSelection) {
         this.layout.items().forEach(ch => {
           if (selection.includes(ch.pid)) {
             ch.selected = true;
           }
-          console.log(ch)
+          // console.log(ch)
           if (ch.pid === lastSelected) {
             this.layout.setLastSelectedItem(ch);
           }
@@ -417,10 +416,13 @@ export class RepositoryComponent {
 
   batchInfo: string;
   onShowLog() {
-    const data = {
+    const data = [];
+    data.push({
+      title: 'desc.errorDetail',
       content: this.batchInfo
-    }
-    this.dialog.open(LogDialogComponent, { 
+    });
+
+    this.dialog.open(LogDialogComponent, {
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

@@ -97,12 +97,19 @@ export class ElementField {
             if (el) {
                 const newEl = this.newElement(id, el);
                 this.items.push(newEl);
+                if (this.allExpanded) {
+                    newEl.collapsed = false;
+                    newEl.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+                }
             }
         }
 
         if (this.items.length === 0) {
             const item = this.add();
-            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
+            if (this.allExpanded) {
+                item.collapsed = false;
+                item.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+            } else if (!this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
             }
         }
@@ -236,7 +243,7 @@ export class ElementField {
         this.root.splice(index + 1, 0, item.getEl());
         setTimeout(() => {
             item.setAsDirty();
-            Utils.metadataChanged.set(1);
+            Utils.metadataChanged.set(-1);
         }, 100);
         return item;
     }
@@ -260,9 +267,9 @@ export class ElementField {
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
-            setTimeout(() => {item.setAsDirty();}, 100);
+            setTimeout(() => {item.setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
         } else {
-            setTimeout(() => {this.items[0].setAsDirty();}, 100);
+            setTimeout(() => {this.items[0].setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
         }
 
     }

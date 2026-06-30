@@ -62,6 +62,7 @@ import { UserSettings } from '../../shared/user-settings';
 })
 export class EditorMetadataComponent implements OnInit {
 
+  notSaved = input<boolean>(false);
   panel = input<ILayoutPanel>();
   panelType = input<string>();
   pid = input<string>();
@@ -70,7 +71,6 @@ export class EditorMetadataComponent implements OnInit {
   onChangePanelType = output<string>();
   instance = input<string>(null);
 
-  notSaved = input<boolean>();
   _validating = false;
   validating = input<boolean>();
   loading: boolean;
@@ -109,12 +109,6 @@ export class EditorMetadataComponent implements OnInit {
       effect(() => {
         const pid = this.pid();
         if (!this.notSaved()) {
-        //   this.metadata = this.data();
-        //   if (this.metadata) {
-        //     this.setFields();
-        //   }
-
-        // } else {
           this.loadMetadata(pid);
         }
         this.hasChanges = false;
@@ -122,9 +116,12 @@ export class EditorMetadataComponent implements OnInit {
       effect(() => {
         const m = Utils.metadataChanged();
         this.hasChanges = m > 0;
-        if (m > 0) {
-          this.hasPendingChanges();
-        }
+          if (m === 0) {
+            this.revert();
+          } else {
+            this.hasPendingChanges(m===1);
+          }
+          
 
       });
       effect(() => {
@@ -265,9 +262,33 @@ export class EditorMetadataComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.saveModsFromCatalog(result['mods'], result['catalogId']);
+        if (this.instance() != null) {
+            this.saveModsFromCatalogK7(result['mods'], result['catalogId']);
+        } else {
+            this.saveModsFromCatalog(result['mods'], result['catalogId']);
+        }
       }
     });
+  }
+
+  saveModsFromCatalogK7(xml: string, catalogId: string) {
+      this.api.saveKrameriusMods(this.metadata.pid, this.instance(), xml, this.metadata.timestamp).subscribe((response: any) => {
+        if (response && response['response'] && response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          this.loading = false;
+          return;
+        } else {
+          this.metadata.timestamp = response['response'].data[0].timestamp;
+          this.metadata.resetChanges();
+          this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+          this.layout.setShouldRefresh(false);
+          this.layout.clearPanelEditing();
+          this.checkVisibility();
+          //this.loadMetadata(this.metadata.pid);
+        }
+          this.loading = false;
+      });
   }
 
   saveModsFromCatalog(xml: string, catalogId: string) {
@@ -281,8 +302,18 @@ export class EditorMetadataComponent implements OnInit {
         }, 100);
         return;
       }
-      this.loading = false;
+
+      this.metadata.resetChanges();
+      this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
       this.layout.refreshSelectedItem(false, 'metadata');
+      this.layout.clearPanelEditing();
+      this.loading = false;
+      this.loadMetadata(this.metadata.pid);
+
+
+      // this.loadMetadata(this.metadata.pid);
+      // this.loading = false;
+      // this.layout.refreshSelectedItem(false, 'metadata');
     });
   }
 
@@ -466,11 +497,11 @@ export class EditorMetadataComponent implements OnInit {
     this.layout.clearPanelEditing();
     this.metadata = null;
     this.loadMetadata(this.pid());
-    Utils.metadataChanged.set(0);
+    // Utils.metadataChanged.set(0);
     this.hasChanges = false;
   }
 
-  hasPendingChanges(): boolean {
+  hasPendingChanges(force: boolean = false): boolean {
     if (!this.metadata) {
       return false;
     }
@@ -478,13 +509,14 @@ export class EditorMetadataComponent implements OnInit {
       return false;
     }
     this.hasChanges = this.metadata.hasChanges();
+    console.log()
     const focused = document.activeElement;
     const panel = document.getElementById(this.panel().id);
     if (!panel) {
       return false;
     }
     const isChild = panel.contains(focused);
-    if (isChild && this.hasChanges && this.layout.editingPanel !== this.panel().id) {
+    if (force || (isChild && this.hasChanges && this.layout.editingPanel !== this.panel().id)) {
       this.layout.setPanelEditing(this.panel());
     }
     return this.hasChanges;

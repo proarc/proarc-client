@@ -257,7 +257,7 @@ export class ImportComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
-            this.router.navigate(['/import', 'edit', batch.id]);
+            this.router.navigate(['/process-management', 'edit', batch.id]);
           } else {
             this.reload();
           }

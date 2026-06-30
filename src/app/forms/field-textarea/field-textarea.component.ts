@@ -40,7 +40,7 @@ export class FieldTextareaComponent implements OnInit {
       }
       this.item.controls[this.field].valueChanges.subscribe((e: any) => {
         this.valueChange.emit(e);
-        Utils.metadataChanged.update(n => n + 1);
+        Utils.metadataChanged.update(n => n + 2);
       });
     }
   }

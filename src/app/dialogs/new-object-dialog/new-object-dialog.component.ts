@@ -166,7 +166,7 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   changeProfile(e: WorkFlowProfile) {
-    this.filteredModels = e.model.map(m => m.name);
+    this.filteredModels = e.models.map(m => m.name);
     this.data.model = this.filteredModels[0];
   }
 

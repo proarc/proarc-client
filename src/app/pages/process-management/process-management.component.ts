@@ -904,7 +904,8 @@ export class ProcessManagementComponent {
       (
         this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
       ) &&
-      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING' || batch.state === 'IMPORT_PLANNED')
+      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING' 
+        || batch.state === 'IMPORT_PLANNED' || batch.state === 'INTERNAL_PLANNED')
     )
   }
 

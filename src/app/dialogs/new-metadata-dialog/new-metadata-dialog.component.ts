@@ -55,7 +55,7 @@ export class NewMetadataDialogComponent implements OnInit {
     private api: ApiService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
-    // private layout: LayoutService,
+    private layout: LayoutService,
     private translator: TranslateService) { }
 
   ngOnInit(): void {
@@ -152,6 +152,7 @@ export class NewMetadataDialogComponent implements OnInit {
       if (result === 'true') {
         this.state = 'success';
         // this.editor.init(this.editorParams);
+        this.layout.clearPanelEditing();
         this.dialogRef.close(null);
       }
     });
@@ -214,6 +215,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'success';
         this.state = 'success';
         this.metadata.resetChanges();
+        this.layout.clearPanelEditing();
         this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
         // if (gotoEdit) {
         // } else {
@@ -277,6 +279,7 @@ export class NewMetadataDialogComponent implements OnInit {
           const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
           this.metadata.resetChanges();
+          this.layout.clearPanelEditing();
           this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
 
         });
@@ -287,6 +290,7 @@ export class NewMetadataDialogComponent implements OnInit {
         //   el.focus();
         // }
         this.focusToFirstInvalid();
+        this.layout.clearPanelEditing();
       }
     });
   }

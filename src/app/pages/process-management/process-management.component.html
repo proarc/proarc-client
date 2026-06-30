@@ -23,7 +23,7 @@
               }
             </mat-select>
             @if (selectedState !== 'ALL') {
-              <button (click)="selectedState = 'ALL'; onStateChanged()" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <button (click)="selectedState = 'ALL'; onStateChanged(); $event.stopImmediatePropagation();" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
                 <mat-icon>close</mat-icon>
               </button>
             }

@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="app-oa-y">
-      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="orig" ></app-user-table>
+      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="origToRender()" ></app-user-table>
     </div>
   </div>
 </ng-template>
@@ -165,7 +165,7 @@
 <ng-template #stromTmpl>
   @if (state !== 'saving' && selectedDestItem) {
     <div class="app-tree">
-      <app-user-tree-table #treeTable [inSearch]="false" [treePath]="[selectedRootTreeItem.pid]" [rootTreeItem]="selectedRootTreeItem"
+      <app-user-tree-table #treeTable [inSearch]="false" [container]="'parent'" [initData]="{treePath: expandedPath(), rootTreeItem:selectedRootTreeItem()}"
                   (onSelectTreeItem)="onSelectTreeItem($event)"
       ></app-user-tree-table>
     </div>

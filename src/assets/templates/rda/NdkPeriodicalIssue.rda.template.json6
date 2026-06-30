@@ -137,7 +137,7 @@
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání',
     fields: {
       type: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Typ',
         selector: 'name/@type',
         labelKey: 'name/@type',

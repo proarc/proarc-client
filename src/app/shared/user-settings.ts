@@ -179,9 +179,10 @@ columnsWorkFlowDefault: TableColumn[] = [
 
 columnsWorkFlowTasksDefault: TableColumn[] = [
 
-    { field: 'profileLabel', selected: true, width: 150, type: 'string' },
+    // { field: 'profileLabel', selected: true, width: 150, type: 'string' },
+    // { field: 'typeRef', selected: true, width: 150, type: 'list' }, 
     { field: 'state', selected: true, width: 150, type: 'list' },
-    // {field: 'profileName', selected: true, width: 150, type: 'list'},
+    { field: 'profileName', selected: true, width: 150, type: 'list'},
     { field: 'jobLabel', selected: false, width: 150, type: 'string' },
     { field: 'barcode', selected: false, width: 150, type: 'string' },
     { field: 'priority', selected: false, width: 150, type: 'list' },
@@ -400,6 +401,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
     load(o: any) {
         const keys = Object.keys(o);
         keys.forEach(k => {
+          if (k !== 'columnsWorkFlowTasks')
             this.settings[k] = o[k];
         });
     }

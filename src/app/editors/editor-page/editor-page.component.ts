@@ -189,18 +189,18 @@ export class EditorPageComponent implements OnInit {
   }
 
   isInBrackets(): boolean {
-    if (!this.page.number) {
+    if (!this.pageNumberControl.value) {
       return false;
     }
-    return this.page.number.startsWith('[') && this.page.number.endsWith(']');
+    return this.pageNumberControl.value.startsWith('[') && this.pageNumberControl.value.endsWith(']');
   }
 
   addBrackets() {
-    if (!this.page.number) {
+    if (!this.pageNumberControl.value) {
       return
     }
     if (!this.isInBrackets()) {
-      let number = this.page.number;
+      let number = this.pageNumberControl.value;
       if (!number.startsWith('[')) {
         number = '[' + number;
       }
@@ -208,7 +208,7 @@ export class EditorPageComponent implements OnInit {
         number = number + ']';
       }
       this.page.number = number;
-      this.pageNumberControl.setValue(this.page.number);
+      this.pageNumberControl.setValue(number);
       this.pageNumberControl.markAsDirty();
       this.saveIcon()
     }
@@ -216,27 +216,30 @@ export class EditorPageComponent implements OnInit {
   }
 
   removeBrackets() {
-    if (!this.page.number) {
+    if (!this.pageNumberControl.value) {
       return
     }
     if (this.isInBrackets()) {
-      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
-      
-      this.pageNumberControl.setValue(this.page.number);
+      let number = this.pageNumberControl.value;
+      number = number.substring(1, number.length - 1);
+      this.page.number = number;
+      this.pageNumberControl.setValue(number);
       this.pageNumberControl.markAsDirty();
       this.saveIcon()
     }
   }
 
   switchBrackets() {
-    if (!this.page.number) {
+    if (!this.pageNumberControl.value) {
       return
     }
     if (this.isInBrackets()) {
-      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
-      this.pageNumberControl.setValue(this.page.number);
+      let number = this.pageNumberControl.value;
+      number = number.substring(1, number.length - 1);
+      this.page.number = number;
+      this.pageNumberControl.setValue(number);
     } else {
-      let number = this.page.number;
+      let number = this.pageNumberControl.value;
       if (!number.startsWith('[')) {
         number = '[' + number;
       }
@@ -244,7 +247,7 @@ export class EditorPageComponent implements OnInit {
         number = number + ']';
       }
       this.page.number = number;
-      this.pageNumberControl.setValue(this.page.number);
+      this.pageNumberControl.setValue(number);
     }
     this.pageNumberControl.markAsDirty();
   }
@@ -375,7 +378,7 @@ export class EditorPageComponent implements OnInit {
       
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
-      this.layout.refreshSelectedItem(moveToNext, from);
+    this.layout.refreshSelectedItem(moveToNext, from);
 
       this.state = 'success';
     });

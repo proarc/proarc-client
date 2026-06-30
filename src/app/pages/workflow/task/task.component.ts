@@ -170,7 +170,14 @@ export class TaskComponent implements OnInit {
       this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
       this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
       this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      this.lists['profileName'] = this.profileNames.map(p => { return { code: p.name + '', value: p.title } });
+      // this.lists['typeRef'] = this.profileNames.map(p => { return { code: p.name + '', value: p.title } });
+
+      // case 'typeRef': {
+      //   return this.profileNames.map(p => { return { code: p.name + '', value: p.title } });
+      // }
+      
+      //case 'typeRef': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('profile.' + p) } });
       this.initData();
     });
   }

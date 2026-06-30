@@ -467,7 +467,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   removeJobs(isSubJobs: boolean) {
-    const selection = isSubJobs ? this.subJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected);
+    const selection = isSubJobs ? this.visibleSubJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected);
     const selectionHasChildren: boolean = selection.findIndex(j => j.hasChildren) > -1;
     const pids: number[] = selection.map(j => j.id);
     const pref = isSubJobs ? 'dialog.removeSubjobs' : 'dialog.removeJobs'
@@ -550,6 +550,7 @@ export class WorkFlowComponent implements OnInit {
     // job.selected = true;
 
     this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
+    console.log(this.selectedSubJobProfile)
     if (!job.childrenLoaded) {
       //this.getSubJobs(job);
     }

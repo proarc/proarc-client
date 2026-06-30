@@ -96,6 +96,9 @@ export class EditorPagesComponent implements OnInit {
   subscriptions: Subscription[] = [];
   numberingExample = signal<string>('');
 
+  
+  selectionChanged: boolean;
+
   constructor(
     private api: ApiService,
     private ui: UIService,
@@ -116,20 +119,20 @@ export class EditorPagesComponent implements OnInit {
 
     this.controls.valueChanges.subscribe(() => {
 
-    if (this.controls.controls['pageType'].dirty
-      || this.controls.controls['pageIndex'].dirty
-      || this.controls.controls['useBrackets'].dirty
-      || this.controls.controls['repreSelect'].dirty
-      || this.controls.controls['doubleColumns'].dirty
-      || this.controls.controls['pagePosition'].dirty
-      || this.controls.controls['applyToFirst'].dirty
-      || this.controls.controls['applyTo'].dirty
-    ) {
-      this.canSave = true;
-    } else {
-      this.canSave = this.numberFromValid();
-    }
-    
+      if (this.controls.controls['pageType'].dirty
+        || this.controls.controls['pageIndex'].dirty
+        || this.controls.controls['useBrackets'].dirty
+        || this.controls.controls['repreSelect'].dirty
+        || this.controls.controls['doubleColumns'].dirty
+        || this.controls.controls['pagePosition'].dirty
+        || this.controls.controls['applyToFirst'].dirty
+        || this.controls.controls['applyTo'].dirty
+      ) {
+        this.canSave = true;
+      } else {
+        this.canSave = this.numberFromValid();
+      }
+
       if (this.canSave) {
         this.setPanelEditing();
         this.numberingExample.set(this.getNumberingExample());
@@ -138,6 +141,23 @@ export class EditorPagesComponent implements OnInit {
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.plurals = this.countPlurals();
+    }));
+
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
+      const pages = this.layout.items().filter(item => item.selected && item.isPage()).map(item => item.pid).sort().join(',');
+      this.selectionChanged = this.layout.lastPagesSelection !== pages;
+      //console.log(pages, this.layout.lastPagesSelection, this.selectionChanged)
+      if (this.selectionChanged) {
+
+        this.holder = new PageUpdateHolder();
+        this.holder.pageNumberNumbering = this.numberingTypes[0].id;
+        if (this.layout.lastPageUpdateHolder) {
+          this.holder.keepAfterSelectionChanged(this.layout.lastPageUpdateHolder);
+        }
+        this.initControls();
+        this.setPageHolder();
+      }
+      this.layout.lastPagesSelection = pages;
     }));
   }
 
@@ -196,7 +216,7 @@ export class EditorPagesComponent implements OnInit {
     this.holder.fillValues(this.controls.value);
 
     this.updateSelectedPages(this.holder, null);
-    
+
   }
 
   addBrackets() {
@@ -237,10 +257,10 @@ export class EditorPagesComponent implements OnInit {
           // this.layout.setShouldRefresh(true);
           this.layout.refreshSelectedItem(true, 'pages');
         }, 100);
-        
+
         this.state = 'success';
       }
-    
+
       this.controls.markAsPristine();
     });
   }

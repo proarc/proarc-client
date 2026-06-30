@@ -3,7 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 
 export class Utils {
 
-    public static metadataChanged = signal<number>(0);
+    public static metadataChanged = signal<number>(1);
 
     public static clone<T>(obj: T): T {
         return JSON.parse(JSON.stringify(obj));

@@ -43,9 +43,11 @@ import { Subscription } from 'rxjs';
 export class UserTreeTableComponent {
 
   type = input<string>('TreeDocumentItem'); // TreeDocumentItem || TreeWorkFlow
-  rootTreeItem = input<TreeDocumentItem | TreeWorkFlow>();
-  treePath = input<string[]>();
+  // rootTreeItem = input<TreeDocumentItem | TreeWorkFlow>();
+  // treePath = input<string[]>();
+  initData = input.required<{ rootTreeItem: TreeDocumentItem | TreeWorkFlow, treePath: string[] }>();
   inSearch = input<boolean>(false);
+  container = input<string>('');
 
   sortable = input<boolean>();
   sortBy = output<Sort>();
@@ -54,7 +56,7 @@ export class UserTreeTableComponent {
   // sort: Sort = { active: 'created', direction: 'desc' };
 
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
-  onSelectTreeItem = output<TreeDocumentItem | TreeWorkFlow>();
+  onSelectTreeItem = output<{ path: string, item: TreeDocumentItem | TreeWorkFlow }>();
   onTreeItemsChanged = output<(TreeDocumentItem | TreeWorkFlow)[]>();
 
   @ViewChild('treeTable') treeTable: MatTable<any>;
@@ -101,9 +103,14 @@ export class UserTreeTableComponent {
   ) {
 
     effect(() => {
-      const path = this.treePath();
-      const root = this.rootTreeItem();
-      this.generateTree(path, root);
+      // const path = this.treePath();
+      // const root = this.rootTreeItem();
+      const initData = this.initData();
+      console.log(initData)
+      if (initData) {
+        this.generateTree(initData.treePath, initData.rootTreeItem);
+      }
+
     });
   }
 
@@ -114,10 +121,23 @@ export class UserTreeTableComponent {
   ngOnInit() {
     this.setSelectedTreeColumns();
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      const path = this.treePath();
-      const root = this.rootTreeItem();
-      this.generateTree(path, root);
+      const initData = this.initData();
+      if (initData) {
+        this.generateTree(initData.treePath, initData.rootTreeItem);
+      }
     }));
+  }
+
+  treeItemPath(item: TreeDocumentItem): string {
+    let path = item.pid;
+    if (item.parentPid && item.parentPid !== item.pid) {
+      const p = this.treeItems.find(i => i.pid === item.parentPid);
+      if (p) {
+        path = this.treeItemPath(p) + '/' + path;
+      }
+
+    }
+    return path;
   }
 
   generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
@@ -127,6 +147,7 @@ export class UserTreeTableComponent {
       return;
     }
     root.level = 0;
+    root.childrenLoaded = false;
     if (this.type() === 'TreeWorkFlow') {
       this.worflowTreeItems = [root as TreeWorkFlow];
     } else {
@@ -136,7 +157,7 @@ export class UserTreeTableComponent {
     const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (path.length > 1) {
-      this.expandTreeUntilSelected(root, path.slice(1));
+      this.expandTreeUntilSelected(root, path.slice(1), 0);
     } else if (this.settings.searchExpandTree || !canHavePages) {
       this.getTreeItems(root, true);
     }
@@ -203,7 +224,7 @@ export class UserTreeTableComponent {
       this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
     }
     this.treeColumns.forEach(c => {
-      
+
       if (this.columnType(c) === 'list') {
         if (!this.lists()[c]) {
           this.lists()[c] = this.getList(c);
@@ -284,7 +305,7 @@ export class UserTreeTableComponent {
   setToHiddenWorkFlow(treeItem: TreeWorkFlow, idx: number) {
     for (let i = idx; i < this.worflowTreeItems.length; i++) {
       const j = this.worflowTreeItems[i]
-      if ((j.parentId+'') === treeItem.pid) {
+      if ((j.parentId + '') === treeItem.pid) {
         j.hidden = !treeItem.expanded || treeItem.hidden;
         this.setToHiddenWorkFlow(j, i)
       }
@@ -412,7 +433,9 @@ export class UserTreeTableComponent {
   }
 
   openTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
-    this.router.navigate(['/repository', treeItem.pid]);
+    if (this.type() !== 'TreeWorkFlow') {
+      this.router.navigate(['/repository', treeItem.pid]);
+    }
   }
 
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem, idx: number) {
@@ -462,7 +485,8 @@ export class UserTreeTableComponent {
         }
       }
 
-      this.onSelectTreeItem.emit(this.selectedTreeItem);
+      const path = this.treeItemPath(this.selectedTreeItem);
+      this.onSelectTreeItem.emit({ path, item: this.selectedTreeItem });
       this.getTreeInfo(treeItem);
     } else {
       this.treeInfo.emit({ tree_info: {}, batchInfo: null });
@@ -512,17 +536,26 @@ export class UserTreeTableComponent {
     }
   }
 
-  expandTreeUntilSelected(treeItem: TreeDocumentItem | TreeWorkFlow, path: string[]) {
+  expandTreeUntilSelected(treeItem: TreeDocumentItem | TreeWorkFlow, path: string[], idx: number) {
     treeItem.expanded = true;
     if (!treeItem.childrenLoaded) {
       this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
         // callback
         if (path.length === 0) {
-          treeItem.selected = true;
+          //treeItem.selected = true;
+          this.selectTreeItem(null, <TreeDocumentItem>treeItem, idx);
+          // const lastParent = this.initData().treePath[this.initData().treePath.length - 1];
+          // if (lastParent) {
+          //   setTimeout(() => {
+          //     document.getElementById(this.container() + '_' + lastParent).scrollIntoView({ block: 'center' });
+          //   }, 550);
+          // }
         } else {
-          const child = children.find(ch => ch.pid = path[0]);
-          if (child) {
-            this.expandTreeUntilSelected(child, path.slice(1));
+          const childIdx = children.findIndex(ch => ch.pid === path[0]);
+          if (childIdx >- 1) {
+            this.expandTreeUntilSelected(children[childIdx], path.slice(1), childIdx);
+          } else {
+            this.selectTreeItem(null, <TreeDocumentItem>treeItem, idx);
           }
         }
       });
@@ -535,7 +568,7 @@ export class UserTreeTableComponent {
   sortTable(sortState: Sort) {
     this.sortField = sortState.active;
     this.sortAsc = sortState.direction === 'asc';
-    const root = this.rootTreeItem();
+    const root = this.initData().rootTreeItem;
     this.treeItems = [];
     this.worflowTreeItems = [];
     if (this.type() === 'TreeWorkFlow') {

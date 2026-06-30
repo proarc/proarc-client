@@ -1,10 +1,11 @@
 {
   "name": "proarc-client",
-  "version": "v2.4.3",
+  "version": "v2.4.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "node git-version.js && ng build",
+    "build.notag": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

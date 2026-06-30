@@ -12,20 +12,25 @@
 	<ng-container [matColumnDef]="c">
 		<th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" [style.width]="treeColumnsSizes[c]">
 			@if (c !== 'isLocked') {
-				@if(sortable()) {
-					<span mat-sort-header>{{'search.' + c | translate}}</span>
-				} @else {
 					@if (first) {
 						<div class="app-fxLayout app-row app-center-v app-gap-1">
 							<button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary" class="app-ml-n1">
 								<mat-icon class="material-icons-outlined">view_column</mat-icon>
 							</button>
-							<span>{{ 'search.' + c | translate }}</span>
+							@if(sortable()) {
+								<span mat-sort-header>{{'search.' + c | translate}}</span>
+							} @else {
+								<span>{{ 'search.' + c | translate }}</span>
+							}
 						</div>
 					} @else {
-						<span>{{ 'search.' + c | translate }}</span>
+						@if(sortable()) {
+								<span mat-sort-header>{{'search.' + c | translate}}</span>
+							} @else {
+								<span>{{ 'search.' + c | translate }}</span>
+							}
         	}
-				}
+				
 			}
 		</th>
 		<td mat-cell *matCellDef="let element">
@@ -66,5 +71,5 @@
 	<tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
 	<tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index" (dblclick)="openTreeItem($event, row)"
 		(click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"
-		[class.app-repre]="row.pageRepre === 'reprePage'"></tr>
+		[class.app-repre]="row.pageRepre === 'reprePage'" [id]="container() + '_' + row.pid"></tr>
 </table>

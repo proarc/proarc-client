@@ -74,7 +74,7 @@ export class SearchActionsComponent {
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
       this.items().filter(i => i.selected).map(i => i.pid) :
-      [this.selectedTreeItem().pid];
+      this.treeItems().filter(i => i.selected).map(i => i.pid);
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: pids,
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
@@ -132,13 +132,15 @@ export class SearchActionsComponent {
   }
 
   private onDelete(pids: string[], refresh: boolean, callback: (pids: string[]) => any = null) {
-    const checkboxes = [{
+    const removeObjectCheckbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
-    },{
+    };
+    const nightOnlyCheckbox = {
       label: String(this.translator.instant('desc.nightOnly')),
       checked: false
-    }];
+    };
+    const checkboxes = this.auth.user.deleteActionFunction ? [removeObjectCheckbox, nightOnlyCheckbox] : [nightOnlyCheckbox];
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
       message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
@@ -153,17 +155,15 @@ export class SearchActionsComponent {
         value: 'no',
         color: 'default'
       },
+      checkboxes
     };
-    if (this.auth.user.deleteActionFunction) {
-      data.checkboxes = checkboxes;
-    }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(pids, checkboxes[0].checked, checkboxes[1].checked, refresh, callback);
+        this.deleteObject(pids, removeObjectCheckbox.checked, nightOnlyCheckbox.checked, refresh, callback);
       }
     });
   }
@@ -328,6 +328,9 @@ export class SearchActionsComponent {
       return false;
     }
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
+    if (!item.model) {
+      return false;
+    }
     return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
   }
 
