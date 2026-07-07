@@ -178,6 +178,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getWorkflowProfiles() {
+    const profileNames = this.config.getValueMap('proarc.workflow.tasks');
     const rUsers = this.api.getUsers();
     const rProfiles = this.api.getWorkflowProfiles();
     const rDevices = this.api.getDevices();
@@ -195,7 +196,12 @@ export class WorkFlowComponent implements OnInit {
       this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
       this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
       this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      this.lists['profileName'] = [...this.profiles.map(p => { return { code: p.name + '', value: p.title } })
+        , ...profileNames.map(p => { return { code: p.name + '', value: p.title } })
+      ];
+      
+      //this.lists['profileName'] = profileNames.map(p => { return { code: p.name + '', value: p.title } });
+
       this.lists['deviceId'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
       this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       this.getWorkflow(false);
