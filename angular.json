@@ -29,7 +29,10 @@
               "lodash/debounce",
               "lodash/throttle"
            ],
-            "outputPath": "dist/proarc-client",
+           "outputPath": {
+              "base": "dist/proarc-frontend",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
