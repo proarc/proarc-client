@@ -30,13 +30,13 @@ export class ReloadBatchDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ReloadBatchDialogComponent>,
     private api: ApiService,
     public settings: UserSettings,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA) public data: { profile?: string }) { }
 
   ngOnInit() {
     this.state = 'loading';
     this.api.getImportProfiles().subscribe((profiles: Profile[]) => {
       this.profiles = profiles;
-      this.selectedProfile = this.profiles[0];
+      this.selectedProfile = this.profiles.find(profile => profile.id === this.data?.profile) || this.profiles[0];
       this.state = 'none';
     });
   }

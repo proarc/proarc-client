@@ -638,9 +638,8 @@ export class ProcessManagementComponent {
 
 
   onReloadBatch() {
-    console.log(this.selectedBatch.profile);
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
-      data: null,
+      data: { profile: this.selectedBatch?.profile },
       panelClass: ['app-dialog-reload-batch', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
