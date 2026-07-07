@@ -2885,7 +2885,8 @@
     "EXTERNAL_RUNNING": "External - Running",
     "EXTERNAL_PLANNED": "External - Planed",
     "EXTERNAL_FAILED": "External - Failed",
-    "EXTERNAL_DONE": "External - Done"
+    "EXTERNAL_DONE": "External - Done",
+    "EXTERNAL_EDITING": "Externí - Editing"
   },
   "organization": {
     "Inovatika": "Inovatika",
@@ -3290,7 +3291,8 @@
       "profile.replace_stream_import": "Import - Replace streams",
       "profile.generate": "Generate ALTO/OCR",
       "profile.defaultocr": "Import - NDK with ALTO creating",
-      "profile.oldprintoc": "Import - Oldprint with ALTO creting",
+      "profile.oldprintocr": "Import - Oldprint with ALTO creting",
+      "profile.metacheck_import":"Import - MetaCheck import",
       "exportProfile.kramerius": "Export - Kramerius",
       "exportProfile.ndk": "Export - NDK PSP",
       "exportProfile.archive": "Export - Archive",

@@ -222,6 +222,7 @@
     'profile.replace_stream_import',
     'profile.ndk_full_import',
     'profile.generate',
+    'profile.metacheck_import',
     'exportProfile.kramerius',
     'exportProfile.ndk',
     'exportProfile.archive',

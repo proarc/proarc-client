@@ -81,7 +81,7 @@
           {{ listValue(c.field, element[c.field])}}
           }
           @case ('translated') {
-          {{ prefixes[c.field] + element[c.field] | translate }}
+          {{ translatedValue(c.field, element[c.field]) }}
           }
           @case ('boolean') {
           <div class="app-fxLayout app-row app-center-v">

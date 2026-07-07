@@ -72,6 +72,7 @@ export class ProcessManagementComponent {
 
   progressMapSignal = signal<{ [key: string]: string }>({});
   progressMap: { [key: string]: string } = {};
+  translatedValues: { [field: string]: { [code: string]: string } } = { profile: {} };
 
   description: string;
   user: string;
@@ -109,6 +110,7 @@ export class ProcessManagementComponent {
     'EXTERNAL_RUNNING',
     'EXTERNAL_DONE',
     'EXTERNAL_FAILED',
+    'EXTERNAL_EDITING',
     'UPLOADING',
     'UPLOAD_DONE',
     'UPLOAD_FAILED',
@@ -187,6 +189,15 @@ export class ProcessManagementComponent {
     });
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
+    });
+    this.api.getImportProfiles().subscribe((profiles: Profile[]) => {
+      this.translatedValues = {
+        ...this.translatedValues,
+        profile: profiles.reduce((map: { [code: string]: string }, profile: Profile) => {
+          map[profile.id] = 'Import - ' + profile.label;
+          return map;
+        }, {})
+      };
     });
     this.initSelectedColumnsOverview();
     this.initSelectedColumnsQueue();
@@ -903,7 +914,7 @@ export class ProcessManagementComponent {
       (
         this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
       ) &&
-      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING' 
+      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING'
         || batch.state === 'IMPORT_PLANNED' || batch.state === 'INTERNAL_PLANNED')
     )
   }
@@ -912,6 +923,17 @@ export class ProcessManagementComponent {
     return (profile === 'exportProfile.kramerius' || profile === 'exportProfile.ndk' || profile === 'exportProfile.archive' ||
       profile === 'exportProfile.desa' || profile === 'exportProfile.cejsh' || profile === 'exportProfile.crossref' ||
       profile === 'exportProfile.kwis' || profile === 'exportProfile.aleph' || profile === 'exportProfile.datastream');
+  }
+
+  profileLabel(profile: string): string {
+    const value = this.translatedValues['profile']?.[profile];
+    if (value) {
+      return value;
+    }
+
+    const key = 'formField.profiles.' + profile;
+    const translated = this.translator.instant(key);
+    return translated === key ? profile : translated;
   }
 
 }
