@@ -22,9 +22,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserSettings } from '../../shared/user-settings';
 import { PeroModel } from '../../model/pero.model';
+import { MetakatModel } from '../../model/metakat.model';
 
 @Component({
-  imports: [TranslateModule, FormsModule, RouterModule, 
+  imports: [TranslateModule, FormsModule, RouterModule,
     MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
   selector: 'app-import',
   templateUrl: './import.component.html',
@@ -40,6 +41,9 @@ export class ImportComponent implements OnInit {
 
   pero: PeroModel[] = [];
   selectedPero: PeroModel;
+
+  metakat: MetakatModel[] = [];
+  selectedMetakat: MetakatModel;
 
   profiles: Profile[];
   selectedProfile: Profile;
@@ -77,10 +81,12 @@ export class ImportComponent implements OnInit {
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
     const rPero = this.api.getPero();
-    forkJoin([rDevice, rProfiles, rPero]).subscribe(([devices, profiles, pero]: [Device[], Profile[], PeroModel[] ]) => {
+    const rMetakat = this.api.getMetakat();
+    forkJoin([rDevice, rProfiles, rPero, rMetakat]).subscribe(([devices, profiles, pero, metakat]: [Device[], Profile[], PeroModel[], MetakatModel[] ]) => {
       this.profiles = profiles;
       this.devices = devices;
       this.pero = pero;
+      this.metakat = metakat;
       if (this.profiles.length > 0) {
         this.selectedProfile = this.profiles[0];
       }
@@ -127,7 +133,7 @@ export class ImportComponent implements OnInit {
   reRead(folder: Folder) {
     // this.importService.toggleFoder(this.tree.folder);
     this.api.reReadFolder(folder.path).subscribe((resp: any) => {
-      
+
       if (resp.response.error) {
         this.ui.showErrorSnackBar(resp.error);
       } else {
@@ -209,7 +215,7 @@ export class ImportComponent implements OnInit {
       return;
     }
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id, this.selectedMetakat?.id).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -225,7 +231,7 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        const dialogRef = this.dialog.open(SimpleDialogComponent, {
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -236,7 +242,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice.id, this.selectedPriority, this.selectedPero?.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -265,7 +271,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPero?.id).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, selectedDeviceId, selectedPeroId, selectedMetakatId).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
@@ -281,7 +287,7 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        const dialogRef = this.dialog.open(SimpleDialogComponent, {
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -298,6 +304,54 @@ export class ImportComponent implements OnInit {
 
   onProfileChanged() {
     // this.reload();
+  }
+
+  showDevice(): boolean {
+    return this.hasProfileParam('device');
+  }
+
+  showPero(): boolean {
+    return this.hasProfileParam('peroOcrEngine', 'pero');
+  }
+
+  showMetakat(): boolean {
+    return this.hasProfileParam('metakatEngine', 'metakat');
+  }
+
+  showGenerateIndex(): boolean {
+    return this.hasProfileParam('indices', 'index', 'generateIndex');
+  }
+
+  private hasProfileParam(...names: string[]): boolean {
+    if (!this.selectedProfile) {
+      return false;
+    }
+    const params = this.selectedProfile.params;
+    if (params === null || params === undefined) {
+      return true;
+    }
+    return names.some(name => this.containsProfileParam(params, name));
+  }
+
+  private containsProfileParam(params: any, name: string): boolean {
+    if (Array.isArray(params)) {
+      return params.some(param => this.matchesProfileParam(param, name));
+    }
+    if (typeof params === 'object') {
+      return Object.prototype.hasOwnProperty.call(params, name) && params[name] !== false;
+    }
+    return false;
+  }
+
+  private matchesProfileParam(param: any, name: string): boolean {
+    if (typeof param === 'string') {
+      return param === name;
+    }
+    if (!param || typeof param !== 'object') {
+      return false;
+    }
+    const paramName = param['name'] || param['id'] || param['key'];
+    return paramName === name && param['enabled'] !== false && param['visible'] !== false;
   }
 
 

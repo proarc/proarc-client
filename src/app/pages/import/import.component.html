@@ -44,6 +44,14 @@
           }
         </mat-select>
       </mat-form-field>
+      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
+        <mat-label>{{ 'import.metakat' | translate }}</mat-label>
+        <mat-select [placeholder]="'import.metakat' | translate" [(ngModel)]="selectedMetakat" >
+          @for(m of metakat; track $index;) {
+            <mat-option [value]="m" [matTooltip]="m.description">{{ m.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
       <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
       <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
     </div>
