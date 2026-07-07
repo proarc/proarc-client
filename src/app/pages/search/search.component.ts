@@ -389,8 +389,8 @@ export class SearchComponent {
     this.batchInfo = info.batchInfo;
   }
 
-  onSelectTreeItem(item: any) {
-    this.selectedTreeItem = item;
+  onSelectTreeItem(e:{item: any, path: string}){
+    this.selectedTreeItem = e.item;
   }
 
   onTreeItemsChanged(items: any[]) {

@@ -60,8 +60,8 @@ export class EditorTreeComponent implements OnInit {
 
   }
 
-  selectTreeItem(item: any){
-    const sel = <DocumentItem>item;
+  selectTreeItem(e:{item: any, path: string}){
+    const sel = <DocumentItem>e.item;
     sel.selected=true;
     this.layout.lastSelectedItem.set(sel);
     // this.layout.items = tree.children.map(ch => ch.item);
