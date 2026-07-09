@@ -193,7 +193,7 @@
   updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
   'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
 
-  musicDocumentIdentifiers: ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
+  musicDocumentIdentifiers: ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ismn','ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
   chronicleIdentifiers: ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localid', 'officialNumber'],
   eDocumentIdentifiers: ['doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'],
   oldprintIdentifiers: ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'],
