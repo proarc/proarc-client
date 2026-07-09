@@ -37,17 +37,17 @@
               @case ('TEXT') {
                 <mat-form-field>
                   <mat-label>{{ param.profileLabel }}</mat-label>
-                  <input matInput [(ngModel)]="param.value">
+                  <input matInput id="profileLabel" [(ngModel)]="param.value" />
                 </mat-form-field>
               }
               @case ('CHECKBOX') {
-                <mat-checkbox color="primary"
+                <mat-checkbox color="primary" name="profileHint"
                 [(ngModel)]="param.value">{{ param.profileHint}}</mat-checkbox>
               }
               @case ('COMBOBOX') {
                 <mat-form-field>
                   <mat-label>{{ param.profileLabel }}</mat-label>
-                  <mat-select [(ngModel)]="param.value"
+                  <mat-select [(ngModel)]="param.value" name="combo"
                     [placeholder]="param.profileLabel">
                     @for(o of config.getValueMap(param.valueMapId); track $index;) {
                       <mat-option [value]="o.code">{{o.value}}</mat-option>

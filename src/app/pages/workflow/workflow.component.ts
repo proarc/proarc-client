@@ -29,7 +29,7 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { Device } from '../../model/device.model';
 import { User } from '../../model/user.model';
-import { WorkFlowProfile, WorkFlow, WorkFlowMaterial } from '../../model/workflow.model';
+import { WorkFlowProfile, WorkFlow, WorkFlowMaterial, TreeWorkFlow } from '../../model/workflow.model';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { LayoutService } from '../../services/layout-service';
@@ -39,6 +39,7 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { MaterialEditComponent } from "./material-edit/material-edit.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
+import { TreeDocumentItem } from '../../model/documentItem.model';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -179,6 +180,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getWorkflowProfiles() {
+    const profileNames = this.config.getValueMap('proarc.workflow.tasks');
     const rUsers = this.api.getUsers();
     const rProfiles = this.api.getWorkflowProfiles();
     const rDevices = this.api.getDevices();
@@ -196,7 +198,12 @@ export class WorkFlowComponent implements OnInit {
       this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
       this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
       this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      this.lists['profileName'] = this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      this.lists['profileName'] = [...this.profiles.map(p => { return { code: p.name + '', value: p.title } })
+        , ...profileNames.map(p => { return { code: p.name + '', value: p.title } })
+      ];
+      
+      //this.lists['profileName'] = profileNames.map(p => { return { code: p.name + '', value: p.title } });
+
       this.lists['deviceId'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
       this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       this.getWorkflow(false);
@@ -540,11 +547,13 @@ export class WorkFlowComponent implements OnInit {
     this.totalSelected = this.subJobs.filter(i => i.selected).length;
 
     if (this.totalSelected > 0) {
-      this.selectSubJob(e.item);
+      this.selectSubJob({item: e.item, path: e.item.pid});
     }
   }
 
-  selectSubJob(job: any) {
+  selectSubJob(e: {path: string, item: any}) {
+
+    const job: WorkFlow = <WorkFlow>e.item;
     this.selectedSubJob = job;
     this.activeJob = job;
 

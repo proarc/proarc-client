@@ -1,7 +1,7 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -13,10 +13,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [TranslateModule, FormsModule, 
-  //  FlexLayoutModule, 
+  imports: [TranslateModule, FormsModule, MatCheckboxModule, MatInputModule, MatButtonModule, MatDialogModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-taskss-edit-dialog',
   templateUrl: './tasks-edit-dialog.component.html',
