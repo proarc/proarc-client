@@ -172,7 +172,7 @@
   ],
   topLocations: ['BOA001', 'ABA000'],
   topIdentifiers: [],
-  identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
+  identifiers: [ 'barcode', 'issn', 'isbn', 'ismn' ,'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
   lang: 'cs-en',
   expandedModels: ['model:ndkemonographvolume','model:ndkemonographunit', 'model:ndkearticle'],
