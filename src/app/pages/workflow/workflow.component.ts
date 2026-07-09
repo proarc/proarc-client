@@ -118,6 +118,8 @@ export class WorkFlowComponent implements OnInit {
   states = [
     { code: 'OPEN', value: 'Otevřený' },
     { code: 'FINISHED', value: 'Hotový' },
+    { code: 'READY', value: 'Připraven' },
+    { code: 'STARTED', value: 'Probíhá' },
     { code: 'CANCELED', value: 'Zrušený' },
   ]
 
@@ -243,7 +245,7 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  
+
 
   getMaterial() {
     this.api.getWorkflowMaterial(this.activeJob.id).subscribe((response: any) => {
@@ -300,7 +302,7 @@ export class WorkFlowComponent implements OnInit {
     setTimeout(() => {
       this.subJobs = [this.selectedJob];
     }, 10);
-    
+
   }
 
   isExpandable(job: WorkFlow) {
@@ -404,7 +406,7 @@ export class WorkFlowComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -574,7 +576,7 @@ export class WorkFlowComponent implements OnInit {
     }
 
     this.setToHidden(job, this.subJobs.indexOf(job));
-    
+
   }
 
   setToHidden(job: WorkFlow, idx: number) {
@@ -587,7 +589,7 @@ export class WorkFlowComponent implements OnInit {
     }
   }
 
-  
+
 
   taskStep(task: string) {
 

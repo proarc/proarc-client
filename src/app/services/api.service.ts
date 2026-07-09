@@ -960,7 +960,13 @@ export class ApiService {
   }
 
   createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string): Observable<any> {
-    let data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}`;
+    let data = `folderPath=${path}&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
+    if (indices !== null && indices !== undefined) {
+      data += `&indices=${indices}`;
+    }
+    if (device) {
+      data += `&device=${device}`;
+    }
     if (peroId) {
       data += `&peroOcrEngine=${peroId}`;
     }
@@ -976,7 +982,13 @@ export class ApiService {
   }
 
   createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string) {
-    let data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
+    let data = `folderPath=[${paths}]&profile=${profile}`;
+    if (indices !== null && indices !== undefined) {
+      data += `&indices=${indices}`;
+    }
+    if (device) {
+      data += `&device=${device}`;
+    }
     if (peroId) {
       data += `&peroOcrEngine=${peroId}`;
     }

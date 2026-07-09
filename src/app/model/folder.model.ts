@@ -3,7 +3,7 @@ export class Folder {
 
   public name: string;
   public state: string;
-  public states: {profile: string, state: string}[];
+  public states: {profile: string, state: string, params?: any}[];
   public path: string;
   public level: number;
   public parent: string;

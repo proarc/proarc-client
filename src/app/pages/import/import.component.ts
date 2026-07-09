@@ -44,6 +44,8 @@ export class ImportComponent implements OnInit {
 
   metakat: MetakatModel[] = [];
   selectedMetakat: MetakatModel;
+  private metakatLoaded = false;
+  private metakatLoading = false;
 
   profiles: Profile[];
   selectedProfile: Profile;
@@ -81,14 +83,13 @@ export class ImportComponent implements OnInit {
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
     const rPero = this.api.getPero();
-    const rMetakat = this.api.getMetakat();
-    forkJoin([rDevice, rProfiles, rPero, rMetakat]).subscribe(([devices, profiles, pero, metakat]: [Device[], Profile[], PeroModel[], MetakatModel[] ]) => {
+    forkJoin([rDevice, rProfiles, rPero]).subscribe(([devices, profiles, pero]: [Device[], Profile[], PeroModel[] ]) => {
       this.profiles = profiles;
       this.devices = devices;
       this.pero = pero;
-      this.metakat = metakat;
       if (this.profiles.length > 0) {
         this.selectedProfile = this.profiles[0];
+        this.loadMetakatIfNeeded();
       }
       if (this.devices.length > 0) {
         const d = new Device('none');
@@ -163,6 +164,7 @@ export class ImportComponent implements OnInit {
         });
         this.folders.splice(idx, 0, ...folders);
       }
+      this.loadMetakatIfNeeded();
       // console.log(this.folders)
     });
   }
@@ -190,7 +192,7 @@ export class ImportComponent implements OnInit {
     if (!folder.states) {
       return false;
     }
-    const p:{profile: string, state: string} = folder.states.find(s => s.profile === this.selectedProfile.id && s.state === 'IMPORTED');
+    const p:{profile: string, state: string, params?: any} = folder.states.find(s => s.profile === this.selectedProfile.id && s.state === 'IMPORTED');
     if (p) {
       return true;
     } else {
@@ -200,6 +202,7 @@ export class ImportComponent implements OnInit {
 
   toggleSelected(folder: Folder) {
     folder.selected = !folder.selected;
+    this.loadMetakatIfNeeded();
   }
 
   onLoad() {
@@ -214,8 +217,12 @@ export class ImportComponent implements OnInit {
     if (selectedFolders.length === 0) {
       return;
     }
+    const generateIndex = this.showGenerateIndex() ? this.generateIndex : null;
+    const selectedDeviceId = this.showDevice() ? this.selectedDevice?.id : null;
+    const selectedPeroId = this.showPero() ? this.selectedPero?.id : null;
+    const selectedMetakatId = this.showMetakat() ? this.selectedMetakat?.id : null;
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.nightOnly, this.selectedDevice?.id, this.selectedPriority, this.selectedPero?.id, this.selectedMetakat?.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -304,38 +311,40 @@ export class ImportComponent implements OnInit {
 
   onProfileChanged() {
     // this.reload();
+    this.selectedMetakat = null;
+    this.loadMetakatIfNeeded();
   }
 
   showDevice(): boolean {
-    return this.hasProfileParam('device');
+    return this.hasImportParam(true, 'device');
   }
 
   showPero(): boolean {
-    return this.hasProfileParam('peroOcrEngine', 'pero');
+    return this.hasImportParam(true, 'ocrEngine', 'peroOcrEngine', 'pero');
   }
 
   showMetakat(): boolean {
-    return this.hasProfileParam('metakatEngine', 'metakat');
+    return this.hasImportParam(false, 'metakatEngine', 'metakat');
   }
 
   showGenerateIndex(): boolean {
-    return this.hasProfileParam('indices', 'index', 'generateIndex');
+    return this.hasImportParam(true, 'generateIndex', 'indices', 'index');
   }
 
-  private hasProfileParam(...names: string[]): boolean {
+  private hasImportParam(defaultValue: boolean, ...names: string[]): boolean {
     if (!this.selectedProfile) {
       return false;
     }
-    const params = this.selectedProfile.params;
+    const params = this.getSelectedFolderParams();
     if (params === null || params === undefined) {
-      return true;
+      return defaultValue;
     }
-    return names.some(name => this.containsProfileParam(params, name));
+    return names.some(name => this.containsImportParam(params, name));
   }
 
-  private containsProfileParam(params: any, name: string): boolean {
+  private containsImportParam(params: any, name: string): boolean {
     if (Array.isArray(params)) {
-      return params.some(param => this.matchesProfileParam(param, name));
+      return params.some(param => this.matchesImportParam(param, name));
     }
     if (typeof params === 'object') {
       return Object.prototype.hasOwnProperty.call(params, name) && params[name] !== false;
@@ -343,7 +352,7 @@ export class ImportComponent implements OnInit {
     return false;
   }
 
-  private matchesProfileParam(param: any, name: string): boolean {
+  private matchesImportParam(param: any, name: string): boolean {
     if (typeof param === 'string') {
       return param === name;
     }
@@ -352,6 +361,48 @@ export class ImportComponent implements OnInit {
     }
     const paramName = param['name'] || param['id'] || param['key'];
     return paramName === name && param['enabled'] !== false && param['visible'] !== false;
+  }
+
+  private getSelectedFolderParams(): any {
+    const selectedFolder = this.folders.find(f => f.selected) || this.folders.find(f => !f.hidden);
+    const folderState = this.getFolderStateForSelectedProfile(selectedFolder);
+    if (folderState && folderState.params !== null && folderState.params !== undefined) {
+      return folderState.params;
+    }
+    return this.selectedProfile.params;
+  }
+
+  private getFolderStateForSelectedProfile(folder: Folder): {profile: string, state: string, params?: any} {
+    if (!folder || !folder.states || !this.selectedProfile) {
+      return null;
+    }
+    const selectedState = folder.states.find(s => s.profile === this.selectedProfile.id);
+    if (selectedState) {
+      return selectedState;
+    }
+    return folder.states.find(s => s.profile === 'profile.default');
+  }
+
+  private loadMetakatIfNeeded() {
+    if (!this.showMetakat()) {
+      this.selectedMetakat = null;
+      return;
+    }
+    if (this.metakatLoaded || this.metakatLoading) {
+      return;
+    }
+    this.metakatLoading = true;
+    this.api.getMetakat().subscribe({
+      next: (metakat: MetakatModel[]) => {
+        this.metakat = metakat || [];
+        this.metakatLoaded = true;
+        this.metakatLoading = false;
+      },
+      error: () => {
+        this.metakat = [];
+        this.metakatLoading = false;
+      }
+    });
   }
 
 

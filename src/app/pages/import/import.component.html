@@ -9,7 +9,7 @@
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-import">
     <div class="app-fxLayout app-row app-gap-2 app-formbar" [class.app-baseline]="settings.appearance === 'outline'">
-      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
+      <button mat-stroked-button (click)="onLoad()" [disabled]="showDevice() && selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
         {{ 'import.load' | translate }}
       </button>
       <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
@@ -28,31 +28,39 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
-        <mat-label>{{ 'import.device' | translate }}</mat-label>
-        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="!selectedProfile || selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
-          @for(device of devices; track $index;) {
-            <mat-option [value]="device">{{ device.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
-        <mat-label>{{ 'import.pero' | translate }}</mat-label>
-        <mat-select [placeholder]="'import.pero' | translate" [(ngModel)]="selectedPero" >
-          @for(p of pero; track $index;) {
-            <mat-option [value]="p" [matTooltip]="p.description">{{ p.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
-        <mat-label>{{ 'import.metakat' | translate }}</mat-label>
-        <mat-select [placeholder]="'import.metakat' | translate" [(ngModel)]="selectedMetakat" >
-          @for(m of metakat; track $index;) {
-            <mat-option [value]="m" [matTooltip]="m.description">{{ m.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+      @if (showDevice()) {
+        <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
+          <mat-label>{{ 'import.device' | translate }}</mat-label>
+          <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="!selectedProfile || selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
+            @for(device of devices; track $index;) {
+              <mat-option [value]="device">{{ device.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      @if (showPero()) {
+        <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
+          <mat-label>{{ 'import.pero' | translate }}</mat-label>
+          <mat-select [placeholder]="'import.pero' | translate" [(ngModel)]="selectedPero" >
+            @for(p of pero; track $index;) {
+              <mat-option [value]="p" [matTooltip]="p.description">{{ p.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      @if (showMetakat()) {
+        <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
+          <mat-label>{{ 'import.metakat' | translate }}</mat-label>
+          <mat-select [placeholder]="'import.metakat' | translate" [(ngModel)]="selectedMetakat" >
+            @for(m of metakat; track $index;) {
+              <mat-option [value]="m" [matTooltip]="m.description">{{ m.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      @if (showGenerateIndex()) {
+        <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+      }
       <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
     </div>
 
