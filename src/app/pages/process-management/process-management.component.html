@@ -172,7 +172,7 @@
             <mat-select [placeholder]="'desc.profile' | translate" name="profile" [(value)]="profile" (keyup.enter)="filter()">
               <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
               @for(profile of config.profiles; track $index;) {
-                <mat-option [value]="profile" [matTooltip]="'formField.profiles.' + profile | translate">{{ 'formField.profiles.' + profile | translate }}</mat-option>
+                <mat-option [value]="profile" [matTooltip]="profileLabel(profile)">{{ profileLabel(profile) }}</mat-option>
               }
             </mat-select>
             @if (profile) {
@@ -189,7 +189,7 @@
       @if (view == 'overview') {
         <div class="app-fxFlex app-oa-y app-border-wrapper">
         <app-user-table (selectItem)="selectRow($event)"  (openItem)="openBatch($event)" (sortBy)="sortTable($event)"
-        [colsSettingsName]="'procMngColumns'" [items]="batches" [actions]="actions" [progressMap]="progressMapSignal()" ></app-user-table>
+        [colsSettingsName]="'procMngColumns'" [items]="batches" [actions]="actions" [progressMap]="progressMapSignal()" [translatedValues]="translatedValues" ></app-user-table>
         <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
       </div>
     }

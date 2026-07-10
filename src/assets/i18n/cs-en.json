@@ -209,6 +209,7 @@
     "profile": "Profil",
     "device": "Zařízení",
     "pero": "PERO",
+    "metakat": "MetaKat",
     "generate_index": "Generovat index stránek",
     "load": "Načíst",
     "load_and_save": "Načíst a uložit",
@@ -2919,7 +2920,8 @@
     "EXTERNAL_RUNNING": "Externí - Probíhá",
     "EXTERNAL_PLANNED": "Externí - Naplánováno",
     "EXTERNAL_FAILED": "Externí - Chyba",
-    "EXTERNAL_DONE": "Externí - Hotovo"
+    "EXTERNAL_DONE": "Externí - Hotovo",
+    "EXTERNAL_EDITING": "Externí - probíhá editace"
   },
   "organization": {
     "Inovatika": "Inovatika",
@@ -3320,7 +3322,8 @@
       "profile.replace_stream_import": "Import - Nahrazení streamů",
       "profile.generate": "Generovani ALTO/OCR",
       "profile.defaultocr": "Import - NDK s vytvořením ALTO",
-      "profile.oldprintoc": "Import - STT s vytvořením ALTO",
+      "profile.oldprintocr": "Import - STT s vytvořením ALTO",
+      "profile.metacheck_import":"Import - MetaCheck import",
       "exportProfile.kramerius": "Export - Kramerius",
       "exportProfile.ndk": "Export - NDK PSP",
       "exportProfile.archive": "Export - Archive",

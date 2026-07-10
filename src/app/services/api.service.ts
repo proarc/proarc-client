@@ -22,6 +22,7 @@ import { Metadata } from '../model/metadata.model';
 import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
 import { PageUpdateHolder } from './layout-service';
 import { PeroModel } from '../model/pero.model';
+import { MetakatModel } from '../model/metakat.model';
 
 @Injectable()
 export class ApiService {
@@ -410,6 +411,11 @@ export class ApiService {
 
   getPero(): Observable<PeroModel[]> {
     return this.get('valuemap/pero')
+      .pipe(map((response: any) => response['response']['data'][0]? response['response']['data'][0].values : []));
+  }
+
+  getMetakat(): Observable<MetakatModel[]> {
+    return this.get('valuemap/metakat')
       .pipe(map((response: any) => response['response']['data'][0]? response['response']['data'][0].values : []));
   }
 
@@ -953,10 +959,19 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string): Observable<any> {
-    let data = `folderPath=${path}&profile=${profile}&indices=${indices}&nightOnly=${nightOnly}&device=${device}&priority=${priority}`;
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string): Observable<any> {
+    let data = `folderPath=${path}&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
+    if (indices !== null && indices !== undefined) {
+      data += `&indices=${indices}`;
+    }
+    if (device) {
+      data += `&device=${device}`;
+    }
     if (peroId) {
       data += `&peroOcrEngine=${peroId}`;
+    }
+    if (metakatId) {
+      data += `&metakatEngine=${metakatId}`;
     }
     return this.post('import/batch', data);
   }
@@ -966,10 +981,19 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string) {
-    let data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string) {
+    let data = `folderPath=[${paths}]&profile=${profile}`;
+    if (indices !== null && indices !== undefined) {
+      data += `&indices=${indices}`;
+    }
+    if (device) {
+      data += `&device=${device}`;
+    }
     if (peroId) {
       data += `&peroOcrEngine=${peroId}`;
+    }
+    if (metakatId) {
+      data += `&metakatEngine=${metakatId}`;
     }
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }

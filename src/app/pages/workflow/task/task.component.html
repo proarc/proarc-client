@@ -22,7 +22,7 @@
                   <div class="app-fxFlex app-fxLayout app-row app-center-v app-wrap">
                     <button (click)="getTasks()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                     @if (this.totalSelected > 1) {
-                      <button mat-button (click)="editTasks()" >{{'workflow.multipleJobsEdit' | translate}}</button>
+                      <button mat-button (click)="editTasks()" >{{'workflow.multipleTasksEdit' | translate}}</button>
                     }
                   </div>
                   <div class="app-h-100">

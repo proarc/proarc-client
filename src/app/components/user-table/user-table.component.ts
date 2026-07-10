@@ -71,6 +71,7 @@ export class UserTableComponent {
   existingFilters = input<{ [field: string]: string }>({});
 
   prefixes: { [field: string]: string } = {};
+  translatedValues = input<{ [field: string]: { [code: string]: string } }>({});
   //lists: { [field: string]: { code: string, value: string }[] } = {};
   lists = input<{ [field: string]: { code: string, value: string }[] }>({});
   statuses = [
@@ -190,6 +191,17 @@ export class UserTableComponent {
     }
     const el = this.lists()[field].find(el => el.code === code + '');
     return el ? el.value : code;
+  }
+
+  translatedValue(field: string, code: string): string {
+    const value = this.translatedValues()[field]?.[code];
+    if (value) {
+      return value;
+    }
+
+    const key = this.prefixes[field] + code;
+    const translated = this.translator.instant(key);
+    return translated === key ? code : translated;
   }
 
   getList(f: string): { code: string, value: string }[] {
