@@ -310,10 +310,13 @@ export class TaskComponent implements OnInit {
     this.parameters.forEach((p: any) => {
       if (p.required && !p.value) {
         this.ui.showErrorSnackBar(this.translator.instant('workflow.missing_required_field') + ' ' + p.profileLabel);
-        document.getElementById('param_' + p.profileName).focus();
+        document.getElementById('param_' + this.getParameterName(p))?.focus();
         hasError = true;
       }
-      params[p.profileName] = p.value;
+      const parameterName = this.getParameterName(p);
+      if (parameterName) {
+        params[parameterName] = p.value;
+      }
     });
     if (hasError) {
       return;
@@ -365,6 +368,20 @@ export class TaskComponent implements OnInit {
       }
 
     });
+  }
+
+  getParameterName(parameter: any): string {
+    return parameter.paramRef || parameter.profileName || '';
+  }
+
+  getValueMapOptionValue(param: any, option: any): any {
+    const valueField = param.optionValueField;
+    return valueField && option[valueField] !== undefined ? option[valueField] : option.value;
+  }
+
+  getValueMapOptionDisplay(param: any, option: any): any {
+    const displayField = param.optionDisplayField;
+    return displayField && option[displayField] !== undefined ? option[displayField] : option.value;
   }
 
   getMaterial() {

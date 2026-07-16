@@ -108,7 +108,7 @@
                                   @case ('TEXT') {
                                     <mat-form-field  class="app-field-col">
                                       <mat-label>{{ param.profileLabel }}</mat-label>
-                                      <input matInput [(ngModel)]="param.value" [id]="'param_' + param.profileName" [type]="param.valueType.toLowerCase()" [required]="param.required">
+                                      <input matInput [(ngModel)]="param.value" [id]="'param_' + getParameterName(param)" [type]="param.valueType.toLowerCase()" [required]="param.required">
                                     </mat-form-field>
                                   }
                                   @case ('CHECKBOX') {
@@ -121,7 +121,7 @@
                                       <mat-label>{{ param.profileLabel }}</mat-label>
                                       <mat-select [(ngModel)]="param.value">
                                         @for(o of getValueMap(param.valueMapId); track $index;) {
-                                          <mat-option [value]="o.value">{{o.value}}</mat-option>
+                                          <mat-option [value]="getValueMapOptionValue(param, o)">{{ getValueMapOptionDisplay(param, o) }}</mat-option>
                                         }
                                       </mat-select>
                                     </mat-form-field>

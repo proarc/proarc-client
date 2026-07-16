@@ -30,6 +30,8 @@ export class TaskssEditDialogComponent implements OnInit {
   priority: string;
   ownerId: string;
   isSelectionSameType: boolean;
+  parameters: any[] = [];
+  loadingParameters = false;
 
   constructor(
     public config: Configuration,
@@ -47,7 +49,9 @@ export class TaskssEditDialogComponent implements OnInit {
           this.isSelectionSameType = false;
         }
       });
-      this.data.parameters.forEach(p => {p.value = null})
+      if (this.isSelectionSameType) {
+        this.loadParameters(this.data.tasks[0].id);
+      }
   }
 
   onClose() {
@@ -68,8 +72,11 @@ export class TaskssEditDialogComponent implements OnInit {
     // }
 
     const params: any = {};
-    this.data.parameters.forEach((p: any) => {
-      params[p.profileName] = p.value;
+    this.parameters.forEach((p: any) => {
+      const parameterName = this.getParameterName(p);
+      if (parameterName && p.value !== null && p.value !== undefined && p.value !== '') {
+        params[parameterName] = p.value;
+      }
     })
     
     // data += `&params=${JSON.stringify(params)}`;
@@ -90,6 +97,32 @@ export class TaskssEditDialogComponent implements OnInit {
         }
         this.dialogRef.close(true);
       });
+  }
+
+  private loadParameters(taskId: number) {
+    this.loadingParameters = true;
+    this.api.getWorkflowTaskParameters(taskId).subscribe((response: any) => {
+      this.loadingParameters = false;
+      if (response['response'].errors) {
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      }
+      this.parameters = response.response.data.map((p: any) => ({ ...p, value: null }));
+    });
+  }
+
+  getParameterName(parameter: any): string {
+    return parameter.paramRef || parameter.profileName || '';
+  }
+
+  getValueMapOptionValue(param: any, option: any): any {
+    const valueField = param.optionValueField;
+    return valueField && option[valueField] !== undefined ? option[valueField] : option.value;
+  }
+
+  getValueMapOptionDisplay(param: any, option: any): any {
+    const displayField = param.optionDisplayField;
+    return displayField && option[displayField] !== undefined ? option[displayField] : option.value;
   }
 
 }
