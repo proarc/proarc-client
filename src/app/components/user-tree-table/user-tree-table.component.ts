@@ -508,12 +508,36 @@ export class UserTreeTableComponent {
   reloadTree(newPid: string) {
     // Kopirujeme objekt podrazeni ve stromu
     // this.selectItem(this.selectedItem);
-    const parent = this.treeItems.find(ti => ti.pid === this.selectedTreeItem.parentPid);
-    const parentIndex = this.treeItems.findIndex(ti => ti.pid === this.selectedTreeItem.parentPid);
-    const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
-    // remove existing 
-    this.treeItems.splice(parentIndex + 1, numChildren);
-    this.getTreeItems(parent, true);
+    if (!this.selectedTreeItem) {
+      return;
+    }
+
+    const parentPid = (this.selectedTreeItem as TreeDocumentItem).parentPid;
+    if (!parentPid) {
+      this.generateTree([this.selectedTreeItem.pid], this.selectedTreeItem);
+      return;
+    }
+
+    const parentIndex = this.treeItems.findIndex(ti => ti.pid === parentPid);
+    const parent = this.treeItems[parentIndex];
+    if (!parent) {
+      this.generateTree(this.initData().treePath, this.initData().rootTreeItem);
+      return;
+    }
+
+    let deleteCount = 0;
+    for (let i = parentIndex + 1; i < this.treeItems.length && this.treeItems[i].level > parent.level; i++) {
+      deleteCount++;
+    }
+
+    this.treeItems.splice(parentIndex + 1, deleteCount);
+    parent.childrenLoaded = false;
+    this.getTreeItems(parent, true, () => {
+      const newItemIndex = this.visibleTreeItems.findIndex(ti => ti.pid === newPid);
+      if (newItemIndex > -1) {
+        this.selectTreeItem(null, this.visibleTreeItems[newItemIndex] as TreeDocumentItem, newItemIndex);
+      }
+    });
   }
 
   expandTreeDeep() {
