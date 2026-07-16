@@ -267,13 +267,17 @@ export class SearchComponent {
         if (selectedPid) {
           // this.selectItem(this.findItem(selectedPid));
           const idx = this.items.findIndex(it => it.pid === selectedPid);
-          this.selectItem(this.items[idx]);
-          setTimeout(() => {
-            let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + idx);
-            if (row) {
-              row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
-            }
-          }, 500);
+          if (idx > -1) {
+            this.selectItem(this.items[idx]);
+            setTimeout(() => {
+              let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + idx);
+              if (row) {
+                row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              }
+            }, 500);
+          } else {
+            this.selectItem(this.items[0]);
+          }
 
         } else {
           this.selectItem(this.items[0]);
@@ -290,12 +294,17 @@ export class SearchComponent {
   }
 
   reloadTree(newPid: string) {
-    if (this.selectedRootTreeItem.model === this.model) {
+    if (!this.selectedRootTreeItem || !this.selectedTreeItem) {
       this.reload(newPid);
-    } else {
+      return;
+    }
+
+    if (this.treeTable) {
       this.treeTable.reloadTree(newPid);
       this.selectedItem.selected = true;
       this.totalSelected = 1;
+    } else {
+      this.reload(newPid);
     }
   }
 
