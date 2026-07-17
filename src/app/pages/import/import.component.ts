@@ -138,14 +138,13 @@ export class ImportComponent implements OnInit {
       if (resp.response.error) {
         this.ui.showErrorSnackBar(resp.error);
       } else {
-        folder.state = "NEW";
-        folder.states.find(s => s.profile === this.selectedProfile.id).state = "NEW"
+        this.reloadParentFolder(folder);
       }
 
     });
   }
 
-  loadFolder(folder: Folder, idx: number) {
+  loadFolder(folder: Folder, idx: number, selectedPath: string = null) {
     this.api.getImportFolders(folder.path).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('getImportFolders error', response['response'].errors);
@@ -161,12 +160,34 @@ export class ImportComponent implements OnInit {
         folders.forEach(f => {
           f.level = folder.level + 1;
           f.parent = folder.path;
+          f.hidden = folder.path !== '/' && folder.hidden;
+          f.selected = f.path === selectedPath;
         });
         this.folders.splice(idx, 0, ...folders);
       }
+      folder.loaded = true;
       this.loadMetakatIfNeeded();
       // console.log(this.folders)
     });
+  }
+
+  private reloadParentFolder(folder: Folder) {
+    const selectedPath = folder.path;
+    const parent = this.folders.find(f => f.path === folder.parent) || Folder.root();
+    const parentIndex = this.folders.findIndex(f => f.path === parent.path);
+    const insertIndex = parentIndex === -1 ? 0 : parentIndex + 1;
+
+    this.folders = this.folders.filter(f => !this.isChildOfFolder(f, parent.path));
+    parent.expanded = true;
+    parent.loaded = false;
+    this.loadFolder(parent, insertIndex, selectedPath);
+  }
+
+  private isChildOfFolder(folder: Folder, parentPath: string): boolean {
+    if (!folder.parent) {
+      return false;
+    }
+    return folder.parent === parentPath || folder.parent.startsWith(parentPath === '/' ? '/' : parentPath + '/');
   }
 
   // Determine when can select folder by profile
