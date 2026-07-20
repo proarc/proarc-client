@@ -45,6 +45,7 @@ export class ProArc {
       'profile.ndk_monograph_kramerius_import',
       'profile.ndk_periodical_kramerius_import',
       'profile.replace_stream_import  ',
+      'profile.metacheck_import',
     ];
       return dontShow.includes(profile)
     }
