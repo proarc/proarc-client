@@ -43,10 +43,24 @@ export class EditorIssuesComponent {
   partNumberControl = new FormControl();
   signatureControl = new FormControl();
   siglaControl = new FormControl();
+  dateIssuedControl = new FormControl();
+  titleControl = new FormControl();
+  subTitleControl = new FormControl();
+  partNameControl = new FormControl();
+  noteControl = new FormControl();
+  publisherControl = new FormControl();
+  placeControl = new FormControl();
   controls: FormGroup = new FormGroup({
     partNumber: this.partNumberControl,
     signature: this.signatureControl,
-    sigla: this.siglaControl
+    sigla: this.siglaControl,
+    dateIssued: this.dateIssuedControl,
+    title: this.titleControl,
+    subTitle: this.subTitleControl,
+    partName: this.partNameControl,
+    note: this.noteControl,
+    publisher: this.publisherControl,
+    place: this.placeControl
   });
 
 
@@ -61,13 +75,9 @@ export class EditorIssuesComponent {
       this.plurals = this.countPlurals();
     }));
 
-    this.controls.valueChanges.subscribe(() => {
-
-      this.canSave.set(this.controls.controls['partNumber'].dirty
-        || this.controls.controls['signature'].dirty
-        || this.controls.controls['sigla'].dirty
-      );
-    })
+    this.subscriptions.push(this.controls.valueChanges.subscribe(() => {
+      this.canSave.set(this.controls.dirty);
+    }));
   }
 
   countPlurals(): string {
@@ -83,7 +93,19 @@ export class EditorIssuesComponent {
 
   onSave() {
     this.loading.set(true);
-    this.api.editorObjects(this.layout.getSelected().map(i => i.pid), this.signatureControl.value, this.partNumberControl.value, this.siglaControl.value).subscribe((result: any) => {
+    this.api.editorObjects(
+      this.layout.getSelected().map(i => i.pid),
+      this.signatureControl.value,
+      this.partNumberControl.value,
+      this.siglaControl.value,
+      this.dateIssuedControl.value,
+      this.titleControl.value,
+      this.subTitleControl.value,
+      this.partNameControl.value,
+      this.noteControl.value,
+      this.publisherControl.value,
+      this.placeControl.value
+    ).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
       } else {

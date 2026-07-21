@@ -24,35 +24,94 @@
             <div class="app-form-wrapper app-top-level">
                 <div class="app-form">
                     <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
-                            <mat-label>{{ 'search.partNumberFrom' | translate }}</mat-label>
-                            <input type="number" autocomplete="off" matInput [placeholder]="'search.partNumberFrom' | translate"
-                                [formControl]="partNumberControl">
-                        </mat-form-field>
-
-                    </div>
-                </div>
-                <div class="app-gap-fixer"></div>
-                <div class="app-form">
-                    <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
-                            <mat-label>{{ 'search.signature' | translate }}</mat-label>
-                            <input autocomplete="off" matInput [placeholder]="'search.signature' | translate"
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.location/shelfLocator' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.location/shelfLocator' | translate"
                                 [formControl]="signatureControl">
                         </mat-form-field>
-                    </div>
-                </div>
-                <div class="app-gap-fixer"></div>
-                <div class="app-form">
-                    <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
-                            <mat-label>{{ 'search.sigla' | translate }}</mat-label>
-                            <input autocomplete="off" matInput [placeholder]="'search.sigla' | translate"
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.location/physicalLocation' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.location/physicalLocation' | translate"
                                 [formControl]="siglaControl">
                         </mat-form-field>
                     </div>
                 </div>
-
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.titleInfo/title' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.titleInfo/title' | translate"
+                                [formControl]="titleControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.titleInfo/subTitle' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.titleInfo/subTitle' | translate"
+                                [formControl]="subTitleControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.titleInfo/partName' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.titleInfo/partName' | translate"
+                                [formControl]="partNameControl">
+                        </mat-form-field>
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.titleInfo/partNumber' | translate }}</mat-label>
+                            <input type="number" autocomplete="off" matInput
+                                [placeholder]="'mods.titleInfo/partNumber' | translate"
+                                [formControl]="partNumberControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.note' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.note' | translate"
+                                [formControl]="noteControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.originInfo/publisher' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.originInfo/publisher' | translate"
+                                [formControl]="publisherControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.originInfo/place' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.originInfo/place' | translate"
+                                [formControl]="placeControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.originInfo/dateIssued' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.originInfo/dateIssued' | translate"
+                                [formControl]="dateIssuedControl">
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="app-gap-fixer"></div>
             </div>
         </div>
