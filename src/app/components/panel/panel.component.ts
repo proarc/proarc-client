@@ -83,7 +83,16 @@ export class PanelComponent {
       return false;
     }
     this.layout.getSelected().forEach(i => {
-      if (i.model !== 'model:ndkperiodicalissue' && i.model !== 'model:ndkperiodicalsupplement') {
+      if (i.model !== 'model:ndkperiodicalsupplement'
+        && i.model !== 'model:ndkperiodicalissue'
+        && i.model !== 'model:ndkeperiodicalsupplement'
+        && i.model !== 'model:ndkeperiodicalissue'
+        && i.model !== 'model:ndkmonographvolume'
+        && i.model !== 'model:ndkmonographunit'
+        && i.model !== 'model:ndkmonographsupplement'
+        && i.model !== 'model:ndkemonographvolume'
+        && i.model !== 'model:ndkemonographunit'
+        && i.model !== 'model:ndkemonographsupplement') {
         ret = false;
         return;
       }

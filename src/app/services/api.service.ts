@@ -1455,20 +1455,43 @@ export class ApiService {
 
   }
 
-  editorObjects(pids: string[], signatura: string, partNumber: number, sigla: string): Observable<any> {
-    // pid={uuid1}&pid={uuidValue2}&signatura={signaturaValue}&partNumber={partNumberValue}&sigla={siglaValue}
+  editorObjects(pids: string[], signaturaValue: string, partNumberValue: number, siglaValue: string,
+                dateIssuedValue: string, titleValue: string, subTitleValue: string,
+                partNameValue: string, noteValue: string, publisherValue: string,
+                placeValue: string): Observable<any> {
     let data = '';
     pids.forEach(pid => {
       data = `${data}&pid=${pid}`;
     });
-    if (signatura) {
-      data = `${data}&signatura=${signatura}`;
+    if (signaturaValue) {
+      data = `${data}&signatura=${signaturaValue}`;
     }
-    if (partNumber) {
-      data = `${data}&partNumber=${partNumber}`;
+    if (partNumberValue) {
+      data = `${data}&partNumber=${partNumberValue}`;
     }
-    if (sigla) {
-      data = `${data}&sigla=${sigla}`;
+    if (siglaValue) {
+      data = `${data}&sigla=${siglaValue}`;
+    }
+    if (dateIssuedValue) {
+      data = `${data}&dateIssued=${dateIssuedValue}`;
+    }
+    if (titleValue) {
+      data = `${data}&title=${titleValue}`;
+    }
+    if (subTitleValue) {
+      data = `${data}&subTitle=${subTitleValue}`;
+    }
+    if (partNameValue) {
+      data = `${data}&partName=${partNameValue}`;
+    }
+    if (noteValue) {
+      data = `${data}&note=${noteValue}`;
+    }
+    if (publisherValue) {
+      data = `${data}&publisher=${publisherValue}`;
+    }
+    if (placeValue) {
+      data = `${data}&place=${placeValue}`;
     }
     return this.put('object/mods/editorObjects', data);
   }
