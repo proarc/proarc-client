@@ -135,6 +135,9 @@ export class NewObjectDialogComponent implements OnInit {
   withSigla: boolean;
   seriesSigla: string;
 
+  withBarcode: boolean;
+  seriesBarcode: string;
+
   dateFormats = ['dd.mm.yyyy', 'mm.yyyy', 'yyyy'];
   dateFormat: string = 'dd.mm.yyyy';
 
@@ -283,6 +286,10 @@ export class NewObjectDialogComponent implements OnInit {
 
       if (this.seriesSigla) {
         data += '&seriesSigla=' + this.seriesSigla;
+      }
+
+      if (this.seriesBarcode) {
+        data += '&seriesBarcode=' + this.seriesBarcode;
       }
 
       data += '&seriesFrequency=' + this.frequency.value;

@@ -142,6 +142,16 @@
           </mat-form-field>
         </div>
       </div>
+
+      <div class="app-fxFlex">
+        <div class="app-mb-4">
+          <mat-checkbox color="primary" [(ngModel)]="withBarcode" (change)="changeWithPartNumber()" >{{ 'new_object.withBarcode' | translate }}</mat-checkbox>
+        </div>
+        <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+          <mat-label>{{ 'catalog.field.barcode' | translate }}</mat-label>
+          <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.barcode' | translate" [disabled]="!withBarcode" [(ngModel)]="seriesBarcode" >
+        </mat-form-field>
+      </div>
     </div>
   }
 
