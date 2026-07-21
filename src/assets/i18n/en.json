@@ -194,7 +194,8 @@
       "ccnb": "čČNB",
       "sys": "SYS",
       "author": "Author",
-      "title": "Name"
+      "title": "Name",
+      "sigla": "Sigla"
     },
     "search": "Search",
     "save": "Attach metadata to the selected object",

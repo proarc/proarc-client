@@ -194,7 +194,8 @@
       "ccnb": "čČNB",
       "sys": "SYS",
       "author": "Autor",
-      "title": "Název"
+      "title": "Název",
+      "sigla": "Sigla"
     },
     "search": "Vyhledat",
     "save": "Nahrát metadata k objektu",
