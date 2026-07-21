@@ -75,6 +75,8 @@
     "withPartNumber": "Vytvořit číslo části",
     "withDateIssued": "Vytvořit datum",
     "withSignatura": "Doplňovat signaturu",
+    "withSigla": "Doplňovat siglu",
+    "withBarcode": "Doplňovat čárový kód",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"
@@ -193,7 +195,8 @@
       "ccnb": "čČNB",
       "sys": "SYS",
       "author": "Autor",
-      "title": "Název"
+      "title": "Název",
+      "sigla": "Sigla"
     },
     "search": "Vyhledat",
     "save": "Nahrát metadata k objektu",

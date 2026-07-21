@@ -103,7 +103,7 @@ export class MultiDateFormat {
 })
 export class NewObjectDialogComponent implements OnInit {
 
-  
+
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
   private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
@@ -131,6 +131,12 @@ export class NewObjectDialogComponent implements OnInit {
 
   withSignatura: boolean;
   seriesSignatura: string;
+
+  withSigla: boolean;
+  seriesSigla: string;
+
+  withBarcode: boolean;
+  seriesBarcode: string;
 
   dateFormats = ['dd.mm.yyyy', 'mm.yyyy', 'yyyy'];
   dateFormat: string = 'dd.mm.yyyy';
@@ -276,6 +282,14 @@ export class NewObjectDialogComponent implements OnInit {
 
       if (this.seriesSignatura) {
         data += '&seriesSignatura=' + this.seriesSignatura;
+      }
+
+      if (this.seriesSigla) {
+        data += '&seriesSigla=' + this.seriesSigla;
+      }
+
+      if (this.seriesBarcode) {
+        data += '&seriesBarcode=' + this.seriesBarcode;
       }
 
       data += '&seriesFrequency=' + this.frequency.value;

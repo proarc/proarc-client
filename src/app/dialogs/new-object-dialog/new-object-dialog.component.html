@@ -122,13 +122,34 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="app-mb-4">
-        <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
+      <div class="app-fxLayout app-row app-gap-4">
+        <div class="app-fxFlex">
+          <div class="app-mb-4">
+            <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
+          </div>
+          <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+            <mat-label>{{ 'catalog.field.signature' | translate }}</mat-label>
+            <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
+          </mat-form-field>
+        </div>
+        <div class="app-fxFlex">
+          <div class="app-mb-4">
+            <mat-checkbox color="primary" [(ngModel)]="withSigla" (change)="changeWithPartNumber()" >{{ 'new_object.withSigla' | translate }}</mat-checkbox>
+          </div>
+          <mat-form-field class="app-w-100" [appearance]="settings.appearance">
+            <mat-label>{{ 'catalog.field.sigla' | translate }}</mat-label>
+            <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.sigla' | translate" [disabled]="!withSigla" [(ngModel)]="seriesSigla" >
+          </mat-form-field>
+        </div>
       </div>
-      <div>
+
+      <div class="app-fxFlex">
+        <div class="app-mb-4">
+          <mat-checkbox color="primary" [(ngModel)]="withBarcode" (change)="changeWithPartNumber()" >{{ 'new_object.withBarcode' | translate }}</mat-checkbox>
+        </div>
         <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-          <mat-label>{{ 'catalog.field.signature' | translate }}</mat-label>
-          <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
+          <mat-label>{{ 'catalog.field.barcode' | translate }}</mat-label>
+          <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.barcode' | translate" [disabled]="!withBarcode" [(ngModel)]="seriesBarcode" >
         </mat-form-field>
       </div>
     </div>

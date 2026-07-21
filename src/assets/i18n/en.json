@@ -76,6 +76,8 @@
     "withPartNumber": "Create Part Number",
     "withDateIssued": "Create Date Issued",
     "withSignatura": "Fill Signature",
+    "withSigla": "Fill Sigla",
+    "withBarcode": "Fill BarCode",
     "seriesDateFrom": "Date from",
     "seriesDateTo": "Date to"
   },
@@ -193,7 +195,8 @@
       "ccnb": "čČNB",
       "sys": "SYS",
       "author": "Author",
-      "title": "Name"
+      "title": "Name",
+      "sigla": "Sigla"
     },
     "search": "Search",
     "save": "Attach metadata to the selected object",
