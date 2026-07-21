@@ -1,6 +1,6 @@
 {
   "name": "proarc-client",
-  "version": "v2.4.6",
+  "version": "v2.5.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
