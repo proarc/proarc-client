@@ -75,6 +75,7 @@
     "withPartNumber": "Vytvořit číslo části",
     "withDateIssued": "Vytvořit datum",
     "withSignatura": "Doplňovat signaturu",
+    "withSigla": "Doplňovat siglu",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"

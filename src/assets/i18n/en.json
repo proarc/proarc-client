@@ -76,6 +76,7 @@
     "withPartNumber": "Create Part Number",
     "withDateIssued": "Create Date Issued",
     "withSignatura": "Fill Signature",
+    "withSigla": "Fill Sigla",
     "seriesDateFrom": "Date from",
     "seriesDateTo": "Date to"
   },
