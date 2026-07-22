@@ -23,6 +23,7 @@ import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audi
 import { PageUpdateHolder } from './layout-service';
 import { PeroModel } from '../model/pero.model';
 import { MetakatModel } from '../model/metakat.model';
+import { ObjectDistributionRequest } from '../model/object-distribution.model';
 
 @Injectable()
 export class ApiService {
@@ -442,6 +443,16 @@ export class ApiService {
       'pid': pids
     };
     return this.put('object/member/move', payload, httpOptions);
+  }
+
+  distributeObjectMembers(payload: ObjectDistributionRequest): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept-Language': this.getLang()
+      })
+    };
+    return this.put('object/member/distribute', payload, httpOptions);
   }
 
 

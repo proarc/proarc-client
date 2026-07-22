@@ -1,0 +1,29 @@
+.target-dialog-content {
+  height: min(680px, 72vh);
+  min-width: min(820px, 84vw);
+  padding-top: 0;
+}
+
+.search-results {
+  min-height: 0;
+}
+
+.selected-targets {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 24px 0;
+}
+
+.selected-target-list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+@media (max-width: 700px) {
+  .target-dialog-content {
+    min-width: 0;
+  }
+
+}
