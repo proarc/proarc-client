@@ -30,9 +30,22 @@
 <div class="app-mb-2">
   <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
 </div>
+  @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis')) {
+    <div class="app-mb-2">
+      <mat-radio-group [(ngModel)]="updateMods" color="primary" [disabled]="formDisabled()"
+        [attr.aria-label]="'desc.importMode' | translate">
+        <mat-radio-button [value]="false" [matTooltip]="'desc.fullImportHint' | translate">
+          {{ 'desc.fullImport' | translate }}
+        </mat-radio-button>
+        <mat-radio-button [value]="true" [matTooltip]="'desc.updateModsHint' | translate">
+          {{ 'desc.updateMods' | translate }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  }
 
 
-@if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'  || selectedType === 'ndk_sip_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses) {
+@if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis') && importInstance && !importInstance.krameriusInstanceLicenses) {
   <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
 }
 

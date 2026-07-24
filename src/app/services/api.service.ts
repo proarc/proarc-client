@@ -238,7 +238,7 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, updateMods: boolean = false): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -265,6 +265,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
+        data = `${data}&updateMods=${updateMods}`;
         if (licenseName == null || "undefined" == licenseName) {
           data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         } else {

@@ -24,10 +24,10 @@ import { UserSettings } from '../../shared/user-settings';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  imports: [TranslateModule, MatDialogModule, MatTableModule, 
-    CdkDrag, CdkDragHandle, 
-    MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, 
-    MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, 
+  imports: [TranslateModule, MatDialogModule, MatTableModule,
+    CdkDrag, CdkDragHandle,
+    MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule,
+    MatButtonModule, MatTooltipModule, MatCardModule, FormsModule,
     MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule, MatInputModule],
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
@@ -42,6 +42,7 @@ export class ExportDialogComponent implements OnInit {
   selectedType: string;
   policyPublic: boolean;
   nightOnly = false;
+  updateMods = false;
   cesnetLtpToken: string;
   //isBagit: boolean = false;
   target: string;
@@ -51,9 +52,9 @@ export class ExportDialogComponent implements OnInit {
   extendedType: string;
   noTifMessage: string;
   addInfoMessage: string;
-  
 
-  public importInstance: { krameriusInstanceId: string, krameriusInstanceName: string, krameriusInstanceLicenses?: 
+
+  public importInstance: { krameriusInstanceId: string, krameriusInstanceName: string, krameriusInstanceLicenses?:
     {krameriusInstanceLicenseName: string, krameriusInstanceLicenseDescription: string}[] };
   public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
   public licenseName: string;
@@ -96,9 +97,9 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pids, policy, 
+    this.api.export(this.selectedType, pids, policy,
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
-      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly).subscribe((response: any) => {
+      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.updateMods).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -145,7 +146,7 @@ export class ExportDialogComponent implements OnInit {
       title: error.message,
       content: error.pid + (error.log ? (': ' + error.log) : '')
     }
-    this.dialog.open(LogDialogComponent, { 
+    this.dialog.open(LogDialogComponent, {
       data: [data],
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });
