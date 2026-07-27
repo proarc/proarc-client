@@ -140,6 +140,10 @@ export class UserTreeTableComponent {
     return path;
   }
 
+  treeRowId(item: TreeDocumentItem | TreeWorkFlow): string {
+    return this.type() === 'TreeWorkFlow' ? (item as TreeWorkFlow).id + '' : item.pid;
+  }
+
   generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
     this.treeItems = [];
     this.worflowTreeItems = [];
@@ -305,7 +309,7 @@ export class UserTreeTableComponent {
   setToHiddenWorkFlow(treeItem: TreeWorkFlow, idx: number) {
     for (let i = idx; i < this.worflowTreeItems.length; i++) {
       const j = this.worflowTreeItems[i]
-      if ((j.parentId + '') === treeItem.pid) {
+      if (j.parentId === treeItem.id) {
         j.hidden = !treeItem.expanded || treeItem.hidden;
         this.setToHiddenWorkFlow(j, i)
       }
@@ -346,15 +350,13 @@ export class UserTreeTableComponent {
       treeItem.expanded = true;
       treeItem.childrenLoaded = true;
 
-      const idx = this.worflowTreeItems.findIndex(j => j.pid === treeItem.pid) + 1;
+      const idx = this.worflowTreeItems.findIndex(j => j.id === treeItem.id) + 1;
       const children: TreeWorkFlow[] = resp.response.data
       const treeChildren: TreeWorkFlow[] = children.map(c => {
         const ti: TreeWorkFlow = <TreeWorkFlow>c;
         ti.level = treeItem.level + 1;
         ti.expandable = true;
         ti.parentId = treeItem.id;
-        ti.parentPid = treeItem.id + '';
-        ti.pid = ti.id + '';
         return ti;
       });
 
