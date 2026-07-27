@@ -204,6 +204,7 @@
   showPageIdentifiers: true,
 
   searchExpandTree: true,
+  showSearchProcessor: false,
   allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],
   profiles: [
     'profile.default',

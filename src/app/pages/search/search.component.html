@@ -116,20 +116,22 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-processor">
-          <mat-label>{{ 'desc.processor' | translate }}</mat-label>
-          <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
-            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-            @for(user of users; track $index;) {
-              <mat-option [value]="user.name">{{ user.name }}</mat-option>
+        @if (config.showSearchProcessor) {
+          <mat-form-field [appearance]="settings.appearance" class="app-processor">
+            <mat-label>{{ 'desc.processor' | translate }}</mat-label>
+            <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
+              <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+              @for(user of users; track $index;) {
+                <mat-option [value]="user.name">{{ user.name }}</mat-option>
+              }
+            </mat-select>
+            @if (processor !== '-' && settings.searchProcessor === processor) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+                <mat-icon>close</mat-icon>
+              </button>
             }
-          </mat-select>
-          @if (processor !== '-' &&  settings.searchProcessor === processor) {
-            <button matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
-        </mat-form-field>
+          </mat-form-field>
+        }
       }
     </div>
     <div class="app-fxFlex app-oh app-border-wrapper">
