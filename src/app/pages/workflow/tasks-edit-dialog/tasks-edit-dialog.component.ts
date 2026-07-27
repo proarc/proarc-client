@@ -9,7 +9,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-//import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
