@@ -1,22 +1,33 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-//import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 
 @Component({
-  imports: [TranslateModule, FormsModule, 
-    //FlexLayoutModule, 
-    MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
+  imports: [
+    TranslateModule,
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatTooltipModule
+  ],
   selector: 'app-jobs-edit-dialog',
   templateUrl: './jobs-edit-dialog.component.html',
   styleUrls: ['./jobs-edit-dialog.component.scss']
