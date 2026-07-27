@@ -27,9 +27,20 @@
       </mat-form-field>
     }
   }
-<div class="app-mb-2">
-  <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
-</div>
+  <div class="app-export-scheduling">
+    <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">
+      {{ 'desc.nightOnly' | translate }}
+    </mat-checkbox>
+    <mat-form-field [appearance]="settings.appearance">
+      <mat-label>{{ 'desc.priority' | translate }}</mat-label>
+      <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority"
+        [disabled]="formDisabled()">
+        @for(priority of priorities; track priority) {
+          <mat-option [value]="priority">{{ 'formField.priorities.' + priority | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
 
 
 @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'  || selectedType === 'ndk_sip_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses) {
