@@ -126,6 +126,7 @@ export class CatalogDialogComponent implements OnInit {
       } else if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.results = null;
         this.state = 'error';
         this.message = 'search-error';
         return;
