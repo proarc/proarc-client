@@ -238,7 +238,8 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, updateMods: boolean = false): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, updateMods: boolean = false,
+    collections: string[] = []): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -266,6 +267,9 @@ export class ApiService {
       }
       case ProArc.EXPORT_KRAMERIUS: {
         data = `${data}&updateMods=${updateMods}`;
+        collections.forEach(collection => {
+          data += `&collection=${encodeURIComponent(collection)}`;
+        });
         if (licenseName == null || "undefined" == licenseName) {
           data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         } else {
@@ -311,6 +315,9 @@ export class ApiService {
       case ProArc.EXPORT_NDK_SIP_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
         data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false`;
+        collections.forEach(collection => {
+          data += `&collection=${encodeURIComponent(collection)}`;
+        });
         path = 'export/ndk'
         break;
       }

@@ -10,7 +10,8 @@
   </mat-form-field>
   @if (selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') {
     <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-      <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
+      <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance"
+        [disabled]="formDisabled()" (selectionChange)="onKrameriusInstanceChange()">
         @for(ins of instances; track $index;) {
         <mat-option [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
         }
@@ -18,13 +19,75 @@
     </mat-form-field>
     @if (importInstance && importInstance.krameriusInstanceLicenses) {
       <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-        <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
+        <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="license" [(ngModel)]="licenseName"
+          [disabled]="formDisabled()">
           @for(lic of importInstance.krameriusInstanceLicenses; track $index;) {
           <mat-option [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} -
             ({{lic.krameriusInstanceLicenseName}})</mat-option>
           }
         </mat-select>
       </mat-form-field>
+    }
+    @if (importInstance?.krameriusInstanceCollections?.length) {
+      <div class="app-collections">
+        <div class="app-collection-picker">
+          <div class="app-collection-filter">
+            <mat-icon>search</mat-icon>
+            <input type="search" autocomplete="off"
+              [attr.aria-label]="'desc.filterKrameriusCollections' | translate"
+              [placeholder]="'desc.filterKrameriusCollections' | translate"
+              [(ngModel)]="collectionFilter" [disabled]="formDisabled() || updateMods">
+            @if (collectionFilter) {
+              <button mat-icon-button type="button" (click)="collectionFilter = ''"
+                [disabled]="formDisabled() || updateMods"
+                [attr.aria-label]="'button.removeThisFilter' | translate">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+          </div>
+          <div class="app-collection-list" role="group" [attr.aria-label]="'desc.krameriusCollections' | translate">
+            @for(collection of filteredCollections; track collection.pid) {
+              <mat-checkbox color="primary" [checked]="collectionSelected(collection.pid)"
+                [disabled]="formDisabled() || updateMods"
+                (change)="setCollectionSelected(collection.pid, $event.checked)">
+              <span class="app-collection-label">
+                {{ collectionLabel(collection) }}
+              </span>
+              </mat-checkbox>
+            } @empty {
+              <div class="app-collection-empty">{{ 'desc.noKrameriusCollections' | translate }}</div>
+            }
+          </div>
+        </div>
+        @if (selectedCollectionLabels.length) {
+          <mat-card appearance="outlined" class="app-alert app-info app-collection-summary">
+            <mat-card-content>
+              <mat-icon>info</mat-icon>
+              <div class="app-collection-summary-content">
+                <div>{{ selectedCollectionsSummaryKey | translate: {count: selectedCollectionLabels.length} }}</div>
+                <ul>
+                  @for(collection of selectedCollectionItems; track collection.pid) {
+                    <li>
+                      <div class="app-collection-summary-row">
+                        <span>{{ collectionLabel(collection) }}</span>
+                        <button mat-icon-button type="button"
+                          (click)="setCollectionSelected(collection.pid, false)"
+                          [disabled]="formDisabled() || updateMods"
+                          [matTooltip]="'desc.removeKrameriusCollection' | translate:
+                            {name: collectionName(collection)}"
+                          [attr.aria-label]="'desc.removeKrameriusCollection' | translate:
+                            {name: collectionName(collection)}">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
     }
   }
 <div class="app-mb-2">
@@ -33,6 +96,7 @@
   @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis')) {
     <div class="app-mb-2">
       <mat-radio-group [(ngModel)]="updateMods" color="primary" [disabled]="formDisabled()"
+        (change)="onUpdateModsChange()"
         [attr.aria-label]="'desc.importMode' | translate">
         <mat-radio-button [value]="false" [matTooltip]="'desc.fullImportHint' | translate">
           {{ 'desc.fullImport' | translate }}

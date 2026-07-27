@@ -23,6 +23,24 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { UserSettings } from '../../shared/user-settings';
 import { MatInputModule } from '@angular/material/input';
 
+interface KrameriusCollection {
+  pid: string;
+  names?: Record<string, string>;
+  descriptions?: Record<string, string>;
+}
+
+interface KrameriusLicense {
+  krameriusInstanceLicenseName: string;
+  krameriusInstanceLicenseDescription: string;
+}
+
+interface KrameriusInstance {
+  krameriusInstanceId: string;
+  krameriusInstanceName: string;
+  krameriusInstanceLicenses?: KrameriusLicense[];
+  krameriusInstanceCollections?: KrameriusCollection[];
+}
+
 @Component({
   imports: [TranslateModule, MatDialogModule, MatTableModule,
     CdkDrag, CdkDragHandle,
@@ -53,11 +71,11 @@ export class ExportDialogComponent implements OnInit {
   noTifMessage: string;
   addInfoMessage: string;
 
-
-  public importInstance: { krameriusInstanceId: string, krameriusInstanceName: string, krameriusInstanceLicenses?:
-    {krameriusInstanceLicenseName: string, krameriusInstanceLicenseDescription: string}[] };
-  public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
+  public importInstance: KrameriusInstance;
+  public instances: KrameriusInstance[] = [];
   public licenseName: string;
+  public collectionFilter = '';
+  public selectedCollections: string[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
@@ -99,7 +117,8 @@ export class ExportDialogComponent implements OnInit {
     this.target = null;
     this.api.export(this.selectedType, pids, policy,
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
-      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.updateMods).subscribe((response: any) => {
+      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.updateMods,
+      this.updateMods ? [] : this.selectedCollections).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -140,6 +159,88 @@ export class ExportDialogComponent implements OnInit {
     return this.state === 'saving' || this.state === 'done' || this.state === 'done_nightOnly';
   }
 
+  get filteredCollections(): KrameriusCollection[] {
+    const collections = this.importInstance?.krameriusInstanceCollections || [];
+    const query = this.collectionFilter.trim().toLocaleLowerCase();
+    if (!query) {
+      return collections;
+    }
+    return collections.filter(collection => {
+      const names = Object.values(collection.names || {});
+      const descriptions = Object.values(collection.descriptions || {});
+      return [collection.pid, ...names, ...descriptions, this.collectionDescription(collection)]
+        .some(value => value?.toLocaleLowerCase().includes(query));
+    });
+  }
+
+  collectionName(collection: KrameriusCollection): string {
+    return this.localizedCollectionValue(collection.names) || collection.pid;
+  }
+
+  collectionDescription(collection: KrameriusCollection): string {
+    return this.localizedCollectionValue(collection.descriptions);
+  }
+
+  collectionLabel(collection: KrameriusCollection): string {
+    const name = this.collectionName(collection);
+    const description = this.collectionDescription(collection);
+    return description ? `${name} (${description})` : name;
+  }
+
+  get selectedCollectionItems(): KrameriusCollection[] {
+    const selected = new Set(this.selectedCollections);
+    return (this.importInstance?.krameriusInstanceCollections || [])
+      .filter(collection => selected.has(collection.pid));
+  }
+
+  get selectedCollectionLabels(): string[] {
+    return this.selectedCollectionItems.map(collection => this.collectionLabel(collection));
+  }
+
+  get selectedCollectionsSummaryKey(): string {
+    const count = this.selectedCollections.length;
+    if (count === 1) {
+      return 'desc.krameriusCollectionsSummaryOne';
+    }
+    if (count >= 2 && count <= 4) {
+      return 'desc.krameriusCollectionsSummaryFew';
+    }
+    return 'desc.krameriusCollectionsSummaryMany';
+  }
+
+  collectionSelected(pid: string): boolean {
+    return this.selectedCollections.includes(pid);
+  }
+
+  setCollectionSelected(pid: string, selected: boolean): void {
+    if (selected) {
+      if (!this.collectionSelected(pid)) {
+        this.selectedCollections = [...this.selectedCollections, pid];
+      }
+    } else {
+      this.selectedCollections = this.selectedCollections.filter(collectionPid => collectionPid !== pid);
+    }
+  }
+
+  onKrameriusInstanceChange(): void {
+    this.licenseName = null;
+    this.collectionFilter = '';
+    this.selectedCollections = [];
+  }
+
+  onUpdateModsChange(): void {
+    if (this.updateMods) {
+      this.selectedCollections = [];
+    }
+  }
+
+  private localizedCollectionValue(values?: Record<string, string>): string {
+    if (!values) {
+      return '';
+    }
+    const preferredValues = [values['cze'], values['cs'], values['eng'], values['en']];
+    return preferredValues.find(value => !!value) || Object.values(values).find(value => !!value) || '';
+  }
 
   showErrorDetail(error: any) {
     const data = {
