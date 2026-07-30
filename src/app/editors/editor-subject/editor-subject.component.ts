@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { UserSettings } from '../../shared/user-settings';
+import { ModsElement } from '../../model/mods/element.model';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
@@ -46,7 +47,7 @@ export class EditorSubjectComponent implements OnInit {
   ngOnInit() {
   }
 
-  addRepeated(item: any) {
+  addRepeated(item: ModsElement) {
     const topic = item.getSubfields().find((sf: any) => sf.id === 'topic');
     const val = topic.items[0].controls['lang'].value;
     const newItem: ModsSubject = <ModsSubject>this.field.addAfterItem(item);
@@ -56,7 +57,9 @@ export class EditorSubjectComponent implements OnInit {
 
     setTimeout(() => {
       // this.layout.setMetadataResized();
-      newTopic.items[0].controls['lang'].setValue(val)
+      newTopic.items[0].controls['lang'].setValue(val);
+      item.collapsed = false;
+      newTopic.items[0].collapsed = false;
     }, 10);
   }
 

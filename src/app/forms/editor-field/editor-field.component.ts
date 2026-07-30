@@ -26,17 +26,17 @@ export class EditorFieldComponent implements OnInit {
   @Input() collapsable: boolean = true;
   @Input() showGenreSwitch: boolean;
   @Output() sizeChanged = new EventEmitter<string>();
-  
+
   @Output() valueChange = new EventEmitter<string>();
 
-  @ContentChild("templateContent") templateContent : TemplateRef<any>;
-  @ContentChild("templateMenu") templateMenu : TemplateRef<any>;
+  @ContentChild("templateContent") templateContent: TemplateRef<any>;
+  @ContentChild("templateMenu") templateMenu: TemplateRef<any>;
 
   validationWarning: string;
-  
+
   constructor(
-    private dialog: MatDialog, 
-    private translator: TranslateService, 
+    private dialog: MatDialog,
+    private translator: TranslateService,
     public settings: UserSettings) {
   }
 
@@ -60,7 +60,7 @@ export class EditorFieldComponent implements OnInit {
   removeItem(item: ModsElement) {
     this.field.removeItem(item);
     if (this.field.id === 'genre' && this.field.isPeerReviewed) {
-      this.field.items[0].attrs.type ="peer-reviewed";
+      this.field.items[0].attrs.type = "peer-reviewed";
       // if (this.field.items.length === 1) {
       //   this.field.add();
       // }
@@ -85,7 +85,7 @@ export class EditorFieldComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   ngOnChanges() {
@@ -98,16 +98,16 @@ export class EditorFieldComponent implements OnInit {
   }
 
   openHelpDialog() {
-    this.dialog.open(HelpDialogComponent, { 
+    this.dialog.open(HelpDialogComponent, {
       data: this.field.help(this.translator),
       panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
     });
   }
 
   showByGenre(idx: number, item: any) {
-    return  idx > 0
-            || !this.showGenreSwitch
-            || this.field.items.length === 1
+    return idx > 0
+      || !this.showGenreSwitch
+      || this.field.items.length === 1
     //         || (!item.attrs['type'] && this.field.items.length > 1 && (this.field.items[0].modsElement['_'] !== this.field.items[1].modsElement['_']))
     //         || (item.attrs['type'] && item.attrs['type'] !== 'peer-reviewed' ) 
     //        ;

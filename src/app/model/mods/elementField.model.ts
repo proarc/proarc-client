@@ -19,41 +19,40 @@ import { ModsFrequency } from './frequency.model';
 import { ModsCartographics } from './cartographics.model';
 import { ModsForm } from './form.model';
 import { ModsPart } from './part.model';
-import {ModsRecordInfo} from './recordInfo.model';
-import {ModsRecordChangeDate} from './recordChangeDate.model';
-import {ModsRecordContentSource} from './recordContentSource.model';
-import {ModsRecordCreationDate} from './recordCreationDate.model';
-import {ModsRecordIdentifier} from './recordIdentifier.model';
-import {ModsExtent} from './extent.model';
-import {ModsTableOfContents} from './tableOfContents';
-import {ModsRelatedItem} from './relatedItem.model';
+import { ModsRecordInfo } from './recordInfo.model';
+import { ModsRecordChangeDate } from './recordChangeDate.model';
+import { ModsRecordContentSource } from './recordContentSource.model';
+import { ModsRecordCreationDate } from './recordCreationDate.model';
+import { ModsRecordIdentifier } from './recordIdentifier.model';
+import { ModsExtent } from './extent.model';
+import { ModsTableOfContents } from './tableOfContents';
+import { ModsRelatedItem } from './relatedItem.model';
 import { TranslateService } from '@ngx-translate/core';
-import {ModsDateIssued} from './dateIssued.model';
-import {ModsUrl} from './url.model';
-import {ModsShelfLocator} from './shelfLocator.model';
-import {ModsNamePart} from './namePart.model';
-import {ModsGeographicCode} from './ModsGeographicCode.model';
-import {ModsTopic} from './topic.model';
-import {ModsPlaceTerm} from './placeTerm.model';
-import {ModsPlace} from './place.model';
-import {ModsDateOther} from './dateOther.model';
-import {ModsDateCreated} from './dateCreated.model';
-import {ModsInternetMediaType} from './internetMediaType.model';
-import {ModsPhysicalLocation} from './physicalLocation.model';
-import {ModsDescription} from './description.model';
-import {ModsDisplayForm} from './displayForm.model';
-import {ModsDateValid} from './dateValid.model';
-import {ModsDateCaptured} from './dateCaptured.model';
-import {ModsDateModified} from './dateModified.model';
-import {ModsPhysicalExtent} from './extentPhysical.model';
-import {ModsEdition} from './edition.model';
-import {ModsRelatedItem2} from './relatedItem2.model';
-import {ModsDetail} from './detail.model';
-import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
-import {ModsTemporal} from './temporal.model';
-import {ModsGeographic} from './geographic.model';
-import {ModsAccessCondition} from './accessCondition.model';
-import { UserSettings } from '../../shared/user-settings';
+import { ModsDateIssued } from './dateIssued.model';
+import { ModsUrl } from './url.model';
+import { ModsShelfLocator } from './shelfLocator.model';
+import { ModsNamePart } from './namePart.model';
+import { ModsGeographicCode } from './ModsGeographicCode.model';
+import { ModsTopic } from './topic.model';
+import { ModsPlaceTerm } from './placeTerm.model';
+import { ModsPlace } from './place.model';
+import { ModsDateOther } from './dateOther.model';
+import { ModsDateCreated } from './dateCreated.model';
+import { ModsInternetMediaType } from './internetMediaType.model';
+import { ModsPhysicalLocation } from './physicalLocation.model';
+import { ModsDescription } from './description.model';
+import { ModsDisplayForm } from './displayForm.model';
+import { ModsDateValid } from './dateValid.model';
+import { ModsDateCaptured } from './dateCaptured.model';
+import { ModsDateModified } from './dateModified.model';
+import { ModsPhysicalExtent } from './extentPhysical.model';
+import { ModsEdition } from './edition.model';
+import { ModsRelatedItem2 } from './relatedItem2.model';
+import { ModsDetail } from './detail.model';
+import { ModsLanguageOfCataloging } from './languageOfCataloging.model';
+import { ModsTemporal } from './temporal.model';
+import { ModsGeographic } from './geographic.model';
+import { ModsAccessCondition } from './accessCondition.model';
 import { Utils } from '../../utils/utils';
 
 
@@ -78,7 +77,7 @@ export class ElementField {
         if (allExpanded) {
             this.allExpanded = allExpanded;
         }
-        
+
 
         if (id.startsWith('relatedItem')) {
             // private userSettings = inject(UserSettings);
@@ -99,7 +98,7 @@ export class ElementField {
                 this.items.push(newEl);
                 if (this.allExpanded) {
                     newEl.collapsed = false;
-                    newEl.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+                    newEl.getSubfields().forEach(sf => { sf.allExpanded = true; sf.items.forEach(i => { i.collapsed = false }) })
                 }
             }
         }
@@ -108,7 +107,7 @@ export class ElementField {
             const item = this.add();
             if (this.allExpanded) {
                 item.collapsed = false;
-                item.getSubfields().forEach(sf => {sf.allExpanded = true; sf.items.forEach(i => {i.collapsed = false})})
+                item.getSubfields().forEach(sf => { sf.allExpanded = true; sf.items.forEach(i => { i.collapsed = false }) })
             } else if (!this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
             }
@@ -116,12 +115,12 @@ export class ElementField {
 
         // set isPeerReviewed for electronic articles
         // this.isPeerReviewed = false;
-        if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
+        if (this.items[0] instanceof ModsGenre && template['selector'] === 'genre' && template['isElectronicArticle']) {
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
-            } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
+            } else if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
                 this.isPeerReviewed = false;
-            } else  if (this.items[0].modsElement['_'] === 'electronic_article' && !this.items[0].attrs['type']) {
+            } else if (this.items[0].modsElement['_'] === 'electronic_article' && !this.items[0].attrs['type']) {
                 this.isPeerReviewed = false;
             } else {
                 this.isPeerReviewed = false;
@@ -175,11 +174,11 @@ export class ElementField {
         const index = this.items.indexOf(oldItem);
         const item: ModsElement = el || this.newElement(this.id, {});
         if (!el && this.template['defaultValue']) {
-          item.modsElement['_'] = this.template['defaultValue'];
+            item.modsElement['_'] = this.template['defaultValue'];
         }
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
-        setTimeout(() => {item.setAsDirty();}, 100);
+        setTimeout(() => { item.setAsDirty(); }, 100);
         return item;
     }
 
@@ -237,7 +236,7 @@ export class ElementField {
     private addAfter(index: number, el: ModsElement = null): ModsElement {
         const item: ModsElement = el || this.newElement(this.id, {});
         if (!el && this.template['defaultValue']) {
-          item.modsElement['_'] = this.template['defaultValue'];
+            item.modsElement['_'] = this.template['defaultValue'];
         }
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
@@ -267,9 +266,9 @@ export class ElementField {
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
-            setTimeout(() => {item.setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
+            setTimeout(() => { item.setAsDirty(); Utils.metadataChanged.set(-1); }, 100);
         } else {
-            setTimeout(() => {this.items[0].setAsDirty(); Utils.metadataChanged.set(-1);}, 100);
+            setTimeout(() => { this.items[0].setAsDirty(); Utils.metadataChanged.set(-1); }, 100);
         }
 
     }
@@ -390,7 +389,7 @@ export class ElementField {
                 return new ModsPhysicalExtent(el, this.template);
             case ModsEdition.getId():
                 return new ModsEdition(el, this.template);
-            case ModsAccessCondition.getId() :
+            case ModsAccessCondition.getId():
                 return new ModsAccessCondition(el, this.template);
         }
         return undefined;
@@ -423,5 +422,5 @@ export class ElementField {
         return this.template.selector;
     }
 
-    
+
 }
