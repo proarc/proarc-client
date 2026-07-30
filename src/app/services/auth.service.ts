@@ -12,6 +12,7 @@ import { Configuration } from '../shared/configuration';
 import { User } from '../model/user.model';
 import { UserSettings, UserSettingsService } from '../shared/user-settings';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
+import { DatePipe } from '@angular/common';
 declare var APP_GLOBAL: any;
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +20,7 @@ export class AuthService {
 
     public user: User;
     remaining = 0;
+    remainingFormated = '00:00';
     remainingPercent = 100;
     loggedChecker: any;
     timerRemain: any;
@@ -32,7 +34,8 @@ export class AuthService {
         private api: ApiService,
         private router: Router,
         private config: Configuration,
-        private settings: UserSettingsService
+        private settings: UserSettingsService,
+        private datePipe: DatePipe
     ) {
     }
 
@@ -87,6 +90,7 @@ export class AuthService {
                 if (checkLoggedResp?.state === 'logged') {
                     this.remaining = checkLoggedResp.remaining;
                     this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
+                    this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
                     this.checkIsLogged();
                 }
 
@@ -187,12 +191,14 @@ export class AuthService {
                 } else if (res.state === 'logged') {
                     this.remaining = res.remaining;
                     this.remainingPercent = this.remaining * 100.0 / res.maximum;
+                    this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
                     if (!this.loggedChecker) {
                         this.loggedChecker = setInterval(() => {
                             this.checkIsLogged();
                         }, this.intervalMilis);
                         this.timerRemain = setInterval(() => {
                             this.remaining--;
+                            this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
                         }, 1000);
                     }
                 } else {

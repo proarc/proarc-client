@@ -117,10 +117,10 @@
       }
     </mat-menu>
     @if (auth.isLoggedIn() && config.showLogoutCounter) {
-      <a class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
+      <a class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + auth.remainingFormated">
         <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
         <div class="app-line"></div>
-        <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
+        <span class="app-text">{{ auth.remainingFormated }}</span>
       </a>
     }
   </div>
