@@ -90,7 +90,7 @@ export class AuthService {
                 if (checkLoggedResp?.state === 'logged') {
                     this.remaining = checkLoggedResp.remaining;
                     this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
-                    this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
+                    this.formatRemaning();
                     this.checkIsLogged();
                 }
 
@@ -103,6 +103,10 @@ export class AuthService {
                 });
 
             }));
+    }
+
+    formatRemaning() {
+        this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
     }
 
 
@@ -191,14 +195,14 @@ export class AuthService {
                 } else if (res.state === 'logged') {
                     this.remaining = res.remaining;
                     this.remainingPercent = this.remaining * 100.0 / res.maximum;
-                    this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
+                    this.formatRemaning();
                     if (!this.loggedChecker) {
                         this.loggedChecker = setInterval(() => {
                             this.checkIsLogged();
                         }, this.intervalMilis);
                         this.timerRemain = setInterval(() => {
                             this.remaining--;
-                            this.remainingFormated = '' + (this.remaining >= 3600 ? (Math.floor(this.remaining / 3600) + ':') : '') + this.datePipe.transform(this.remaining*1000, 'mm:ss');
+                            this.formatRemaning();
                         }, 1000);
                     }
                 } else {
