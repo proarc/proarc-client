@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HelpDialogComponent } from '../../dialogs/help-dialog/help-dialog.component';
 import { ModsElement } from '../../model/mods/element.model';
 import { ElementField } from '../../model/mods/elementField.model';
-import { LayoutService } from '../../services/layout-service';
 import { UserSettings } from '../../shared/user-settings';
 
 @Component({
@@ -34,14 +33,11 @@ export class EditorFieldComponent implements OnInit {
   @ContentChild("templateMenu") templateMenu : TemplateRef<any>;
 
   validationWarning: string;
-  //items: ModsElement[];
   
   constructor(
     private dialog: MatDialog, 
     private translator: TranslateService, 
-    private cd: ChangeDetectorRef,
-    public settings: UserSettings,
-    private layout: LayoutService) {
+    public settings: UserSettings) {
   }
 
   switchCollapsedAll(collapsed: boolean) {
@@ -100,19 +96,6 @@ export class EditorFieldComponent implements OnInit {
     this.validationWarning = this.field.items.map(item => item.validationWarning).join(',');
     //this.items = this.field.items;
   }
-
-  // ngDoCheck() {
-  //   // check for object mutation
-  //   if (this.field.items.length === 0) {
-  //     return;
-  //   }
-  //   const nc = this.field.items.map(item => item.validationWarning).join(',');
-  //     if (this.validationWarning !== nc) {
-  //       this.validationWarning = nc;
-  //       this.cd.markForCheck();
-  //       //this.items = this.field.items;
-  //     }
-  // }
 
   openHelpDialog() {
     this.dialog.open(HelpDialogComponent, { 
