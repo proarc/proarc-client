@@ -106,6 +106,14 @@
   },
   "search": {
     "title": "Hledání",
+    "orphansDialog": {
+      "title": "Hledání v sirotcích",
+      "message": "Data mohou být v nekonzistentním stavu. Před hledáním v sirotcích doporučujeme spustit indexaci do SOLR nadřazených objektů.",
+      "runningTitle": "Indexace nadřazených objektů",
+      "runningMessage": "Indexace do SOLR nadřazených objektů probíhá.",
+      "goToProcessManagement": "Přejít do správy procesů",
+      "indexFinished": "Indexace do SOLR nadřazených objektů doběhla."
+    },
     "name": "Název",
     "filename": "Název souboru",
     "label": "Název",
@@ -258,6 +266,19 @@
     "my_tasks": "Moje úkoly",
     "admin": "Administrace",
     "layout": "Rozložení",
+    "indexing": {
+      "goToProcessManagement": "Přejít do správy procesů",
+      "objects": {
+        "runningTitle": "Indexace objektů",
+        "runningMessage": "Indexace objektů do SOLR probíhá.",
+        "finished": "Indexace objektů do SOLR doběhla."
+      },
+      "parents": {
+        "runningTitle": "Indexace nadřazených objektů",
+        "runningMessage": "Indexace nadřazených objektů do SOLR probíhá.",
+        "finished": "Indexace nadřazených objektů do SOLR doběhla."
+      }
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
