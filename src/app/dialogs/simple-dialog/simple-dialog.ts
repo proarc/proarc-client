@@ -2,6 +2,7 @@ export interface SimpleDialogData {
   title: string;
   message?: string;
   alertClass?: string;
+  progress?: boolean;
   btn1: SimpleDialogButton;
   btn2?: SimpleDialogButton;
   checkboxes?: SimpleDialogCheckbox[];

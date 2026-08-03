@@ -11,7 +11,7 @@
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
     }
     @if (auth.user.sysAdminFunction) {
-    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="searchMode = 'orphan'">{{ 'button.searchInOrphans' | translate }}</button>
+    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="searchMode = 'orphan'; showOrphanSearchDialog()">{{ 'button.searchInOrphans' | translate }}</button>
     }
   </div>
 
@@ -175,7 +175,7 @@
                 }
               </div>
               <div class="app-fxFlex app-fxLayut app-column app-fill app-oa-y app-tree">
-                <app-user-tree-table #treeTable [inSearch]="true" 
+                <app-user-tree-table #treeTable [inSearch]="true"
                   [container]="'search'"
                   [initData]="{treePath: [selectedRootTreeItem.pid], rootTreeItem:selectedRootTreeItem}"
                   (onSelectTreeItem)="onSelectTreeItem($event)"

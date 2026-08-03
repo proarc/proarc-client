@@ -1,0 +1,9 @@
+.app-dialog-progress {
+  --mat-progress-bar-active-indicator-color: var(--app-color-primary);
+  --mat-progress-bar-active-indicator-height: 8px;
+  --mat-progress-bar-track-color: rgba(var(--app-color-primary-no-rgb), .2);
+  --mat-progress-bar-track-height: 8px;
+  --mat-progress-bar-track-shape: 4px;
+
+  margin-bottom: 16px;
+}

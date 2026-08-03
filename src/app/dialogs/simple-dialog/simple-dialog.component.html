@@ -2,6 +2,9 @@
 <div>
   <h1 cdkDrag cdkDragRootElement=".cdk-overlay-pane" mat-dialog-title cdkDragHandle>{{ data.title }}</h1>
   <div mat-dialog-content class="app-scrollbar-fix">
+    @if (data.progress) {
+      <mat-progress-bar mode="indeterminate" class="app-dialog-progress"></mat-progress-bar>
+    }
     @if (data.message) {
       <mat-card appearance="outlined" class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
         <mat-card-content>

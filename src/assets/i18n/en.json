@@ -106,6 +106,14 @@
   },
   "search": {
     "title": "Search",
+    "orphansDialog": {
+      "title": "Search in orphans",
+      "message": "The data may be inconsistent. Before searching in orphans, we recommend indexing parent objects to SOLR.",
+      "runningTitle": "Indexing parent objects",
+      "runningMessage": "Parent objects are being indexed in SOLR.",
+      "goToProcessManagement": "Go to process management",
+      "indexFinished": "Indexing parent objects in SOLR has finished."
+    },
     "name": "Name",
     "filename": "File name",
     "label": "Name",
@@ -258,6 +266,19 @@
     "my_tasks": "My tasks",
     "admin": "Administration",
     "layout": "Layout",
+    "indexing": {
+      "goToProcessManagement": "Go to process management",
+      "objects": {
+        "runningTitle": "Indexing objects",
+        "runningMessage": "Objects are being indexed in SOLR.",
+        "finished": "Indexing objects in SOLR has finished."
+      },
+      "parents": {
+        "runningTitle": "Indexing parent objects",
+        "runningMessage": "Parent objects are being indexed in SOLR.",
+        "finished": "Indexing parent objects in SOLR has finished."
+      }
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",

@@ -8,7 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 // import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.component';
 // import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -144,22 +144,17 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.state.update(() => 'loading');
-        this.api.indexer().subscribe((response: any) => {
-          if (response.response.errors) {
-            this.state.update(() => 'error');
-            this.ui.showErrorDialogFromObject(response.response.errors);
-          } else {
-            this.state.update(() => 'success');
-            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
-          }
-        });
+        this.runIndex(
+          this.api.indexer(),
+          'objects',
+          'internalProfile.indexObjectsToSolr'
+        );
       }
     });
   }
@@ -180,36 +175,75 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
-      data: data, 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.state.update(() => 'loading');
-        this.api.indexParents().subscribe((response: any) => {
-          if (response.response.errors) {
-            this.state.update(() => 'error');
-            this.ui.showErrorDialogFromObject(response.response.errors);
-          } else {
-            this.state.update(() => 'success');
-            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
-          }
+        this.runIndex(
+          this.api.indexParents(),
+          'parents',
+          'internalProfile.indexObjectsToSolr'
+        );
+      }
+    });
+  }
+
+  private runIndex(request: Observable<any>, type: 'objects' | 'parents', profile: string): void {
+    const translationPrefix = `navbar.indexing.${type}`;
+    const data: SimpleDialogData = {
+      title: this.translator.instant(`${translationPrefix}.runningTitle`),
+      message: this.translator.instant(`${translationPrefix}.runningMessage`),
+      alertClass: 'app-info',
+      progress: true,
+      btn1: {
+        label: this.translator.instant('navbar.indexing.goToProcessManagement'),
+        value: 'processManagement',
+        color: 'primary'
+      },
+      btn2: {
+        label: this.translator.instant('button.close'),
+        value: 'close',
+        color: 'default'
+      }
+    };
+
+    const progressDialog = this.dialog.open(SimpleDialogComponent, {
+      data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    progressDialog.afterClosed().subscribe(result => {
+      if (result === 'processManagement') {
+        this.router.navigate(['/process-management'], {
+          queryParams: { state: 'ALL', profile }
         });
+      }
+    });
+
+    this.state.update(() => 'loading');
+    request.subscribe((response: any) => {
+      progressDialog.close();
+      if (response.response.errors) {
+        this.state.update(() => 'error');
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state.update(() => 'success');
+        this.ui.showInfoSnackBar(this.translator.instant(`${translationPrefix}.finished`));
       }
     });
   }
 
   deleteMultiple() {
-    
-    const dialogRef = this.dialog.open(DeleteMultipleDialogComponent, { 
+
+    const dialogRef = this.dialog.open(DeleteMultipleDialogComponent, {
     });
     dialogRef.afterClosed().subscribe(dresult => {
       console.log(dresult)
 
       if (dresult) {
 
-        
+
       const checkboxes = [{
         label: String(this.translator.instant('dialog.removeObject.checkbox')),
         checked: false
@@ -217,7 +251,7 @@ export class NavbarComponent implements OnInit {
         label: String(this.translator.instant('desc.nightOnly')),
         checked: false
       }];
-       
+
         const data: SimpleDialogData = {
       title: String(this.translator.instant('Smazat')),
       message: String(this.translator.instant('Opravdu smazat všechny objekty?')),
@@ -233,12 +267,12 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
-    
+
       data.checkboxes = checkboxes;
 
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -249,7 +283,7 @@ export class NavbarComponent implements OnInit {
             this.ui.showErrorDialogFromObject(response.response.errors);
           } else {
             this.state.update(() => 'success');
-            
+
             const msg = checkboxes[1].checked ? 'dialog.export.alert.done_nightOnly' : 'Hromadné mazání spusteno';
             this.ui.showInfoSnackBar(this.translator.instant(msg))
           }
@@ -278,9 +312,9 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -314,9 +348,9 @@ export class NavbarComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
