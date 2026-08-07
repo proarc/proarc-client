@@ -25,12 +25,6 @@
                       <button mat-button (click)="editTasks()" >{{'workflow.multipleTasksEdit' | translate}}</button>
                     }
                   </div>
-                  <div class="app-h-100">
-                    <button mat-icon-button [matMenuTriggerFor]="menuMoreTasks" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></button>
-                    <mat-menu #menuMoreTasks="matMenu">
-                      <!-- <button mat-menu-item (click)="selectColumns('tasks')" >{{'editor.children.select_columns' | translate}}</button> -->
-                    </mat-menu>
-                  </div>
                 </div>
               }
               <div class="app-fxFlex app-oa-y">
