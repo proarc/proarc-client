@@ -939,6 +939,10 @@ export class ApiService {
     return this.post('import/batchStopped', data);
   }
 
+  getMetaCheckUrl(id: number): Observable<any> {
+    return this.get('import/batch/metacheckUrl', { id: id });
+  }
+
   deleteBatch(id: number): Observable<any> {
     return this.delete('import/batch?id=' + id);
   }

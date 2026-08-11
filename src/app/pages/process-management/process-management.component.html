@@ -59,6 +59,11 @@
               {{ 'button.goToObject' | translate }}
             </button>
           }
+          @if (canSwitchToMetacheck(selectedBatch)) {
+            <button mat-stroked-button (click)="onSwitchToMetacheck()">
+              {{ 'button.switchToMetacheck' | translate }}
+            </button>
+          }
           @if (selectedBatch && (selectedBatch.state === 'EXPORT_FAILED' || selectedBatch.state === 'STOPPED') && isExportProfile(selectedBatch.profile)) {
             <button mat-stroked-button (click)="onReexport()">
               {{ 'button.reexport' | translate }}

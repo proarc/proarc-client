@@ -612,7 +612,7 @@ export class ProcessManagementComponent {
       return;
     }
     for (const batch of batches) {
-      if (batch.isLoading() && batch.profile !== 'profile.default_archive_import' && batch.profile !== 'profile.default_ndk_import') {
+      if (batch.isLoading() && batch.profile !== 'profile.default_archive_import' && batch.profile !== 'profile.default_ndk_import' && batch.profile !== 'profile.metacheck_import') {
         this.api.getImportBatchStatusOld(batch.id).subscribe(
           (response: any) => {
 
@@ -761,6 +761,32 @@ export class ProcessManagementComponent {
 
   onEditBatchObject() {
     this.router.navigate(['/repository', this.selectedBatch.parentPid]);
+  }
+
+  canSwitchToMetacheck(batch: Batch) {
+    return batch && this.totalSelected() === 1 && batch.state === 'EXTERNAL_EDITING' && batch.profile === 'profile.metacheck_import';
+  }
+
+  onSwitchToMetacheck() {
+    if (!this.canSwitchToMetacheck(this.selectedBatch)) {
+      return;
+    }
+
+    this.api.getMetaCheckUrl(this.selectedBatch.id).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.ui.showErrorDialogFromObject(response.response.errors);
+        return;
+      }
+
+      const data = response.response.data;
+      const url = Array.isArray(data) ? (data[0]?.url || data[0]) : (data?.url || data);
+      if (!url) {
+        this.ui.showErrorDialogFromString('MetaCheck URL nebyla vrácena.');
+        return;
+      }
+
+      window.open(url, '_blank');
+    });
   }
 
   onReexport() {

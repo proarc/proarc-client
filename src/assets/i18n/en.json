@@ -2689,6 +2689,7 @@
     "showLoadingQueue": "Show loading queue",
     "reload": "Reload",
     "goToObject": "Go to object",
+    "switchToMetacheck": "To MetaCheck",
     "backToTheListOfAllProcesses": "Back to the list of all processes",
     "addReference": "Add references",
     "filter": "Filter",
