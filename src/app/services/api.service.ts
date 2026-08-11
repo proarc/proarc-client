@@ -238,12 +238,12 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium'): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
     });
-    data = `${data}&nightOnly=${nightOnly}`;
+    data = `${data}&nightOnly=${nightOnly}&priority=${priority}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
     }
