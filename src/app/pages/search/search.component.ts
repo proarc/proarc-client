@@ -142,7 +142,9 @@ export class SearchComponent {
     this.queryCreator = p['queryCreator'] ? p['queryCreator'] : null;
     this.pageIndex = p['pageIndex'] ? p['pageIndex'] : null;
     this.owner = p['owner'] ? p['owner'] : this.settings.searchOwner;
-    this.processor = p['processor'] ? p['processor'] : this.settings.searchProcessor;
+    this.processor = this.config.showSearchProcessor
+      ? (p['processor'] ? p['processor'] : this.settings.searchProcessor)
+      : '-';
     this.sortField = p['sortField'] ? p['sortField'] : this.settings.searchSortField;
     this.sortAsc = p['sortAsc'] ? (p['sortAsc'] === 'true') : this.settings.searchSortAsc;
 
