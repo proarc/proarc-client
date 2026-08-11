@@ -48,6 +48,8 @@ export class UserTreeTableComponent {
   initData = input.required<{ rootTreeItem: TreeDocumentItem | TreeWorkFlow, treePath: string[] }>();
   inSearch = input<boolean>(false);
   container = input<string>('');
+  multiSelect = input<boolean>(false);
+  expandOnSelection = input<boolean>(true);
 
   sortable = input<boolean>();
   sortBy = output<Sort>();
@@ -56,7 +58,13 @@ export class UserTreeTableComponent {
   // sort: Sort = { active: 'created', direction: 'desc' };
 
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
-  onSelectTreeItem = output<{ path: string, item: TreeDocumentItem | TreeWorkFlow }>();
+  onSelectTreeItem = output<{
+    path: string,
+    item: TreeDocumentItem | TreeWorkFlow,
+    event?: MouseEvent,
+    selectedItems?: (TreeDocumentItem | TreeWorkFlow)[],
+    visibleItems?: (TreeDocumentItem | TreeWorkFlow)[]
+  }>();
   onTreeItemsChanged = output<(TreeDocumentItem | TreeWorkFlow)[]>();
 
   @ViewChild('treeTable') treeTable: MatTable<any>;
@@ -151,18 +159,21 @@ export class UserTreeTableComponent {
       return;
     }
     root.level = 0;
+    root.hidden = false;
+    root.expanded = false;
     root.childrenLoaded = false;
     if (this.type() === 'TreeWorkFlow') {
       this.worflowTreeItems = [root as TreeWorkFlow];
     } else {
       this.treeItems = [root as TreeDocumentItem];
     }
+    this.refreshVisibleTreeItems();
 
     const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (path.length > 1) {
       this.expandTreeUntilSelected(root, path.slice(1), 0);
-    } else if (this.settings.searchExpandTree || !canHavePages) {
+    } else if (this.expandOnSelection() && (this.settings.searchExpandTree || !canHavePages)) {
       this.getTreeItems(root, true);
     }
   }
@@ -477,7 +488,7 @@ export class UserTreeTableComponent {
     if (this.totalSelectedTree === 1) {
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
-      if (this.settings.searchExpandTree || !canHavePages) {
+      if (this.expandOnSelection() && (this.settings.searchExpandTree || !canHavePages)) {
         if (treeItem.childrenLoaded) {
           this.refreshLayout(treeItem);
         } else {
@@ -488,10 +499,22 @@ export class UserTreeTableComponent {
       }
 
       const path = this.treeItemPath(this.selectedTreeItem);
-      this.onSelectTreeItem.emit({ path, item: this.selectedTreeItem });
+      if (!this.multiSelect()) {
+        this.onSelectTreeItem.emit({ path, item: this.selectedTreeItem });
+      }
       this.getTreeInfo(treeItem);
     } else {
       this.treeInfo.emit({ tree_info: {}, batchInfo: null });
+    }
+
+    if (this.multiSelect()) {
+      this.onSelectTreeItem.emit({
+        path: this.treeItemPath(treeItem),
+        item: treeItem,
+        event,
+        selectedItems: this.visibleTreeItems.filter(item => item.selected),
+        visibleItems: [...this.visibleTreeItems]
+      });
     }
   }
 
