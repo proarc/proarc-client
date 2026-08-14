@@ -1694,7 +1694,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "sigla_translated": {
     "Inovatika": "Inovatika",
@@ -1847,7 +1848,8 @@
     "UOE803": "Orlické museum v Chocni",
     "SVE803": "Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "Lesnický a myslivecký digitální archiv"
   },
   "mods": {
     "abstract": "Abstrakt",
@@ -3096,7 +3098,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "dialog": {
     "layoutSettings": {
