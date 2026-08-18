@@ -612,7 +612,10 @@ export class ProcessManagementComponent {
       return;
     }
     for (const batch of batches) {
-      if (batch.isLoading() && batch.profile !== 'profile.default_archive_import' && batch.profile !== 'profile.default_ndk_import') {
+      if (batch.isLoading() && batch.profile !== 'profile.default_archive_import' && batch.profile !== 'profile.default_ndk_import' &&
+        batch.profile !== 'profile.default_kramerius_import' && batch.profile !== 'profile.ndk_monograph_kramerius_import' &&
+        batch.profile !== 'profile.ndk_periodical_kramerius_import' && batch.profile !== 'profile.ndk_emonograph_kramerius_import' &&
+        batch.profile !== 'profile.ndk_eperiodical_kramerius_import') {
         this.api.getImportBatchStatusOld(batch.id).subscribe(
           (response: any) => {
 
