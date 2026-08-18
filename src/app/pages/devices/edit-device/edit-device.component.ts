@@ -34,10 +34,10 @@ export class EditDeviceComponent implements OnInit {
   resolutionUnits = ['cm', 'in.', 'no absolute unit'];
 
   scannerSensors = ['MonochromeArea', 'MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'OneChipColourArea',
-    'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
+    'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea', 'undefined'];
 
   cameraSensors = ['MonochromeArea', 'MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'OneChipColorArea',
-    'TwoChipColorArea', 'ThreeChipColorArea'];
+    'TwoChipColorArea', 'ThreeChipColorArea', 'undefined'];
 
   models = [ 'proarc:audiodevice', 'proarc:device' ];
 

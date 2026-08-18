@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { UserSettings } from '../../shared/user-settings';
 
@@ -20,7 +21,7 @@ import { UserSettings } from '../../shared/user-settings';
   imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
     CdkDrag, CdkDragHandle, 
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    FormsModule, MatFormFieldModule, MatCheckboxModule
+    FormsModule, MatFormFieldModule, MatCheckboxModule, MatProgressBarModule
   ],
   selector: 'app-simple-dialog',
   templateUrl: './simple-dialog.component.html',

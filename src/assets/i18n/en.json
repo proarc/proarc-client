@@ -108,6 +108,14 @@
   },
   "search": {
     "title": "Search",
+    "orphansDialog": {
+      "title": "Search in orphans",
+      "message": "The data may be inconsistent. Before searching in orphans, we recommend indexing parent objects to SOLR.",
+      "runningTitle": "Indexing parent objects",
+      "runningMessage": "Parent objects are being indexed in SOLR.",
+      "goToProcessManagement": "Go to process management",
+      "indexFinished": "Indexing parent objects in SOLR has finished."
+    },
     "name": "Name",
     "filename": "File name",
     "label": "Name",
@@ -261,6 +269,19 @@
     "my_tasks": "My tasks",
     "admin": "Administration",
     "layout": "Layout",
+    "indexing": {
+      "goToProcessManagement": "Go to process management",
+      "objects": {
+        "runningTitle": "Indexing objects",
+        "runningMessage": "Objects are being indexed in SOLR.",
+        "finished": "Indexing objects in SOLR has finished."
+      },
+      "parents": {
+        "runningTitle": "Indexing parent objects",
+        "runningMessage": "Parent objects are being indexed in SOLR.",
+        "finished": "Indexing parent objects in SOLR has finished."
+      }
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
@@ -1572,7 +1593,7 @@
     "ABA004": "National Library of the Czech Republic - Slavonic Library",
     "BVE301": "Regional Museum in Mikulov",
     "CBA001": "Research Library of South Bohemia in Ceske Budejovice",
-    "OLA001": "Research Library in Olomouc",
+    "OLA001": "Olomouc Research Library",
     "HKA001": "Research Library in Hradec Králové",
     "ULG001": "The North Bohemian Research Library in Ústí nad Labem",
     "ABA007": "Library of the ASCR",
@@ -1695,7 +1716,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "sigla_translated": {
     "BOA001": "Moravská zemská knihovna v Brně",
@@ -1828,7 +1850,8 @@
     "UOE803": "Orlické museum v Chocni",
     "SVE803": "Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "Lesnický a myslivecký digitální archiv"
   },
   "mods": {
     "abstract": "Abstract",
@@ -3077,7 +3100,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
 
   },
   "dialog": {
