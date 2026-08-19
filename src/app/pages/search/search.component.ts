@@ -42,6 +42,8 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 })
 export class SearchComponent {
 
+  readonly specialSearchModels = ['LEAF', 'TOP', 'NON_TOP'];
+
   state: string;
   splitArea1Width: number;
   splitArea2Width: number;
@@ -136,6 +138,7 @@ export class SearchComponent {
   processParams(p: any) {
     this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
+    this.resetSpecialSearchModel();
     this.organization = p['organization'] ? p['organization'] : this.settings.searchOrganization;
     this.query = p['query'] ? p['query'] : null;
     this.queryField = p['queryField'] ? p['queryField'] : this.settings.searchQueryField;
@@ -152,6 +155,21 @@ export class SearchComponent {
 
 
 
+  }
+
+  setSearchMode(searchMode: string): void {
+    this.searchMode = searchMode;
+    this.resetSpecialSearchModel();
+  }
+
+  isSpecialSearchMode(): boolean {
+    return this.searchMode === 'orphan';
+  }
+
+  private resetSpecialSearchModel(): void {
+    if (!this.isSpecialSearchMode() && this.specialSearchModels.includes(this.model)) {
+      this.model = this.config.defaultModel;
+    }
   }
 
   showOrphanSearchDialog(): void {

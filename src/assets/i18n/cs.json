@@ -2835,6 +2835,9 @@
     }
   },
   "model": {
+    "LEAF": "Koncové objekty",
+    "TOP": "Titulové objekty",
+    "NON_TOP": "Netitulové objekty",
     "model:periodical": "K4 Periodikum",
     "model:periodicalvolume": "K4 Ročník",
     "model:periodicalitem": "K4 Číslo",

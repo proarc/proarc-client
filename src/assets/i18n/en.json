@@ -2800,6 +2800,9 @@
     }
   },
   "model": {
+    "LEAF": "Leaf objects",
+    "TOP": "Top-level objects",
+    "NON_TOP": "Non-top-level objects",
     "model:periodical": "K4 Periodical",
     "model:periodicalvolume": "K4 Periodical Volume",
     "model:periodicalissue": "K4 Periodical Item",
