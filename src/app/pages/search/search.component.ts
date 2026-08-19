@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Configuration } from '../../shared/configuration';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
@@ -30,6 +30,8 @@ import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.componen
 import { SearchActionsComponent } from "./search-actions/search-actions.component";
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 
 
 @Component({
@@ -39,6 +41,8 @@ import { UserTreeTableComponent } from "../../components/user-tree-table/user-tr
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
+
+  readonly specialSearchModels = ['LEAF', 'TOP', 'NON_TOP'];
 
   state: string;
   splitArea1Width: number;
@@ -134,6 +138,7 @@ export class SearchComponent {
   processParams(p: any) {
     this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
+    this.resetSpecialSearchModel();
     this.organization = p['organization'] ? p['organization'] : this.settings.searchOrganization;
     this.query = p['query'] ? p['query'] : null;
     this.queryField = p['queryField'] ? p['queryField'] : this.settings.searchQueryField;
@@ -148,8 +153,98 @@ export class SearchComponent {
     this.sortField = p['sortField'] ? p['sortField'] : this.settings.searchSortField;
     this.sortAsc = p['sortAsc'] ? (p['sortAsc'] === 'true') : this.settings.searchSortAsc;
 
-    
 
+
+  }
+
+  setSearchMode(searchMode: string): void {
+    this.searchMode = searchMode;
+    this.resetSpecialSearchModel();
+  }
+
+  isSpecialSearchMode(): boolean {
+    return this.searchMode === 'orphan';
+  }
+
+  private resetSpecialSearchModel(): void {
+    if (!this.isSpecialSearchMode() && this.specialSearchModels.includes(this.model)) {
+      this.model = this.config.defaultModel;
+    }
+  }
+
+  showOrphanSearchDialog(): void {
+    const data: SimpleDialogData = {
+      title: this.translator.instant('search.orphansDialog.title'),
+      message: this.translator.instant('search.orphansDialog.message'),
+      alertClass: 'app-info',
+      btn1: {
+        label: this.translator.instant('button.indexParents'),
+        value: 'indexParents',
+        color: 'primary'
+      },
+      btn2: {
+        label: this.translator.instant('button.close'),
+        value: 'close',
+        color: 'default'
+      }
+    };
+
+    this.dialog.open(SimpleDialogComponent, {
+      data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+      if (result === 'indexParents') {
+        this.indexParents();
+      }
+    });
+  }
+
+  private indexParents(): void {
+    const progressDialog = this.openIndexParentsProgressDialog();
+
+    this.api.indexParents().subscribe((response: any) => {
+      progressDialog.close();
+      if (response.response.errors) {
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.ui.showInfoSnackBar(this.translator.instant('search.orphansDialog.indexFinished'));
+      }
+    });
+  }
+
+  private openIndexParentsProgressDialog(): MatDialogRef<SimpleDialogComponent> {
+    const data: SimpleDialogData = {
+      title: this.translator.instant('search.orphansDialog.runningTitle'),
+      message: this.translator.instant('search.orphansDialog.runningMessage'),
+      alertClass: 'app-info',
+      progress: true,
+      btn1: {
+        label: this.translator.instant('search.orphansDialog.goToProcessManagement'),
+        value: 'processManagement',
+        color: 'primary'
+      },
+      btn2: {
+        label: this.translator.instant('button.close'),
+        value: 'close',
+        color: 'default'
+      }
+    };
+
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'processManagement') {
+        this.router.navigate(['/process-management'], {
+          queryParams: {
+            state: 'ALL',
+            profile: 'internalProfile.indexObjectsToSolr'
+          }
+        });
+      }
+    });
+    return dialogRef;
   }
 
   filter() {
@@ -180,8 +275,8 @@ export class SearchComponent {
       this.settings.searchProcessor = this.processor;
     }
 
-    
-    
+
+
     this.settingsService.save();
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
@@ -370,7 +465,7 @@ export class SearchComponent {
     this.selectedRootTreeItem.expandable = true;
     this.selectedTreeItem = this.selectedRootTreeItem;
     this.treeItems = [this.selectedRootTreeItem];
-    
+
   }
 
   getValidationError(id: string) {
@@ -389,7 +484,7 @@ export class SearchComponent {
     const data = {
       content: info
     }
-    this.dialog.open(LogDialogComponent, { 
+    this.dialog.open(LogDialogComponent, {
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

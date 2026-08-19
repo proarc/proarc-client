@@ -5,13 +5,13 @@
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'search.title' | translate }}</span>
     </div>
-    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
-    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
+    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="setSearchMode('phrase')">{{ 'button.query' | translate }}</button>
+    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="setSearchMode('advanced')">{{ 'button.advancedSearch' | translate }}</button>
     @if (auth.user.deleteActionFunction) {
-    <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
+    <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="setSearchMode('deleted')">{{ 'button.searchInDeleted' | translate }}</button>
     }
     @if (auth.user.sysAdminFunction) {
-    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="searchMode = 'orphan'">{{ 'button.searchInOrphans' | translate }}</button>
+    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="setSearchMode('orphan'); showOrphanSearchDialog()">{{ 'button.searchInOrphans' | translate }}</button>
     }
   </div>
 
@@ -53,6 +53,11 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             @for(model of config.models; track $index;) {
               <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+            }
+            @if (isSpecialSearchMode()) {
+              @for(model of specialSearchModels; track model;) {
+                <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+              }
             }
           </mat-select>
           @if (model !== this.config.defaultModel && settings.searchModel === model) {
@@ -177,7 +182,7 @@
                 }
               </div>
               <div class="app-fxFlex app-fxLayut app-column app-fill app-oa-y app-tree">
-                <app-user-tree-table #treeTable [inSearch]="true" 
+                <app-user-tree-table #treeTable [inSearch]="true"
                   [container]="'search'"
                   [initData]="{treePath: [selectedRootTreeItem.pid], rootTreeItem:selectedRootTreeItem}"
                   (onSelectTreeItem)="onSelectTreeItem($event)"

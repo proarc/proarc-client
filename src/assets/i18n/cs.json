@@ -108,6 +108,14 @@
   },
   "search": {
     "title": "Hledání",
+    "orphansDialog": {
+      "title": "Hledání v sirotcích",
+      "message": "Data mohou být v nekonzistentním stavu. Před hledáním v sirotcích doporučujeme spustit indexaci do SOLR nadřazených objektů.",
+      "runningTitle": "Indexace nadřazených objektů",
+      "runningMessage": "Indexace do SOLR nadřazených objektů probíhá.",
+      "goToProcessManagement": "Přejít do správy procesů",
+      "indexFinished": "Indexace do SOLR nadřazených objektů doběhla."
+    },
     "name": "Název",
     "filename": "Název souboru",
     "label": "Název",
@@ -261,6 +269,19 @@
     "my_tasks": "Moje úkoly",
     "admin": "Administrace",
     "layout": "Rozložení",
+    "indexing": {
+      "goToProcessManagement": "Přejít do správy procesů",
+      "objects": {
+        "runningTitle": "Indexace objektů",
+        "runningMessage": "Indexace objektů do SOLR probíhá.",
+        "finished": "Indexace objektů do SOLR doběhla."
+      },
+      "parents": {
+        "runningTitle": "Indexace nadřazených objektů",
+        "runningMessage": "Indexace nadřazených objektů do SOLR probíhá.",
+        "finished": "Indexace nadřazených objektů do SOLR doběhla."
+      }
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
@@ -1709,7 +1730,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "sigla_translated": {
     "Inovatika": "Inovatika",
@@ -1862,7 +1884,8 @@
     "UOE803": "Orlické museum v Chocni",
     "SVE803": "Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "Lesnický a myslivecký digitální archiv"
   },
   "mods": {
     "abstract": "Abstrakt",
@@ -2812,6 +2835,9 @@
     }
   },
   "model": {
+    "LEAF": "Koncové objekty",
+    "TOP": "Titulové objekty",
+    "NON_TOP": "Netitulové objekty",
     "model:periodical": "K4 Periodikum",
     "model:periodicalvolume": "K4 Ročník",
     "model:periodicalitem": "K4 Číslo",
@@ -3112,7 +3138,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "dialog": {
     "layoutSettings": {
