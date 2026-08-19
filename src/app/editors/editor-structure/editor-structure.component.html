@@ -83,12 +83,13 @@
   </div>
 
 
-  <div class="app-fxFlex app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)">
+  <div class="app-fxFlex app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)" cdkScrollable>
     @if (state ==='loading') {
       <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
     }
     @if (state !=='loading' || true) {
-      <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
+      <div class="app-editor-content" #childrenWrapper tabindex="0" 
+      (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)">
         @if (viewMode == 'grid') {
           <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">
             @for(item of layout.items(); let i = $index; track item.pid;) {
