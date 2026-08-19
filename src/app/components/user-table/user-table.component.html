@@ -1,4 +1,4 @@
-<table mat-table #table  [dataSource]="items()" matSort 
+<table mat-table #table  [dataSource]="items()" matSort
   class="app-dragable-table app-striped app-hover app-resize" [matSortActive]="sortField"
   [matSortDirection]="sortAsc ? 'asc' : 'desc'" (matSortChange)="sortTable($event)" cdkDropList
   (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
