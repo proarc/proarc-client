@@ -11,6 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { Sort } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
+import { forkJoin, of } from 'rxjs';
 import { AngularSplitModule } from 'angular-split';
 import { UserTableComponent } from '../../components/user-table/user-table.component';
 import { UserTreeTableComponent } from '../../components/user-tree-table/user-tree-table.component';
@@ -166,9 +167,41 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
   }
 
   confirm(): void {
-    if (this.isAllowed()) {
-      this.dialogRef.close(this.selectedTargets);
+    if (!this.isAllowed() || this.state === 'loading') {
+      return;
     }
+
+    this.state = 'loading';
+    const childrenRequests = this.selectedTargets.map(target =>
+      target.model === 'model:ndkperiodicalissue'
+        ? this.api.getRelations(target.pid)
+        : of([] as DocumentItem[])
+    );
+
+    forkJoin(childrenRequests).subscribe({
+      next: childrenByTarget => {
+        const supplementsByTarget = childrenByTarget.map(children =>
+          children.filter(child => child.model === 'model:ndkperiodicalsupplement')
+        );
+        const automaticSupplementPids = new Set(
+          supplementsByTarget.flatMap(supplements => supplements.map(supplement => supplement.pid))
+        );
+        const targets: DocumentItem[] = [];
+        const targetPids = new Set<string>();
+        this.selectedTargets.forEach((target, index) => {
+          if (automaticSupplementPids.has(target.pid)) {
+            return;
+          }
+          this.addUniqueTarget(targets, targetPids, target);
+          supplementsByTarget[index]
+            .forEach(supplement => this.addUniqueTarget(targets, targetPids, supplement));
+        });
+        this.dialogRef.close(targets);
+      },
+      error: () => {
+        this.state = 'success';
+      }
+    });
   }
 
   isAllowed(): boolean {
@@ -206,6 +239,13 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
     item.selected = true;
     if (!this.selectedTargets.some(target => target.pid === item.pid)) {
       this.selectedTargets = [...this.selectedTargets, item];
+    }
+  }
+
+  private addUniqueTarget(targets: DocumentItem[], targetPids: Set<string>, target: DocumentItem): void {
+    if (!targetPids.has(target.pid)) {
+      targets.push(target);
+      targetPids.add(target.pid);
     }
   }
 
