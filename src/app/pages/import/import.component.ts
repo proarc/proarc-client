@@ -23,6 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserSettings } from '../../shared/user-settings';
 import { PeroModel } from '../../model/pero.model';
 import { MetakatModel } from '../../model/metakat.model';
+import { DocumentItem } from '../../model/documentItem.model';
+import { ObjectTargetSelectionDialogComponent } from '../../dialogs/object-target-selection-dialog/object-target-selection-dialog.component';
 
 @Component({
   imports: [TranslateModule, FormsModule, RouterModule,
@@ -239,12 +241,37 @@ export class ImportComponent implements OnInit {
     if (selectedFolders.length === 0) {
       return;
     }
+
+    if (this.showPids()) {
+      const dialogRef = this.dialog.open(ObjectTargetSelectionDialogComponent, {
+        data: {
+          pages: [],
+          expandedPath: [],
+          mode: 'import'
+        },
+        width: '95%',
+        maxWidth: '100vw',
+        height: '90%',
+        panelClass: ['app-dialog-parent', 'app-form-view-' + this.settings.appearance]
+      });
+      dialogRef.afterClosed().subscribe((items: DocumentItem[] | undefined) => {
+        if (items?.length) {
+          this.loadSelectedFolders(selectedFolders, items.map(item => item.pid));
+        }
+      });
+      return;
+    }
+
+    this.loadSelectedFolders(selectedFolders);
+  }
+
+  private loadSelectedFolders(selectedFolders: Folder[], pids: string[] = null) {
     const generateIndex = this.showGenerateIndex() ? this.generateIndex : null;
     const selectedDeviceId = this.showDevice() ? this.selectedDevice?.id : null;
     const selectedPeroId = this.showPero() ? this.selectedPero?.id : null;
     const selectedMetakatId = this.showMetakat() ? this.selectedMetakat?.id : null;
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -271,7 +298,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -300,7 +327,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, selectedDeviceId, selectedPeroId, selectedMetakatId).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, selectedDeviceId, selectedPeroId, selectedMetakatId, pids).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
@@ -351,6 +378,10 @@ export class ImportComponent implements OnInit {
 
   showGenerateIndex(): boolean {
     return this.hasImportParam(true, 'generateIndex', 'indices', 'index');
+  }
+
+  showPids(): boolean {
+    return this.hasImportParam(false, 'pids');
   }
 
   private hasImportParam(defaultValue: boolean, ...names: string[]): boolean {

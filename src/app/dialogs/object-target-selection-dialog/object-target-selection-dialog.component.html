@@ -1,6 +1,6 @@
 <div class="app-fxLayout app-column app-fill">
   <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
-    {{ 'editor.children.distribution.selectTarget' | translate }}
+    {{ (data.mode === 'import' ? 'desc.search' : 'editor.children.distribution.selectTarget') | translate }}
   </h1>
 
   <div mat-dialog-content class="target-dialog-content">
@@ -91,7 +91,15 @@
     @if (selectedTargets.length) {
       <ul class="selected-target-list">
         @for (target of selectedTargets; track target.pid) {
-          <li>{{ target.label }} ({{ 'model.' + target.model | translate }})</li>
+          <li class="selected-target-row">
+            <span class="selected-target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})</span>
+            @if (data.mode === 'import') {
+              <button mat-icon-button color="warn" (click)="removeTarget(target)"
+                [matTooltip]="'common.remove' | translate">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
+          </li>
         }
       </ul>
     } @else {
@@ -102,7 +110,7 @@
   <div mat-dialog-actions>
     <span class="app-fxFlex"></span>
     <button matButton="filled" color="primary" (click)="confirm()" [disabled]="state === 'loading' || !isAllowed()">
-      {{ 'editor.children.distribution.addTarget' | translate }}
+      {{ (data.mode === 'import' ? 'import.load' : 'editor.children.distribution.addTarget') | translate }}
     </button>
     <button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
   </div>

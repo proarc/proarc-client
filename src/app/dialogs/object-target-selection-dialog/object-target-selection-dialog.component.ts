@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Sort } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
 import { forkJoin, of } from 'rxjs';
@@ -25,13 +26,14 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 export interface ObjectTargetSelectionDialogData {
   pages: DocumentItem[];
   expandedPath: string[];
+  mode?: 'distribution' | 'import';
 }
 
 @Component({
   selector: 'app-object-target-selection-dialog',
   imports: [CommonModule, FormsModule, TranslateModule, AngularSplitModule, CdkDrag, CdkDragHandle,
     MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule,
-    MatProgressBarModule, MatSelectModule, UserTableComponent, UserTreeTableComponent],
+    MatProgressBarModule, MatSelectModule, MatTooltipModule, UserTableComponent, UserTreeTableComponent],
   templateUrl: './object-target-selection-dialog.component.html',
   styleUrl: './object-target-selection-dialog.component.scss'
 })
@@ -88,6 +90,7 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
   }
 
   reload(page = 0): void {
+    this.lastSearchClickIndex = -1;
     this.settings.parentSortField = this.sortField;
     this.settings.parentSortAsc = this.sortAsc;
     this.settings.parentQueryField = this.queryField;
@@ -129,16 +132,18 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
 
   selectSearchTarget(e: {item: DocumentItem, event?: MouseEvent, idx?: number}): void {
     const index = e.idx ?? -1;
-    if (e.event && (e.event.ctrlKey || e.event.metaKey)) {
-      this.toggleTarget(e.item);
-    } else if (e.event?.shiftKey && this.lastSearchClickIndex > -1 && index > -1) {
+    if (e.event?.shiftKey && this.lastSearchClickIndex > -1 && index > -1) {
       const from = Math.min(this.lastSearchClickIndex, index);
       const to = Math.max(this.lastSearchClickIndex, index);
       for (let i = from; i <= to; i++) {
         this.addTarget(this.items[i]);
       }
+    } else if (e.event && (e.event.ctrlKey || e.event.metaKey)) {
+      this.toggleTarget(e.item);
     } else {
-      this.clearTargets();
+      if (this.data.mode !== 'import') {
+        this.clearTargets();
+      }
       this.addTarget(e.item);
     }
     this.lastSearchClickIndex = index;
@@ -153,6 +158,11 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
 
   onTreeSelection(e: any): void {
     const selectedItems: DocumentItem[] = e.selectedItems || [];
+    if (this.data.mode === 'import') {
+      selectedItems.forEach(item => this.addTarget(item));
+      return;
+    }
+
     const selectedPids = new Set(selectedItems.map(item => item.pid));
     const visiblePids = new Set((e.visibleItems || []).map((item: DocumentItem) => item.pid));
 
@@ -168,6 +178,11 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
 
   confirm(): void {
     if (!this.isAllowed() || this.state === 'loading') {
+      return;
+    }
+
+    if (this.data.mode === 'import') {
+      this.dialogRef.close(this.selectedTargets);
       return;
     }
 
@@ -205,7 +220,8 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
   }
 
   isAllowed(): boolean {
-    return this.selectedTargets.length > 0 && this.selectedTargets.every(target => this.isTargetAllowed(target));
+    return this.selectedTargets.length > 0
+      && (this.data.mode === 'import' || this.selectedTargets.every(target => this.isTargetAllowed(target)));
   }
 
   selectedTargetCountKey(): string {
@@ -239,6 +255,15 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
     item.selected = true;
     if (!this.selectedTargets.some(target => target.pid === item.pid)) {
       this.selectedTargets = [...this.selectedTargets, item];
+    }
+  }
+
+  removeTarget(target: DocumentItem): void {
+    target.selected = false;
+    this.selectedTargets = this.selectedTargets.filter(item => item.pid !== target.pid);
+    const visibleItem = this.items.find(item => item.pid === target.pid);
+    if (visibleItem) {
+      visibleItem.selected = false;
     }
   }
 

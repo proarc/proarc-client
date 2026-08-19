@@ -982,7 +982,7 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string): Observable<any> {
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string, pids: string[] = null): Observable<any> {
     let data = `folderPath=${path}&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
@@ -996,6 +996,9 @@ export class ApiService {
     if (metakatId) {
       data += `&metakatEngine=${metakatId}`;
     }
+    if (pids?.length) {
+      data += `&pids=${pids}`;
+    }
     return this.post('import/batch', data);
   }
 
@@ -1004,7 +1007,7 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string) {
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string, pids: string[] = null) {
     let data = `folderPath=[${paths}]&profile=${profile}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
@@ -1017,6 +1020,9 @@ export class ApiService {
     }
     if (metakatId) {
       data += `&metakatEngine=${metakatId}`;
+    }
+    if (pids?.length) {
+      data += `&pids=${pids}`;
     }
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
