@@ -56,6 +56,7 @@ export class Configuration {
   updateInSourceModels: string[];
 
   searchExpandTree: boolean;
+  showSearchProcessor: boolean;
 
   navbarColor: string;
   workflowUrl: string;

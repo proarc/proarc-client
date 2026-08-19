@@ -50,6 +50,7 @@
       'ABD103',
       'PAG001',
       'JIG001',
+      'OLA001',
       "Inovatika"
   ],
   models: [
@@ -204,6 +205,7 @@
   showPageIdentifiers: true,
 
   searchExpandTree: true,
+  showSearchProcessor: false,
   allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],
   profiles: [
     'profile.default',

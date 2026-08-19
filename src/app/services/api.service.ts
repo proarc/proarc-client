@@ -23,6 +23,7 @@ import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audi
 import { PageUpdateHolder } from './layout-service';
 import { PeroModel } from '../model/pero.model';
 import { MetakatModel } from '../model/metakat.model';
+import { ObjectDistributionRequest } from '../model/object-distribution.model';
 
 @Injectable()
 export class ApiService {
@@ -238,13 +239,13 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, updateMods: boolean = false,
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium', updateMods: boolean = false,
     collections: string[] = []): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
     });
-    data = `${data}&nightOnly=${nightOnly}`;
+    data = `${data}&nightOnly=${nightOnly}&priority=${priority}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
     }
@@ -450,6 +451,16 @@ export class ApiService {
       'pid': pids
     };
     return this.put('object/member/move', payload, httpOptions);
+  }
+
+  distributeObjectMembers(payload: ObjectDistributionRequest): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept-Language': this.getLang()
+      })
+    };
+    return this.put('object/member/distribute', payload, httpOptions);
   }
 
 
@@ -934,6 +945,10 @@ export class ApiService {
   stopBatch(id: number): Observable<any> {
     let data = `id=${id}`;
     return this.post('import/batchStopped', data);
+  }
+
+  getMetaCheckUrl(id: number): Observable<any> {
+    return this.get('import/batch/metacheckUrl', { id: id });
   }
 
   deleteBatch(id: number): Observable<any> {

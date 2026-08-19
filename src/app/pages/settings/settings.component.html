@@ -257,11 +257,11 @@
             <div class="app-fxLayout app-row app-gap-4">
               <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.forename' | translate }}</mat-label>
-                <input matInput [(ngModel)]='forename' [placeholder]="'desc.forename' | translate">
+                <input matInput [(ngModel)]='forename' [disabled]="!user.updateUserFunction" [placeholder]="'desc.forename' | translate">
               </mat-form-field>
               <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.surname' | translate }}</mat-label>
-                <input matInput [(ngModel)]='surname' [placeholder]="'desc.surname' | translate">
+                <input matInput [(ngModel)]='surname' [disabled]="!user.updateUserFunction" [placeholder]="'desc.surname' | translate">
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-4">
@@ -277,8 +277,57 @@
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-2">
-              <button matButton="filled" [disabled]="!profileChanged()" (click)="seveProfile()">{{ 'button.save' | translate }}</button>
+              @if (user.updateUserFunction) {
+                <button matButton="filled" [disabled]="!profileChanged()" (click)="seveProfile()">{{ 'button.save' | translate }}</button>
+              }
               <button matButton="outlined" (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
+            </div>
+          </fieldset>
+          <fieldset class="app-p-4 app-mb-4">
+            <legend>{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}</legend>
+            <div class="app-mb-2">
+              <span class="app-label">{{ 'desc.objectsFunctions' | translate }}:</span>
+              <div class="app-checkbox-wrapper">
+                <mat-checkbox color="primary" [checked]="user.changeModelFunction" [disabled]="true">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.changePagesFunction" [disabled]="true">{{ 'desc.changePagesFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.lockObjectFunction" [disabled]="true">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.unlockObjectFunction" [disabled]="true">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.importToCatalogFunction" [disabled]="true">{{ 'desc.importToCatalogFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.czidloFunction" [disabled]="true">{{ 'desc.czidloFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.deleteActionFunction" [disabled]="true">{{ 'desc.deleteActionFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.changeObjectsOwnerFunction" [disabled]="true">{{ 'desc.changeObjectsOwnerFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.prepareBatchFunction" [disabled]="true">{{ 'desc.prepareBatchFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.allObjectsFunction" [disabled]="true">{{ 'desc.allObjectsFunction' | translate }}</mat-checkbox>
+              </div>
+            </div>
+            <div class="app-mb-2">
+              <span class="app-label">{{ 'desc.exportFunctions' | translate }}:</span>
+              <div class="app-checkbox-wrapper">
+                <mat-checkbox color="primary" [checked]="user.importToProdFunction" [disabled]="true">{{ 'desc.importToProdFunction' | translate }}</mat-checkbox>
+              </div>
+            </div>
+            <div class="app-mb-2">
+              <span class="app-label">{{ 'desc.deviceFunctions' | translate }}:</span>
+              <div class="app-checkbox-wrapper">
+                <mat-checkbox color="primary" [checked]="user.deviceFunction" [disabled]="true">{{ 'desc.deviceFunction' | translate }}</mat-checkbox>
+              </div>
+            </div>
+            <div class="app-mb-2">
+              <span class="app-label">{{ 'desc.systemAdminFunctions' | translate }}:</span>
+              <div class="app-checkbox-wrapper">
+                <mat-checkbox color="primary" [checked]="user.createUserFunction" [disabled]="true">{{ 'desc.createUserFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.updateUserFunction" [disabled]="true">{{ 'desc.updateUserFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.deleteUserFunction" [disabled]="true">{{ 'desc.deleteUserFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.solrFunction" [disabled]="true">{{ 'desc.solrFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.sysAdminFunction" [disabled]="true">{{ 'desc.sysAdminFunction' | translate }}</mat-checkbox>
+              </div>
+            </div>
+            <div>
+              <span class="app-label">{{ 'desc.wfFunctions' | translate }}:</span>
+              <div class="app-checkbox-wrapper">
+                <mat-checkbox color="primary" [checked]="user.wfCreateJobFunction" [disabled]="true">{{ 'desc.wfCreateJobFunction' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="user.wfDeleteJobFunction" [disabled]="true">{{ 'desc.wfDeleteJobFunction' | translate }}</mat-checkbox>
+              </div>
             </div>
           </fieldset>
         }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input, ElementRef, ViewChild, input, output, effect } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, input, output, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -284,8 +284,6 @@ export class EditorMetadataComponent implements OnInit {
           this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
           this.layout.setShouldRefresh(false);
           this.layout.clearPanelEditing();
-          this.checkVisibility();
-          //this.loadMetadata(this.metadata.pid);
         }
           this.loading = false;
       });
@@ -384,7 +382,6 @@ export class EditorMetadataComponent implements OnInit {
           this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
           this.layout.refreshSelectedItem(false, 'metadata');
           this.layout.clearPanelEditing();
-          this.checkVisibility();
         }
           this.loading = false;
       });
@@ -411,7 +408,6 @@ export class EditorMetadataComponent implements OnInit {
           return;
         }
       } else {
-        // this.layout.setShouldRefresh(true)
         this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
@@ -541,8 +537,7 @@ export class EditorMetadataComponent implements OnInit {
       this.visibleFields[k] = true;
     });
     this.visibleFields[this.selectedField] = true;
-    setTimeout(() => {this.setElStyles()}, 10)
-    // this.checkVisibility();
+    setTimeout(() => {this.setElStyles()}, 10);
   }
 
   onSizeChanged() {
@@ -578,8 +573,6 @@ export class EditorMetadataComponent implements OnInit {
       this.fieldsPositions[i].bottom = this.fieldsPositions[i].bottom + delta;
     }
 
-
-    this.checkVisibility();
   }
 
   elementIsVisibleInViewport(el: any): boolean {
@@ -597,7 +590,7 @@ export class EditorMetadataComponent implements OnInit {
 
   checkVisibility() {
 
-    if (this.validating() || true) {
+    if (this.validating()) {
       return;
     }
 

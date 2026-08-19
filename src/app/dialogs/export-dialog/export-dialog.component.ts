@@ -56,8 +56,15 @@ export class ExportDialogComponent implements OnInit {
   state = 'none';
   types: string[];
 
-
   selectedType: string;
+  priorities = [
+    'lowest',
+    'low',
+    'medium',
+    'high',
+    'highest'
+  ];
+  selectedPriority = 'medium';
   policyPublic: boolean;
   nightOnly = false;
   updateMods = false;
@@ -117,7 +124,7 @@ export class ExportDialogComponent implements OnInit {
     this.target = null;
     this.api.export(this.selectedType, pids, policy,
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
-      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.updateMods,
+      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.selectedPriority, this.updateMods,
       this.updateMods ? [] : this.selectedCollections).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);

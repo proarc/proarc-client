@@ -48,6 +48,8 @@ export class UserTreeTableComponent {
   initData = input.required<{ rootTreeItem: TreeDocumentItem | TreeWorkFlow, treePath: string[] }>();
   inSearch = input<boolean>(false);
   container = input<string>('');
+  multiSelect = input<boolean>(false);
+  expandOnSelection = input<boolean>(true);
 
   sortable = input<boolean>();
   sortBy = output<Sort>();
@@ -56,7 +58,13 @@ export class UserTreeTableComponent {
   // sort: Sort = { active: 'created', direction: 'desc' };
 
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
-  onSelectTreeItem = output<{ path: string, item: TreeDocumentItem | TreeWorkFlow }>();
+  onSelectTreeItem = output<{
+    path: string,
+    item: TreeDocumentItem | TreeWorkFlow,
+    event?: MouseEvent,
+    selectedItems?: (TreeDocumentItem | TreeWorkFlow)[],
+    visibleItems?: (TreeDocumentItem | TreeWorkFlow)[]
+  }>();
   onTreeItemsChanged = output<(TreeDocumentItem | TreeWorkFlow)[]>();
 
   @ViewChild('treeTable') treeTable: MatTable<any>;
@@ -140,6 +148,10 @@ export class UserTreeTableComponent {
     return path;
   }
 
+  treeRowId(item: TreeDocumentItem | TreeWorkFlow): string {
+    return this.type() === 'TreeWorkFlow' ? (item as TreeWorkFlow).id + '' : item.pid;
+  }
+
   generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
     this.treeItems = [];
     this.worflowTreeItems = [];
@@ -147,18 +159,21 @@ export class UserTreeTableComponent {
       return;
     }
     root.level = 0;
+    root.hidden = false;
+    root.expanded = false;
     root.childrenLoaded = false;
     if (this.type() === 'TreeWorkFlow') {
       this.worflowTreeItems = [root as TreeWorkFlow];
     } else {
       this.treeItems = [root as TreeDocumentItem];
     }
+    this.refreshVisibleTreeItems();
 
     const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (path.length > 1) {
       this.expandTreeUntilSelected(root, path.slice(1), 0);
-    } else if (this.settings.searchExpandTree || !canHavePages) {
+    } else if (this.expandOnSelection() && (this.settings.searchExpandTree || !canHavePages)) {
       this.getTreeItems(root, true);
     }
   }
@@ -305,7 +320,7 @@ export class UserTreeTableComponent {
   setToHiddenWorkFlow(treeItem: TreeWorkFlow, idx: number) {
     for (let i = idx; i < this.worflowTreeItems.length; i++) {
       const j = this.worflowTreeItems[i]
-      if ((j.parentId + '') === treeItem.pid) {
+      if (j.parentId === treeItem.id) {
         j.hidden = !treeItem.expanded || treeItem.hidden;
         this.setToHiddenWorkFlow(j, i)
       }
@@ -346,15 +361,13 @@ export class UserTreeTableComponent {
       treeItem.expanded = true;
       treeItem.childrenLoaded = true;
 
-      const idx = this.worflowTreeItems.findIndex(j => j.pid === treeItem.pid) + 1;
+      const idx = this.worflowTreeItems.findIndex(j => j.id === treeItem.id) + 1;
       const children: TreeWorkFlow[] = resp.response.data
       const treeChildren: TreeWorkFlow[] = children.map(c => {
         const ti: TreeWorkFlow = <TreeWorkFlow>c;
         ti.level = treeItem.level + 1;
         ti.expandable = true;
         ti.parentId = treeItem.id;
-        ti.parentPid = treeItem.id + '';
-        ti.pid = ti.id + '';
         return ti;
       });
 
@@ -475,7 +488,7 @@ export class UserTreeTableComponent {
     if (this.totalSelectedTree === 1) {
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
-      if (this.settings.searchExpandTree || !canHavePages) {
+      if (this.expandOnSelection() && (this.settings.searchExpandTree || !canHavePages)) {
         if (treeItem.childrenLoaded) {
           this.refreshLayout(treeItem);
         } else {
@@ -486,10 +499,22 @@ export class UserTreeTableComponent {
       }
 
       const path = this.treeItemPath(this.selectedTreeItem);
-      this.onSelectTreeItem.emit({ path, item: this.selectedTreeItem });
+      if (!this.multiSelect()) {
+        this.onSelectTreeItem.emit({ path, item: this.selectedTreeItem });
+      }
       this.getTreeInfo(treeItem);
     } else {
       this.treeInfo.emit({ tree_info: {}, batchInfo: null });
+    }
+
+    if (this.multiSelect()) {
+      this.onSelectTreeItem.emit({
+        path: this.treeItemPath(treeItem),
+        item: treeItem,
+        event,
+        selectedItems: this.visibleTreeItems.filter(item => item.selected),
+        visibleItems: [...this.visibleTreeItems]
+      });
     }
   }
 

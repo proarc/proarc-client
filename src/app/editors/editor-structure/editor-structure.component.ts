@@ -43,6 +43,7 @@ import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/ne
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 import { TableItem } from '../../model/table-item.model';
 import { Batch } from '../../model/batch.model';
+import { ObjectDistributionDialogComponent } from '../../dialogs/object-distribution-dialog/object-distribution-dialog.component';
 
 
 @Component({
@@ -1067,6 +1068,46 @@ export class EditorStructureComponent implements OnInit {
       }
 
     });
+  }
+
+  onDistributePages() {
+    const pages = this.layout.items().filter(item => item.selected && item.isPage());
+    const source = this.layout.selectedParentItem;
+    const sourcePid = pages[0]?.parent || source?.pid;
+    if (!sourcePid || !pages.length) {
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ObjectDistributionDialogComponent, {
+      data: {
+        source,
+        sourcePid,
+        pages,
+        batchId: this.layout.batchId || null,
+        expandedPath: this.layout.expandedPath,
+        displayedColumns: this.displayedColumns,
+        columnsSettings: this.isRepo ? 'colsEditingRepo' : 'colsEditingImport',
+        isRepo: this.isRepo
+      },
+      width: '900px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      const currentSourcePid = this.layout.items().find(item => item.isPage())?.parent || this.layout.selectedParentItem?.pid;
+      if (result?.sourcePid === currentSourcePid) {
+        this.layout.setItems(result.sourceItems);
+        this.layout.setLastSelectedItem(null);
+        this.layout.setSelection(true, this.panel);
+      }
+    });
+  }
+
+  canDistributePages(): boolean {
+    const selected = this.layout.items().filter(item => item.selected);
+    const sourcePid = selected[0]?.parent || this.layout.selectedParentItem?.pid;
+    return !!sourcePid && selected.length > 0 && selected.every(item => item.isPage());
   }
 
   private deleteParent(parent: string) {

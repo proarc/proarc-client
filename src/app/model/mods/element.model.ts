@@ -1,4 +1,4 @@
-import { FormControl, Validators } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
 import ModsUtils from './utils';
@@ -27,7 +27,6 @@ export abstract class ModsElement {
     constructor(modsElement: any, template: any, attributes: string[] = []) {
         this.validationWarning = false;
         this.subFields = [];
-        //this.controls = new Map<String, FormControl>();
         this.template = template;
         this.modsElement = modsElement;
         if (attributes.length > 0) {
@@ -243,7 +242,6 @@ export abstract class ModsElement {
     }
 
     public validate(parent: ModsElement = null): boolean {
-        // console.log(this.template)
         let error = false;
         let anyValue = false;
         let isRequired = this.isRequired;
@@ -367,7 +365,6 @@ export abstract class ModsElement {
         for (let key of keys) {
             this.controls[key].markAsPristine();
         }
-
         return false;
     }
 }

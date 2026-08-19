@@ -56,7 +56,7 @@
 					</span>
 				</ng-container>
 				<ng-container *ngSwitchDefault>
-					@if (c === 'pid') {
+					@if (c === 'pid' && element.pid) {
 					<a class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)"
 						[matTooltip]="'button.copyTextToClipboard' | translate">
 						<mat-icon class="app-icon-copy">content_copy</mat-icon>
@@ -71,5 +71,5 @@
 	<tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
 	<tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index" (dblclick)="openTreeItem($event, row)"
 		(click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"
-		[class.app-repre]="row.pageRepre === 'reprePage'" [id]="container() + '_' + row.pid"></tr>
+		[class.app-repre]="row.pageRepre === 'reprePage'" [id]="container() + '_' + treeRowId(row)"></tr>
 </table>

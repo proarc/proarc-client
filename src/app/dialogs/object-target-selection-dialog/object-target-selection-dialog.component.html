@@ -1,0 +1,109 @@
+<div class="app-fxLayout app-column app-fill">
+  <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    {{ 'editor.children.distribution.selectTarget' | translate }}
+  </h1>
+
+  <div mat-dialog-content class="target-dialog-content">
+    @if (state === 'loading') {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    <as-split direction="vertical" unit="percent" [gutterSize]="10">
+      <as-split-area [size]="50">
+        <div class="app-fxLayout app-column app-fill">
+          <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar app-mb-2 app-pl-0 app-pr-0">
+            <button mat-button [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
+            <button mat-button [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
+          </div>
+
+          <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3 app-pl-2 app-pr-2">
+            <button mat-stroked-button (click)="reload()">{{ 'button.search' | translate }}</button>
+            <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+              <mat-label>{{ 'desc.model' | translate }}</mat-label>
+              <mat-select [(ngModel)]="settings.parentModel">
+                <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
+                @for (model of models; track model) {
+                  <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            @if (searchMode === 'phrase') {
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+                <mat-label>{{ 'desc.search' | translate }}</mat-label>
+                <input matInput [(ngModel)]="query" (keyup.enter)="reload()">
+              </mat-form-field>
+            } @else {
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+                <mat-label>{{ 'desc.name' | translate }}</mat-label>
+                <input matInput [(ngModel)]="queryLabel" (keyup.enter)="reload()">
+              </mat-form-field>
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+                <mat-label>{{ 'desc.identifier' | translate }}</mat-label>
+                <input matInput [(ngModel)]="queryIdentifier" (keyup.enter)="reload()">
+              </mat-form-field>
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+                <mat-label>{{ 'desc.owner' | translate }}</mat-label>
+                <mat-select [(value)]="owner">
+                  <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+                  @for (user of users; track user.name) {
+                    <mat-option [value]="user.name">{{ user.name }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+                <mat-label>{{ 'desc.processor' | translate }}</mat-label>
+                <mat-select [(value)]="processor">
+                  <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+                  @for (user of users; track user.name) {
+                    <mat-option [value]="user.name">{{ user.name }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            }
+          </div>
+
+          <div class="app-oa-y app-border-top-wrapper search-results">
+            <app-user-table (selectItem)="selectSearchTarget($event)" (sortBy)="sortTable($event)"
+              [colsSettingsName]="'columnsParentRight'" [items]="items"></app-user-table>
+          </div>
+        </div>
+      </as-split-area>
+
+      <as-split-area [size]="50">
+        @if (selectedRootTreeItem()) {
+          <div class="app-tree app-fill">
+            <app-user-tree-table [inSearch]="false" [container]="'distribution-target'" [multiSelect]="true"
+              [expandOnSelection]="false"
+              [initData]="{treePath: expandedPath(), rootTreeItem: selectedRootTreeItem()}"
+              (onSelectTreeItem)="onTreeSelection($event)">
+            </app-user-tree-table>
+          </div>
+        }
+      </as-split-area>
+    </as-split>
+  </div>
+
+  <div class="selected-targets">
+    <strong>
+      {{ 'editor.children.distribution.selectedTargets' + selectedTargetCountKey() | translate: {count: selectedTargets.length} }}
+    </strong>
+    @if (selectedTargets.length) {
+      <ul class="selected-target-list">
+        @for (target of selectedTargets; track target.pid) {
+          <li>{{ target.label }} ({{ 'model.' + target.model | translate }})</li>
+        }
+      </ul>
+    } @else {
+      <span>-</span>
+    }
+  </div>
+
+  <div mat-dialog-actions>
+    <span class="app-fxFlex"></span>
+    <button matButton="filled" color="primary" (click)="confirm()" [disabled]="state === 'loading' || !isAllowed()">
+      {{ 'editor.children.distribution.addTarget' | translate }}
+    </button>
+    <button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
+  </div>
+</div>

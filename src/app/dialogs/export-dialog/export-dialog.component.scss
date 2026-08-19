@@ -2,6 +2,19 @@
   resize: both;
 }
 
+.app-export-scheduling {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.app-export-scheduling mat-form-field,
+.app-export-scheduling mat-checkbox {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
 .app-collections {
   margin-bottom: 16px;
 }

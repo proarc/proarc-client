@@ -90,10 +90,10 @@
       </div>
     }
   }
-<div class="app-mb-2">
-  <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
-</div>
   @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis')) {
+    @if (importInstance && !importInstance.krameriusInstanceLicenses) {
+      <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+    } @else {
     <div class="app-mb-2">
       <mat-radio-group [(ngModel)]="updateMods" color="primary" [disabled]="formDisabled()"
         (change)="onUpdateModsChange()"
@@ -106,12 +106,22 @@
         </mat-radio-button>
       </mat-radio-group>
     </div>
+    }
   }
-
-
-@if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis') && importInstance && !importInstance.krameriusInstanceLicenses) {
-  <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
-}
+  <div class="app-export-scheduling">
+    <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">
+      {{ 'desc.nightOnly' | translate }}
+    </mat-checkbox>
+    <mat-form-field [appearance]="settings.appearance">
+      <mat-label>{{ 'desc.priority' | translate }}</mat-label>
+      <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority"
+        [disabled]="formDisabled()">
+        @for(priority of priorities; track priority) {
+          <mat-option [value]="priority">{{ 'formField.priorities.' + priority | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
 
 
 @if (selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet') {

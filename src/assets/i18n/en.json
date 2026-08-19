@@ -108,6 +108,14 @@
   },
   "search": {
     "title": "Search",
+    "orphansDialog": {
+      "title": "Search in orphans",
+      "message": "The data may be inconsistent. Before searching in orphans, we recommend indexing parent objects to SOLR.",
+      "runningTitle": "Indexing parent objects",
+      "runningMessage": "Parent objects are being indexed in SOLR.",
+      "goToProcessManagement": "Go to process management",
+      "indexFinished": "Indexing parent objects in SOLR has finished."
+    },
     "name": "Name",
     "filename": "File name",
     "label": "Name",
@@ -261,6 +269,19 @@
     "my_tasks": "My tasks",
     "admin": "Administration",
     "layout": "Layout",
+    "indexing": {
+      "goToProcessManagement": "Go to process management",
+      "objects": {
+        "runningTitle": "Indexing objects",
+        "runningMessage": "Objects are being indexed in SOLR.",
+        "finished": "Indexing objects in SOLR has finished."
+      },
+      "parents": {
+        "runningTitle": "Indexing parent objects",
+        "runningMessage": "Parent objects are being indexed in SOLR.",
+        "finished": "Indexing parent objects in SOLR has finished."
+      }
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
@@ -353,6 +374,39 @@
       "relocate": "Relocate within the document",
       "relocate_outside": "Relocate ouside the document",
       "relocate_label": "Relocate",
+      "distribution": {
+        "action": "Distribute pages",
+        "title": "Distribute pages among objects",
+        "splitBy": "Split method",
+        "pageType": "By page type",
+        "pageRepre": "By representative page",
+        "runReindex": "Reindex pages",
+        "targets": "Target objects",
+        "target": "Target object",
+        "addTarget": "Add target objects",
+        "selectTarget": "Select target objects",
+        "noTargets": "No target object selected.",
+        "preview": "Distribution preview",
+        "pageCount": "Page count",
+        "firstPage": "First page",
+        "lastPage": "Last page",
+        "submit": "Distribute",
+        "success": "Pages were distributed successfully.",
+        "selectedTargets0": "0 objects selected:",
+        "selectedTargets1": "1 object selected:",
+        "selectedTargets4": "{{count}} objects selected:",
+        "selectedTargets5": "{{count}} objects selected:",
+        "validation": {
+          "sourceRequired": "No source object is selected.",
+          "pagesRequired": "No pages are selected.",
+          "targetsRequired": "No target object is selected.",
+          "sourceIsTarget": "The source object cannot be used as a target.",
+          "duplicateTargets": "Target objects must not be duplicated.",
+          "groupCount": "The number of groups ({{groups}}) does not match the number of targets ({{targets}}).",
+          "emptyGroup": "No group may be empty.",
+          "ready": "Everything is valid. The pages will be distributed among {{targets}} objects."
+        }
+      },
       "validate": "Validate",
       "validate_form": "Validate form",
       "reindex": "Reindex",
@@ -1539,7 +1593,7 @@
     "ABA004": "National Library of the Czech Republic - Slavonic Library",
     "BVE301": "Regional Museum in Mikulov",
     "CBA001": "Research Library of South Bohemia in Ceske Budejovice",
-    "OLA001": "Research Library in Olomouc",
+    "OLA001": "Olomouc Research Library",
     "HKA001": "Research Library in Hradec Králové",
     "ULG001": "The North Bohemian Research Library in Ústí nad Labem",
     "ABA007": "Library of the ASCR",
@@ -1662,7 +1716,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
   },
   "sigla_translated": {
     "BOA001": "Moravská zemská knihovna v Brně",
@@ -1795,7 +1850,8 @@
     "UOE803": "Orlické museum v Chocni",
     "SVE803": "Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "Lesnický a myslivecký digitální archiv"
   },
   "mods": {
     "abstract": "Abstract",
@@ -2668,6 +2724,7 @@
     "showLoadingQueue": "Show loading queue",
     "reload": "Reload",
     "goToObject": "Go to object",
+    "switchToMetacheck": "To MetaCheck",
     "backToTheListOfAllProcesses": "Back to the list of all processes",
     "addReference": "Add references",
     "filter": "Filter",
@@ -2755,6 +2812,9 @@
     }
   },
   "model": {
+    "LEAF": "Leaf objects",
+    "TOP": "Top-level objects",
+    "NON_TOP": "Non-top-level objects",
     "model:periodical": "K4 Periodical",
     "model:periodicalvolume": "K4 Periodical Volume",
     "model:periodicalissue": "K4 Periodical Item",
@@ -3055,7 +3115,8 @@
     "UOE803": "UOE803 - Orlické museum v Chocni",
     "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
     "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
-    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna",
+    "LMDA": "LMDA - Lesnický a myslivecký digitální archiv"
 
   },
   "dialog": {
@@ -3326,6 +3387,7 @@
       "internalProfile.updateCatalogRecords": "Interní - Update catalog´s record",
       "internalProfile.indexObjectsToSolr": "Interní - Index objects to SOLR",
       "internalProfile.indexParentsToSolr": "Interní - Index parents to SOLR",
+      "internalProfile.objectDistribution": "Intenal - Object distribution",
       "uploadProfile.proarc": "External - Upload to ProArcu",
       "uploadProfile.kramerius": "External - Upload to Krameria",
       "externalProfile.pero": "External - Pero",

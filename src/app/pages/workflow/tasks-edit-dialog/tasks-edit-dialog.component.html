@@ -1,12 +1,11 @@
-<div fxLayout="column" fxFlexFill >
+<div class="app-fxLayout app-column app-fill">
   <h1 mat-dialog-title>{{ 'workflow.multipleTasksEdit' | translate }}: {{ this.data.tasks.length }}</h1>
   @if (loadingParameters) {
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
-  <div fxFlex mat-dialog-content class="app-clean-max-height">
+  <div mat-dialog-content class="app-fxFlex app-clean-max-height">
     <div class="app-oa-y app-p-2">
-      <div fxLayout="row" fxLayoutGap="16px">
-
+      <div class="app-fxLayout app-row app-gap-4">
         <mat-form-field>
           <mat-label>{{ 'desc.state' | translate }}</mat-label>
           <mat-select [(ngModel)]="state" [placeholder]="'desc.state' | translate">
@@ -35,7 +34,7 @@
       @if (isSelectionSameType) {
         <h3>Parametry ({{ data.tasks[0].profileLabel}})</h3>
         @for(param of parameters; track $index;) {
-          <div fxLayout="row" fxLayoutGap="16px">
+          <div class="app-fxLayout app-row app-gap-4">
             @switch (param.displayType) {
               @case ('TEXT') {
                 <mat-form-field>
@@ -70,6 +69,6 @@
 
   <div mat-dialog-actions cdkFocusRegionstart>
     <button matButton="filled" (click)="onSave()" [disabled]="loadingParameters">{{ 'button.save' | translate }}</button>
-    <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>
+    <button matButton (click)="onClose()">{{ 'button.close' | translate }}</button>
   </div>
 </div>

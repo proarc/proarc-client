@@ -104,9 +104,10 @@ export class SearchActionsComponent {
   }
 
   onExport() {
-    const items = !this.forTree() ?
-      this.items().filter(i => i.selected).map(i => { return { pid: i.pid, model: i.model } }) :
-      [{ pid: this.selectedTreeItem().pid, model: this.selectedTreeItem().model }];
+    const sourceItems = this.forTree() ? this.treeItems() : this.items();
+    const items = sourceItems
+      .filter(i => i.selected)
+      .map(i => { return { pid: i.pid, model: i.model } });
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
       data: items,
