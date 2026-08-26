@@ -46,6 +46,7 @@ export class UserTableComponent {
   withFilters = input<boolean>();
   actions = input<any[]>([]);
   items = input<any[]>();
+  dateTimeZone = input<string | undefined>('+0000');
   sortField: string;
   sortAsc: boolean;
 
@@ -297,7 +298,7 @@ export class UserTableComponent {
     this.onColumnLink.emit({ field, value });
   }
 
-  
+
   // batchProgress(batch_id: string): string {
   //   return this.progressMap[batch_id];
   // }
