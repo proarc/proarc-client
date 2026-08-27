@@ -395,8 +395,11 @@
       },
       "reindex_dialog": {
         "title": "Reindexovat všechny strany",
-        "message": "Opravdu chcete reindexovat všechny strany?"
+        "message": "Opravdu chcete reindexovat všechny strany?",
+        "hierarchy_message": "Ve zvolené hierarchii může být vytvořeno několik samostatných procesů reindexace. Chcete pokračovat?"
       },
+      "reindex_scheduled": "Procesy reindexace byly naplánovány",
+      "reindex_finished": "Objekty byly reindexovány",
       "relocate_dialog": {
         "titleRepo": "Přesun objektů",
         "titleImport": "Uložení dávky do úložiště",

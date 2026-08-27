@@ -11,7 +11,7 @@
       <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate">
         <mat-icon>apps</mat-icon>
       </button>
-      <button mat-icon-button [disabled]="!pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate">
+      <button mat-icon-button [disabled]="!canReindexChildren()" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate">
         <mat-icon>format_list_numbered</mat-icon>
       </button>
       @if (isRepo) {

@@ -56,6 +56,31 @@ import { Batch } from '../../model/batch.model';
 })
 export class EditorStructureComponent implements OnInit {
 
+  private static readonly DIRECT_REINDEX_MODELS = new Set([
+    'model:ndkperiodicalissue',
+    'model:ndkperiodicalsupplement',
+    'model:ndkmonographvolume',
+    'model:ndkmonographunit',
+    'model:ndkmonographsupplement',
+    'model:ndkmap',
+    'model:ndkgraphic',
+    'model:ndksheetmusic',
+    'model:oldprintmonographunit',
+    'model:oldprintvolume',
+    'model:oldprintsupplement',
+    'model:oldprintgraphics',
+    'model:oldprintmap',
+    'model:oldprintsheetmusic'
+  ]);
+
+  private static readonly HIERARCHICAL_REINDEX_MODELS = new Set([
+    'model:ndkperiodical',
+    'model:ndkperiodicalvolume',
+    'model:ndkmonographtitle',
+    'model:oldprintmonographtitle',
+    'model:oldprintomnibusvolume'
+  ]);
+
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
@@ -983,9 +1008,14 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onReindexChildren() {
+    if (!this.requiresReindexConfirmation()) {
+      this.reindexChildren();
+      return;
+    }
+
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.reindex_dialog.title')),
-      message: String(this.translator.instant('editor.children.reindex_dialog.message')),
+      message: String(this.translator.instant('editor.children.reindex_dialog.hierarchy_message')),
       alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
@@ -1009,6 +1039,21 @@ export class EditorStructureComponent implements OnInit {
     });
   }
 
+  canReindexChildren(): boolean {
+    if (!this.isRepo) {
+      return this.pageChildren;
+    }
+    const model = this.layout.item?.model;
+    return this.pageChildren
+      || EditorStructureComponent.DIRECT_REINDEX_MODELS.has(model)
+      || EditorStructureComponent.HIERARCHICAL_REINDEX_MODELS.has(model);
+  }
+
+  private requiresReindexConfirmation(): boolean {
+    return this.isRepo
+      && EditorStructureComponent.HIERARCHICAL_REINDEX_MODELS.has(this.layout.item?.model);
+  }
+
   reindexChildren() {
     let pagePid = null;
     let model = null;
@@ -1019,9 +1064,11 @@ export class EditorStructureComponent implements OnInit {
         break;
       }
     }
-    if (!pagePid) {
+    if (!pagePid && !this.isRepo) {
       return;
     }
+    pagePid = pagePid || this.layout.item.pid;
+    model = model || this.layout.item.model;
     this.state = 'loading';
     this.api.reindexPages(this.layout.item.pid, pagePid, this.layout.batchId, model).subscribe(result => {
 
@@ -1033,7 +1080,8 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'error';
       } else {
         this.state = 'success';
-        this.ui.showInfoSnackBar("Objekty byly reindexovány");
+        this.ui.showInfoSnackBar(String(this.translator.instant(
+          this.isRepo ? 'editor.children.reindex_scheduled' : 'editor.children.reindex_finished')));
         this.layout.setShouldRefresh(true);
       }
     });
