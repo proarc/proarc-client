@@ -242,6 +242,7 @@ export class UserTableComponent {
       case 'priority': return 'formField.priorities.';
       case 'profile': return 'formField.profiles.';
       case 'pageType': return 'pageType.';
+      case 'pagePosition': return 'editor.pages.page_position_';
       default: return '';
     }
   }
