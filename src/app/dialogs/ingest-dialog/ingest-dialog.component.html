@@ -15,7 +15,7 @@
 
 <div mat-dialog-actions cdkFocusRegionstart>
 	@if (state == 'success') {
-	<button mat-raised-button color="primary" mat-dialog-close="open">{{ 'import.ingest_dialog.open' | translate }}</button>
+	<button matButton="filled" mat-dialog-close="open">{{ 'import.ingest_dialog.open' | translate }}</button>
 	}
 	<button mat-raised-button color="default" mat-dialog-close="close">{{ 'import.ingest_dialog.back_to_search' | translate }}</button>
 </div>

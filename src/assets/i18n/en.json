@@ -431,8 +431,11 @@
       },
       "reindex_dialog": {
         "title": "Reindex pages",
-        "message": "Are you sure you want reindex all pages?"
+        "message": "Are you sure you want reindex all pages?",
+        "hierarchy_message": "Several separate reindexing processes may be created for the selected hierarchy. Do you want to continue?"
       },
+      "reindex_scheduled": "Reindexing processes have been scheduled",
+      "reindex_finished": "Objects have been reindexed",
       "relocate_dialog": {
         "titleRepo": "Relocate objects",
         "messageRepo": "Are you sure you want to move selected objects to the chosen object?",
