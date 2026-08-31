@@ -157,7 +157,7 @@
     </div>
 
     <div class="app-oa-y app-border-top-wrapper">
-      <app-user-table (selectItem)="selectDest($event)" [colsSettingsName]="'columnsParentRight'" [items]="items" ></app-user-table>
+      <app-user-table (sortBy)="sortTable($event)" (selectItem)="selectDest($event)" [colsSettingsName]="'columnsParentRight'" [items]="items" ></app-user-table>
     </div>
   </div>
 </ng-template>
