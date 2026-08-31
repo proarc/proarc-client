@@ -239,7 +239,8 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium'): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium', updateMods: boolean = false,
+    collections: string[] = []): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -266,6 +267,10 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
+        data = `${data}&updateMods=${updateMods}`;
+        collections.forEach(collection => {
+          data += `&collection=${encodeURIComponent(collection)}`;
+        });
         if (licenseName == null || "undefined" == licenseName) {
           data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         } else {
@@ -311,6 +316,9 @@ export class ApiService {
       case ProArc.EXPORT_NDK_SIP_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
         data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false`;
+        collections.forEach(collection => {
+          data += `&collection=${encodeURIComponent(collection)}`;
+        });
         path = 'export/ndk'
         break;
       }
@@ -974,7 +982,7 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string): Observable<any> {
+  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string, pids: string[] = null): Observable<any> {
     let data = `folderPath=${path}&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
@@ -988,6 +996,9 @@ export class ApiService {
     if (metakatId) {
       data += `&metakatEngine=${metakatId}`;
     }
+    if (pids?.length) {
+      data += `&pids=${pids}`;
+    }
     return this.post('import/batch', data);
   }
 
@@ -996,7 +1007,7 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string) {
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string, pids: string[] = null) {
     let data = `folderPath=[${paths}]&profile=${profile}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
@@ -1009,6 +1020,9 @@ export class ApiService {
     }
     if (metakatId) {
       data += `&metakatEngine=${metakatId}`;
+    }
+    if (pids?.length) {
+      data += `&pids=${pids}`;
     }
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }

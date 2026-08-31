@@ -1,19 +1,19 @@
 <div class="app-fxLayout app-column app-fill">
   <h1 mat-dialog-title>{{ 'editor.children.distribution.title' | translate }}</h1>
   <div mat-dialog-content class="distribution-content">
-    @if (saving) {
+    @if (busy) {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
 
     <section>
       <h2>{{ 'editor.children.distribution.splitBy' | translate }}</h2>
-      <mat-radio-group [(ngModel)]="mode" class="distribution-modes">
+      <mat-radio-group [(ngModel)]="mode" (ngModelChange)="scheduleRecalculation()" [disabled]="busy" class="distribution-modes">
         <mat-radio-button value="pageRepre">{{ 'editor.children.distribution.pageRepre' | translate }}</mat-radio-button>
         <div class="page-type-mode">
           <mat-radio-button value="pageType">{{ 'editor.children.distribution.pageType' | translate }}</mat-radio-button>
           <mat-form-field [appearance]="settings.appearance" class="page-type-select">
             <mat-label>{{ 'editor.page.type' | translate }}</mat-label>
-            <mat-select [(ngModel)]="pageType" [disabled]="mode !== 'pageType'">
+            <mat-select [(ngModel)]="pageType" (ngModelChange)="scheduleRecalculation()" [disabled]="mode !== 'pageType' || busy">
               @for (type of settings.pageTypes; track type) {
                 <mat-option [value]="type">{{ 'pageType.' + type | translate }}</mat-option>
               }
@@ -26,7 +26,7 @@
     <section>
       <div class="section-heading">
         <h2>{{ 'editor.children.distribution.targets' | translate }}</h2>
-        <button mat-stroked-button (click)="addTarget()" [disabled]="saving">
+        <button mat-stroked-button (click)="addTarget()" [disabled]="busy">
           <mat-icon>add</mat-icon>{{ 'editor.children.distribution.addTarget' | translate }}
         </button>
       </div>
@@ -35,13 +35,13 @@
           <div class="target-row">
             <span class="target-order">{{ index + 1 }}.</span>
             <span class="target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})</span>
-            <button mat-icon-button (click)="moveTarget(index, -1)" [disabled]="index === 0 || saving" [matTooltip]="'common.move_up' | translate">
+            <button mat-icon-button (click)="moveTarget(index, -1)" [disabled]="index === 0 || busy" [matTooltip]="'common.move_up' | translate">
               <mat-icon>arrow_upward</mat-icon>
             </button>
-            <button mat-icon-button (click)="moveTarget(index, 1)" [disabled]="index === targets.length - 1 || saving" [matTooltip]="'common.move_down' | translate">
+            <button mat-icon-button (click)="moveTarget(index, 1)" [disabled]="index === targets.length - 1 || busy" [matTooltip]="'common.move_down' | translate">
               <mat-icon>arrow_downward</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="removeTarget(index)" [disabled]="saving" [matTooltip]="'common.remove' | translate">
+            <button mat-icon-button color="warn" (click)="removeTarget(index)" [disabled]="busy" [matTooltip]="'common.remove' | translate">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -71,21 +71,21 @@
 
   </div>
   <div mat-dialog-actions class="distribution-actions">
-    @if (validationKey) {
+    @if (!calculating && validationKey) {
       <strong class="distribution-status distribution-status-error">
         {{ 'editor.children.distribution.validation.' + validationKey | translate: {groups: groups.length, targets: targets.length} }}
       </strong>
-    } @else {
+    } @else if (!calculating) {
       <strong class="distribution-status distribution-status-valid">
         {{ 'editor.children.distribution.validation.ready' | translate: {targets: targets.length} }}
       </strong>
     }
-    <mat-checkbox [(ngModel)]="runReindex" [disabled]="saving">
+    <mat-checkbox [(ngModel)]="runReindex" [disabled]="busy">
       {{ 'editor.children.distribution.runReindex' | translate }}
     </mat-checkbox>
-    <button matButton="filled" color="primary" (click)="submit()" [disabled]="saving || !!validationKey">
+    <button matButton="filled" color="primary" (click)="submit()" [disabled]="busy || !!validationKey">
       {{ 'editor.children.distribution.submit' | translate }}
     </button>
-    <button mat-flat-button [mat-dialog-close]="false" [disabled]="saving">{{ 'button.close' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="false" [disabled]="busy">{{ 'button.close' | translate }}</button>
   </div>
 </div>

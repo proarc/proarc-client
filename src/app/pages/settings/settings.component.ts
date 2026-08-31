@@ -129,6 +129,9 @@ export class SettingsComponent implements OnInit {
   }
 
   seveProfile() {
+    if (!this.user?.updateUserFunction) {
+      return;
+    }
     this.state = 'loading';
     this.api.editUser(this.user, this.forename, this.surname).subscribe((user: User) => {
       this.user = user;

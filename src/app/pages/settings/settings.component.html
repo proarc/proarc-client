@@ -257,11 +257,11 @@
             <div class="app-fxLayout app-row app-gap-4">
               <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.forename' | translate }}</mat-label>
-                <input matInput [(ngModel)]='forename' [placeholder]="'desc.forename' | translate">
+                <input matInput [(ngModel)]='forename' [disabled]="!user.updateUserFunction" [placeholder]="'desc.forename' | translate">
               </mat-form-field>
               <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.surname' | translate }}</mat-label>
-                <input matInput [(ngModel)]='surname' [placeholder]="'desc.surname' | translate">
+                <input matInput [(ngModel)]='surname' [disabled]="!user.updateUserFunction" [placeholder]="'desc.surname' | translate">
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-4">
@@ -277,7 +277,9 @@
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-2">
-              <button matButton="filled" [disabled]="!profileChanged()" (click)="seveProfile()">{{ 'button.save' | translate }}</button>
+              @if (user.updateUserFunction) {
+                <button matButton="filled" [disabled]="!profileChanged()" (click)="seveProfile()">{{ 'button.save' | translate }}</button>
+              }
               <button matButton="outlined" (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
             </div>
           </fieldset>

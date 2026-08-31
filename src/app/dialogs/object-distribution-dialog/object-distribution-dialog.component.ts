@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,12 +42,16 @@ export interface ObjectDistributionDialogData {
   templateUrl: './object-distribution-dialog.component.html',
   styleUrl: './object-distribution-dialog.component.scss'
 })
-export class ObjectDistributionDialogComponent {
+export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
   mode: ObjectDistributionMode = 'pageRepre';
   pageType = 'titlePage';
   runReindex = true;
   targets: DocumentItem[] = [];
+  groups: DocumentItem[][] = [];
+  validationKey: string | null = null;
+  calculating = true;
   saving = false;
+  private calculationTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ObjectDistributionDialogData,
@@ -59,12 +63,38 @@ export class ObjectDistributionDialogComponent {
     public settings: UserSettings
   ) { }
 
-  get groups(): DocumentItem[][] {
-    return splitDistributionPages(this.data.pages, this.mode, this.pageType);
+  ngOnInit(): void {
+    this.scheduleRecalculation();
   }
 
-  get validationKey(): string | null {
-    return validateObjectDistribution(this.data.sourcePid, this.data.pages, this.targets, this.groups);
+  ngOnDestroy(): void {
+    if (this.calculationTimer !== null) {
+      clearTimeout(this.calculationTimer);
+    }
+  }
+
+  get busy(): boolean {
+    return this.calculating || this.saving;
+  }
+
+  scheduleRecalculation(): void {
+    this.calculating = true;
+    if (this.calculationTimer !== null) {
+      clearTimeout(this.calculationTimer);
+    }
+
+    // Run in the next task so Angular can render the progress indicator first.
+    this.calculationTimer = setTimeout(() => {
+      this.groups = splitDistributionPages(this.data.pages, this.mode, this.pageType);
+      this.validationKey = validateObjectDistribution(
+        this.data.sourcePid,
+        this.data.pages,
+        this.targets,
+        this.groups
+      );
+      this.calculating = false;
+      this.calculationTimer = null;
+    });
   }
 
   firstPageLabel(index: number): string {
@@ -97,12 +127,14 @@ export class ObjectDistributionDialogComponent {
           ...this.targets,
           ...selectedTargets.filter(target => !existingPids.has(target.pid))
         ];
+        this.scheduleRecalculation();
       }
     });
   }
 
   removeTarget(index: number): void {
     this.targets = this.targets.filter((_, targetIndex) => targetIndex !== index);
+    this.scheduleRecalculation();
   }
 
   moveTarget(index: number, offset: number): void {
@@ -113,10 +145,11 @@ export class ObjectDistributionDialogComponent {
     const targets = [...this.targets];
     moveItemInArray(targets, index, destination);
     this.targets = targets;
+    this.scheduleRecalculation();
   }
 
   submit(): void {
-    if (this.saving || this.validationKey) {
+    if (this.busy || this.validationKey) {
       return;
     }
     this.saving = true;
