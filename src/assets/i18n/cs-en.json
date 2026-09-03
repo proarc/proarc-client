@@ -377,6 +377,9 @@
       "distribution": {
         "action": "Rozřadit strany",
         "title": "Rozřazení stran mezi objekty",
+        "helpLabel": "Nápověda k rozřazení stran",
+        "helpTooltip": "Vybrané strany se rozdělí do skupin podle reprezentativních stran nebo zvoleného typu strany. Každá skupina se přesune do cílového objektu na stejné pozici v seznamu; počet skupin a cílů proto musí být stejný. Kliknutím zobrazíte podrobnou nápovědu.",
+        "help": "<h2>Jak funguje rozřazení stran</h2><p>Funkce přesune vybrané strany ze zdrojového objektu do zvolených cílových objektů. Pořadí vybraných stran zůstane zachováno.</p><h3>Vytvoření skupin</h3><p>První vybraná strana vždy zahájí první skupinu. Každá další reprezentativní strana nebo strana zvoleného typu zahájí novou skupinu podle vybraného způsobu rozdělení.</p><h3>Přiřazení k objektům</h3><p>První skupina se přesune do prvního cílového objektu, druhá skupina do druhého objektu a dále podle pořadí v seznamu. Počet vytvořených skupin proto musí přesně odpovídat počtu cílových objektů. Pořadí cílů můžete změnit šipkami.</p><h3>Dokončení</h3><p>Náhled před spuštěním ukazuje počet a rozsah stran pro každý cíl. Volba Přeindexovat strany po dokončení aktualizuje jejich indexaci.</p>",
         "splitBy": "Způsob rozdělení",
         "pageType": "Podle typu strany",
         "pageRepre": "Podle reprezentativní strany",

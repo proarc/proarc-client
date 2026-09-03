@@ -1142,13 +1142,8 @@ export class EditorStructureComponent implements OnInit {
       maxHeight: '90vh',
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
-    dialogRef.afterClosed().subscribe(result => {
-      const currentSourcePid = this.layout.items().find(item => item.isPage())?.parent || this.layout.selectedParentItem?.pid;
-      if (result?.sourcePid === currentSourcePid) {
-        this.layout.setItems(result.sourceItems);
-        this.layout.setLastSelectedItem(null);
-        this.layout.setSelection(true, this.panel);
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this.layout.setShouldRefresh(false);
     });
   }
 

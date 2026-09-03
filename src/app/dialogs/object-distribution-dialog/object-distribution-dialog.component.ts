@@ -17,6 +17,7 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { UserSettings } from '../../shared/user-settings';
 import { ObjectTargetSelectionDialogComponent } from '../object-target-selection-dialog/object-target-selection-dialog.component';
+import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import {
   buildObjectDistributionRequest,
   ObjectDistributionMode,
@@ -106,6 +107,13 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
     const group = this.groups[index];
     const page = group?.[group.length - 1];
     return page?.label || page?.pid || '-';
+  }
+
+  openHelpDialog(): void {
+    this.dialog.open(HelpDialogComponent, {
+      data: this.translator.instant('editor.children.distribution.help'),
+      panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   addTarget(): void {

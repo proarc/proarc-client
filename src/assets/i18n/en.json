@@ -377,6 +377,9 @@
       "distribution": {
         "action": "Distribute pages",
         "title": "Distribute pages among objects",
+        "helpLabel": "Help for distributing pages",
+        "helpTooltip": "Selected pages are split into groups by representative pages or by the selected page type. Each group is moved to the target object at the same position in the list, so the numbers of groups and targets must match. Click for detailed help.",
+        "help": "<h2>How page distribution works</h2><p>This function moves selected pages from the source object to the chosen target objects. The order of the selected pages is preserved.</p><h3>Creating groups</h3><p>The first selected page always starts the first group. Each following representative page, or page of the selected type, starts a new group according to the selected split method.</p><h3>Assigning groups to objects</h3><p>The first group is moved to the first target object, the second group to the second object, and so on in list order. The number of groups must therefore exactly match the number of target objects. You can change the target order using the arrow buttons.</p><h3>Finishing</h3><p>The preview shows the number and range of pages for each target before you start. The Reindex pages option updates their index after the operation finishes.</p>",
         "splitBy": "Split method",
         "pageType": "By page type",
         "pageRepre": "By representative page",

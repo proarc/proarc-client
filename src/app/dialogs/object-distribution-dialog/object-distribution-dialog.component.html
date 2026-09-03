@@ -1,11 +1,21 @@
-<div class="app-fxLayout app-column app-fill">
-  <h1 mat-dialog-title>{{ 'editor.children.distribution.title' | translate }}</h1>
+<div class="app-fxLayout app-column app-fill distribution-dialog">
+  <h1 mat-dialog-title class="distribution-title">
+    <span>{{ 'editor.children.distribution.title' | translate }}</span>
+    <button mat-icon-button
+            type="button"
+            (click)="openHelpDialog()"
+            [matTooltip]="'editor.children.distribution.helpTooltip' | translate"
+            matTooltipPosition="below"
+            [attr.aria-label]="'editor.children.distribution.helpLabel' | translate">
+      <mat-icon>info_outline</mat-icon>
+    </button>
+  </h1>
   <div mat-dialog-content class="distribution-content">
     @if (busy) {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
 
-    <section>
+    <section class="distribution-settings">
       <h2>{{ 'editor.children.distribution.splitBy' | translate }}</h2>
       <mat-radio-group [(ngModel)]="mode" (ngModelChange)="scheduleRecalculation()" [disabled]="busy" class="distribution-modes">
         <mat-radio-button value="pageRepre">{{ 'editor.children.distribution.pageRepre' | translate }}</mat-radio-button>
@@ -23,51 +33,55 @@
       </mat-radio-group>
     </section>
 
-    <section>
-      <div class="section-heading">
-        <h2>{{ 'editor.children.distribution.targets' | translate }}</h2>
-        <button mat-stroked-button (click)="addTarget()" [disabled]="busy">
-          <mat-icon>add</mat-icon>{{ 'editor.children.distribution.addTarget' | translate }}
-        </button>
-      </div>
-      <div class="target-list">
-        @for (target of targets; track $index; let index = $index) {
-          <div class="target-row">
-            <span class="target-order">{{ index + 1 }}.</span>
-            <span class="target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})</span>
-            <button mat-icon-button (click)="moveTarget(index, -1)" [disabled]="index === 0 || busy" [matTooltip]="'common.move_up' | translate">
-              <mat-icon>arrow_upward</mat-icon>
-            </button>
-            <button mat-icon-button (click)="moveTarget(index, 1)" [disabled]="index === targets.length - 1 || busy" [matTooltip]="'common.move_down' | translate">
-              <mat-icon>arrow_downward</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="removeTarget(index)" [disabled]="busy" [matTooltip]="'common.remove' | translate">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        } @empty {
-          <div class="empty-message">{{ 'editor.children.distribution.noTargets' | translate }}</div>
-        }
-      </div>
-    </section>
-
-    <section>
-      <h2>{{ 'editor.children.distribution.preview' | translate }}</h2>
-      <div class="preview-grid preview-header">
-        <span>{{ 'editor.children.distribution.target' | translate }}</span>
-        <span>{{ 'editor.children.distribution.pageCount' | translate }}</span>
-        <span>{{ 'editor.children.distribution.firstPage' | translate }}</span>
-        <span>{{ 'editor.children.distribution.lastPage' | translate }}</span>
-      </div>
-      @for (target of targets; track $index; let index = $index) {
-        <div class="preview-grid">
-          <span>{{ target.label }}</span>
-          <span>{{ groups[index]?.length || 0 }}</span>
-          <span>{{ firstPageLabel(index) }}</span>
-          <span>{{ lastPageLabel(index) }}</span>
+    <div class="distribution-lists">
+      <section class="distribution-panel">
+        <div class="section-heading">
+          <h2>{{ 'editor.children.distribution.targets' | translate }}</h2>
+          <button mat-stroked-button (click)="addTarget()" [disabled]="busy">
+            <mat-icon>add</mat-icon>{{ 'editor.children.distribution.addTarget' | translate }}
+          </button>
         </div>
-      }
-    </section>
+        <div class="target-list scrollable-list">
+          @for (target of targets; track $index; let index = $index; let odd = $odd) {
+            <div class="target-row" [class.striped]="odd">
+              <span class="target-order">{{ index + 1 }}.</span>
+              <span class="target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})</span>
+              <button mat-icon-button (click)="moveTarget(index, -1)" [disabled]="index === 0 || busy" [matTooltip]="'common.move_up' | translate">
+                <mat-icon>arrow_upward</mat-icon>
+              </button>
+              <button mat-icon-button (click)="moveTarget(index, 1)" [disabled]="index === targets.length - 1 || busy" [matTooltip]="'common.move_down' | translate">
+                <mat-icon>arrow_downward</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="removeTarget(index)" [disabled]="busy" [matTooltip]="'common.remove' | translate">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          } @empty {
+            <div class="empty-message">{{ 'editor.children.distribution.noTargets' | translate }}</div>
+          }
+        </div>
+      </section>
+
+      <section class="distribution-panel">
+        <h2>{{ 'editor.children.distribution.preview' | translate }}</h2>
+        <div class="preview-list scrollable-list">
+          <div class="preview-grid preview-header">
+            <span>{{ 'editor.children.distribution.target' | translate }}</span>
+            <span>{{ 'editor.children.distribution.pageCount' | translate }}</span>
+            <span>{{ 'editor.children.distribution.firstPage' | translate }}</span>
+            <span>{{ 'editor.children.distribution.lastPage' | translate }}</span>
+          </div>
+          @for (target of targets; track $index; let index = $index; let odd = $odd) {
+            <div class="preview-grid" [class.striped]="odd">
+              <span>{{ target.label }}</span>
+              <span>{{ groups[index]?.length || 0 }}</span>
+              <span>{{ firstPageLabel(index) }}</span>
+              <span>{{ lastPageLabel(index) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
 
   </div>
   <div mat-dialog-actions class="distribution-actions">
