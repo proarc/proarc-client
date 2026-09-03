@@ -178,7 +178,7 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Utils.validateUUID(this.data.pid));
+    return ((this.isMultiple && this.frequency.value) || !this.isMultiple) && (!this.data.customPid || Utils.validateUUID(this.data.pid));
   }
 
   changeWithPartNumber() {
@@ -265,7 +265,9 @@ export class NewObjectDialogComponent implements OnInit {
       if (this.seriesTotalNumbers.value) {
         data += '&seriesTotalNumbers=' + this.seriesTotalNumbers.value;
       }
-      data += '&seriesPartNumberFrom=' + this.seriesPartNumberFrom.value;
+      if (this.withPartNumber && this.seriesPartNumberFrom.value !== null && this.seriesPartNumberFrom.value !== '') {
+        data += '&seriesPartNumberFrom=' + this.seriesPartNumberFrom.value;
+      }
       if (this.seriesDateFrom.value) {
         data += '&seriesDateFrom=' + this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
       }

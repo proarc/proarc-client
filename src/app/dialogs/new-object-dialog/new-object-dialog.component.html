@@ -80,7 +80,7 @@
       <div>
         <mat-form-field class="app-w-100" [appearance]="settings.appearance">
           <mat-label>{{ 'desc.numberFrom' | translate }}</mat-label>
-          <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" required [formControl]="seriesPartNumberFrom">
+          <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" [formControl]="seriesPartNumberFrom">
         </mat-form-field>
       </div>
       <div class="app-mb-4">
