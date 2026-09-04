@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { DocumentItem } from '../../model/documentItem.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
@@ -29,11 +29,9 @@ export interface ObjectDistributionDialogData {
   source: DocumentItem;
   sourcePid: string;
   pages: DocumentItem[];
-  batchId: string | number | null;
   expandedPath: string[];
   displayedColumns: string[];
   columnsSettings: string;
-  isRepo: boolean;
 }
 
 @Component({
@@ -163,7 +161,6 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
     this.saving = true;
     const request = buildObjectDistributionRequest(
       this.data.sourcePid,
-      this.data.batchId,
       this.runReindex,
       this.targets,
       this.groups
@@ -177,10 +174,7 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
       }
 
       const targetPids = request.targets.map(target => target.dstPid);
-      const sourceRefresh = this.data.isRepo
-        ? this.api.getRelations(request.srcPid)
-        : this.api.getBatchPages(String(this.data.batchId)).pipe(map((batchResponse: any) =>
-          DocumentItem.pagesFromJsonArray(batchResponse.response.data)));
+      const sourceRefresh = this.api.getRelations(request.srcPid);
       forkJoin([sourceRefresh, ...targetPids.map(pid => this.api.getRelations(pid))]).subscribe({
         next: relations => {
           this.ui.showInfoSnackBar(this.translator.instant('editor.children.distribution.success'), 4000);

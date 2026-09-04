@@ -34,9 +34,11 @@
           <mat-icon>forward</mat-icon>
         </button>
       }
-      <button mat-icon-button [disabled]="!canDistributePages()" (click)="onDistributePages()" [matTooltip]="'editor.children.distribution.action' | translate">
-        <mat-icon class="distribution-icon">call_split</mat-icon>
-      </button>
+      @if (isRepo) {
+        <button mat-icon-button [disabled]="!canDistributePages()" (click)="onDistributePages()" [matTooltip]="'editor.children.distribution.action' | translate">
+          <mat-icon class="distribution-icon">call_split</mat-icon>
+        </button>
+      }
       @if (!isRepo) {
         <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate">
           <mat-icon>checklist</mat-icon>

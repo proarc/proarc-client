@@ -1119,6 +1119,9 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onDistributePages() {
+    if (!this.isRepo) {
+      return;
+    }
     const pages = this.layout.items().filter(item => item.selected && item.isPage());
     const source = this.layout.selectedParentItem;
     const sourcePid = pages[0]?.parent || source?.pid;
@@ -1131,11 +1134,9 @@ export class EditorStructureComponent implements OnInit {
         source,
         sourcePid,
         pages,
-        batchId: this.layout.batchId || null,
         expandedPath: this.layout.expandedPath,
         displayedColumns: this.displayedColumns,
-        columnsSettings: this.isRepo ? 'colsEditingRepo' : 'colsEditingImport',
-        isRepo: this.isRepo
+        columnsSettings: 'colsEditingRepo'
       },
       width: '900px',
       maxWidth: '95vw',
@@ -1148,6 +1149,9 @@ export class EditorStructureComponent implements OnInit {
   }
 
   canDistributePages(): boolean {
+    if (!this.isRepo) {
+      return false;
+    }
     const selected = this.layout.items().filter(item => item.selected);
     const sourcePid = selected[0]?.parent || this.layout.selectedParentItem?.pid;
     return !!sourcePid && selected.length > 0 && selected.every(item => item.isPage());
