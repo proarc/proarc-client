@@ -69,7 +69,12 @@ export class ImportComponent implements OnInit {
     'profile.ndk_monograph_kramerius_import',
     'profile.ndk_periodical_kramerius_import',
     'profile.stt_kramerius_import',
-    'profile.metacheck_import']
+    'profile.ndk_emonograph_kramerius_import',
+    'profile.ndk_eperiodical_kramerius_import',
+    'profile.generate',
+    'profile.replace_stream_import',
+    'profile.metacheck_import'
+  ]
 
   constructor(
     private translator: TranslateService,
@@ -99,6 +104,11 @@ export class ImportComponent implements OnInit {
         d.label = 'Vybrat';
         this.devices.unshift(d);
         this.selectedDevice = this.devices[0];
+      }
+      if (this.pero.length > 0) {
+        const p: PeroModel = {id: null, label: 'Vybrat', description: null};
+        this.pero.unshift(p);
+        this.selectedPero = this.pero[0];
       }
       this.loadFolder(Folder.root(), 0);
     });
@@ -441,13 +451,24 @@ export class ImportComponent implements OnInit {
       this.selectedMetakat = null;
       return;
     }
-    if (this.metakatLoaded || this.metakatLoading) {
+    if (this.metakatLoaded) {
+      if (!this.selectedMetakat && this.metakat.length > 0) {
+        this.selectedMetakat = this.metakat[0];
+      }
+      return;
+    }
+    if (this.metakatLoading) {
       return;
     }
     this.metakatLoading = true;
     this.api.getMetakat().subscribe({
       next: (metakat: MetakatModel[]) => {
         this.metakat = metakat || [];
+        if (this.metakat.length > 0) {
+          const m: MetakatModel = {id: null, label: 'Vybrat', description: null};
+          this.metakat.unshift(m);
+          this.selectedMetakat = this.metakat[0];
+        }
         this.metakatLoaded = true;
         this.metakatLoading = false;
       },

@@ -9,7 +9,6 @@ export interface ObjectDistributionTarget {
 
 export interface ObjectDistributionRequest {
   srcPid: string;
-  batchId: string | number | null;
   runReindex: boolean;
   targets: ObjectDistributionTarget[];
 }
@@ -38,14 +37,12 @@ export function splitDistributionPages(
 
 export function buildObjectDistributionRequest(
   srcPid: string,
-  batchId: string | number | null,
   runReindex: boolean,
   targets: DocumentItem[],
   groups: DocumentItem[][]
 ): ObjectDistributionRequest {
   return {
     srcPid,
-    batchId,
     runReindex,
     targets: targets.map((target, index) => ({
       dstPid: target.pid,

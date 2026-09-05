@@ -84,15 +84,15 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex app-creator">
-          <mat-label>{{ 'desc.creator' | translate }}</mat-label>
-          <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
-          @if (urlParams?.queryCreator) {
-            <button matSuffix mat-icon-button aria-label="Clear" (click)="queryCreator=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          }
-        </mat-form-field>
+<!--        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex app-creator">-->
+<!--          <mat-label>{{ 'desc.creator' | translate }}</mat-label>-->
+<!--          <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">-->
+<!--          @if (urlParams?.queryCreator) {-->
+<!--            <button matSuffix mat-icon-button aria-label="Clear" (click)="queryCreator=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">-->
+<!--              <mat-icon>close</mat-icon>-->
+<!--            </button>-->
+<!--          }-->
+<!--        </mat-form-field>-->
         <mat-form-field [appearance]="settings.appearance" class="app-organization">
           <mat-label>{{ 'desc.organization' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">

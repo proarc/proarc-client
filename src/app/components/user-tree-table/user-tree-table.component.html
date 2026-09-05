@@ -30,7 +30,7 @@
 								<span>{{ 'search.' + c | translate }}</span>
 							}
         	}
-				
+
 			}
 		</th>
 		<td mat-cell *matCellDef="let element">
@@ -42,7 +42,7 @@
 			}
 			<ng-container [ngSwitch]="columnTypes[c]">
 				<ng-container *ngSwitchCase="'date'">
-					{{ element[c] | date : 'dd.MM.yyyy hh:mm:ss'}}
+					{{ element[c] | date : 'dd.MM.yyyy HH:mm:ss'}}
 				</ng-container>
 				<ng-container *ngSwitchCase="'list'">
 					{{ listValue(c, element[c])}}

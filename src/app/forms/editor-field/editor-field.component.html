@@ -1,6 +1,6 @@
 @if (field) {
   <div class="app-form-wrapper" [class.app-nested]="nested" [class.app-top-level]="!nested">
-    @for(item of field.items; let last = $last; let first = $first; let idx = $index; track $index;) {
+    @for(item of field.items; let last = $last; let first = $first; let idx = $index; track item;) {
       @if (showByGenre(idx, item) && item) {
         <div class="app-form" [class.app-required]="item.isRequired" [class.app-warning]="item.validationWarning">
           <div class="app-fxLayout app-row app-form-header">
@@ -21,7 +21,7 @@
                     (click)="switchCollapsed(item)" mat-icon-button>
                     <mat-icon>expand_less</mat-icon>
                   </button>
-                  
+
                   <button class="app-collapse-all" matTooltip="{{ 'common.collapse_all' | translate }}"
                     (click)="switchCollapsedAll(true)" mat-icon-button>
                     <mat-icon>keyboard_double_arrow_up</mat-icon>

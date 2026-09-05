@@ -176,8 +176,8 @@ export abstract class ModsElement {
                     this[me]['_'] = e;
                     Utils.metadataChanged.update(n => n + 2);
                 });
-            } else if (this.modsElement[me]) {
-                //c.patchValue(this.modsElement[me]);
+            } else if (this.modsElement.hasOwnProperty(me)) {
+                c.patchValue(this.modsElement[me]);
                 c.valueChanges.subscribe((e: any) => {
                     this.modsElement[me] = e;
                     Utils.metadataChanged.update(n => n + 2);

@@ -57,6 +57,31 @@ import { ObjectDistributionDialogComponent } from '../../dialogs/object-distribu
 })
 export class EditorStructureComponent implements OnInit {
 
+  private static readonly DIRECT_REINDEX_MODELS = new Set([
+    'model:ndkperiodicalissue',
+    'model:ndkperiodicalsupplement',
+    'model:ndkmonographvolume',
+    'model:ndkmonographunit',
+    'model:ndkmonographsupplement',
+    'model:ndkmap',
+    'model:ndkgraphic',
+    'model:ndksheetmusic',
+    'model:oldprintmonographunit',
+    'model:oldprintvolume',
+    'model:oldprintsupplement',
+    'model:oldprintgraphics',
+    'model:oldprintmap',
+    'model:oldprintsheetmusic'
+  ]);
+
+  private static readonly HIERARCHICAL_REINDEX_MODELS = new Set([
+    'model:ndkperiodical',
+    'model:ndkperiodicalvolume',
+    'model:ndkmonographtitle',
+    'model:oldprintmonographtitle',
+    'model:oldprintomnibusvolume'
+  ]);
+
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
@@ -984,9 +1009,14 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onReindexChildren() {
+    if (!this.requiresReindexConfirmation()) {
+      this.reindexChildren();
+      return;
+    }
+
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.reindex_dialog.title')),
-      message: String(this.translator.instant('editor.children.reindex_dialog.message')),
+      message: String(this.translator.instant('editor.children.reindex_dialog.hierarchy_message')),
       alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
@@ -1010,6 +1040,21 @@ export class EditorStructureComponent implements OnInit {
     });
   }
 
+  canReindexChildren(): boolean {
+    if (!this.isRepo) {
+      return this.pageChildren;
+    }
+    const model = this.layout.item?.model;
+    return this.pageChildren
+      || EditorStructureComponent.DIRECT_REINDEX_MODELS.has(model)
+      || EditorStructureComponent.HIERARCHICAL_REINDEX_MODELS.has(model);
+  }
+
+  private requiresReindexConfirmation(): boolean {
+    return this.isRepo
+      && EditorStructureComponent.HIERARCHICAL_REINDEX_MODELS.has(this.layout.item?.model);
+  }
+
   reindexChildren() {
     let pagePid = null;
     let model = null;
@@ -1020,9 +1065,11 @@ export class EditorStructureComponent implements OnInit {
         break;
       }
     }
-    if (!pagePid) {
+    if (!pagePid && !this.isRepo) {
       return;
     }
+    pagePid = pagePid || this.layout.item.pid;
+    model = model || this.layout.item.model;
     this.state = 'loading';
     this.api.reindexPages(this.layout.item.pid, pagePid, this.layout.batchId, model).subscribe(result => {
 
@@ -1034,7 +1081,8 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'error';
       } else {
         this.state = 'success';
-        this.ui.showInfoSnackBar("Objekty byly reindexovány");
+        this.ui.showInfoSnackBar(String(this.translator.instant(
+          this.isRepo ? 'editor.children.reindex_scheduled' : 'editor.children.reindex_finished')));
         this.layout.setShouldRefresh(true);
       }
     });
@@ -1071,6 +1119,9 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onDistributePages() {
+    if (!this.isRepo) {
+      return;
+    }
     const pages = this.layout.items().filter(item => item.selected && item.isPage());
     const source = this.layout.selectedParentItem;
     const sourcePid = pages[0]?.parent || source?.pid;
@@ -1083,28 +1134,24 @@ export class EditorStructureComponent implements OnInit {
         source,
         sourcePid,
         pages,
-        batchId: this.layout.batchId || null,
         expandedPath: this.layout.expandedPath,
         displayedColumns: this.displayedColumns,
-        columnsSettings: this.isRepo ? 'colsEditingRepo' : 'colsEditingImport',
-        isRepo: this.isRepo
+        columnsSettings: 'colsEditingRepo'
       },
       width: '900px',
       maxWidth: '95vw',
       maxHeight: '90vh',
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
-    dialogRef.afterClosed().subscribe(result => {
-      const currentSourcePid = this.layout.items().find(item => item.isPage())?.parent || this.layout.selectedParentItem?.pid;
-      if (result?.sourcePid === currentSourcePid) {
-        this.layout.setItems(result.sourceItems);
-        this.layout.setLastSelectedItem(null);
-        this.layout.setSelection(true, this.panel);
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this.layout.setShouldRefresh(false);
     });
   }
 
   canDistributePages(): boolean {
+    if (!this.isRepo) {
+      return false;
+    }
     const selected = this.layout.items().filter(item => item.selected);
     const sourcePid = selected[0]?.parent || this.layout.selectedParentItem?.pid;
     return !!sourcePid && selected.length > 0 && selected.every(item => item.isPage());

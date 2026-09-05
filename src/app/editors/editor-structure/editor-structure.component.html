@@ -11,7 +11,7 @@
       <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate">
         <mat-icon>apps</mat-icon>
       </button>
-      <button mat-icon-button [disabled]="!pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate">
+      <button mat-icon-button [disabled]="!canReindexChildren()" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate">
         <mat-icon>format_list_numbered</mat-icon>
       </button>
       @if (isRepo) {
@@ -34,9 +34,11 @@
           <mat-icon>forward</mat-icon>
         </button>
       }
-      <button mat-icon-button [disabled]="!canDistributePages()" (click)="onDistributePages()" [matTooltip]="'editor.children.distribution.action' | translate">
-        <mat-icon class="distribution-icon">call_split</mat-icon>
-      </button>
+      @if (isRepo) {
+        <button mat-icon-button [disabled]="!canDistributePages()" (click)="onDistributePages()" [matTooltip]="'editor.children.distribution.action' | translate">
+          <mat-icon class="distribution-icon">call_split</mat-icon>
+        </button>
+      }
       @if (!isRepo) {
         <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate">
           <mat-icon>checklist</mat-icon>
@@ -88,7 +90,7 @@
       <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
     }
     @if (state !=='loading' || true) {
-      <div class="app-editor-content" #childrenWrapper tabindex="0" 
+      <div class="app-editor-content" #childrenWrapper tabindex="0"
       (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)">
         @if (viewMode == 'grid') {
           <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">

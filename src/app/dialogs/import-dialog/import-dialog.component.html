@@ -12,13 +12,17 @@
 	@switch (state) {
 	@case ('success') {
 	<mat-card class="app-alert app-success">
-		<mat-icon>info</mat-icon> {{ "dialog.importDialog.alert.success" | translate }}
+		<mat-card-content>
+			<mat-icon>info</mat-icon> {{ "dialog.importDialog.alert.success" | translate }}
+		</mat-card-content>
 	</mat-card>
 
 	}
 	@case ('failure') {
 	<mat-card class="app-alert app-warn">
-		<mat-icon>warning</mat-icon> {{ "dialog.importDialog.alert.failure" | translate }}
+		<mat-card-content>
+			<mat-icon>warning</mat-icon> {{ "dialog.importDialog.alert.failure" | translate }}
+		</mat-card-content>
 	</mat-card>
 	<pre class="app-ws-pw">{{ failureMessage }}</pre>
 	}

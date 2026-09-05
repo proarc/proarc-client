@@ -445,7 +445,7 @@ export class AacrTemplate {
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21`,
           fields: {
             type: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/@type',
               labelKey: 'name/@type',

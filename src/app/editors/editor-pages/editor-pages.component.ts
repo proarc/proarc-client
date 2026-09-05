@@ -96,7 +96,7 @@ export class EditorPagesComponent implements OnInit {
   subscriptions: Subscription[] = [];
   numberingExample = signal<string>('');
 
-  
+
   selectionChanged: boolean;
 
   constructor(

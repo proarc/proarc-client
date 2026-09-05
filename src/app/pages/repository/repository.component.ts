@@ -70,6 +70,7 @@ export class RepositoryComponent {
 
   ngOnInit() {
     this.layout.type = 'repo';
+    this.layout.batchId = null;
     // this.route.queryParams.subscribe(p => {
     const s = this.route.paramMap.pipe(
       switchMap(p => {

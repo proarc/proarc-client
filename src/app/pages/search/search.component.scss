@@ -4,25 +4,31 @@
 
   .mat-mdc-form-field {
     &.app-model,
+    &.app-owner,
     &.app-organization {
-      $app-width: 260px;
+      $app-width: 150px;
       flex: 1 1 $app-width;
-      max-width: $app-width;
+      max-width: 250px;
       min-width: $app-width;
     }
 
-    &.app-owner,
-    &.app-processor {
+    &.app-processor,
+    &.app-creator {
       $app-width: 180px;
       flex: 1 1 $app-width;
       max-width: $app-width;
       min-width: $app-width;
     }
 
-    &.app-name, 
-    &.app-identifier, 
-    &.app-creator {
-      $app-width: 155px;
+    &.app-identifier {
+      $app-width: 350px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+
+    &.app-name {
+      $app-width: 350px;
       flex: 1 1 $app-width;
       //max-width: $app-width;
       min-width: $app-width;

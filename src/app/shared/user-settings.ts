@@ -138,7 +138,7 @@ columnsEditingRepoDefault: TableColumn[] = [
     { field: 'pageType', selected: true, width: 100, type: 'translated' },
     { field: 'pageNumber', selected: true, width: 100, type: 'string' },
     { field: 'pageIndex', selected: true, width: 100, type: 'string' },
-    { field: 'pagePosition', selected: true, width: 100, type: 'string' },
+    { field: 'pagePosition', selected: true, width: 100, type: 'translated' },
 
     { field: 'model', selected: true, width: 100, type: 'translated' },
     { field: 'pid', selected: true, width: 100, type: 'string' },
