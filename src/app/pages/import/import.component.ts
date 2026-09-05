@@ -69,7 +69,12 @@ export class ImportComponent implements OnInit {
     'profile.ndk_monograph_kramerius_import',
     'profile.ndk_periodical_kramerius_import',
     'profile.stt_kramerius_import',
-    'profile.metacheck_import']
+    'profile.ndk_emonograph_kramerius_import',
+    'profile.ndk_eperiodical_kramerius_import',
+    'profile.generate',
+    'profile.replace_stream_import',
+    'profile.metacheck_import'
+  ]
 
   constructor(
     private translator: TranslateService,
