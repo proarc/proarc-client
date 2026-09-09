@@ -10,6 +10,7 @@ import {ModsDateValid} from './dateValid.model';
 import {ModsDateCaptured} from './dateCaptured.model';
 import {ModsDateModified} from './dateModified.model';
 import {ModsEdition} from './edition.model';
+import {ModsAgent} from './agent.model';
 
 export class ModsPublisher extends ModsElement {
 
@@ -27,6 +28,7 @@ export class ModsPublisher extends ModsElement {
     public dateCaptureds: ElementField;
     public dateModifieds: ElementField;
     public editions: ElementField;
+    public agents: ElementField;
 
     static getSelector() {
         return 'originInfo';
@@ -68,6 +70,15 @@ export class ModsPublisher extends ModsElement {
           this.addSubfield(this.dateIssueds);
         }
         this.addControl('dateIssueds');
+
+        if (!this.modsElement['agent']) {
+          this.modsElement['agent'] = [];
+        }
+        if(this.available2('agent')) {
+          this.agents = new ElementField(this.modsElement, ModsAgent.getSelector(), this.getField('agent'));
+          this.addSubfield(this.agents);
+        }
+        this.addControl('agents');
 
         if (!this.modsElement['dateOther']) {
             this.modsElement['dateOther'] = [];

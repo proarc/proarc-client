@@ -5,6 +5,33 @@
     <app-field-dropdown field="transliteration" [item]="item" [(value)]='item.attrs["transliteration"]'></app-field-dropdown>
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
     <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
+    @if (item.available['agent']) {
+        <app-editor-field [field]="item.agents" [nested]='true'>
+          <ng-template let-agent="item" #templateContent>
+            @if (agent.available['namePart']) {
+              <app-editor-field [field]="agent.nameParts" [nested]='true'>
+                <ng-template let-namePart="item" #templateContent>
+                  <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+                  <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+                </ng-template>
+              </app-editor-field>
+            }
+            @if (agent.available['roles']) {
+              <app-editor-field [field]="agent.roles" [nested]='true'>
+                <ng-template let-role="item" #templateContent>
+                  @if (role.available['roleTerms']) {
+                    <app-editor-field [field]="role.roleTerms.roles" [nested]='true'>
+                      <ng-template let-roleTerm="item" #templateContent>
+                        <app-field-text field="value" [item]="roleTerm" [(value)]='roleTerm.modsElement["_"]'></app-field-text>
+                      </ng-template>
+                    </app-editor-field>
+                  }
+                </ng-template>
+              </app-editor-field>
+            }
+          </ng-template>
+        </app-editor-field>
+    }
     @if (item.available['place']) {
     <app-editor-field [field]="item.places" [nested]='true'>
       <ng-template let-place="item" #templateContent>

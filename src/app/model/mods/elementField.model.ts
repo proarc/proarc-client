@@ -54,6 +54,8 @@ import { ModsTemporal } from './temporal.model';
 import { ModsGeographic } from './geographic.model';
 import { ModsAccessCondition } from './accessCondition.model';
 import { Utils } from '../../utils/utils';
+import {ModsAlternativeName} from './alternativeName.model';
+import {ModsAgent} from './agent.model';
 
 
 export class ElementField {
@@ -292,7 +294,10 @@ export class ElementField {
                 return new ModsRole(el, this.template);
             case ModsAuthor.getId():
                 return new ModsAuthor(el, this.template);
-
+            case ModsAlternativeName.getId():
+                return new ModsAlternativeName(el, this.template);
+            case ModsAgent.getId():
+                return new ModsAgent(el, this.template);
             case ModsPart.getId():
                 return new ModsPart(el, this.template);
             case ModsPublisher.getId():
