@@ -138,10 +138,9 @@ export abstract class ModsElement {
 
     private fieldValue(field: string, key: string): any {
         if (field) {
-            // if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
-            return this.template['fields'][field][key];
+            return this.template?.['fields']?.[field]?.[key];
         } else {
-            return this.template[key];
+            return this.template?.[key];
         }
     }
 

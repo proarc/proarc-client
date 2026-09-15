@@ -16,16 +16,10 @@
                 </ng-template>
               </app-editor-field>
             }
-            @if (agent.available['roles']) {
-              <app-editor-field [field]="agent.roles" [nested]='true'>
+            @if (agent.roleTerm) {
+              <app-editor-field [field]="agent.roleTerm" [nested]='true'>
                 <ng-template let-role="item" #templateContent>
-                  @if (role.available['roleTerms']) {
-                    <app-editor-field [field]="role.roleTerms.roles" [nested]='true'>
-                      <ng-template let-roleTerm="item" #templateContent>
-                        <app-field-text field="value" [item]="roleTerm" [(value)]='roleTerm.modsElement["_"]'></app-field-text>
-                      </ng-template>
-                    </app-editor-field>
-                  }
+                  <app-field-dropdown field="roleTerm" [item]="role" [(value)]='role.roleTerm["_"]'></app-field-dropdown>
                 </ng-template>
               </app-editor-field>
             }
@@ -54,6 +48,9 @@
         <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
         <app-field-dropdown field="encoding" [item]="dateIssued" [(value)]='dateIssued.attrs["encoding"]'></app-field-dropdown>
         <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
+        @if (dateIssued.available['calendar']) {
+          <app-field-dropdown field="calendar" [item]="dateIssued" [(value)]='dateIssued.attrs["calendar"]'></app-field-dropdown>
+        }
       </ng-template>
     </app-editor-field>
   }

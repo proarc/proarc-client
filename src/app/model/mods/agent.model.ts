@@ -37,7 +37,6 @@ export class ModsAgent extends ModsElement {
     if (this.available2('role')) {
       this.roleTerm = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
       this.addSubfield(this.roleTerm);
-      this.addControl('roleTerm');
     }
   }
 
