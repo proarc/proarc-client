@@ -1106,8 +1106,6 @@
                 <li><strong>marccategory</strong></li>\
                 <li><strong>marcsmd</strong></li>\
                 <li><strong>gmd</strong></li>\
-                <li><strong>rdamedia</strong> (pro pole 337)</li>\
-                <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
               [
@@ -1125,14 +1123,6 @@
               [
                 'gmd',
                 'gmd'
-              ],
-              [
-                'rdamedia',
-                'rdamedia'
-              ],
-              [
-                'rdacarrier',
-                'rdacarrier'
               ]
             ]
           },
@@ -2325,7 +2315,7 @@
                 }
               },
             },
-          },
+          }
         }
       },
       location: {
