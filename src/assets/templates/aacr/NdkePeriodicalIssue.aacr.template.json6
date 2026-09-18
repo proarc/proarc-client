@@ -46,14 +46,33 @@
       },
       title: {
         usage: 'M',
+        required: true,
         label: 'Název periodika',
         selector: 'titleInfo/title',
         labelKey: 'titleInfo/title',
         description: 'Názvová informace – název titulu periodika<br/>\
           hodnoty převzít z katalogu, katalogizačního záznamu titulu periodika nebo názvových autorit'
       },
+      otherType: {
+        usage: 'MA',
+        label: 'Other Type',
+        selector: 'titleInfo/@otherType',
+        labelKey: 'titleInfo/@otherType',
+        cols: 3,
+        description: 'Hodnota pro mutační vydání je "mutational edition".',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'mutational edition',
+            'Mutační vydání'
+          ],
+        ]
+      },
       nonSort: {
-        usage: 'R',
+        usage: 'O',
         label: 'Část vynechaná při hledání',
         selector: 'titleInfo/nonSort',
         labelKey: 'titleInfo/nonSort',
@@ -66,14 +85,14 @@
           </ul>',
       },
       subTitle: {
-        usage: 'R',
+        usage: 'O',
         label: 'Podnázev výtisku',
         selector: 'titleInfo/subTitle',
         labelKey: 'titleInfo/subTitle',
         description: 'Podnázev čísla periodika'
       },
       partName: {
-        usage: 'R',
+        usage: 'O',
         label: 'Název výtisku',
         selector: 'titleInfo/partName',
         labelKey: 'titleInfo/partName',
@@ -181,7 +200,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -189,13 +208,81 @@
           }
         }
       },
+      alternativeName: {
+        usage: 'O',
+        label: 'Alternativní jméno',
+        selector: 'name/alternativeName',
+        labelKey: 'name/alternativeName',
+        fields: {
+          namePart: {
+            usage: 'MA',
+            label: 'Jméno',
+            selector: 'name/alternativeName/namePart',
+            labelKey: 'name/alternativeName/namePart',
+            fields: {
+              type: {
+                usage: 'MA',
+                label: 'Typ',
+                selector: 'name/alternativeName/namePart/@type',
+                labelKey: 'name/alternativeName/namePart/@type',
+                cols: 2,
+                description: 'Použít jednu z hodnot:\
+                           <ul>\
+                                <li><strong>Křestní jméno</strong> (given)</li>\
+                                <li><strong>Příjmení</strong> (family)</li>\
+                                <li><strong>Datum</strong> (date)</li>\
+                                <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
+                            </ul>',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
+                ]
+              },
+              value: {
+                label: 'Hodnota',
+                usage: 'MA',
+                selector: 'name/alternativeName/namePart',
+                labelKey: 'name/alternativeName/namePart/value',
+                cols: 2,
+                help: 'off'
+              }
+            }
+          }
+        }
+      },
       nameIdentifier: {
-        usage: 'RA',
+        usage: 'MA',
         label: 'Identifikátor autora',
         selector: 'name/nameIdentifier',
         labelKey: 'name/nameIdentifier',
         cols: 2,
         description: 'Číslo národní autority',
+      },
+      nameIdentifierOrcId: {
+        usage: 'RA',
+        label: 'ORC ID',
+        selector: 'bdm/name/nameIdentifierOrcId',
+        labelKey: 'bdm/name/nameIdentifierOrcId',
+        cols: 2,
+        description: 'ORC ID',
       },
       etal: {
         usage: 'O',
@@ -236,13 +323,63 @@
     expanded: true,
     description: 'informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit',
     fields: {
-      publisher: {
+      agent: {
         usage: 'MA',
         label: 'Nakladatel',
-        selector: 'originInfo/publisher',
-        labelKey: 'originInfo/publisher',
-        description: 'Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>\
-            vyplňuje se ručně podle předlohy',
+        selector: 'originInfo/agent',
+        labelKey: 'originInfo/agent',
+        fields: {
+          namePart: {
+            usage: 'M',
+            label: 'Jméno',
+            selector: 'originInfo/agent/namePart',
+            labelKey: 'originInfo/agent/namePart',
+            fields: {
+              value: {
+                usage: 'M',
+                label: 'Hodnota',
+                selector: 'originInfo/agent/namePart',
+                labelKey: 'originInfo/agent/namePart/value',
+                help: 'off'
+              }
+            }
+          },
+          role: {
+            usage: 'MA',
+            label: 'Role',
+            selector: 'originInfo/agent/role',
+            labelKey: 'originInfo/agent/role',
+            fields: {
+              roleTerm: {
+                usage: 'M',
+                label: 'Role',
+                selector: 'originInfo/agent/role/roleTerm',
+                labelKey: 'originInfo/agent/role/roleTerm',
+                options: [
+                  [
+                    'producer',
+                    'Tvůrce'
+                  ],
+                  [
+                    'publisher',
+                    'Nakladatel'
+                  ],
+                  [
+                    'distributor',
+                    'Distributor'
+                  ],
+                  [
+                    'manufacturer',
+                    'Výrobce'
+                  ]
+                ]
+              }
+            }
+          }
+        },
+        description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
+            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
+            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 260)',
       },
       dateIssued: {
         usage: 'MA',
@@ -250,12 +387,20 @@
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
         expanded: true,
-        description: 'Datum vydání předlohy<br/>\
-            vyplňuje se ručně, dle předlohy',
+        cols: 2,
+        description: 'Datum vydání předlohy<br/> vyplňuje se ručně, dle předlohy. Podporované formáty jsou:<ul>\
+            <li><strong>DD.MM.RRRR</strong>pokud známe den (např. 27.01.1998)</li>\
+            <li><strong>MM.RRRR</strong>pokud známe pouze měsíc (např. 01.1998)</li>\
+            <li><strong>RRRR</strong>pokud známe pouze rok (např. 1998 )</li>\
+            <li><strong>MM.-MM.RRRR</strong>vydání pro více měsíců (např. 01.-02.1998)</li>\
+            <li><strong>MM.RRRR-MM.RRRR</strong>vydání pro více měsíců (např. 12.1998-01.1999)</li>\
+            <li><strong>DD.MM.-DD.MM.RRRR</strong>vydání pro více dní (např. 31.01.-01.02.1998)</li>\
+            <li><strong>DD.MM.RRRR-DD.MM.RRRR</strong>vydání pro více dní (např. 31.12.1998-01.01.1999)</li>\
+            <li><strong>DD.-DD.MM.RRRR</strong>vydání pro více dní (např. 02.-03.02.1998)</li>\
+          </ul>',
         fields: {
           value: {
             usage: 'MA',
-            required: true,
             selector: 'originInfo/dateIssued/value',
             labelKey: 'originInfo/dateIssued/value',
             label: 'Hodnota',
@@ -314,6 +459,31 @@
               ]
             ]
           },
+          calendar: {
+            usage: 'O',
+            label: 'Kalendář',
+            selector: 'originInfo/dateIssued/@calendar',
+            labelKey: 'originInfo/dateIssued/@calendar',
+            cols: 2,
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'gregorian',
+                'gregorian'
+              ],
+              [
+                'hebrew',
+                'hebrew'
+              ],
+              [
+                'julian',
+                'julian'
+              ]
+            ]
+          }
         }
       },
       place: {
@@ -382,7 +552,7 @@
             }
           },
         },
-      },
+      }
     }
   },
   location: {
@@ -395,14 +565,13 @@
       physicalLocation: {
         usage: 'MA',
         label: 'Místo uložení',
-        labelKey: 'location/physicalLocation',
         selector: 'location/physicalLocation',
+        labelKey: 'location/physicalLocation',
         description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
           Pozn. u dokumentů v digitální podobě není možné vyplnit',
         fields: {
           value: {
             usage: 'MA',
-            required: true,
             cols: 2,
             selector: 'location/physicalLocation/value',
             labelKey: 'location/physicalLocation/value',
@@ -410,7 +579,7 @@
             help: 'off'
           },
           authority: {
-            usage: 'M',
+            usage: 'MA',
             cols: 2,
             selector: 'location/physicalLocation/@authority',
             labelKey: 'location/physicalLocation/@authority',
@@ -425,6 +594,14 @@
               [
                 'siglaADR',
                 'Sigla ADR'
+              ],
+              [
+                'ICO',
+                'IČO'
+              ],
+              [
+                'NARP',
+                'Kód archivu NARP'
               ]
             ]
           }
@@ -439,7 +616,6 @@
         fields: {
           value: {
             usage: 'MA',
-            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -465,7 +641,6 @@
             usage: 'R',
             selector: 'location/url/@note',
             labelKey: 'location/url/@note',
-            cols: 2,
             label: 'Note',
             help: 'off'
           },
@@ -491,120 +666,8 @@
       },
     }
   },
-  note: {
-    usage: 'RA',
-    label: 'Poznámka',
-    selector: 'note',
-    labelKey: 'note',
-    description: 'Obecná poznámka k titulu periodika jako celku<br/>\
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility)\
-      a v polích 5XX (poznámky) katalogizačního záznamu',
-    fields: {
-      type: {
-        usage: 'O',
-        label: 'Typ',
-        cols: 2,
-        selector: 'note/@type',
-        labelKey: 'note/@type',
-        options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'uuid',
-            'uuid'
-          ]
-        ]
-      },
-      'xlink:href': {
-        usage: 'O',
-        cols: 2,
-        label: 'xLink',
-        selector: 'note/@xlink',
-        labelKey: 'note/@xlink',
-      },
-      note: {
-        usage: 'RA',
-        selector: 'note/value',
-        labelKey: 'note/value',
-        label: 'Poznámka',
-        help: 'off'
-      }
-    }
-  },
-  abstract: {
-    usage: 'RA',
-    label: 'Abstrakt',
-    selector: 'abstract',
-    labelKey: 'abstract',
-    description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
-    fields: {
-      abstract: {
-        usage: 'RA',
-        label: 'Abstrakt',
-        selector: 'abstract',
-        labelKey: 'abstract/value',
-        help: 'off'
-      }
-    }
-  },
-  classification: {
-    usage: 'R',
-    label: 'Klasifikace',
-    selector: 'classification',
-    labelKey: 'classification',
-    description: 'Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>\
-      odpovídá poli 080 MARC21',
-    fields: {
-      authority: {
-        usage: 'MA',
-        label: 'Autorita',
-        selector: 'classification/@authority',
-        labelKey: 'classification/@authority',
-        cols: 2,
-        description: '<ul>\
-            <li>\
-              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)\
-            </li>\
-          </ul>',
-        options: [
-          [
-            'udc',
-            'udc'
-          ]
-        ]
-      },
-      edition: {
-        usage: 'MA',
-        label: 'Vydání',
-        selector: 'classification/@edition',
-        labelKey: 'classification/@edition',
-        cols: 2,
-        description: '<ul>\
-            <li>\
-              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-            </li>\
-          </ul>',
-        options: [
-          [
-            'Konspekt',
-            'Konspekt'
-          ]
-        ]
-      },
-      value: {
-        usage: 'R',
-        selector: 'classification/value',
-        labelKey: 'classification/value',
-        cols: 2,
-        label: 'Hodnota',
-        help: 'off'
-      }
-    }
-  },
   subject: {
-    usage: 'RA',
+    usage: 'R',
     label: 'Věcné třídění',
     selector: 'subject',
     labelKey: 'subject',
@@ -613,11 +676,11 @@
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání',
     fields: {
       authority: {
-        usage: 'MA',
+        usage: 'R',
         label: 'Autorita',
         selector: 'subject/@authority',
         labelKey: 'subject/@authority',
-        description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>\
+        description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>mednas</strong>, <strong>czmesh</strong> nebo <strong>Konspekt</strong><br/>\
           Odpovídá hodnotě v $2',
         options: [
           [
@@ -641,17 +704,13 @@
             'czmesh'
           ],
           [
-            'msvkth',
-            'msvkth'
-          ],
-          [
-            'agrovoc',
-            'agrovoc'
+            'Konspekt',
+            'Konspekt'
           ],
         ]
       },
       topic: {
-        usage: 'O',
+        usage: 'R',
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
@@ -659,14 +718,14 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
         fields: {
           value: {
-            usage: 'O',
+            usage: 'R',
             label: 'Hodnota',
             selector: 'subject/topic/value',
             labelKey: 'subject/topic/value',
             hint: false,
           },
           valueURI: {
-            usage: 'O',
+            usage: 'R',
             label: 'Hodnota',
             selector: 'subject/topic/@valueURI',
             labelKey: 'subject/topic/@valueURI',
@@ -714,7 +773,7 @@
         }
       },
       geographic: {
-        usage: 'O',
+        usage: 'R',
         label: 'Geografické věcné třídění',
         selector: 'subject/geographic',
         labelKey: 'subject/geographic',
@@ -722,14 +781,14 @@
         description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
         fields: {
           valueURI: {
-            usage: 'O',
+            usage: 'R',
             label: 'Hodnota',
             selector: 'subject/geographic/@valueURI',
             labelKey: 'subject/geographic/@valueURI',
             description: 'Link na URL cislo autority',
           },
           value: {
-            usage: 'O',
+            usage: 'R',
             label: 'Hodnota',
             //                  cols: 2,
             selector: 'subject/geographic/value',
@@ -783,14 +842,14 @@
             ]
           },
           namePart: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Jméno',
             selector: 'name/namePart',
             labelKey: 'name/namePart',
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'MA',
+                usage: 'R',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -827,7 +886,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -836,26 +895,26 @@
             }
           },
           nameIdentifier: {
-            usage: 'RA',
+            usage: 'MA',
             label: 'Identifikátor autora',
             selector: 'name/nameIdentifier',
             labelKey: 'name/nameIdentifier',
             cols: 2,
             description: 'Číslo národní autority',
+          },
+          role: {
+            usage: 'MA',
+            label: 'Role',
+            selector: 'name/role/roleTerm',
+            labelKey: 'name/role/roleTerm',
+            expanded: true,
+            description: 'Specifikace role osoby nebo organizace<br/>\
+          Kód role z kontrolovaného slovníku rolí\
+          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+            fields: {},
           }
-          //            role: {
-          //              usage: 'MA',
-          //              label: 'Role',
-          //              selector: 'name/role/roleTerm',
-          //              labelKey: 'name/role/roleTerm',
-          //              expanded: true,
-          //              description: 'Specifikace role osoby nebo organizace<br/>\
-          //          Kód role z kontrolovaného slovníku rolí\
-          //          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-          //              fields: {},
-          //            }
         }
-      },
+      }
     }
   },
   language: {
@@ -902,12 +961,29 @@
         ]
       },
       language: {
-        usage: 'R',
+        usage: 'M',
         required: true,
         label: 'Jazyk',
         selector: 'language/languageTerm',
         labelKey: 'language/languageTerm',
         description: 'Přesné určení jazyka'
+      }
+    }
+  },
+  abstract: {
+    usage: 'RA',
+    label: 'Abstrakt',
+    selector: 'abstract',
+    labelKey: 'abstract',
+    description: 'shrnutí obsahu dokumentu, zvláště pro ročenky, zvláštní vydání a tematická čísla</br>\
+      plnit pouze v případech, že se liší od abstraktu na úrovni titulu odpovídá poli 520 MARC21',
+    fields: {
+      abstract: {
+        usage: 'RA',
+        label: 'Abstrakt',
+        selector: 'abstract',
+        labelKey: 'abstract/value',
+        help: 'off'
       }
     }
   },
@@ -959,19 +1035,60 @@
             'born digital'
           ]
         ]
+      }
+    }
+  },
+  note: {
+    usage: 'RA',
+    label: 'Poznámka',
+    selector: 'note',
+    labelKey: 'note',
+    description: 'Obecná poznámka k dokumentu',
+    fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        cols: 2,
+        selector: 'note/@type',
+        labelKey: 'note/@type',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'uuid',
+            'uuid'
+          ]
+        ]
       },
+      'xlink:href': {
+        usage: 'O',
+        cols: 2,
+        label: 'xLink',
+        selector: 'note/@xlink',
+        labelKey: 'note/@xlink',
+      },
+      note: {
+        usage: 'RA',
+        selector: 'note/value',
+        labelKey: 'note/value',
+        label: 'Poznámka',
+        help: 'off'
+      }
     }
   },
   genre: {
-    usage: 'M',
+    usage: 'MA',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
     description: 'Bližší údaje o typu dokumentu<br/>\
-      Hodnota <strong>electronic_issue</strong>',
+      Hodnota <strong>issue</strong>',
     fields: {
       type: {
         usage: 'M',
+        required: true,
         label: 'Typ',
         selector: 'genre/@type',
         labelKey: 'genre/@type',
@@ -1056,6 +1173,7 @@
       },
       value: {
         usage: 'M',
+        required: true,
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',
@@ -1073,6 +1191,7 @@
     fields: {
       type: {
         usage: 'M',
+        required: true,
         label: 'Typ',
         selector: 'identifier/@type',
         labelKey: 'identifier/@type',
@@ -1080,18 +1199,9 @@
         description: 'Budou se povinně vyplňovat následující\
           hodnoty, pokud existují:\
             <ul>\
-              <li>\
-                <strong>UUID</strong> (uuid) <i>M</i><br/>\
-                vygeneruje dodavatel\
-              </li>\
-              <li>\
-                <strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>\
-                pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK\
-              </li>\
-              <li>\
-                <strong>ISBN</strong> (isbn) <i>MA</i><br/>\
-                převzít z katalogizačního záznamu z pole 020, $a, $z\
-              </li>\
+              <li><strong>UUID</strong> (uuid) <i>M</i><br/>vygeneruje dodavatel</li>\
+              <li><strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK</li>\
+              <li><strong>ISBN</strong> (isbn) <i>MA</i><br/>převzít z katalogizačního záznamu z pole 020, $a, $z</li>\
             </ul>\
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink'
       },
@@ -1103,16 +1213,13 @@
         cols: 2,
         description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
           <ul>\
-            <li>\
-              <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>\
-            </li>\
-            <li>\
-              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>\
-            </li>\
+            <li><strong>Platný</strong> <code>identifier/[not(@invalid)]</code></li>\
+            <li><strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code></li>\
           </ul>'
       },
       value: {
         usage: 'M',
+        required: true,
         selector: 'identifier/value',
         labelKey: 'identifier/value',
         label: 'Hodnota',
@@ -1121,14 +1228,14 @@
     }
   },
   recordInfo: {
-    usage: 'MA',
+    usage: 'M',
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
     description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
     fields: {
       descriptionStandard: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Standard metadat',
         cols: 2,
         selector: 'recordInfo/descriptionStandard',
@@ -1163,16 +1270,16 @@
           },
           authority: {
             usage: 'R',
-            defaultValue: 'marcorg',
+            defaultValue: 'siglaADR',
             label: 'Autorita',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',
             labelKey: 'recordInfo/recordContentSource/@authority',
-            description: 'authority – hodnota "marcorg"',
+            description: 'authority – hodnota "siglaADR"',
             options: [
               [
-                'marcorg',
-                'marcorg'
+                'siglaADR',
+                'siglaADR'
               ]
             ]
           }
@@ -1187,6 +1294,7 @@
         fields: {
           value: {
             usage: 'M',
+            required: true,
             label: 'Datum vytvoření',
             cols: 2,
             selector: 'recordInfo/recordCreationDate',
@@ -1195,6 +1303,7 @@
           },
           encoding: {
             usage: 'M',
+            required: true,
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordCreationDate/@encoding',
@@ -1225,7 +1334,7 @@
             help: 'off'
           },
           encoding: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
@@ -1240,31 +1349,31 @@
           }
         }
       },
-      //        recordIdentifier: {
-      //          usage: 'R',
-      //          label: 'Identifikátor záznamu',
-      //          selector: 'recordInfo/recordIdentifier',
-      //          labelKey: 'recordInfo/recordIdentifier',
-      //          description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
-      //          fields: {
-      //            value: {
-      //              usage: 'MA',
-      //              label: 'Identifikátor záznamu',
-      //              cols: 2,
-      //              selector: 'recordInfo/recordIdentifier',
-      //              labelKey: 'recordInfo/recordIdentifier',
-      //              help: 'off'
-      //            },
-      //            source: {
-      //              usage: 'R',
-      //              label: 'Zdroj',
-      //              cols: 2,
-      //              selector: 'recordInfo/recordIdentifier/@source',
-      //              labelKey: 'recordInfo/recordIdentifier/@source',
-      //              description: 'hodnota se přebírá z katalogu pole 003 '
-      //            }
-      //          }
-      //        },
+      recordIdentifier: {
+        usage: 'MA',
+        label: 'Identifikátor záznamu',
+        selector: 'recordInfo/recordIdentifier',
+        labelKey: 'recordInfo/recordIdentifier',
+        description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
+        fields: {
+          value: {
+            usage: 'MA',
+            label: 'Identifikátor záznamu',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier',
+            labelKey: 'recordInfo/recordIdentifier',
+            help: 'off'
+          },
+          source: {
+            usage: 'MA',
+            label: 'Zdroj',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier/@source',
+            labelKey: 'recordInfo/recordIdentifier/@source',
+            description: 'hodnota se přebírá z katalogu pole 003 '
+          }
+        }
+      },
       recordOrigin: {
         usage: 'R',
         label: 'Údaje o vzniku záznamu',
@@ -1291,14 +1400,30 @@
         description: 'jazyk katalogového záznamu',
         fields: {
           language: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Jazyk',
             selector: 'recordInfo/languageOfCataloging/languageTerm',
             labelKey: 'recordInfo/languageOfCataloging/languageTerm',
             description: 'Přesné určení jazyka'
+          },
+          type: {
+            usage: 'R',
+            defaultValue: 'code',
+            label: 'Typ',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            options: [['code', 'code']]
+          },
+          authority: {
+            usage: 'R',
+            defaultValue: 'iso639-2b',
+            label: 'Autorita',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            options: [['iso639-2b', 'iso639-2b']]
           }
         }
-      },
+      }
     }
   }
 }
