@@ -7,9 +7,52 @@
     expanded: true,
     description: 'informace o čísle ročníku',
     fields: {
+      type: {
+        usage: 'MA',
+        label: 'Typ',
+        selector: 'titleInfo/@type',
+        labelKey: 'titleInfo/@type',
+        cols: 2,
+        description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+          Možné hodnoty\
+          <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
+            <li>Alternativní název (alternative) – pole 246</li>\
+            <li>Přeložený název (translated) – pole 242</li>\
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+          </ul>',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
+        ]
+      },
+      title: {
+        usage: 'MA',
+        label: 'Název',
+        selector: 'titleInfo/title',
+        labelKey: 'titleInfo/title',
+        description: 'Název ročníku, pokud je odlišný od názvu titulu'
+      },
       partNumber: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
         label: 'Číslo',
         selector: 'titleInfo/partNumber',
         labelKey: 'titleInfo/partNumber',
@@ -25,7 +68,7 @@
     description: 'Údaje o odpovědnosti za ročník periodika',
     fields: {
       type: {
-        usage: 'R',
+        usage: 'MA',
         label: 'Typ',
         selector: 'name/@type',
         labelKey: 'name/@type',
@@ -61,7 +104,7 @@
         ]
       },
       namePart: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Jméno',
         selector: 'name/namePart',
         labelKey: 'name/namePart',
@@ -105,7 +148,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -113,8 +156,68 @@
           }
         }
       },
+      alternativeName: {
+        usage: 'O',
+        label: 'Alternativní jméno',
+        selector: 'name/alternativeName',
+        labelKey: 'name/alternativeName',
+        fields: {
+          namePart: {
+            usage: 'MA',
+            label: 'Jméno',
+            selector: 'name/alternativeName/namePart',
+            labelKey: 'name/alternativeName/namePart',
+            fields: {
+              type: {
+                usage: 'MA',
+                label: 'Typ',
+                selector: 'name/alternativeName/namePart/@type',
+                labelKey: 'name/alternativeName/namePart/@type',
+                cols: 2,
+                description: 'Použít jednu z hodnot:\
+                           <ul>\
+                                <li><strong>Křestní jméno</strong> (given)</li>\
+                                <li><strong>Příjmení</strong> (family)</li>\
+                                <li><strong>Datum</strong> (date)</li>\
+                                <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
+                            </ul>',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
+                ]
+              },
+              value: {
+                label: 'Hodnota',
+                usage: 'MA',
+                selector: 'name/alternativeName/namePart',
+                labelKey: 'name/alternativeName/namePart/value',
+                cols: 2,
+                help: 'off'
+              }
+            }
+          }
+        }
+      },
       nameIdentifier: {
-        usage: 'RA',
+        usage: 'MA',
         label: 'Identifikátor autora',
         selector: 'name/nameIdentifier',
         labelKey: 'name/nameIdentifier',
@@ -165,6 +268,8 @@
         label: 'Rok',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
+        expanded: true,
+        cols: 2,
         description: 'Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel',
         fields: {
           value: {
@@ -176,7 +281,7 @@
             help: 'off'
           },
           qualifier: {
-            usage: 'R',
+            usage: 'O',
             label: 'Upřesnění data',
             selector: 'originInfo/dateIssued/@qualifier',
             labelKey: 'originInfo/dateIssued/@qualifier',
@@ -207,7 +312,7 @@
             ]
           },
           point: {
-            usage: 'MA',
+            usage: 'O',
             label: 'Point',
             selector: 'originInfo/dateIssued/@point',
             labelKey: 'originInfo/dateIssued/@point',
@@ -228,63 +333,62 @@
               ]
             ]
           },
+          calendar: {
+            usage: 'O',
+            label: 'Kalendář',
+            selector: 'originInfo/dateIssued/@calendar',
+            labelKey: 'originInfo/dateIssued/@calendar',
+            cols: 2,
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'gregorian',
+                'gregorian'
+              ],
+              [
+                'hebrew',
+                'hebrew'
+              ],
+              [
+                'julian',
+                'julian'
+              ]
+            ]
+          }
         }
       },
     }
   },
-  note: {
+  physicalDescription: {
     usage: 'O',
-    label: 'Poznámka',
-    selector: 'note',
-    labelKey: 'note',
-    description: 'Obecná poznámka k titulu periodika jako celku<br/>\
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility)\
-      a v polích 5XX (poznámky) katalogizačního záznamu',
+    label: 'Fyzický popis',
+    selector: 'physicalDescription',
+    labelKey: 'physicalDescription',
+    description: 'Obsahuje údaje o fyzickém popisu předlohy',
     fields: {
-      type: {
-        usage: 'O',
-        label: 'Typ',
-        cols: 2,
-        selector: 'note/@type',
-        labelKey: 'note/@type',
-        options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'uuid',
-            'uuid'
-          ]
-        ]
-      },
-      'xlink:href': {
-        usage: 'O',
-        cols: 2,
-        label: 'xLink',
-        selector: 'note/@xlink',
-        labelKey: 'note/@xlink',
-      },
       note: {
         usage: 'O',
-        selector: 'note/value',
-        labelKey: 'note/value',
         label: 'Poznámka',
-        help: 'off'
+        selector: 'physicalDescription/note',
+        labelKey: 'physicalDescription/note',
+        description: 'Poznámka o fyzickém stavu dokumentu<br/>\
+          zapisují se zde defekty zjištěné při digitalizaci pro úroveň ročníku (např. chybějící čísla apod.)'
       }
     }
   },
   genre: {
-    usage: 'M',
+    usage: 'MA',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
     description: 'Bližší údaje o typu dokumentu<br/>\
-      Hodnota <strong>electronic_volume</strong>',
+      Hodnota <strong>volume</strong>',
     fields: {
       value: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',
@@ -354,7 +458,7 @@
     description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
     fields: {
       descriptionStandard: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Standard metadat',
         cols: 2,
         selector: 'recordInfo/descriptionStandard',
@@ -389,16 +493,16 @@
           },
           authority: {
             usage: 'R',
-            defaultValue: 'marcorg',
+            defaultValue: 'siglaADR',
             label: 'Autorita',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',
             labelKey: 'recordInfo/recordContentSource/@authority',
-            description: 'authority – hodnota "marcorg"',
+            description: 'authority – hodnota "siglaADR"',
             options: [
               [
-                'marcorg',
-                'marcorg'
+                'siglaADR',
+                'siglaADR'
               ]
             ]
           }
@@ -453,8 +557,7 @@
             help: 'off'
           },
           encoding: {
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
@@ -470,7 +573,7 @@
         }
       },
       recordIdentifier: {
-        usage: 'R',
+        usage: 'MA',
         label: 'Identifikátor záznamu',
         selector: 'recordInfo/recordIdentifier',
         labelKey: 'recordInfo/recordIdentifier',
@@ -485,7 +588,7 @@
             help: 'off'
           },
           source: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Zdroj',
             cols: 2,
             selector: 'recordInfo/recordIdentifier/@source',
@@ -497,9 +600,9 @@
       recordOrigin: {
         usage: 'R',
         label: 'Údaje o vzniku záznamu',
-        cols: 2,
         selector: 'recordInfo/recordOrigin',
         labelKey: 'recordInfo/recordOrigin',
+        cols: 2,
         description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
         options: [
           [
@@ -520,14 +623,30 @@
         description: 'jazyk katalogového záznamu',
         fields: {
           language: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Jazyk',
             selector: 'recordInfo/languageOfCataloging/languageTerm',
             labelKey: 'recordInfo/languageOfCataloging/languageTerm',
             description: 'Přesné určení jazyka'
+          },
+          type: {
+            usage: 'R',
+            defaultValue: 'code',
+            label: 'Typ',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            options: [['code', 'code']]
+          },
+          authority: {
+            usage: 'R',
+            defaultValue: 'iso639-2b',
+            label: 'Autorita',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            options: [['iso639-2b', 'iso639-2b']]
           }
         }
-      },
+      }
     }
   }
 }
