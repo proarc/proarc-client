@@ -31,7 +31,9 @@ export class FieldCodebookComponent implements OnInit {
   constructor(public settings: UserSettings) {
   }
 
+  addValue: boolean = false;
   ngOnInit() {
+    this.addValue = this.options.findIndex((o: any) => o === this.value) < 0;
   }
 
   
