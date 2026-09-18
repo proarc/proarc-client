@@ -4,6 +4,11 @@
     <app-usage [item]="item" [field]="field"></app-usage>
     <mat-select [required]="item.isMandatory[field]" [formControl]="item.controls[field]"
       [placeholder]="'mods.' + item.labelKey[field] | translate">
+      @if (addValue) {
+        <mat-option [value]="value">
+          {{ value }}
+        </mat-option>
+      }
       @for(option of item.options(field); track $index;) {
         <mat-option [value]="option[0]">
           {{ 'mods.option.' + option[0] | translate }}
