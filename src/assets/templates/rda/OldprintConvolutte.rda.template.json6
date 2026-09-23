@@ -200,7 +200,7 @@
     description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
     fields: {
       descriptionStandard: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Standard metadat',
         cols: 2,
         selector: 'recordInfo/descriptionStandard',
@@ -235,16 +235,16 @@
           },
           authority: {
             usage: 'R',
-            defaultValue: 'marcorg',
+            defaultValue: 'siglaADR',
             label: 'Autorita',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',
             labelKey: 'recordInfo/recordContentSource/@authority',
-            description: 'authority – hodnota "marcorg"',
+            description: 'authority – hodnota "siglaADR"',
             options: [
               [
-                'marcorg',
-                'marcorg'
+                'siglaADR',
+                'siglaADR'
               ]
             ]
           }
@@ -299,8 +299,7 @@
             help: 'off'
           },
           encoding: {
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
@@ -316,7 +315,7 @@
         }
       },
       recordIdentifier: {
-        usage: 'R',
+        usage: 'MA',
         label: 'Identifikátor záznamu',
         selector: 'recordInfo/recordIdentifier',
         labelKey: 'recordInfo/recordIdentifier',
@@ -331,7 +330,7 @@
             help: 'off'
           },
           source: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Zdroj',
             cols: 2,
             selector: 'recordInfo/recordIdentifier/@source',
@@ -343,9 +342,9 @@
       recordOrigin: {
         usage: 'R',
         label: 'Údaje o vzniku záznamu',
-        cols: 2,
         selector: 'recordInfo/recordOrigin',
         labelKey: 'recordInfo/recordOrigin',
+        cols: 2,
         description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
         options: [
           [
@@ -366,14 +365,30 @@
         description: 'jazyk katalogového záznamu',
         fields: {
           language: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Jazyk',
             selector: 'recordInfo/languageOfCataloging/languageTerm',
             labelKey: 'recordInfo/languageOfCataloging/languageTerm',
             description: 'Přesné určení jazyka'
+          },
+          type: {
+            usage: 'R',
+            defaultValue: 'code',
+            label: 'Typ',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@type',
+            options: [['code', 'code']]
+          },
+          authority: {
+            usage: 'R',
+            defaultValue: 'iso639-2b',
+            label: 'Autorita',
+            selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+            options: [['iso639-2b', 'iso639-2b']]
           }
         }
-      },
+      }
     }
   }
 }
