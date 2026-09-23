@@ -1230,7 +1230,7 @@
     }
   },
   genre: {
-    usage: 'MA',
+    usage: 'M',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -1239,7 +1239,7 @@
     fields: {
       authority: { usage: 'R', label: 'Autorita', selector: 'genre/@authority', labelKey: 'genre/@authority', options: [['', '-'], ['czenas', 'czenas'], ['rdacontent', 'rdacontent']] },
       value: {
-        usage: 'MA',
+        usage: 'M',
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',

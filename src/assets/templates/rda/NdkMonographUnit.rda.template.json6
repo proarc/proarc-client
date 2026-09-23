@@ -1425,7 +1425,7 @@
     }
   },
   genre: {
-    usage: 'MA',
+    usage: 'M',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -1433,7 +1433,7 @@
       Pro monografie hodnota <strong>volume</strong>',
     fields: {
       value: {
-        usage: 'MA',
+        usage: 'M',
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',

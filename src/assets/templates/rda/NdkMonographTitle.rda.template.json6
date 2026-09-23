@@ -799,7 +799,7 @@
     }
   },
   genre: {
-    usage: 'MA',
+    usage: 'M',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -807,7 +807,7 @@
       Hodnota <strong>title</strong>',
     fields: {
       value: {
-        usage: 'MA',
+        usage: 'M',
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',

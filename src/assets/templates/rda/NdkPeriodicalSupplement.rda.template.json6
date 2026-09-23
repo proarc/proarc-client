@@ -1087,7 +1087,7 @@
     }
   },
   genre: {
-    usage: 'MA',
+    usage: 'M',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -1095,7 +1095,7 @@
       hodnota <strong>supplement</strong>',
     fields: {
       type: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Typ',
         selector: 'genre/@type',
         labelKey: 'genre/@type',

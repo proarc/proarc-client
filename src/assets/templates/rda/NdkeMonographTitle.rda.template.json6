@@ -269,7 +269,7 @@
     }
   },
   genre: {
-    usage: 'R',
+    usage: 'M',
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -277,7 +277,7 @@
       Hodnota <strong>electronic title</strong>',
     fields: {
       value: {
-        usage: 'R',
+        usage: 'M',
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',
