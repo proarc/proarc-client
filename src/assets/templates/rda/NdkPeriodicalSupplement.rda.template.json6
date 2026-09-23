@@ -291,7 +291,7 @@
     selector: 'originInfo',
     labelKey: 'originInfo',
     expanded: true,
-    description: 'Informace o původu předlohy: odpovídá poli 260',
+    description: 'Informace o původu předlohy: odpovídá poli 264',
     fields: {
       agent: {
         usage: 'MA',
@@ -348,8 +348,8 @@
           }
         },
         description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
-            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
-            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 260)',
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>\
+            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)',
       },
       dateIssued: {
         usage: 'MA',
@@ -360,7 +360,7 @@
         expanded: true,
         description: 'Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>\
             možno použít hodnotu z katalogizačního záznamu<br/>\
-            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10',
+            Odpovídá hodnotě z katalogizačního záznamu, pole 264 $c a pole 008/07-10',
         fields: {
           value: {
             usage: 'MA',
@@ -430,7 +430,7 @@
         selector: 'originInfo/place',
         labelKey: 'originInfo/place',
         description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
-            odpovídá hodnotě 260 $a',
+            odpovídá hodnotě 264 $a',
         fields: {
           placeTerm: {
             usage: 'MA',
@@ -499,7 +499,7 @@
         cols: 3,
         description: 'Datum vydání předlohy pro rukopisy\
           přebírat z katalogu<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"',
+          odpovídá hodnotě z katalogizačního záznamu, pole 264 $c pokud je LDR/06="d", "f", "t"',
         fields: {
           value: {
             usage: 'R',
