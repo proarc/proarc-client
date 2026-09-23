@@ -1133,13 +1133,7 @@
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
         description: 'Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>\
-          odpovídá hodnotě v poli 008/23<br/>\
-          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:\
-          <ul>\
-            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>\
-            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>\
-          </ul>\
-          ',
+          odpovídá hodnotě v poli 008/23',
         fields: {
           authority: {
             usage: 'MA',
@@ -2869,13 +2863,7 @@
             selector: 'relatedItem/physicalDescription/form',
             labelKey: 'relatedItem/physicalDescription/form',
             description: 'Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>\
-          odpovídá hodnotě v poli 008/23<br/>\
-          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:\
-          <ul>\
-            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>\
-            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>\
-          </ul>\
-          ',
+          odpovídá hodnotě v poli 008/23',
             fields: {
               authority: {
                 usage: 'MA',

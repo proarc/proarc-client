@@ -546,12 +546,7 @@
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
         description: 'Údaje o fyzické podobě dokumentu, použít primárně pro hodnotu z 007/01,<br/>\
-          pokud není vyplněno, je možné použít hodnotu sound recording. <br/>\
-          Údaje o typu média a typu nosiče zdroje/předlohy - odpovídá hodnotám z pole:\
-          <ul>\
-            <li>337 NEPOVINNÉ (hodnota “audio” – viz kontrolovaný slovník pole 337 http://www.loc.gov/standards/valuelist/rdamedia.html)</li>\
-            <li>338 POVINNÉ (hodnota “audiodisc” – viz kontrolovaný slovník pole 338 http://www.loc.gov/standards/valuelist/rdacarrier.html)</li>\
-          </ul>',
+          pokud není vyplněno, je možné použít hodnotu sound recording.',
         fields: {
           authority: {
             usage: 'M',

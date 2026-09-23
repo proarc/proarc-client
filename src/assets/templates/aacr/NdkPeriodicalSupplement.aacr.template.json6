@@ -393,34 +393,6 @@
           },
         },
       },
-      dateOther: {
-        usage: 'R',
-        label: 'Datum - jiné',
-        selector: 'originInfo/dateOther',
-        labelKey: 'originInfo/dateOther',
-        description: 'Datum vytvoření, distribuce nebo výroby přílohy.',
-        fields: {
-          value: {
-            usage: 'R',
-            label: 'Hodnota',
-            selector: 'originInfo/dateOther/value',
-            labelKey: 'originInfo/dateOther/value'
-          },
-          type: {
-            usage: 'M',
-            label: 'Typ',
-            selector: 'originInfo/dateOther/@type',
-            labelKey: 'originInfo/dateOther/@type',
-            options: [['production', 'Produkce'], ['distribution', 'Distribuce'], ['manufacture', 'Výroba']]
-          }
-        }
-      },
-      copyrightDate: {
-        usage: 'R',
-        label: 'Datum copyrightu',
-        selector: 'originInfo/copyrightDate',
-        labelKey: 'originInfo/copyrightDate'
-      },
       dateCreated: {
         usage: 'R',
         label: 'Datum vytvoření',
@@ -847,23 +819,8 @@
               [
                 'gmd',
                 'gmd'
-              ],
-              [
-                'rdamedia',
-                'rdamedia'
-              ],
-              [
-                'rdacarrier',
-                'rdacarrier'
               ]
             ]
-          },
-          type: {
-            usage: 'MA',
-            label: 'Typ',
-            selector: 'physicalDescription/form/@type',
-            labelKey: 'physicalDescription/form/@type',
-            options: [['', '-'], ['media', 'Médium'], ['carrier', 'Nosič']]
           },
           value: {
             usage: 'M',
