@@ -123,7 +123,7 @@
         selector: 'originInfo/place',
         labelKey: 'originInfo/place',
         description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
-            odpovídá hodnotě 260 $a',
+            odpovídá hodnotě 264 $a',
         fields: {
           placeTerm: {
             usage: 'O',

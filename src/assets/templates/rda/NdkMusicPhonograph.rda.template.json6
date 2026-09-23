@@ -234,8 +234,8 @@
         selector: 'originInfo/publisher',
         labelKey: 'originInfo/publisher',
         description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
-            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
-            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)',
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>\
+            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 264)',
       },
       eventType: {
         usage: 'M',
@@ -1429,8 +1429,8 @@
             selector: 'relatedItem/originInfo/publisher',
             labelKey: 'relatedItem/originInfo/publisher',
             description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
-            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
-            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)',
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>\
+            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 264)',
           },
           eventType: {
             usage: 'MA',
