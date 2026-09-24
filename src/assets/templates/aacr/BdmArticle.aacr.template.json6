@@ -638,8 +638,6 @@
                 <li><strong>marccategory</strong></li>\
                 <li><strong>marcsmd</strong></li>\
                 <li><strong>gmd</strong></li>\
-                <li><strong>rdamedia</strong> (pro pole 337)</li>\
-                <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
               [
@@ -657,36 +655,6 @@
               [
                 'gmd',
                 'gmd'
-              ],
-              [
-                'rdamedia',
-                'rdamedia'
-              ],
-              [
-                'rdacarrier',
-                'rdacarrier'
-              ]
-            ]
-          },
-          type: {
-            usage: 'MA',
-            label: 'Typ',
-            selector: 'physicalDescription/form/@type',
-            labelKey: 'physicalDescription/form/@type',
-            cols: 2,
-            description: 'Možné hodnoty\
-              <ul>\
-                <li><strong>media</strong> pro pole 337</li>\
-                <li><strong>carrier</strong> pro pole 338</li>\
-              </ul>',
-            options: [
-              [
-                'media',
-                'media'
-              ],
-              [
-                'carrier',
-                'carrier'
               ]
             ]
           },
@@ -1707,7 +1675,7 @@
             selector: 'originInfo/place',
             labelKey: 'originInfo/place',
             description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
-            odpovídá hodnotě 264 $a',
+            odpovídá hodnotě 260 $a',
             fields: {
               placeTerm: {
                 usage: 'MA',
@@ -1927,7 +1895,7 @@
                 cols: 2,
                 description: 'Datum vydání předlohy.<br/>\
             Přebírat z katalogu.<br/>\
-            Odpovídá hodnotě z katalogizačního záznamu, pole 264, $c a pole 008/07-10',
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10',
                 fields: {
                   value: {
                     usage: 'R',
