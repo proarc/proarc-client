@@ -230,7 +230,7 @@
             pokud má periodikum více vydavatelů, přebírají se ze záznamu všichni (v jednom poli 260)',
       },
       dateIssued: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',

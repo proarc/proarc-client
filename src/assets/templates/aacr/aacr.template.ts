@@ -183,7 +183,7 @@ export class AacrTemplate {
             Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
         },
         dateIssued: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           cols: 2,
