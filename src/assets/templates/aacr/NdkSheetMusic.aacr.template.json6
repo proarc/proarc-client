@@ -600,6 +600,10 @@
             'agrovoc',
             'agrovoc'
           ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ],
         ]
       },
       topic: {

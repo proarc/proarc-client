@@ -397,6 +397,7 @@ export class AacrTemplate {
             ['czmesh', 'czmesh'],
             ['msvkth', 'msvkth'],
             ['agrovoc', 'agrovoc'],
+            ['Konspekt', 'Konspekt']
           ]
         },
         topic: {

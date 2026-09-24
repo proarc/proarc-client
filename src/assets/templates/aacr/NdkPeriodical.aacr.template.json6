@@ -617,7 +617,11 @@
           [
             'czmesh',
             'czmesh'
-          ]
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ],
         ]
       },
       topic: {
