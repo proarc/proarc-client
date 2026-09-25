@@ -14,7 +14,7 @@ import { UIService } from '../../services/ui.service';
 import { LayoutService } from '../../services/layout-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HighlightAuto } from 'ngx-highlightjs';
+import { Highlight } from 'ngx-highlightjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditorSwitcherComponent } from "../editor-switcher/editor-switcher.component";
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { UserSettings } from '../../shared/user-settings';
 
 
 @Component({
-  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, HighlightAuto, EditorSwitcherComponent],
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, Highlight, EditorSwitcherComponent],
   selector: 'app-editor-mods',
   templateUrl: './editor-mods.component.html',
   styleUrls: ['./editor-mods.component.scss']

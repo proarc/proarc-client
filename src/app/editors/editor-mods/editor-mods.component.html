@@ -36,13 +36,13 @@
       @if (state !=='loading') {
         <div class="app-fxLayout app-column app-fill app-view-edit">
           @if (editting && !realtime) {
-            <pre class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlightAuto]="mods.original"></code></pre>
+            <pre class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" language="xml" [highlight]="mods.original"></code></pre>
           }
           @if (!editting && !realtime) {
-            <pre class="app-xml-content" #originalPre><code [highlightAuto]="mods.original"></code></pre>
+            <pre class="app-xml-content" #originalPre><code [highlight]="mods.original" language="xml"></code></pre>
           }
           @if (!editting && realtime && layout.lastSelectedItemMetadata) {
-            <pre class="app-xml-content"><code [highlightAuto]="layout.lastSelectedItemMetadata.toMods()"></code></pre>
+            <pre class="app-xml-content"><code [highlight]="layout.lastSelectedItemMetadata.toMods()" language="xml"></code></pre>
           }
         </div>
       }
