@@ -217,7 +217,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -720,8 +720,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
