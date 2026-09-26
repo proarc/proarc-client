@@ -1,6 +1,6 @@
 {
-    "/proarc": {
-      "target": "http://localhost:8080",
+    "/api": {
+      "target": "https://proarc-dev.inovatika.dev",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true
