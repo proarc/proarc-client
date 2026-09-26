@@ -220,6 +220,50 @@
       }
     }
   },
+  tableOfContents: {
+    usage: 'MA',
+    label: 'Tabulka souvislostí',
+    selector: 'tableOfContents',
+    labelKey: 'tableOfContents',
+    description: 'Slouží k vepsání názvů částí skladby, pokud je skladba obsahuje; obsah pole 505 $a',
+    fields: {
+      displayLabel: {
+        usage: 'MA',
+        label: 'Zobrazená část',
+        selector: 'tableOfContents/@displayLabel',
+        labelKey: 'tableOfContents/@displayLabel',
+        description: 'Hodnoty dle prvního indikátoru pole 505 v katalogizačním záznamu<br/>\
+          <ul>\
+            <li><strong>Contents</strong>ind1=0 hodnota</li>\
+            <li><strong>Incomplete contents</strong>ind1=1 hodnota</li>\
+            <li><strong>Partial contents</strong>ind1=2 hodnota</li>\
+          </ul>',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'Contents',
+            'Contents'
+          ],
+          [
+            'Incomplete contents',
+            'Incomplete contents'
+          ],
+          [
+            'Partial contents',
+            'Partial contents'
+          ],
+        ]
+      },
+      value: {
+        usage: 'MA',
+        label: 'Hodnota',
+        help: 'off'
+      }
+    }
+  },
   originInfo: {
     usage: 'M',
     label: 'Původ předlohy',
