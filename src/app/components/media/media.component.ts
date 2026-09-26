@@ -43,12 +43,14 @@ export class MediaComponent implements OnInit {
   isLocked = false;
   isRepo = true;
   canAddPdf = false;
+  canContainDigitalContent = false;
   allowedModels = [
     'model:ndkeperiodicalissue',
     'model:ndkeperiodicalsupplement',
     'model:ndkearticle',
     'model:ndkemonographvolume',
     'model:ndkemonographunit',
+    'model:ndkemonographsupplement',
     'model:ndkechapter',
     'model:chroniclesupplement',
     'model:bdmarticle']
@@ -138,6 +140,13 @@ export class MediaComponent implements OnInit {
     this.currentPid.set(pid);
     this.currentModel = model;
     this.canAddPdf = this.allowedModels.includes(model);
+    this.canContainDigitalContent = this.lastSelectedItem().canContainDigitalContent();
+    if (!this.canContainDigitalContent) {
+      this.streamProfiles = [];
+      this.streamProfile = null;
+      this.state = 'unsupported';
+      return;
+    }
     this.getProfiles(pid);
   }
 

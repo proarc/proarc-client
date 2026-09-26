@@ -43,6 +43,7 @@ export class PanelComponent {
   showPagesEditor: boolean;
   showAudioPagesEditor: boolean;
   showIssuesEditor: boolean;
+  canContainImage: boolean;
 
   lastSelectedItem = input<DocumentItem>();
   rootItem = input<DocumentItem>();
@@ -65,6 +66,7 @@ export class PanelComponent {
       }
       this.itemModel = this.itemType(lastSelectedItem);
       this.imageInfo = { pid: lastSelectedItem.pid, dsid: 'FULL' };
+      this.canContainImage = lastSelectedItem.canContainImage();
       this.showPagesEditor = this.isPagesEditor(this.numOfSelected(), lastSelectedItem);
       this.showAudioPagesEditor = this.isAudioPagesEditor(this.numOfSelected(), lastSelectedItem);
       this.showIssuesEditor = this.isIssuesEditor(this.numOfSelected());

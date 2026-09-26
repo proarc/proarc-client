@@ -145,6 +145,7 @@ export class Configuration {
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
       'model:ndkemonographunit',
+      'model:ndkemonographsupplement',
       'model:ndkechapter',
       'model:bdmarticle'
     ].indexOf(model) >= 0;

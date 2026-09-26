@@ -3362,6 +3362,8 @@
   "alert": {
     "info": {
       "digitalContentIsNotSupported": "Digital content is not supported",
+      "digitalContentIsNotLoadedForModel": "Digital content is not loaded for this object type.",
+      "imageIsNotLoadedForModel": "The image is not loaded for this object type.",
       "noDigitalContent": "No digital content",
       "theImageIsNotAvailable": "The image is not available",
       "noItemsToDisplay": "No items to display",

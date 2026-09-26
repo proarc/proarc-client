@@ -185,6 +185,14 @@ export class DocumentItem extends TableItem {
     return this.model === 'model:bdmarticle';
   }
 
+  public canContainDigitalContent(): boolean {
+    return this.canContainImage() || this.isAudioPage();
+  }
+
+  public canContainImage(): boolean {
+    return this.isPage() || this.canContainPdf();
+  }
+
   public canContainPdf(): boolean {
     return [
       'model:ndkeperiodical',
@@ -195,6 +203,7 @@ export class DocumentItem extends TableItem {
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
       'model:ndkemonographunit',
+      'model:ndkemonographsupplement',
       'model:ndkechapter',
       'model:bdmarticle'
     ].indexOf(this.model) >= 0;

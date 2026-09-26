@@ -3396,6 +3396,8 @@
   "alert": {
     "info": {
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
+      "digitalContentIsNotLoadedForModel": "Pro tento typ objektu se digitální obsah nenačítá.",
+      "imageIsNotLoadedForModel": "Pro tento typ objektu se obrázek nenačítá.",
       "noDigitalContent": "Žádný digitální obsah",
       "theImageIsNotAvailable": "Obrázek není k dispozici",
       "noItemsToDisplay": "Žádné položky k zobrazení",
