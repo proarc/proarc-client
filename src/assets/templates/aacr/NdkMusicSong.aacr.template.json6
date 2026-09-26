@@ -1723,16 +1723,16 @@
           skladba obsahuje části: 1-n částí, např. 3 části skladby<br/>\
           skladba neobsahuje části a je na ní rovnou navázán zvukový soubor:<br/>\
           stopáž (formát – 00:00:00) + odpovídá hodnotám v poli 306 $a',
-          },
-          fields: {
-            value: {
-              usage: 'MA',
-              selector: 'relatedItem/physicalDescription/extent/value',
-              labelKey: 'relatedItem/physicalDescription/extent/value',
-              label: 'Hodnota',
-              help: 'off'
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'relatedItem/physicalDescription/extent/value',
+                labelKey: 'relatedItem/physicalDescription/extent/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
             }
-          }
+          },
         }
       },
       note: {
