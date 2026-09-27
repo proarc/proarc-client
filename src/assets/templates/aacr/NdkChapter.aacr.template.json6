@@ -168,8 +168,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -251,6 +250,10 @@
           [
             'agrovoc',
             'agrovoc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
           ],
         ]
       },
@@ -430,8 +433,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,

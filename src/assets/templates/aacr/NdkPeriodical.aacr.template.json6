@@ -183,8 +183,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -230,7 +229,7 @@
             pokud má periodikum více vydavatelů, přebírají se ze záznamu všichni (v jednom poli 260)',
       },
       dateIssued: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -617,7 +616,11 @@
           [
             'czmesh',
             'czmesh'
-          ]
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ],
         ]
       },
       topic: {
@@ -831,7 +834,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,

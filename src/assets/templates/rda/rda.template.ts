@@ -259,7 +259,7 @@ export class RdaTemplate {
           ]
         },
         dateIssued: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',

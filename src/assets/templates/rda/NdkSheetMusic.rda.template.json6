@@ -185,8 +185,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -314,7 +313,7 @@
         ]
       },
       dateIssued: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -332,8 +331,7 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
         fields: {
           value: {
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'originInfo/dateIssued/value',
             labelKey: 'originInfo/dateIssued/value',
             label: 'Hodnota',
@@ -898,7 +896,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -1423,7 +1421,7 @@
     description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
     fields: {
       type: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Typ',
         selector: 'part/@type',
         labelKey: 'part/@type',

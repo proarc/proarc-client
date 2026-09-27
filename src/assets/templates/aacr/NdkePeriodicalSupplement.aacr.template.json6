@@ -473,10 +473,10 @@
             'agrovoc',
             'agrovoc'
           ],
-          //          [
-          //            'Konspekt',
-          //            'Konspekt'
-          //          ]
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       topic: {

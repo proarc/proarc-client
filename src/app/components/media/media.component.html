@@ -54,7 +54,13 @@
 		</div>
 		}
 		<div class="app-fxLayout app-column app-fill">
-			@if (!streamProfile && state !== 'loading') {
+			@if (!canContainDigitalContent) {
+			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
+				<mat-card-content>
+					<mat-icon>info</mat-icon>{{ 'alert.info.digitalContentIsNotLoadedForModel' | translate }}
+				</mat-card-content>
+			</mat-card>
+			} @else if (!streamProfile && state !== 'loading') {
 			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
 				<mat-card-content>
 					<mat-icon>info</mat-icon>{{ 'alert.info.noDigitalContent' | translate }}

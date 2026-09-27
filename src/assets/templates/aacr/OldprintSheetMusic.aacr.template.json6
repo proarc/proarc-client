@@ -185,8 +185,7 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -242,7 +241,7 @@
             Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).',
       },
       dateIssued: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -252,8 +251,7 @@
             Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10',
         fields: {
           value: {
-            usage: 'M',
-            required: true,
+            usage: 'MA',
             selector: 'originInfo/dateIssued/value',
             labelKey: 'originInfo/dateIssued/value',
             label: 'Hodnota',
@@ -600,6 +598,10 @@
             'agrovoc',
             'agrovoc'
           ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ],
         ]
       },
       topic: {
@@ -753,7 +755,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -1225,7 +1227,7 @@
     description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
     fields: {
       type: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Typ',
         selector: 'part/@type',
         labelKey: 'part/@type',

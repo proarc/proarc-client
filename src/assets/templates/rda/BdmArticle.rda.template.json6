@@ -215,6 +215,40 @@
     labelKey: 'bdm/subject',
     description: 'Údaje o věcném třídění',
     fields: {
+      authority: {
+        usage: 'R',
+        label: 'Autorita',
+        selector: 'subject/@authority',
+        labelKey: 'subject/@authority',
+        description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong><br/>\
+          Odpovídá hodnotě v $2',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'czenas',
+            'czenas'
+          ],
+          [
+            'eczenas',
+            'eczenas'
+          ],
+          [
+            'mednas',
+            'mednas'
+          ],
+          [
+            'czmesh',
+            'czmesh'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
       topic: {
           max: 1,
         usage: 'R',
@@ -1370,7 +1404,7 @@
         usage: 'R',
         label: 'Recenze na',
         selector: 'relatedItem/relatedItem',
-        labelKey: 'relatedItem/relatedItem',
+        labelKey: 'bdm/relatedItem/relatedItem',
         description: 'Recenze na:',
         fields: {
           type: {
