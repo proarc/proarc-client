@@ -166,7 +166,7 @@
   @if (state !== 'saving' && selectedDestItem) {
     <div class="app-tree">
       <app-user-tree-table #treeTable [inSearch]="false" [container]="'parent'" [initData]="{treePath: expandedPath(), rootTreeItem:selectedRootTreeItem()}"
-                  (onSelectTreeItem)="onSelectTreeItem($event)"
+          (onSelectTreeItem)="onSelectTreeItem($event)"
       ></app-user-tree-table>
     </div>
   }

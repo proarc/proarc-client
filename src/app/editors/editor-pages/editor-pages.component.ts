@@ -96,7 +96,7 @@ export class EditorPagesComponent implements OnInit {
   subscriptions: Subscription[] = [];
   numberingExample = signal<string>('');
 
-  
+
   selectionChanged: boolean;
 
   constructor(
@@ -177,6 +177,7 @@ export class EditorPagesComponent implements OnInit {
     this.controls.patchValue(this.holder);
     this.pageNumberNumberingControl.setValue(this.holder.pageNumberNumbering);
     this.numberingExample.set('');
+    //this.pageNumberNumberingControl.setValue(this.numberingTypes[0].id);
     this.controls.markAsPristine();
     this.canSave = false;
     this.setPanelEditing();
