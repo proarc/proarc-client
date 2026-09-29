@@ -13,6 +13,10 @@ export class UserSettings {
 
     lang: string;
 
+    getModsLang(): string {
+      return this.lang?.split('-')[1] || this.lang || 'cs';
+    }
+
     searchModel: string; // Last model used in search
     searchOrganization: string; // Last organization used in search
     searchQueryField: string; // Last field used in search

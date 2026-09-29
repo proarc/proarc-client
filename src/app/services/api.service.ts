@@ -46,9 +46,9 @@ export class ApiService {
     return this.config.proarcUrl + `/rest/v2/`
   }
 
-  private get(path: string, params = {}): Observable<Object> {
+  private get(path: string, params = {}, acceptLanguage: string = this.getLang()): Observable<Object> {
     const headers = new HttpHeaders({
-      'Accept-Language': this.getLang()
+      'Accept-Language': acceptLanguage
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
       .pipe(map((r: any) => {
@@ -801,7 +801,7 @@ export class ApiService {
     return this.get('authorities').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
-  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<any> {
+  getCatalogSearchResults(type: string, catalog: string, field: string, query: string, modsLanguage: string): Observable<any> {
     const params: any = {
       catalog: catalog,
       fieldName: field,
@@ -812,7 +812,7 @@ export class ApiService {
       resource = 'authorities';
       params['type'] = 'ALL';
     }
-    return this.get(`${resource}/query`, params);
+    return this.get(`${resource}/query`, params, modsLanguage);
   }
 
   getDevices(): Observable<Device[]> {
