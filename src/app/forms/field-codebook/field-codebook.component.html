@@ -5,6 +5,11 @@
     <mat-select [required]="item.isMandatory[field]"
       [formControl]="item.controls[field]"
       [placeholder]="'mods.' + item.labelKey[field] | translate">
+      @if (addValue) {
+        <mat-option [value]="value">
+          {{ value }}
+        </mat-option>
+      }
       @for(option of options; track $index;) {
         <mat-option [value]="option">
           {{ prefix + '.' + option | translate }} {{ showCode ? '('+option + ')' : '' }}

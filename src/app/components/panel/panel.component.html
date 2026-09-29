@@ -17,12 +17,14 @@
     <app-editor-structure [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
     }
     @case ('image') {
-    @if (itemModel === 'page') {
+    @if (canContainImage) {
     <app-viewer [imageInfo]="imageInfo"></app-viewer>
     } @else {
-    <div class="app-fxLayout app-row app-fill app-center-v app-center-h">
-      <mat-card class="app-alert app-info" appearance="outlined">
-        <mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}
+    <div class="app-fxLayout app-column app-fill">
+      <mat-card class="app-alert app-info app-m-4" appearance="outlined">
+        <mat-card-content>
+          <mat-icon>info</mat-icon>{{ 'alert.info.imageIsNotLoadedForModel' | translate }}
+        </mat-card-content>
       </mat-card>
     </div>
     }

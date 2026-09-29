@@ -344,7 +344,7 @@
         description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila',
       },
       dateIssued: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',

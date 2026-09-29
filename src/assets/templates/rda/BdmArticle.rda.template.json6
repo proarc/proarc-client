@@ -1833,7 +1833,7 @@
         usage: 'R',
         label: 'Recenze na',
         selector: 'relatedItem/relatedItem',
-        labelKey: 'relatedItem/relatedItem',
+        labelKey: 'bdm/relatedItem/relatedItem',
         description: 'Recenze na:',
         fields: {
           type: {

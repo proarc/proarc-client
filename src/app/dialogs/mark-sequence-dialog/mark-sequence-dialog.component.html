@@ -47,11 +47,21 @@
                   [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}"
                   [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
-                      [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                    @if (config.isPage(item.model)) {
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
+                        [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                    } @else {
+                      <div class="app-item-thumb app-item-model" [style.height]="data.iconHeight['dest'] + 'px'">
+                        <div class="app-text">{{ 'model.' + item.model | translate }}</div>
+                      </div>
+                    }
                     <div class="app-item-label">
                       <div class="app-text app-h-100">
-                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        @if (config.isPage(item.model)) {
+                          {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        } @else {
+                          {{ data.shortLabels ? item.shortLabel : item.label }}
+                        }
                       </div>
                     </div>
                   </div>
@@ -174,10 +184,20 @@
                   [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}"
                   [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                    @if (config.isPage(item.model)) {
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                    } @else {
+                      <div class="app-item-thumb app-item-model" [style.height]="data.iconHeight['dest'] + 'px'">
+                        <div class="app-text">{{ 'model.' + item.model | translate }}</div>
+                      </div>
+                    }
                     <div class="app-item-label">
                       <div class="app-text app-h-100">
-                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        @if (config.isPage(item.model)) {
+                          {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        } @else {
+                          {{ data.shortLabels ? item.shortLabel : item.label }}
+                        }
                       </div>
                     </div>
                   </div>
