@@ -124,25 +124,37 @@
                   (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid"
                   [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
+                    @if (config.isPage(item.model)) {
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
+                    } @else {
+                      <div class="app-item-thumb app-item-model" [style.height]="iconHeight + 'px'">
+                        <div class="app-text">{{ 'model.' + item.model | translate }}</div>
+                      </div>
+                    }
                     @if (isRepo) {
                       <div class="app-item-label">
                         @if (item.invalid) {
                           <mat-icon class="app-mr-1" (click)="goToInvalid(item.pid)">warning</mat-icon>
                         }
                         @if (!isAkubra) {
-                          {{ shortLabels ? item.shortLabel : item.label }}<br />
-                          ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                          {{ shortLabels ? item.shortLabel : item.label }}
+                          @if (config.isPage(item.model)) {
+                            <br />({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                          }
                         }
                         @if (isAkubra) {
-                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
-                            @if (item.pageNumber) {
-                              {{ item.pageNumber }}
-                            }
-                            @if (item.pageType) {
-                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
-                            }
-                          </div>
+                          @if (config.isPage(item.model)) {
+                            <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
+                              @if (item.pageNumber) {
+                                {{ item.pageNumber }}
+                              }
+                              @if (item.pageType) {
+                                {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                              }
+                            </div>
+                          } @else {
+                            <div class="app-text app-h-100" [matTooltip]="item.label">{{ item.label }}</div>
+                          }
                         }
                       </div>
                     }
@@ -152,20 +164,28 @@
                           <mat-icon>warning</mat-icon>
                         }
                         @if (!isAkubra) {
-                          {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                          @if (config.isPage(item.model)) {
+                            {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                          } @else {
+                            {{ shortLabels ? item.shortLabel : item.label }}
+                          }
                         }
                         @if (isAkubra) {
-                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
-                            @if (item.pageNumber) {
-                              {{ item.pageNumber }},
-                            }
-                            @if (item.pageIndex) {
-                              <span class="app-desc">({{ item.pageIndex }})</span>
-                            }
-                            @if (item.pageType) {
-                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
-                            }
-                          </div>
+                          @if (config.isPage(item.model)) {
+                            <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType | translate))) : '')">
+                              @if (item.pageNumber) {
+                                {{ item.pageNumber }},
+                              }
+                              @if (item.pageIndex) {
+                                <span class="app-desc">({{ item.pageIndex }})</span>
+                              }
+                              @if (item.pageType) {
+                                {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                              }
+                            </div>
+                          } @else {
+                            <div class="app-text app-h-100" [matTooltip]="item.label">{{ item.label }}</div>
+                          }
                         }
                       </div>
                     }

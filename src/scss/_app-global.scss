@@ -455,6 +455,20 @@ fieldset {
           background-position-y: center; 
         }
 
+        .app-item-model {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          padding: 8px;
+          text-align: center;
+
+          .app-text {
+            max-height: 100%;
+            overflow: hidden;
+          }
+        }
+
         .app-item-label {
           @extend .app-text-center, .app-p-1;
           font-size: 14px;
