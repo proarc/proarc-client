@@ -66,6 +66,7 @@
           @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
             <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
             <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+            <button mat-menu-item (click)="upgradeMods38()">{{ 'button.upgradeMods38' | translate }}</button>
           }
           @if (auth.user.changePagesFunction) {
             <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>

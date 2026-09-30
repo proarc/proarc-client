@@ -529,6 +529,10 @@ export class ApiService {
     return this.post(path, data);
   }
 
+  upgradeMods38(): Observable<any> {
+    return this.post('object/upgradeMods38', null);
+  }
+
 
   reindexPages(parentPid: string, pagePid: string, batchId: any = null, model: string): Observable<any> {
     let data = `parent=${parentPid}&pid=${pagePid}`;

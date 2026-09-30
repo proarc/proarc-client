@@ -282,6 +282,11 @@
         "finished": "Indexing parent objects in SOLR has finished."
       }
     },
+    "mods38Upgrade": {
+      "title": "Upgrade MODS to version 3.8",
+      "message": "Do you really want to schedule an upgrade of supported MODS records to version 3.8?",
+      "scheduled": "The MODS 3.8 upgrade has been scheduled."
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
@@ -2632,7 +2637,7 @@
     "profile": "Profile",
     "folderNamePid": "Folder/name/PID",
     "numberOfPages": "Number of pages",
-    "errorDetail": "Error detail",
+    "errorDetail": "Log detail",
     "params": "Parameters",
     "logInfo": "Detail",
     "markRow": "Mark row",
@@ -2884,6 +2889,7 @@
     "toIndex": "Index to SOLR",
     "indexParents": "Index parents to SOLR",
     "updateNdkPage": "Fix page type",
+    "upgradeMods38": "Upgrade MODS to version 3.8",
     "purgeObjects": "Purge deleted",
     "convertPages": "Convert pages",
     "czidloFunction": "CZIDLO",
@@ -3503,6 +3509,7 @@
       "internalProfile.indexObjectsToSolr": "Interní - Index objects to SOLR",
       "internalProfile.indexParentsToSolr": "Interní - Index parents to SOLR",
       "internalProfile.objectDistribution": "Intenal - Object distribution",
+      "internalProfile.upgradeMods38": "Internal - Upgrade MODS to version 3.8",
       "uploadProfile.proarc": "External - Upload to ProArcu",
       "uploadProfile.kramerius": "External - Upload to Krameria",
       "externalProfile.pero": "External - Pero",

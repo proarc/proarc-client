@@ -238,11 +238,16 @@
     'internalProfile.changeOwners',
     'internalProfile.urnnbn',
     'internalProfile.deletion',
-        'internalProfile.updateCatalogRecords',
+    'internalProfile.updateCatalogRecords',
     'uploadProfile.proarc',
     'uploadProfile.kramerius',
     'externalProfile.pero',
-    'externalProfile.pdfa'
+    'externalProfile.pdfa',
+    'internalProfile.indexObjectsToSolr',
+    'internalProfile.indexParentsToSolr',
+    'internalProfile.objectDistribution',
+    'internalProfile.upgradeMods38',
+    'externalProfile.thumbnail'
   ],
 
 

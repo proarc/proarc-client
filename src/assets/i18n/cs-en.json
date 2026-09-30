@@ -282,6 +282,11 @@
         "finished": "Indexace nadřazených objektů do SOLR doběhla."
       }
     },
+    "mods38Upgrade": {
+      "title": "Převod MODS na verzi 3.8",
+      "message": "Opravdu chcete naplánovat převod podporovaných MODS záznamů na verzi 3.8?",
+      "scheduled": "Převod MODS na verzi 3.8 byl naplánován."
+    },
     "lang": {
       "code": {
         "cs": "CS/CS",
@@ -2666,7 +2671,7 @@
     "profile": "Profil",
     "folderNamePid": "Složka/název/PID",
     "numberOfPages": "Počet stran",
-    "errorDetail": "Detail chyby",
+    "errorDetail": "Detail logu",
     "logInfo": "Detail",
     "params": "Parametry",
     "markRow": "Označit řadu",
@@ -2918,6 +2923,7 @@
     "toIndex": "Indexovat do SOLR",
     "indexParents": "Indexovat do SOLR nadřazených objektů",
     "updateNdkPage": "Opravit typ stran",
+    "upgradeMods38": "Převést MODS na verzi 3.8",
     "purgeObjects": "Smazat trvale",
     "convertPages": "Převést strany",
     "czidloFunction": "CZIDLO",
@@ -3533,6 +3539,7 @@
       "internalProfile.indexObjectsToSolr": "Interní - indexace do SOLR objektů",
       "internalProfile.indexParentsToSolr": "Interní - indexace do SOLR nadřazených objektů",
       "internalProfile.objectDistribution": "Interní - rozřazení objektů",
+      "internalProfile.upgradeMods38": "Interní - převod MODS na verzi 3.8",
       "uploadProfile.proarc": "Externí - Upload do ProArcu",
       "uploadProfile.kramerius": "Externí - Upload do Krameria",
       "externalProfile.pero": "Externí - Pero",
