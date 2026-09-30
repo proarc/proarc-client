@@ -32,6 +32,7 @@ export class Configuration {
   showCommentEditor: boolean;
   showWorkflow: boolean;
   showLogoutCounter: boolean;
+  showUpgradeMods38 = true;
   topPageTypes: string[];
   pageTypes: string[];
   topLanguages: string[];

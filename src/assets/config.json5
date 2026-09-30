@@ -105,6 +105,7 @@
   showCommentEditor: true,
   showWorkflow: true,
   showLogoutCounter: true,
+  showUpgradeMods38: false,
   pageTypes: [
     'normalPage',
     'bibliography',
