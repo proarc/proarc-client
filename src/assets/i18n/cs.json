@@ -2194,7 +2194,7 @@
     "subject/topic/value": "Hodnota",
     "subject/topic/@lang": "Jazyk",
     "subject/topic/@valueURI": "Value URI",
-    "tableOfContents": "Tabulka souvislostí",
+    "tableOfContents": "Poznámka o obsahu",
     "tableOfContents/@displayLabel": "Zobrazená část",
     "tableOfContents/value": "Hodnota",
     "titleInfo": "Název",

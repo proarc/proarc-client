@@ -759,7 +759,7 @@
     label: 'Tabulka souvislostí',
     selector: 'tableOfContents',
     labelKey: 'tableOfContents',
-    description: 'Slouží k vepsání názvů částí skladby, pokud je skladba obsahuje; obsah pole 505 $a',
+    description: 'Slouží k vepsání názvů částí; obsah pole 505 $a',
     fields: {
       displayLabel: {
         usage: '0',
@@ -2007,7 +2007,7 @@
         label: 'Tabulka souvislostí',
         selector: 'relatedItem/tableOfContents',
         labelKey: 'relatedItem/tableOfContents',
-        description: 'Slouží k vepsání názvů částí skladby, pokud je skladba obsahuje; obsah pole 505 $a',
+        description: 'Slouží k vepsání názvů částí; obsah pole 505 $a',
         fields: {
           displayLabel: {
             usage: '0',
