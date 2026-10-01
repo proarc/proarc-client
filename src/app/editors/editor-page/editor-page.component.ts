@@ -56,6 +56,7 @@ export class EditorPageComponent implements OnInit {
 
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
+  resourceTypes = ['text', 'still image', 'notated music', 'cartographic'];
 
   @ViewChild("pageNumber") pageNumberField: ElementRef;
   @ViewChild("pageIndex") pageIndexField: ElementRef;
@@ -69,13 +70,15 @@ export class EditorPageComponent implements OnInit {
   posControl = new FormControl();
   genreControl = new FormControl();
   noteControl = new FormControl();
+  typeOfResourceControl = new FormControl();
   controls: FormGroup = new FormGroup({
     type: this.pageTypeControl,
     number: this.pageNumberControl,
     index: this.pageIndexControl,
     position: this.posControl,
     genre: this.genreControl,
-    note: this.noteControl
+    note: this.noteControl,
+    typeOfResource: this.typeOfResourceControl
   });
 
   public page: Page;
@@ -133,15 +136,7 @@ export class EditorPageComponent implements OnInit {
 
   private setPage(page: Page) {
     this.page = page;
-    this.controls.get('type').setValue(page.type);
-    this.controls.patchValue({
-      type: this.page.type,
-      number: this.page.number,
-      index: this.page.index,
-      position: this.page.position,
-      genre: this.page.genre,
-      note: this.page.note
-    });
+    this.patchControlsFromPage();
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
     this.state = 'success';
@@ -149,7 +144,7 @@ export class EditorPageComponent implements OnInit {
     if (this.layout.movedToNextFrom == 'pageNumber') {
         this.pageNumberField.nativeElement.focus();
     } else if (this.layout.movedToNextFrom == 'pageIndex') {
-      
+
         this.pageIndexField.nativeElement.focus();
     } else if (this.layout.movedToNextFrom == 'type') {
         this.typeSelect.focus();
@@ -159,6 +154,18 @@ export class EditorPageComponent implements OnInit {
         this.genreSelect.focus();
     }
       }, 3000);
+  }
+
+  private patchControlsFromPage() {
+    this.controls.patchValue({
+      type: this.page.type,
+      number: this.page.number,
+      index: this.page.index,
+      position: this.page.position,
+      genre: this.page.genre,
+      note: this.page.note,
+      typeOfResource: this.page.typeOfResource
+    });
   }
 
   private onPidChanged(pid: string) {
@@ -188,8 +195,9 @@ export class EditorPageComponent implements OnInit {
   }
 
   onRevert() {
-    
+
     this.page.restore();
+    this.patchControlsFromPage();
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
     // setTimeout(() => {
@@ -295,6 +303,10 @@ export class EditorPageComponent implements OnInit {
     }
   }
 
+  additionalMetadataChanged() {
+    this.controls.markAsDirty();
+  }
+
   onSave(from: string = null) {
     if (this.validate()) {
       this.save(from);
@@ -314,8 +326,8 @@ export class EditorPageComponent implements OnInit {
           color: 'default'
         },
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
-        autoFocus: true, 
+      const dialogRef = this.dialog.open(SimpleDialogComponent, {
+        autoFocus: true,
         data: data,
         panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
        });
@@ -334,7 +346,7 @@ export class EditorPageComponent implements OnInit {
   }
 
   private save(from: string) {
-    
+
     Object.keys(this.controls.controls).forEach((key: string) => {
       this.page[key as keyof (Page)] = this.controls.get(key).value;
     });
@@ -393,7 +405,7 @@ export class EditorPageComponent implements OnInit {
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
       this.setPage(newPage);
-      
+
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
     this.layout.refreshSelectedItem(moveToNext, from);

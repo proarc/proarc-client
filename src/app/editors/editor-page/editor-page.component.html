@@ -86,6 +86,72 @@
                 <span class="app-usage" [class.app-help-off]="true">O</span>
                 <textarea [formControl]="noteControl" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15" autocomplete="off" matInput [placeholder]="'editor.page.note' | translate"></textarea>
               </mat-form-field>
+              @if (page.isNdkPage() || page.isSttPage()) {
+                <div class="app-form-wrapper">
+                  @for(titleInfo of page.titleInfos; let index = $index; let last = $last; let first = $first; track titleInfo;) {
+                    <div class="app-form">
+                      <div class="app-fxLayout app-row app-center-v app-form-header">
+                        <div class="app-fxFlex app-text-cutter">
+                          <span class="app-form-title app-pl-2">{{ 'mods.titleInfo' | translate }}</span>
+                        </div>
+                        <div>
+                          <button mat-icon-button [matTooltip]="'common.add' | translate" (click)="page.addTitleInfoAfter(index); additionalMetadataChanged()">
+                            <mat-icon>add</mat-icon>
+                          </button>
+                          <button mat-icon-button [disabled]="first" [matTooltip]="'common.move_up' | translate" (click)="page.moveTitleInfoUp(index); additionalMetadataChanged()">
+                            <mat-icon>arrow_drop_up</mat-icon>
+                          </button>
+                          <button mat-icon-button [disabled]="last" [matTooltip]="'common.move_down' | translate" (click)="page.moveTitleInfoDown(index); additionalMetadataChanged()">
+                            <mat-icon>arrow_drop_down</mat-icon>
+                          </button>
+                          <button mat-icon-button [matTooltip]="'common.remove' | translate" (click)="page.removeTitleInfo(index); additionalMetadataChanged()">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                          <mat-label>{{ 'mods.titleInfo/nonSort' | translate }}</mat-label>
+                          <span class="app-usage" [class.app-help-off]="true">O</span>
+                          <input autocomplete="off" matInput [(ngModel)]="titleInfo.nonSort" (ngModelChange)="additionalMetadataChanged()" [placeholder]="'mods.titleInfo/nonSort' | translate">
+                        </mat-form-field>
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                          <mat-label>{{ 'mods.titleInfo/title' | translate }}</mat-label>
+                          <span class="app-usage" [class.app-help-off]="true">RA</span>
+                          <input autocomplete="off" matInput [(ngModel)]="titleInfo.title" (ngModelChange)="additionalMetadataChanged()" [placeholder]="'mods.titleInfo/title' | translate">
+                        </mat-form-field>
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                          <mat-label>{{ 'mods.titleInfo/subTitle' | translate }}</mat-label>
+                          <span class="app-usage" [class.app-help-off]="true">RA</span>
+                          <input autocomplete="off" matInput [(ngModel)]="titleInfo.subTitle" (ngModelChange)="additionalMetadataChanged()" [placeholder]="'mods.titleInfo/subTitle' | translate">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  } @empty {
+                    <div class="app-form">
+                      <div class="app-fxLayout app-row app-center-v app-form-header">
+                        <div class="app-fxFlex app-text-cutter">
+                          <span class="app-form-title app-pl-2">{{ 'mods.titleInfo' | translate }}</span>
+                        </div>
+                        <button mat-icon-button [matTooltip]="'common.add' | translate" (click)="page.addTitleInfoAfter(-1); additionalMetadataChanged()">
+                          <mat-icon>add</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  }
+                  <div class="app-gap-fixer"></div>
+                </div>
+                <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                  <mat-label>{{ 'mods.typeOfResource' | translate }}</mat-label>
+                  <span class="app-usage" [class.app-help-off]="true">MA</span>
+                  <mat-select [formControl]="typeOfResourceControl" [placeholder]="'mods.typeOfResource' | translate">
+                    <mat-option [value]="null"></mat-option>
+                    @for(resourceType of resourceTypes; track resourceType;) {
+                      <mat-option [value]="resourceType">{{ 'mods.option.' + resourceType | translate }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              }
               @if (config.showPageIdentifiers) {
                 <div class="app-form-wrapper">
                   @for(identifier of page.identifiers; let index = $index; let last = $last; let first = $first; track $index;) {
@@ -133,6 +199,6 @@
           <div class="app-gap-fixer"></div>
         </div>
       </div>
-    }    
+    }
   </div>
 </div>
