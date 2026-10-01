@@ -31,12 +31,12 @@
         <div class="app-form-wrapper app-top-level">
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.mat-form-field-invalid]="!page.type">
+              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.mat-form-field-invalid]="!page.type" [class.app-unsupported-page-type]="isUnsupportedPageType">
                 <mat-label>{{ 'editor.page.type' | translate }}</mat-label>
                 <span class="app-usage" [class.app-help-off]="true">M</span>
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
                   <mat-option [value]="null"></mat-option>
-                  @for(pageType of settings.pageTypes; track $index;) {
+                  @for(pageType of pageTypes; track $index;) {
                     <mat-option [value]="pageType">{{ 'pageType.' + pageType | translate }}</mat-option>
                   }
                 </mat-select>

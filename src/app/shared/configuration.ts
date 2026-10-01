@@ -13,6 +13,19 @@ export interface TableColumn {
 @Injectable()
 export class Configuration {
 
+  private static readonly PERIODICAL_PAGE_PARENTS = new Set([
+    'model:ndkperiodicalissue',
+    'model:ndkperiodicalsupplement'
+  ]);
+
+  private static readonly MONOGRAPH_ONLY_PAGE_TYPES = new Set([
+    'appendix',
+    'frontispiece',
+    'impressum',
+    'edge',
+    'imprimatur'
+  ]);
+
   // proarcUrl: "http://proarc.inovatika.dev/api",
   //   proarcUrl: "/api",
   //   ga: "UA-159265713-1",
@@ -99,6 +112,15 @@ export class Configuration {
 
   public isPage(model: string): boolean {
     return model === 'model:page' || model === 'model:ndkpage' || model === 'model:oldprintpage';
+  }
+
+  public getPageTypes(pageTypes: string[], parentModel?: string): string[] {
+    const configuredPageTypes = new Set(this.pageTypes || []);
+    const allowedPageTypes = pageTypes.filter(pageType => configuredPageTypes.has(pageType));
+    if (!Configuration.PERIODICAL_PAGE_PARENTS.has(parentModel)) {
+      return allowedPageTypes;
+    }
+    return allowedPageTypes.filter(pageType => !Configuration.MONOGRAPH_ONLY_PAGE_TYPES.has(pageType));
   }
 
   public isAudioPage(model: string): boolean {

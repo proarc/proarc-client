@@ -24,7 +24,7 @@
           <mat-form-field [appearance]="settings.appearance" class="page-type-select">
             <mat-label>{{ 'editor.page.type' | translate }}</mat-label>
             <mat-select [(ngModel)]="pageType" (ngModelChange)="scheduleRecalculation()" [disabled]="mode !== 'pageType' || busy">
-              @for (type of settings.pageTypes; track type) {
+              @for (type of pageTypes; track type) {
                 <mat-option [value]="type">{{ 'pageType.' + type | translate }}</mat-option>
               }
             </mat-select>

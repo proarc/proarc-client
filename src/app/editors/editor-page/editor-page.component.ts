@@ -105,6 +105,24 @@ export class EditorPageComponent implements OnInit {
     //console.log(this.settings.pageTypes)
   }
 
+  private get supportedPageTypes(): string[] {
+    const parentModel = this.layout.type === 'repo' ? this.layout.selectedParentItem?.model : null;
+    return this.config.getPageTypes(this.settings.pageTypes, parentModel);
+  }
+
+  get pageTypes(): string[] {
+    const supportedPageTypes = this.supportedPageTypes;
+    const currentPageType = this.pageTypeControl.value as unknown as string;
+    return currentPageType && !supportedPageTypes.includes(currentPageType)
+      ? [currentPageType, ...supportedPageTypes]
+      : supportedPageTypes;
+  }
+
+  get isUnsupportedPageType(): boolean {
+    const currentPageType = this.pageTypeControl.value as unknown as string;
+    return !!currentPageType && !this.supportedPageTypes.includes(currentPageType);
+  }
+
   removeFocus() {
     this.layout.movedToNextFrom = null;
   }

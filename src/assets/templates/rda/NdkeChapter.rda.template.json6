@@ -754,10 +754,6 @@
         description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
         options: [
           [
-            'table of content',
-            'table of content'
-          ],
-          [
             'advertisement',
             'advertisement'
           ],
@@ -810,20 +806,8 @@
             'contributors'
           ],
           [
-            'debate',
-            'debate'
-          ],
-          [
-            'figure',
-            'figure'
-          ],
-          [
             'obituary',
             'obituary'
-          ],
-          [
-            'remark',
-            'remark'
           ],
           [
             'study',
