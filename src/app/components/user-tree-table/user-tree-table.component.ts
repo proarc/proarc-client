@@ -130,10 +130,10 @@ export class UserTreeTableComponent {
   ngOnInit() {
     this.setSelectedTreeColumns();
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      // const initData = this.initData();
-      // if (initData) {
-      //   this.generateTree(initData.treePath, initData.rootTreeItem);
-      // }
+      const initData = this.initData();
+      if (initData) {
+        this.generateTree(initData.treePath, initData.rootTreeItem);
+      }
     }));
   }
 
@@ -156,6 +156,7 @@ export class UserTreeTableComponent {
   generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
     this.treeItems = [];
     this.worflowTreeItems = [];
+    this.visibleTreeItems = [];
     if (!root) {
       return;
     }
