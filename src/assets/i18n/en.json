@@ -222,6 +222,7 @@
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generate page indices",
+    "generate_page_type": "Generate normal page type",
     "load": "Load folder",
     "load_and_save": "Load and save",
     "save": "Save",

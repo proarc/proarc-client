@@ -176,9 +176,10 @@ export class Page {
     };
   }
 
-  public isValid(): boolean {
-    console.log(this.index,this.number,this.type,this.isNdkPage(),this.genre)
-    return !!this.index && !!this.number && !!this.type && (!this.isNdkPage() || !!this.genre);
+  public isValid(checkRequiredPageType: boolean = true): boolean {
+    return !!this.index && !!this.number
+      && (!checkRequiredPageType || !(this.isNdkPage() || this.isSttPage()) || !!this.type)
+      && (!this.isNdkPage() || !!this.genre);
   }
 
   public isNdkPage(): boolean {

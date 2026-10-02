@@ -31,7 +31,7 @@
         <div class="app-form-wrapper app-top-level">
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.mat-form-field-invalid]="!page.type" [class.app-unsupported-page-type]="isUnsupportedPageType">
+              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.app-invalid-field]="!pageTypeControl.value" [class.app-unsupported-page-type]="isUnsupportedPageType">
                 <mat-label>{{ 'editor.page.type' | translate }}</mat-label>
                 <span class="app-usage" [class.app-help-off]="true">M</span>
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
@@ -42,13 +42,13 @@
                 </mat-select>
               </mat-form-field>
               @if (config.showPageIndex) {
-                <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.mat-form-field-invalid]="!page.index">
+                <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.app-invalid-field]="!pageIndexControl.value">
                   <mat-label>{{ 'editor.page.index' | translate }}</mat-label>
                   <span class="app-usage" [class.app-help-off]="true">M</span>
                   <input autocomplete="off" matInput #pageIndex (focus)="setFocus('pageIndex')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" [placeholder]="'editor.page.index' | translate" [formControl]="pageIndexControl">
                 </mat-form-field>
               }
-              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.mat-form-field-invalid]="!page.number">
+              <mat-form-field [appearance]="settings.appearance" class="app-field-col" [class.app-invalid-field]="!pageNumberControl.value">
                 <mat-label>{{ 'editor.page.number' | translate }}</mat-label>
                 <span class="app-usage app-suffix-exist" [class.app-help-off]="true">M</span>
                 <input (focus)="setFocus('pageNumber')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" #pageNumber>

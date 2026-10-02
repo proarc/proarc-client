@@ -986,10 +986,13 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string, pids: string[] = null): Observable<any> {
+  createImportBatch(path: string, profile: string, indices: boolean, generatePageType: boolean, nightOnly: boolean, device: string, priority: string, peroId: string, metakatId: string, pids: string[] = null): Observable<any> {
     let data = `folderPath=${path}&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
+    }
+    if (generatePageType !== null && generatePageType !== undefined) {
+      data += `&generatePageType=${generatePageType}`;
     }
     if (device) {
       data += `&device=${device}`;
@@ -1011,10 +1014,13 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, peroId: string, metakatId: string, pids: string[] = null) {
+  createImportBatches(paths: string[], profile: string, indices: boolean, generatePageType: boolean, device: string, peroId: string, metakatId: string, pids: string[] = null) {
     let data = `folderPath=[${paths}]&profile=${profile}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
+    }
+    if (generatePageType !== null && generatePageType !== undefined) {
+      data += `&generatePageType=${generatePageType}`;
     }
     if (device) {
       data += `&device=${device}`;

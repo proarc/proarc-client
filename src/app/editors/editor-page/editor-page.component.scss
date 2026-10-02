@@ -6,3 +6,19 @@
   --mat-form-field-filled-hover-active-indicator-color: var(--app-color-warn);
   --mat-form-field-filled-focus-active-indicator-color: var(--app-color-warn);
 }
+
+.app-invalid-field {
+  --mat-form-field-outlined-outline-color: var(--app-color-warn);
+  --mat-form-field-outlined-hover-outline-color: var(--app-color-warn);
+  --mat-form-field-outlined-focus-outline-color: var(--app-color-warn);
+  --mat-form-field-outlined-label-text-color: var(--app-color-warn);
+  --mat-form-field-outlined-hover-label-text-color: var(--app-color-warn);
+  --mat-form-field-outlined-focus-label-text-color: var(--app-color-warn);
+  --mat-form-field-filled-active-indicator-color: var(--app-color-warn);
+  --mat-form-field-filled-hover-active-indicator-color: var(--app-color-warn);
+  --mat-form-field-filled-focus-active-indicator-color: var(--app-color-warn);
+  --mat-form-field-filled-label-text-color: var(--app-color-warn);
+  --mat-form-field-filled-hover-label-text-color: var(--app-color-warn);
+  --mat-form-field-filled-focus-label-text-color: var(--app-color-warn);
+  --mat-select-enabled-arrow-color: var(--app-color-warn);
+}

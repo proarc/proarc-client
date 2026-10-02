@@ -222,6 +222,7 @@
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generovat index stránek",
+    "generate_page_type": "Generovat typ strany normální",
     "load": "Načíst",
     "load_and_save": "Načíst a uložit",
     "save": "Uložit",

@@ -86,6 +86,7 @@ describe('ApiService import pids', () => {
       '/folder',
       'profile.test',
       true,
+      true,
       false,
       null,
       'medium',
@@ -95,6 +96,7 @@ describe('ApiService import pids', () => {
     ).subscribe();
 
     const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&generatePageType=true');
     expect(body).toContain('&pids=uuid:first,uuid:second');
   });
 
@@ -103,6 +105,7 @@ describe('ApiService import pids', () => {
       ['/folder-1', '/folder-2'],
       'profile.test',
       true,
+      true,
       null,
       null,
       null,
@@ -110,6 +113,7 @@ describe('ApiService import pids', () => {
     ).subscribe();
 
     const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&generatePageType=true');
     expect(body).toContain('&pids=uuid:first,uuid:second');
   });
 
@@ -117,6 +121,7 @@ describe('ApiService import pids', () => {
     api.createImportBatch(
       '/folder',
       'profile.test',
+      true,
       true,
       false,
       null,

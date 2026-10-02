@@ -178,7 +178,6 @@ export class EditorPageComponent implements OnInit {
     } else if (this.layout.lastSelectedItem().notSaved) {
       const page = new Page();
       page.pid = pid;
-      page.type = 'normalPage';
       page.model = this.layout.lastSelectedItem().model;
       page.number = this.layout.lastSelectedItem().label;
       page.timestamp = new Date().getTime();
@@ -285,7 +284,7 @@ export class EditorPageComponent implements OnInit {
     if (this.config.showPageIndex && !this.pageIndexControl.value) {
       return false;
     }
-    if (!this.pageTypeControl.value) {
+    if (!this.layout.batchId && (this.page.isNdkPage() || this.page.isSttPage()) && !this.pageTypeControl.value) {
       return false;
     }
     if ((this.page.isNdkPage() || this.page.isSttPage()) && !this.genreControl.value) {
