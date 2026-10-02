@@ -3,6 +3,16 @@ import { of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
+import { UserSettings } from '../shared/user-settings';
+
+describe('UserSettings MODS language', () => {
+  it('uses the second language from the combined UI and MODS locale', () => {
+    const settings = new UserSettings();
+    settings.lang = 'cs-en';
+
+    expect(settings.getModsLang()).toBe('en');
+  });
+});
 
 describe('ApiService export collections', () => {
   let http: jasmine.SpyObj<HttpClient>;
@@ -76,6 +86,7 @@ describe('ApiService import pids', () => {
       '/folder',
       'profile.test',
       true,
+      true,
       false,
       null,
       'medium',
@@ -85,6 +96,7 @@ describe('ApiService import pids', () => {
     ).subscribe();
 
     const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&generatePageType=true');
     expect(body).toContain('&pids=uuid:first,uuid:second');
   });
 
@@ -93,6 +105,7 @@ describe('ApiService import pids', () => {
       ['/folder-1', '/folder-2'],
       'profile.test',
       true,
+      true,
       null,
       null,
       null,
@@ -100,6 +113,7 @@ describe('ApiService import pids', () => {
     ).subscribe();
 
     const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&generatePageType=true');
     expect(body).toContain('&pids=uuid:first,uuid:second');
   });
 
@@ -107,6 +121,7 @@ describe('ApiService import pids', () => {
     api.createImportBatch(
       '/folder',
       'profile.test',
+      true,
       true,
       false,
       null,
@@ -117,5 +132,23 @@ describe('ApiService import pids', () => {
 
     const body = http.post.calls.mostRecent().args[1] as string;
     expect(body).not.toContain('&pids=');
+  });
+});
+
+describe('ApiService catalog search', () => {
+  let http: jasmine.SpyObj<HttpClient>;
+  let api: ApiService;
+
+  beforeEach(() => {
+    http = jasmine.createSpyObj<HttpClient>('HttpClient', ['get']);
+    http.get.and.returnValue(of({response: {}}));
+    api = new ApiService(http, {proarcUrl: '/api'} as Configuration);
+  });
+
+  it('sends the MODS language when loading the catalog preview', () => {
+    api.getCatalogSearchResults('metadata', 'catalog', 'title', 'query', 'en').subscribe();
+
+    const options = http.get.calls.mostRecent().args[1] as any;
+    expect(options.headers.get('Accept-Language')).toBe('en');
   });
 });

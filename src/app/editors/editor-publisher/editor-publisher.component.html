@@ -5,6 +5,27 @@
     <app-field-dropdown field="transliteration" [item]="item" [(value)]='item.attrs["transliteration"]'></app-field-dropdown>
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
     <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
+    @if (item.available['agent']) {
+        <app-editor-field [field]="item.agents" [nested]='true'>
+          <ng-template let-agent="item" #templateContent>
+            @if (agent.available['namePart']) {
+              <app-editor-field [field]="agent.nameParts" [nested]='true'>
+                <ng-template let-namePart="item" #templateContent>
+                  <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+                  <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+                </ng-template>
+              </app-editor-field>
+            }
+            @if (agent.roleTerm) {
+              <app-editor-field [field]="agent.roleTerm" [nested]='true'>
+                <ng-template let-role="item" #templateContent>
+                  <app-field-dropdown field="roleTerm" [item]="role" [(value)]='role.roleTerm["_"]'></app-field-dropdown>
+                </ng-template>
+              </app-editor-field>
+            }
+          </ng-template>
+        </app-editor-field>
+    }
     @if (item.available['place']) {
     <app-editor-field [field]="item.places" [nested]='true'>
       <ng-template let-place="item" #templateContent>
@@ -27,6 +48,9 @@
         <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
         <app-field-dropdown field="encoding" [item]="dateIssued" [(value)]='dateIssued.attrs["encoding"]'></app-field-dropdown>
         <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
+        @if (dateIssued.available['calendar']) {
+          <app-field-dropdown field="calendar" [item]="dateIssued" [(value)]='dateIssued.attrs["calendar"]'></app-field-dropdown>
+        }
       </ng-template>
     </app-editor-field>
   }

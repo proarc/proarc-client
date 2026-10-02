@@ -19,6 +19,20 @@
       </ng-template>
     </app-editor-field>
   }
+    @if (item.available['alternativeName']) {
+    <app-editor-field [field]="item.alternativeNames" [nested]='true'>
+      <ng-template let-alternativeName="item" #templateContent>
+        @if (alternativeName.available['namePart']) {
+          <app-editor-field [field]="alternativeName.nameParts" [nested]='true'>
+            <ng-template let-namePart="item" #templateContent>
+              <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+              <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+            </ng-template>
+          </app-editor-field>
+        }
+      </ng-template>
+    </app-editor-field>
+  }
     <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier['_']"></app-field-text>
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>

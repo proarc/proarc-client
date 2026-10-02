@@ -9,6 +9,8 @@ export class Page {
   public type: string;
   public note: string;
   public identifiers: PageIdentifier[];
+  public titleInfos: PageTitleInfo[];
+  public typeOfResource: string;
   public position: string;
   public genre: string = 'page';
 
@@ -19,6 +21,8 @@ export class Page {
   public originalPosition: string;
   public originalGenre: string;
   public originalIdentifiers: PageIdentifier[];
+  public originalTitleInfos: PageTitleInfo[];
+  public originalTypeOfResource: string;
 
   public model: string;
 
@@ -27,6 +31,8 @@ export class Page {
   constructor() {
     this.identifiers = [];
     this.originalIdentifiers = [];
+    this.titleInfos = [];
+    this.originalTitleInfos = [];
   }
 
   public static pageFromJson(json: any, model: string): Page {
@@ -88,6 +94,16 @@ export class Page {
           page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
           page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
         }
+        if (mods['titleInfo']) {
+          page.titleInfos = PageTitleInfo.fromJsonArray(mods['titleInfo']);
+          page.originalTitleInfos = PageTitleInfo.fromJsonArray(mods['titleInfo']);
+        }
+        if (mods['typeOfResource'] && mods['typeOfResource'][0]) {
+          const typeOfResource = mods['typeOfResource'][0];
+          page.typeOfResource = typeof typeOfResource === 'string'
+            ? typeOfResource
+            : typeOfResource['value'] ?? typeOfResource['_'];
+        }
       }
       page.originalPosition = page.position;
       page.originalGenre = page.genre;
@@ -95,6 +111,7 @@ export class Page {
       page.originalNumber = page.number;
       page.originalType = page.type;
       page.originalNote = page.note;
+      page.originalTypeOfResource = page.typeOfResource;
     }
     return page;
   }
@@ -133,6 +150,15 @@ export class Page {
     const mods: any = {
       'identifier': ids
     };
+    const titleInfos = this.titleInfos
+      .filter(titleInfo => !titleInfo.isEmpty())
+      .map(titleInfo => titleInfo.toJson());
+    if (titleInfos.length > 0) {
+      mods['titleInfo'] = titleInfos;
+    }
+    if (this.typeOfResource) {
+      mods['typeOfResource'] = [ { 'value': this.typeOfResource } ];
+    }
     if (this.position) {
       mods['note'] = [ { 'value': this.position } ];
     }
@@ -150,9 +176,10 @@ export class Page {
     };
   }
 
-  public isValid(): boolean {
-    console.log(this.index,this.number,this.type,this.isNdkPage(),this.genre)
-    return !!this.index && !!this.number && !!this.type && (!this.isNdkPage() || !!this.genre);
+  public isValid(checkRequiredPageType: boolean = true): boolean {
+    return !!this.index && !!this.number
+      && (!checkRequiredPageType || !(this.isNdkPage() || this.isSttPage()) || !!this.type)
+      && (!this.isNdkPage() || !!this.genre);
   }
 
   public isNdkPage(): boolean {
@@ -193,6 +220,32 @@ export class Page {
     }
   }
 
+  public removeTitleInfo(index: number) {
+    if (index >= 0 && index < this.titleInfos.length) {
+      this.titleInfos.splice(index, 1);
+    }
+  }
+
+  public addTitleInfoAfter(index: number) {
+    this.titleInfos.splice(index + 1, 0, new PageTitleInfo());
+  }
+
+  public moveTitleInfoDown(index: number) {
+    if (index < this.titleInfos.length - 1) {
+      const titleInfo = this.titleInfos[index];
+      this.titleInfos[index] = this.titleInfos[index + 1];
+      this.titleInfos[index + 1] = titleInfo;
+    }
+  }
+
+  public moveTitleInfoUp(index: number) {
+    if (index > 0) {
+      const titleInfo = this.titleInfos[index];
+      this.titleInfos[index] = this.titleInfos[index - 1];
+      this.titleInfos[index - 1] = titleInfo;
+    }
+  }
+
   public restore() {
     this.index = this.originalIndex;
     this.number = this.originalNumber;
@@ -204,6 +257,8 @@ export class Page {
     for (const id of this.originalIdentifiers) {
       this.identifiers.push(new PageIdentifier(id.type, id.value));
     }
+    this.titleInfos = this.originalTitleInfos.map(titleInfo => titleInfo.clone());
+    this.typeOfResource = this.originalTypeOfResource;
   }
 
   public removeEmptyIdentifiers() {
@@ -223,9 +278,18 @@ export class Page {
         return true;
       }
     }
+    if (this.titleInfos.length !== this.originalTitleInfos.length) {
+      return true;
+    }
+    for (let i = 0; i < this.titleInfos.length; i++) {
+      if (!this.titleInfos[i].equalTo(this.originalTitleInfos[i])) {
+        return true;
+      }
+    }
     return this.index !== this.originalIndex || this.number !== this.originalNumber
     || this.type !== this.originalType || this.note !== this.originalNote
-    || this.position !== this.originalPosition || this.genre !== this.originalGenre;
+    || this.position !== this.originalPosition || this.genre !== this.originalGenre
+    || this.typeOfResource !== this.originalTypeOfResource;
   }
 
 
@@ -256,11 +320,97 @@ export class Page {
       <mods:physicalDescription><mods:note>${this.note}</mods:note></mods:physicalDescription>`
     }
 
+    for (const titleInfo of this.titleInfos.filter(item => !item.isEmpty())) {
+      ret = `${ret}${titleInfo.toXml()}`;
+    }
+
+    if (this.typeOfResource) {
+      ret = `${ret}<mods:typeOfResource>${Page.escapeXml(this.typeOfResource)}</mods:typeOfResource>`;
+    }
+
     ret = `${ret}
     </mods:mods>`
     return ret;
   }
 
+  public static escapeXml(value: string): string {
+    return value.replace(/[<>&'\"]/g, character => ({
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      "'": '&apos;',
+      '"': '&quot;'
+    })[character]);
+  }
+
+}
+
+export class PageTitleInfo {
+
+  public nonSort: string;
+  public title: string;
+  public subTitle: string;
+
+  constructor(nonSort = '', title = '', subTitle = '') {
+    this.nonSort = nonSort;
+    this.title = title;
+    this.subTitle = subTitle;
+  }
+
+  public static fromJsonArray(array: any[]): PageTitleInfo[] {
+    return (array || []).filter(item => !!item).map(item => new PageTitleInfo(
+      PageTitleInfo.getValue(item['nonSort']),
+      PageTitleInfo.getValue(item['title']),
+      PageTitleInfo.getValue(item['subTitle'])
+    ));
+  }
+
+  private static getValue(elements: any[]): string {
+    const element = elements && elements[0];
+    return element ? element['value'] ?? element['_'] ?? '' : '';
+  }
+
+  public clone(): PageTitleInfo {
+    return new PageTitleInfo(this.nonSort, this.title, this.subTitle);
+  }
+
+  public equalTo(titleInfo: PageTitleInfo): boolean {
+    return this.nonSort === titleInfo.nonSort
+      && this.title === titleInfo.title
+      && this.subTitle === titleInfo.subTitle;
+  }
+
+  public isEmpty(): boolean {
+    return !this.nonSort && !this.title && !this.subTitle;
+  }
+
+  public toJson(): any {
+    const result: any = {};
+    if (this.nonSort) {
+      result['nonSort'] = [ { 'value': this.nonSort } ];
+    }
+    if (this.title) {
+      result['title'] = [ { 'value': this.title } ];
+    }
+    if (this.subTitle) {
+      result['subTitle'] = [ { 'value': this.subTitle } ];
+    }
+    return result;
+  }
+
+  public toXml(): string {
+    let result = '<mods:titleInfo>';
+    if (this.nonSort) {
+      result += `<mods:nonSort>${Page.escapeXml(this.nonSort)}</mods:nonSort>`;
+    }
+    if (this.title) {
+      result += `<mods:title>${Page.escapeXml(this.title)}</mods:title>`;
+    }
+    if (this.subTitle) {
+      result += `<mods:subTitle>${Page.escapeXml(this.subTitle)}</mods:subTitle>`;
+    }
+    return `${result}</mods:titleInfo>`;
+  }
 }
 
 export class PageIdentifier {

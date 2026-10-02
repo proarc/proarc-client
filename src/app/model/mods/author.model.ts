@@ -6,6 +6,7 @@ import {ModsFrequency} from './frequency.model';
 import {ModsNamePart} from './namePart.model';
 import {ModsDisplayForm} from './displayForm.model';
 import {ModsDescription} from './description.model';
+import {ModsAlternativeName} from './alternativeName.model';
 
 export class ModsAuthor extends ModsElement {
 
@@ -21,6 +22,7 @@ export class ModsAuthor extends ModsElement {
     public nameIdentifierOrcId: {[x: string]: string; };
     public displayForms: ElementField;
     public descriptions: ElementField;
+    public alternativeNames: ElementField;
 
     public etal: string;
 
@@ -38,7 +40,7 @@ export class ModsAuthor extends ModsElement {
     }
 
     private init() {
-        
+
         this.addControl('type');
         this.addControl('usage');
 
@@ -48,13 +50,22 @@ export class ModsAuthor extends ModsElement {
         this.affiliation = this.modsElement['affiliation'][0];
         this.addControl('affiliation');
         if(this.available2('namePart')) {
-        
+
         if (!this.modsElement['namePart']) {
             this.modsElement['namePart'] = [];
         }
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
             this.addSubfield(this.nameParts);
             this.addControl('namePart');
+        }
+
+        if (this.available2('alternativeName')) {
+          if (!this.modsElement['alternativeName']) {
+            this.modsElement['alternativeName'] = [];
+          }
+          this.alternativeNames = new ElementField(this.modsElement, ModsAlternativeName.getSelector(), this.getField('alternativeName'));
+          this.addSubfield(this.alternativeNames);
+          this.addControl('alternativeName');
         }
 
         if (this.available2('role')) {
@@ -97,7 +108,7 @@ export class ModsAuthor extends ModsElement {
           this.nameIdentifier = ModsUtils.createTextElement('', null);
           nameIdentifiers.push(this.nameIdentifier);
         }
-        
+
         if (!this.nameIdentifierOrcId) {
           this.nameIdentifierOrcId = ModsUtils.createTextElement('', {'type': 'orcid'});
           nameIdentifiers.push(this.nameIdentifierOrcId);

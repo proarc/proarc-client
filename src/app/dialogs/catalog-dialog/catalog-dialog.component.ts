@@ -113,7 +113,7 @@ export class CatalogDialogComponent implements OnInit {
     const catalog = this.activeCatalog.id;
     const field = this.activeField;
     const query = this.activeQuery;
-    this.api.getCatalogSearchResults(this.type, catalog, field.id, query).subscribe((response: any) => {
+    this.api.getCatalogSearchResults(this.type, catalog, field.id, query, this.settings.getModsLang()).subscribe((response: any) => {
       if (response['metadataCatalogEntries']) {
         this.results = CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry']);
         if (this.results.length > 0) {

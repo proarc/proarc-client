@@ -11,9 +11,13 @@ import { Configuration } from '../../shared/configuration';
 import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.component";
 import { FieldTextareaComponent } from "../../forms/field-textarea/field-textarea.component";
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   imports: [CommonModule, TranslateModule,
+    ReactiveFormsModule, MatFormFieldModule, MatSelectModule,
     EditorFieldComponent, FieldTextComponent, FieldDropdownComponent, FieldCodebookComponent, AutocompleteComponent, FieldTextareaComponent],
   selector: 'app-editor-relatedItem',
   templateUrl: './editor-relatedItem.component.html',

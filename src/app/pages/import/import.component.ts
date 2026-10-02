@@ -36,6 +36,7 @@ import { ObjectTargetSelectionDialogComponent } from '../../dialogs/object-targe
 export class ImportComponent implements OnInit {
 
   generateIndex = true;
+  generatePageType = true;
   nightOnly = false;
 
   devices: Device[];
@@ -277,11 +278,12 @@ export class ImportComponent implements OnInit {
 
   private loadSelectedFolders(selectedFolders: Folder[], pids: string[] = null) {
     const generateIndex = this.showGenerateIndex() ? this.generateIndex : null;
+    const generatePageType = this.showGeneratePageType() ? this.generatePageType : null;
     const selectedDeviceId = this.showDevice() ? this.selectedDevice?.id : null;
     const selectedPeroId = this.showPero() ? this.selectedPero?.id : null;
     const selectedMetakatId = this.showMetakat() ? this.selectedMetakat?.id : null;
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, generatePageType, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -308,7 +310,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, generatePageType, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -337,7 +339,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, selectedDeviceId, selectedPeroId, selectedMetakatId, pids).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, generatePageType, selectedDeviceId, selectedPeroId, selectedMetakatId, pids).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
@@ -388,6 +390,10 @@ export class ImportComponent implements OnInit {
 
   showGenerateIndex(): boolean {
     return this.hasImportParam(true, 'generateIndex', 'indices', 'index');
+  }
+
+  showGeneratePageType(): boolean {
+    return this.hasImportParam(true, 'generatePageType', 'pageType');
   }
 
   showPids(): boolean {

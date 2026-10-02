@@ -7,10 +7,11 @@ import { EditorFieldComponent } from '../../forms/editor-field/editor-field.comp
 import { FieldDropdownComponent } from '../../forms/field-dropdown/field-dropdown.component';
 import { FieldTextComponent } from '../../forms/field-text/field-text.component';
 import { ElementField } from '../../model/mods/elementField.model';
+import {AutocompleteComponent} from '../../forms/autocomplete/autocomplete.component';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, 
-    EditorFieldComponent, FieldTextComponent
+  imports: [CommonModule, TranslateModule, FormsModule,
+    EditorFieldComponent, FieldTextComponent, AutocompleteComponent
   ],
   selector: 'app-editor-location',
   templateUrl: './editor-location.component.html',
