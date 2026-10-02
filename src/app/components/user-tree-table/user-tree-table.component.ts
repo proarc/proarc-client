@@ -94,6 +94,8 @@ export class UserTreeTableComponent {
     "described",
     "exported"];
 
+    currentTreePath: string = '';
+
 
   subscriptions: Subscription[] = [];
 
@@ -111,12 +113,11 @@ export class UserTreeTableComponent {
   ) {
 
     effect(() => {
-      // const path = this.treePath();
-      // const root = this.rootTreeItem();
       const initData = this.initData();
-      console.log(initData)
-      if (initData) {
+      const newTreePath = initData.treePath.join('/');
+      if (initData && (this.currentTreePath !== newTreePath || this.visibleTreeItems.length === 0)) {
         this.generateTree(initData.treePath, initData.rootTreeItem);
+        this.currentTreePath = newTreePath;
       }
 
     });
@@ -129,10 +130,10 @@ export class UserTreeTableComponent {
   ngOnInit() {
     this.setSelectedTreeColumns();
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      const initData = this.initData();
-      if (initData) {
-        this.generateTree(initData.treePath, initData.rootTreeItem);
-      }
+      // const initData = this.initData();
+      // if (initData) {
+      //   this.generateTree(initData.treePath, initData.rootTreeItem);
+      // }
     }));
   }
 
