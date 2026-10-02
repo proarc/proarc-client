@@ -1,8 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize, map } from 'rxjs/operators';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
+import { catchError, expand, finalize, map, reduce } from 'rxjs/operators';
 import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
 import { Profile } from '../model/profile.model';
@@ -24,6 +24,7 @@ import { PageUpdateHolder } from './layout-service';
 import { PeroModel } from '../model/pero.model';
 import { MetakatModel } from '../model/metakat.model';
 import { ObjectDistributionRequest } from '../model/object-distribution.model';
+import { Software, SoftwarePage } from '../model/software.model';
 
 @Injectable()
 export class ApiService {
@@ -821,6 +822,83 @@ export class ApiService {
 
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map((response: any) => Device.fromJsonArray(response['response']['data'])));
+  }
+
+  getSoftwarePage(model: string, startRow = 0, size = 25): Observable<SoftwarePage> {
+    return this.get('software', { model, _startRow: startRow, _size: size }).pipe(map((result: any) => {
+      const response = result.response;
+      this.checkSoftwareResponse(response);
+      return {
+        items: (response.data || []).map((item: any) => Software.fromJson(item)),
+        startRow: response.startRow || 0,
+        endRow: response.endRow ?? -1,
+        totalRows: response.totalRows || 0
+      };
+    }));
+  }
+
+  getAllSoftware(model: string): Observable<Software[]> {
+    const size = 1000;
+    return this.getSoftwarePage(model, 0, size).pipe(
+      expand(page => page.items.length > 0 && page.startRow + page.items.length < page.totalRows
+        ? this.getSoftwarePage(model, page.startRow + page.items.length, size)
+        : EMPTY),
+      reduce((items, page) => items.concat(page.items), [] as Software[])
+    );
+  }
+
+  getSoftware(id: string): Observable<Software> {
+    return this.get('software', { id }).pipe(map((result: any) => {
+      this.checkSoftwareResponse(result.response);
+      return Software.fromJson(result.response.data[0]);
+    }));
+  }
+
+  getSoftwarePreview(id: string): Observable<Software> {
+    return this.get('software/preview', { id }).pipe(map((result: any) => {
+      this.checkSoftwareResponse(result.response);
+      return Software.fromJson(result.response.data[0]);
+    }));
+  }
+
+  createSoftware(software: Software, defaultMetadataType?: string): Observable<Software> {
+    let data = new HttpParams()
+      .set('label', software.label)
+      .set('model', software.model);
+    if (defaultMetadataType) {
+      data = data.set('createDefaultMetadata', defaultMetadataType);
+    }
+    software.members.forEach(member => data = data.append('members', member));
+    return this.post('software', data).pipe(map((result: any) => {
+      this.checkSoftwareResponse(result.response);
+      return Software.fromJson(result.response.data[0]);
+    }));
+  }
+
+  updateSoftware(software: Software): Observable<Software> {
+    let data = new HttpParams()
+      .set('id', software.id)
+      .set('label', software.label)
+      .set('model', software.model)
+      .set('description', software.serializedDescription());
+    if (software.timestamp) {
+      data = data.set('timestamp', String(software.timestamp.getTime()));
+    }
+    software.members.forEach(member => data = data.append('members', member));
+    return this.put('software', data).pipe(map((result: any) => {
+      this.checkSoftwareResponse(result.response);
+      return Software.fromJson(result.response.data[0]);
+    }));
+  }
+
+  removeSoftware(id: string): Observable<any> {
+    return this.delete('software', { id });
+  }
+
+  private checkSoftwareResponse(response: any): void {
+    if (!response || response.status < 0) {
+      throw new Error(response?.errorMessage || 'Software API request failed.');
+    }
   }
 
   getDevice(deviceId: string): Observable<Device> {

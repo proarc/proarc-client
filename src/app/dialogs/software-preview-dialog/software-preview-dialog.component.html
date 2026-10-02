@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content class="app-view-edit">
+  <pre class="app-xml-content"><code [highlight]="data.xml" language="xml"></code></pre>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-icon-button (click)="copy()" [matTooltip]="'button.copyTextToClipboard' | translate">
+    <mat-icon>content_copy</mat-icon>
+  </button>
+  <button mat-stroked-button mat-dialog-close>{{ 'button.close' | translate }}</button>
+</div>

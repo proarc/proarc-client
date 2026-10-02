@@ -259,6 +259,8 @@
     "process-management": "Process management",
     "catalog": "Catalog",
     "devices": "Devices",
+    "devicesAndSoftware": "Devices and software",
+    "software": "Software",
     "login": "Log in",
     "logout": "Log out",
     "profile": "Profile",
@@ -3713,6 +3715,49 @@
     "url": "URL",
     "issue number": "Issue number",
     "matrix number": "Matrix number"
+  },
+  "software": {
+    "type": {
+      "agent": "Agent",
+      "event": "Event",
+      "object": "Object",
+      "set": "Group"
+    },
+    "add": "Add",
+    "empty": "No records were found.",
+    "id": "PID",
+    "label": "Name",
+    "model": "Model",
+    "general": "General",
+    "members": "Linked objects",
+    "metadata": "PREMIS metadata",
+    "defaultMetadata": "Default metadata",
+    "noMetadata": "No metadata",
+    "noMember": "No link",
+    "preview": "Complete metadata preview",
+    "create": {
+      "title": "New record",
+      "button": "Create",
+      "success": "The record was created."
+    },
+    "update": {
+      "success": "The record was saved."
+    },
+    "delete": {
+      "title": "Delete record",
+      "message": "Do you really want to delete {{label}}?",
+      "success": "The record was deleted."
+    },
+    "metadataType": {
+      "default": "Default agent",
+      "eventDigitalization": "Digitization",
+      "eventCreation": "Image file creation",
+      "eventXmlCreation": "XML creation",
+      "eventDeletion": "Deletion",
+      "objectPreservationArchival": "Archival image file",
+      "objectPreservationAlto": "ALTO XML",
+      "objectDeletionTif": "Deleted TIFF"
+    }
   },
   "validityOptions": {
     "": "Valid",

@@ -259,6 +259,8 @@
     "process-management": "Správa procesů",
     "catalog": "Katalog",
     "devices": "Zařízení",
+    "devicesAndSoftware": "Zařízení a software",
+    "software": "Software",
     "login": "Přihlásit",
     "logout": "Odhlásit",
     "profile": "Profil",
@@ -3743,6 +3745,49 @@
     "url": "URL",
     "issue number": "Issue number",
     "matrix number": "Matrix number"
+  },
+  "software": {
+    "type": {
+      "agent": "Agent",
+      "event": "Event",
+      "object": "Object",
+      "set": "Skupina"
+    },
+    "add": "Přidat",
+    "empty": "Nebyly nalezeny žádné záznamy.",
+    "id": "PID",
+    "label": "Název",
+    "model": "Model",
+    "general": "Obecné",
+    "members": "Navázané objekty",
+    "metadata": "PREMIS metadata",
+    "defaultMetadata": "Výchozí metadata",
+    "noMetadata": "Bez metadat",
+    "noMember": "Bez vazby",
+    "preview": "Náhled kompletních metadat",
+    "create": {
+      "title": "Nový záznam",
+      "button": "Vytvořit",
+      "success": "Záznam byl vytvořen."
+    },
+    "update": {
+      "success": "Záznam byl uložen."
+    },
+    "delete": {
+      "title": "Odstranit záznam",
+      "message": "Opravdu chcete odstranit {{label}}?",
+      "success": "Záznam byl odstraněn."
+    },
+    "metadataType": {
+      "default": "Výchozí agent",
+      "eventDigitalization": "Digitalizace",
+      "eventCreation": "Vytvoření obrazového souboru",
+      "eventXmlCreation": "Vytvoření XML",
+      "eventDeletion": "Odstranění",
+      "objectPreservationArchival": "Archivní obrazový soubor",
+      "objectPreservationAlto": "ALTO XML",
+      "objectDeletionTif": "Odstraněný TIFF"
+    }
   },
   "validityOptions": {
     "": "Platný",
