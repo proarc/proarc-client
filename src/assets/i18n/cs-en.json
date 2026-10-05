@@ -219,6 +219,8 @@
   "import": {
     "profile": "Profil",
     "device": "Zařízení",
+    "software": "Software",
+    "no_software": "Bez softwaru",
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generovat index stránek",

@@ -219,6 +219,8 @@
   "import": {
     "profile": "Profile",
     "device": "Device",
+    "software": "Software",
+    "no_software": "No software",
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generate page indices",

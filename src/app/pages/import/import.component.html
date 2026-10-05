@@ -38,6 +38,16 @@
           </mat-select>
         </mat-form-field>
       }
+      @if (showSoftware()) {
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+          <mat-label>{{ 'import.software' | translate }}</mat-label>
+          <mat-select [placeholder]="'import.software' | translate" [(ngModel)]="selectedSoftware">
+            @for(software of softwares; track $index;) {
+              <mat-option [value]="software">{{ software.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
       @if (showPero()) {
         <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
           <mat-label>{{ 'import.pero' | translate }}</mat-label>

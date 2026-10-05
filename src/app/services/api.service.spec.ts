@@ -89,6 +89,7 @@ describe('ApiService import pids', () => {
       true,
       false,
       null,
+      null,
       'medium',
       null,
       null,
@@ -109,6 +110,7 @@ describe('ApiService import pids', () => {
       null,
       null,
       null,
+      null,
       ['uuid:first', 'uuid:second']
     ).subscribe();
 
@@ -125,6 +127,7 @@ describe('ApiService import pids', () => {
       true,
       false,
       null,
+      null,
       'medium',
       null,
       null
@@ -132,6 +135,59 @@ describe('ApiService import pids', () => {
 
     const body = http.post.calls.mostRecent().args[1] as string;
     expect(body).not.toContain('&pids=');
+  });
+
+  it('sends selected software with a single import batch', () => {
+    api.createImportBatch(
+      '/folder',
+      'profile.test',
+      true,
+      true,
+      false,
+      'device:1',
+      'uuid:software-set',
+      'medium',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&device=device:1');
+    expect(body).toContain('&software=uuid:software-set');
+  });
+
+  it('sends selected software with multiple import batches', () => {
+    api.createImportBatches(
+      ['/folder-1', '/folder-2'],
+      'profile.test',
+      true,
+      true,
+      null,
+      'uuid:software-set',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&software=uuid:software-set');
+  });
+
+  it('does not send software when none was selected', () => {
+    api.createImportBatch(
+      '/folder',
+      'profile.test',
+      true,
+      true,
+      false,
+      null,
+      null,
+      'medium',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).not.toContain('&software=');
   });
 });
 
