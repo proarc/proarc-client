@@ -67,6 +67,7 @@ export class PanelComponent {
       if (!lastSelectedItem) {
         return;
       }
+      this.selectSupportedMetadataEditor(lastSelectedItem);
       this.itemModel = this.itemType(lastSelectedItem);
       this.imageInfo = { pid: lastSelectedItem.pid, dsid: 'FULL' };
       this.canContainImage = lastSelectedItem.canContainImage();
@@ -78,6 +79,7 @@ export class PanelComponent {
 
   ngOnInit(): void {
     this.panelType = this.panel().type;
+    this.selectSupportedMetadataEditor(this.lastSelectedItem());
     this.formHighlighting = this.settings.formHighlighting;
 
   }
@@ -150,6 +152,19 @@ export class PanelComponent {
 
   changePanelType(newType: string) {
     this.panelType = newType;
+  }
+
+  private selectSupportedMetadataEditor(item: DocumentItem): void {
+    if (!item || item.notSaved || !item.model || this.layout.type !== 'repo' || this.layout.batchId != null ||
+        !['premis', 'premisXML', 'copyrightMD', 'copyrightMDXML'].includes(this.panelType)) {
+      return;
+    }
+    const xmlMode = this.panelType.endsWith('XML');
+    if (item.isPage()) {
+      this.panelType = xmlMode ? 'premisXML' : 'premis';
+    } else if (!item.isAudioPage()) {
+      this.panelType = xmlMode ? 'copyrightMDXML' : 'copyrightMD';
+    }
   }
 
   passOnIngest() {

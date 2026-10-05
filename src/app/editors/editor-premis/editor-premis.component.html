@@ -1,7 +1,7 @@
 <div class="app-fxLayout app-column app-fill">
   <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar">
     <app-editor-switcher class="app-fxFlex" [panelType]="panelType()"
-      (onChangeEditorType)="onChangePanelType.emit($event)"></app-editor-switcher>
+      (onChangeEditorType)="changePanelType($event)"></app-editor-switcher>
     @if (xmlMode) {
       <button mat-icon-button (click)="refresh()" [disabled]="state !== 'success' || xmlEditing"
         [matTooltip]="'editor.mods.refresh' | translate"><mat-icon>refresh</mat-icon></button>
@@ -13,6 +13,14 @@
       <button mat-icon-button (click)="revert()" [disabled]="state !== 'success' || !hasChanged()"
         [matTooltip]="'common.revert' | translate"><mat-icon>replay</mat-icon></button>
     }
+    @if (copyrightMode && exists) {
+      @if (deletePending) {
+        <button mat-button (click)="deleteMetadata(); deletePending = false" [disabled]="state !== 'success' || hasChanged() || !panel()?.canEdit">{{ 'editor.copyrightMD.confirmDelete' | translate }}</button>
+        <button mat-button (click)="deletePending = false">{{ 'common.cancel' | translate }}</button>
+      }
+      <button mat-icon-button (click)="deletePending = true" [disabled]="state !== 'success' || hasChanged() || !panel()?.canEdit"
+        [matTooltip]="'editor.copyrightMD.delete' | translate"><mat-icon>delete</mat-icon></button>
+    }
     <button mat-icon-button (click)="save()" [disabled]="state !== 'success' || !hasChanged() || !panel()?.canEdit"
       [matTooltip]="'common.save' | translate"><mat-icon>save</mat-icon></button>
   </div>
@@ -23,7 +31,7 @@
     @if (state === 'unsupported' || state === 'empty' || state === 'failure') {
       <mat-card class="app-alert app-info app-m-4" appearance="outlined" role="status">
         <mat-card-content>
-          <mat-icon>info</mat-icon>{{ ('editor.premis.' + state) | translate }}
+          <mat-icon>info</mat-icon>{{ (metadataKey + state) | translate }}
         </mat-card-content>
       </mat-card>
       @if (state === 'failure') {
@@ -35,11 +43,11 @@
         @if (xmlMode) {
           @if (xmlEditing) {
             <pre class="app-xml-content app-mods-editing"><code class="app-mods-editing"
-              [highlight]="premis.xml" language="xml" (input)="xmlChanged($event)"
+              [highlight]="displayXml" language="xml" (input)="xmlChanged($event)"
               [attr.contenteditable]="state === 'success' && panel()?.canEdit ? 'plaintext-only' : 'false'"
-              role="textbox" aria-multiline="true" [attr.aria-label]="'editor.toolbar.editor_premisXML' | translate"></code></pre>
+              role="textbox" aria-multiline="true" [attr.aria-label]="(copyrightMode ? 'editor.toolbar.editor_copyrightMDXML' : 'editor.toolbar.editor_premisXML') | translate"></code></pre>
           } @else {
-            <pre class="app-xml-content"><code [highlight]="premis.xml" language="xml"></code></pre>
+            <pre class="app-xml-content"><code [highlight]="previewXml" language="xml"></code></pre>
           }
         } @else {
           <div class="app-form-wrapper app-top-level">
@@ -61,7 +69,7 @@
         [attr.aria-expanded]="group.expanded" [attr.aria-label]="group.label">
         <mat-icon>{{ group.expanded ? 'expand_more' : 'chevron_right' }}</mat-icon>
       </button>
-      <span class="app-form-title app-fxFlex">{{ group.label }}</span>
+      <span class="app-form-title app-fxFlex">{{ group.label | translate }}</span>
       @if (group.template) {
         <button mat-icon-button (click)="addGroupAfter(group)" [disabled]="!canEdit() || !premis.canAddGroup(group)"
           [matTooltip]="'common.add' | translate" [attr.aria-label]="('common.add' | translate) + ': ' + group.label">
@@ -78,8 +86,20 @@
     <div class="app-form-content" [hidden]="!group.expanded">
       @for (field of group.fields; track field.key) {
         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
-          <mat-label>{{ field.label }}</mat-label>
-          <input matInput [(ngModel)]="field.value" (ngModelChange)="changed()" [disabled]="!canEdit()">
+          <mat-label>{{ field.label | translate }}</mat-label>
+          @if (field.options) {
+            <mat-select [(ngModel)]="field.value" (ngModelChange)="changed()" [disabled]="!canEdit()" [required]="!!field.required" placeholder="-">
+              @if (!field.required) { <mat-option value="">-</mat-option> }
+              @for (option of field.options; track option.value) {
+                <mat-option [value]="option.value">{{ (option.label || option.value) | translate }}</mat-option>
+              }
+            </mat-select>
+          } @else {
+            <input matInput [(ngModel)]="field.value" (ngModelChange)="changed()" [disabled]="!canEdit()" [matAutocomplete]="suggestions">
+            <mat-autocomplete #suggestions="matAutocomplete">
+              @for (option of field.suggestions || []; track option) { <mat-option [value]="option">{{ option }}</mat-option> }
+            </mat-autocomplete>
+          }
           @if (premis.fieldTemplate(group, field); as item) {
             <button mat-icon-button matSuffix (click)="addFieldAfter(group, field)"
               [disabled]="!canEdit() || !premis.canAddField(group, field)"
@@ -101,7 +121,7 @@
       @for (item of premis.missingElements(group); track item.name) {
         <div class="app-form app-premis-nested app-premis-empty">
           <div class="app-fxLayout app-row app-center-v app-form-header">
-            <span class="app-form-title app-fxFlex app-pl-2">{{ elementLabel(item) }}</span>
+            <span class="app-form-title app-fxFlex app-pl-2">{{ elementLabel(item) | translate }}</span>
             <button mat-icon-button (click)="addElement(group, item)" [disabled]="!canEdit()"
               [matTooltip]="'common.add' | translate" [attr.aria-label]="('common.add' | translate) + ': ' + elementLabel(item)">
               <mat-icon>add</mat-icon>

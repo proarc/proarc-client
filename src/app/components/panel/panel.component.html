@@ -69,6 +69,16 @@
       (onChangePanelType)="changePanelType($event)"></app-editor-atm>
     }
     }
+    @case ('copyrightMD') {
+      <app-editor-premis metadataType="copyrightMD" [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
+    @case ('copyrightMDXML') {
+      <app-editor-premis metadataType="copyrightMD" [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
     @case ('premis') {
       <app-editor-premis [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
         [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"

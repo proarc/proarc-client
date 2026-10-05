@@ -24,6 +24,10 @@ export class TemplateService {
     this.templates[standard][model] = tmpl;
   }
 
+  getCopyrightMdTemplate(): Observable<PremisTemplate> {
+    return this.http.get<PremisTemplate>('/assets/templates/copyrightMD/copyrightMD.template.json6');
+  }
+
   getPremisTemplate(): Observable<PremisTemplate> {
     return this.http.get<PremisTemplate>('/assets/templates/premis/premis.template.json6');
   }

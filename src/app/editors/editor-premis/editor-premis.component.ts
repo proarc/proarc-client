@@ -12,7 +12,9 @@ import { forkJoin, Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { Highlight } from 'ngx-highlightjs';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
-import { Premis, PremisElementTemplate, PremisField, PremisGroup } from '../../model/premis.model';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Premis, PremisElementTemplate, PremisField, PremisGroup, PremisTemplate } from '../../model/premis.model';
 import { TemplateService } from '../../services/template.service';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
@@ -22,12 +24,13 @@ import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.comp
 
 @Component({
   selector: 'app-editor-premis',
-  imports: [NgTemplateOutlet, FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
+  imports: [MatSelectModule, MatAutocompleteModule, NgTemplateOutlet, FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
     MatProgressBarModule, MatTooltipModule, TranslateModule, EditorSwitcherComponent, Highlight],
   templateUrl: './editor-premis.component.html',
   styleUrl: './editor-premis.component.scss'
 })
 export class EditorPremisComponent implements OnDestroy {
+  metadataType = input<'premis' | 'copyrightMD'>('premis');
   pid = input<string>();
   model = input<string>();
   notSaved = input<boolean>(false);
@@ -40,7 +43,16 @@ export class EditorPremisComponent implements OnDestroy {
   xmlMode = false;
   xmlEditing = false;
   xml = '';
+  displayXml = '';
+  previewXml = '';
   private request: Subscription;
+  copyrightMode = false;
+  metadataKey = 'editor.premis.';
+  exists = false;
+  creating = false;
+  deletePending = false;
+  private timestamp = -1;
+  private template: PremisTemplate = {elements: {}};
 
   constructor(public layout: LayoutService, private api: ApiService, private ui: UIService,
     public settings: UserSettings, private translator: TranslateService, private templates: TemplateService) {
@@ -48,12 +60,18 @@ export class EditorPremisComponent implements OnDestroy {
       const pid = this.pid();
       const model = this.model();
       const notSaved = this.notSaved();
-      const xmlMode = this.panelType() === 'premisXML';
+      this.copyrightMode = this.metadataType() === 'copyrightMD';
+      this.metadataKey = this.copyrightMode ? 'editor.copyrightMD.' : 'editor.premis.';
+      const xmlMode = this.panelType() === 'premisXML' || this.panelType() === 'copyrightMDXML';
       this.request?.unsubscribe();
       this.premis = null;
       this.xmlMode = xmlMode;
       this.xmlEditing = false;
-      if (!pid || !['model:page', 'model:ndkpage', 'model:oldprintpage'].includes(model) ||
+      this.creating = false;
+      this.deletePending = false;
+      const supported = this.copyrightMode ? !!model && !['model:page', 'model:ndkpage', 'model:oldprintpage', 'model:ndkaudiopage'].includes(model)
+        : ['model:page', 'model:ndkpage', 'model:oldprintpage'].includes(model);
+      if (!pid || !supported ||
           notSaved || !this.isRepository()) {
         this.state = 'unsupported';
         return;
@@ -74,15 +92,22 @@ export class EditorPremisComponent implements OnDestroy {
       return;
     }
     this.state = 'loading';
-    this.request = forkJoin({record: this.api.getPremis(pid, this.layout.batchId),
-      template: this.templates.getPremisTemplate()}).subscribe({
+    this.creating = false;
+    this.exists = false;
+    this.request = forkJoin({record: this.copyrightMode ? this.api.getCopyrightMd(pid) : this.api.getPremis(pid, this.layout.batchId),
+      template: this.copyrightMode ? this.templates.getCopyrightMdTemplate() : this.templates.getPremisTemplate()}).subscribe({
       next: ({record, template}) => {
         if (!record || record.status < 0 || record.response?.errors) {
           this.fail(record?.response?.errors || record?.data);
           return;
         }
-        if (!record.content?.trim()) {
+        this.template = template;
+        this.timestamp = Number(record.timestamp);
+        if (!Number.isFinite(this.timestamp) || record.timestamp == null) { this.fail(); return; }
+        this.exists = !!record.content?.trim();
+        if (!this.exists) {
           this.state = 'empty';
+          if (this.copyrightMode) { this.createDraft(); }
           return;
         }
         try {
@@ -91,6 +116,8 @@ export class EditorPremisComponent implements OnDestroy {
           }
           this.premis = new Premis(record.content, Number(record.timestamp), template);
           this.xml = record.content;
+          this.displayXml = this.copyrightMode ? Premis.formatXml(record.content) : record.content;
+          this.previewXml = Premis.formatXml(record.content, true);
           this.xmlEditing = false;
           this.state = 'success';
         } catch {
@@ -102,11 +129,15 @@ export class EditorPremisComponent implements OnDestroy {
   }
 
   hasChanged(): boolean {
-    return !!this.premis && (this.xmlMode ? this.xmlEditing && this.xml !== this.premis.xml : this.premis.hasChanged());
+    return this.creating || this.hasUserChanges();
+  }
+
+  private hasUserChanges(): boolean {
+    return !!this.premis && (this.xmlMode ? this.xmlEditing && this.xml !== this.displayXml : this.premis.hasChanged());
   }
 
   changed(): void {
-    if (this.hasChanged()) {
+    if (this.hasUserChanges()) {
       this.layout.setPanelEditing(this.panel());
     } else if (this.layout.editingPanel === this.panel()?.id) {
       this.layout.clearPanelEditing();
@@ -158,8 +189,11 @@ export class EditorPremisComponent implements OnDestroy {
   }
 
   revert(): void {
+    if (this.creating) { this.layout.clearPanelEditing(); this.load(); return; }
     this.premis.restore();
     this.xml = this.premis.xml;
+    this.displayXml = this.copyrightMode ? Premis.formatXml(this.premis.xml) : this.premis.xml;
+    this.previewXml = Premis.formatXml(this.premis.xml, true);
     this.xmlEditing = false;
     this.changed();
   }
@@ -168,7 +202,7 @@ export class EditorPremisComponent implements OnDestroy {
     if (!this.xmlMode || !this.isRepository() || this.state !== 'success' || !this.panel()?.canEdit) {
       return;
     }
-    this.xml = this.premis.xml;
+    this.xml = this.displayXml;
     this.xmlEditing = true;
   }
 
@@ -192,13 +226,14 @@ export class EditorPremisComponent implements OnDestroy {
     }
     let xml: string;
     try {
-      xml = this.xmlMode ? new Premis(this.xml, this.premis.timestamp).serialize() : this.premis.serialize();
+      xml = this.xmlMode ? new Premis(this.xml, this.premis.timestamp, this.template).serialize() : this.premis.serialize();
     } catch {
-      this.ui.showErrorSnackBar(this.translator.instant('editor.premis.invalidXml'));
+      this.ui.showErrorSnackBar(this.translator.instant(this.metadataKey + 'invalidXml'));
       return;
     }
     this.state = 'saving';
-    this.request = this.api.savePremis(this.pid(), xml, this.premis.timestamp, false, this.layout.batchId).subscribe({
+    this.request = (this.copyrightMode ? this.api.saveCopyrightMd(this.pid(), xml, this.premis.timestamp)
+      : this.api.savePremis(this.pid(), xml, this.premis.timestamp, false, this.layout.batchId)).subscribe({
       next: response => {
         if (!response || response.errors || response.status < 0 || !response.data?.length) {
           this.state = 'success';
@@ -212,9 +247,52 @@ export class EditorPremisComponent implements OnDestroy {
       },
       error: () => {
         this.state = 'success';
-        this.ui.showErrorSnackBar(this.translator.instant('editor.premis.saveFailed'));
+        this.ui.showErrorSnackBar(this.translator.instant(this.metadataKey + 'saveFailed'));
       }
     });
+  }
+
+  private createDraft(): void {
+    const xml = '<copyright xmlns="http://www.cdlib.org/inside/diglib/copyrightMD" copyright.status="unknown" publication.status="unknown"/>';
+    this.premis = new Premis(xml, this.timestamp, this.template);
+    const populate = (group: PremisGroup) => {
+      this.premis.missingElements(group).forEach(item => this.premis.addElement(group, item));
+      group.children.forEach(populate);
+    };
+    this.premis.roots.forEach(populate);
+    // The complete form remains a local draft until the user saves it.
+    this.premis = new Premis(this.premis.serialize(), this.timestamp, this.template);
+    this.displayXml = Premis.formatXml(this.premis.xml);
+    this.previewXml = Premis.formatXml(this.premis.xml, true);
+    this.xml = this.displayXml;
+    this.creating = true;
+    this.xmlEditing = false;
+    this.state = 'success';
+  }
+
+  deleteMetadata(): void {
+    if (!this.copyrightMode || !this.isRepository() || !this.exists || this.state !== 'success' || this.hasChanged() || !this.panel()?.canEdit) { return; }
+    this.state = 'saving';
+    this.request = this.api.deleteCopyrightMd(this.pid(), this.premis.timestamp).subscribe({
+      next: response => {
+        if (!response || response.errors || response.status < 0) {
+          this.state = 'success';
+          this.ui.showErrorDialogFromObject(response?.errors || response || {});
+          return;
+        }
+        this.layout.clearPanelEditing();
+        this.load();
+      },
+      error: () => { this.state = 'success'; this.ui.showErrorSnackBar(this.translator.instant(this.metadataKey + 'saveFailed')); }
+    });
+  }
+
+  changePanelType(type: string): void {
+    if (this.hasUserChanges()) {
+      this.ui.showInfoSnackBar(this.translator.instant(this.metadataKey + 'saveXmlFirst'));
+      return;
+    }
+    this.onChangePanelType.emit(type);
   }
 
   private isRepository(): boolean {

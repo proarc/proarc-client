@@ -6,7 +6,7 @@
   </span>
 }
 <ng-container>
-  @if (isPremisPanel()) {
+  @if (isPreservationPanel()) {
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate"
       [class.app-active]="panelType() === 'premis'" (click)="changeEditorType('premis')">
       <span class="app-text-icon">P</span>
@@ -15,6 +15,12 @@
       [class.app-active]="panelType() === 'premisXML'" (click)="changeEditorType('premisXML')">
       <span class="app-text-icon">&lt;P&gt;</span>
     </button>
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_copyrightMD' | translate"
+      [disabled]="!canUseCopyrightMd()"
+      [class.app-active]="panelType() === 'copyrightMD'" (click)="changeEditorType('copyrightMD')"><span class="app-text-icon">C</span></button>
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_copyrightMDXML' | translate"
+      [disabled]="!canUseCopyrightMd()"
+      [class.app-active]="panelType() === 'copyrightMDXML'" (click)="changeEditorType('copyrightMDXML')"><span class="app-text-icon">&lt;C&gt;</span></button>
   } @else {
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="panelType() === 'metadata'" (click)="changeEditorType('metadata')">
       <span class="app-text-icon">M</span>

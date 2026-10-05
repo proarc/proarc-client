@@ -20,6 +20,13 @@ export class EditorSwitcherComponent {
 
   panelType = input<string>();
   isPremisPanel = computed(() => this.panelType() === 'premis' || this.panelType() === 'premisXML');
+  isCopyrightPanel = computed(() => this.panelType() === 'copyrightMD' || this.panelType() === 'copyrightMDXML');
+  isPreservationPanel = computed(() => this.isPremisPanel() || this.isCopyrightPanel());
+  canUseCopyrightMd(): boolean {
+    const item = this.layout.lastSelectedItem();
+    return this.layout.type === 'repo' && this.layout.batchId == null && !!item && !item.notSaved &&
+      !['model:page', 'model:ndkpage', 'model:oldprintpage', 'model:ndkaudiopage'].includes(item.model);
+  }
   onChangeEditorType = output<string>();
 
   subscriptions: Subscription[] = [];
@@ -69,7 +76,7 @@ export class EditorSwitcherComponent {
   }
 
   changeEditorType(t: string) {
-    if (this.isPremisPanel() !== (t === 'premis' || t === 'premisXML')) {
+    if (this.isPreservationPanel() !== ['premis', 'premisXML', 'copyrightMD', 'copyrightMDXML'].includes(t)) {
       return;
     }
     this.onChangeEditorType.emit(t);

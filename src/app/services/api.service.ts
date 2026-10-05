@@ -1384,6 +1384,19 @@ export class ApiService {
     return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
+  getCopyrightMd(pid: string): Observable<any> {
+    return this.get('object/technicalMetadataXmlCopyrightMD', {pid}).pipe(map((response: any) => response?.record ?? response));
+  }
+
+  saveCopyrightMd(pid: string, xml: string, timestamp: number): Observable<any> {
+    const data = new HttpParams().set('pid', pid).set('xmlData', xml).set('timestamp', timestamp);
+    return this.put('object/technicalCopyrightMD', data).pipe(map((response: any) => response.response ?? response));
+  }
+
+  deleteCopyrightMd(pid: string, timestamp: number): Observable<any> {
+    return this.delete('object/technicalCopyrightMD', {pid, timestamp}).pipe(map((response: any) => response.response ?? response));
+  }
+
   getPremis(pid: string, batchId: any = null): Observable<any> {
     const params: any = { pid: pid };
     if (batchId !== null && batchId !== undefined) {
