@@ -1,8 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { catchError, expand, finalize, map, reduce } from 'rxjs/operators';
+import { EMPTY, from, Observable, of, throwError } from 'rxjs';
+import { catchError, concatMap, expand, finalize, map, reduce } from 'rxjs/operators';
 import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
 import { Profile } from '../model/profile.model';
@@ -715,6 +715,16 @@ export class ApiService {
     formData.append('jsonErrors', true);
     formData.append('pid', pid);
     return this.post('object/dissemination', formData, {});
+  }
+
+  /** Emits one result per object, keeping uploads sequential and reporting partial failures. */
+  uploadFileToObjects(file: File, pids: string[], mime: string): Observable<{pid: string, response: any}> {
+    return from([...new Set(pids)]).pipe(
+      concatMap(pid => this.uploadFile(file, pid, mime).pipe(
+        catchError(error => of({response: {status: -1, errorMessage: error.message}})),
+        map(response => ({pid, response}))
+      ))
+    );
   }
 
   getSearchResults(options: any = {}) { //model: string, query: string, queryField: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {

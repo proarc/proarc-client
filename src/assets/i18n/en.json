@@ -875,6 +875,14 @@
     "note": "Poznámka"
   },
   "viewer": {
+    "upload": {
+      "selected": "Selected objects: {{count}}",
+      "loadPdf": "Upload the same PDF to all selected objects",
+      "pdfOnly": "Select a PDF file to upload to multiple objects.",
+      "progress": "Uploading: {{completed}} / {{total}}",
+      "success": "Digital content uploaded to {{succeeded}} objects.",
+      "failed": "Uploaded to {{succeeded}} of {{total}} objects. Upload failed for these objects:"
+    },
     "tooltip": {
       "lock": "Lock Position",
       "unlock": "Unlock Position",

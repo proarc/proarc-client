@@ -869,6 +869,14 @@
     "note": "Poznámka"
   },
   "viewer": {
+    "upload": {
+      "selected": "Vybrané objekty: {{count}}",
+      "loadPdf": "Nahrát stejné PDF ke všem vybraným objektům",
+      "pdfOnly": "Pro nahrání k více objektům vyberte soubor PDF.",
+      "progress": "Nahrávání: {{completed}} / {{total}}",
+      "success": "Digitální obsah byl nahrán k {{succeeded}} objektům.",
+      "failed": "Nahráno k {{succeeded}} z {{total}} objektů. Nahrání selhalo u těchto objektů:"
+    },
     "tooltip": {
       "lock": "Uzamknout pozici",
       "unlock": "Odemknout pozici",

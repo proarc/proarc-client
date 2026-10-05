@@ -43,7 +43,7 @@
     }
     }
     @case ('media') {
-    <app-media [lastSelectedItem]="lastSelectedItem()"></app-media>
+    <app-media [lastSelectedItem]="lastSelectedItem()" [numOfSelected]="numOfSelected()"></app-media>
     }
     @case ('song') {
     <app-song [pid]="lastSelectedItem().pid"></app-song>
