@@ -1384,9 +1384,14 @@ export class ApiService {
     return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
-  getPremis(pid: string): Observable<any> {
+  getPremis(pid: string, batchId: any = null): Observable<any> {
     const params: any = { pid: pid };
-    return this.get('object/technicalMetadataXmlPremis', params);
+    if (batchId !== null && batchId !== undefined) {
+      params.batchId = batchId;
+    }
+    return this.get('object/technicalMetadataXmlPremis', params).pipe(
+      map((response: any) => response?.record ?? response)
+    );
   }
 
   regeneratePremis(pids: string[], batchId: string = null): Observable<any> {
@@ -1399,10 +1404,13 @@ export class ApiService {
   }
 
   savePremis(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId: any = null): Observable<any> {
-    const xmlText = xml.replace(/&/g, '%26');
-    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
+    let data = new HttpParams()
+      .set('pid', pid)
+      .set('ignoreValidation', ignoreValidation)
+      .set('xmlData', xml)
+      .set('timestamp', timestamp);
+    if (batchId !== null && batchId !== undefined) {
+      data = data.set('batchId', batchId);
     }
     // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
     return this.put('object/technicalPremis', data).pipe(map((response: any) => response['response']));

@@ -147,7 +147,7 @@ export class EditorAtmComponent implements OnInit {
   }
 
   regeneratePremis() {
-    if (!this.atm || this.atm.hasChanged() || this.state !== 'success') {
+    if (this.layout.type !== 'repo' || this.layout.batchId != null || !this.atm || this.atm.hasChanged() || this.state !== 'success') {
       return;
     }
     this.state = 'loading';

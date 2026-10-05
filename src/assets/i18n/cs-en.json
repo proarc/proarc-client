@@ -334,6 +334,16 @@
       "editor_premis": "PREMIS ",
       "editor_premisXML": "PREMIS XML"
     },
+    "premis": {
+      "form": "Formulář PREMIS",
+      "xml": "PREMIS XML",
+      "unsupported": "PREMIS lze upravovat pouze v repozitáři pro jednu uloženou stranu, NDK stranu nebo STT stranu.",
+      "empty": "Strana nemá PREMIS a API nevrátilo výchozí data.",
+      "failure": "Nepodařilo se načíst PREMIS. Zkontrolujte zařízení a jeho PREMIS šablonu.",
+      "invalidXml": "Neplatné XML. Očekává se celý dokument METS s blokem PREMIS.",
+      "saveXmlFirst": "Před přechodem do formuláře uložte změny XML, nebo je vraťte zpět.",
+      "saveFailed": "Nepodařilo se uložit PREMIS. Vaše změny zůstaly ve formuláři."
+    },
     "atm": {
       "regeneratePremis": "Přegenerovat PREMIS",
       "regeneratePremisHint": "Přegenerovat PREMIS z uložených hodnot. Nejprve uložte změny softwaru a zařízení.",
@@ -2971,6 +2981,7 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
+    "premisXML": "PREMIS XML",
     "media": "Média",
     "workFlow": {
       "profileLabel": "Materiál",

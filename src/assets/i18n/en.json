@@ -334,6 +334,16 @@
       "editor_premis": "PREMIS ",
       "editor_premisXML": "PREMIS XML"
     },
+    "premis": {
+      "form": "PREMIS form",
+      "xml": "PREMIS XML",
+      "unsupported": "PREMIS can only be edited in the repository for a single saved page, NDK page or STT page.",
+      "empty": "This page has no PREMIS and the API did not return default metadata.",
+      "failure": "Failed to load PREMIS. Check the device and its PREMIS template.",
+      "invalidXml": "Invalid XML. A complete METS document containing PREMIS is required.",
+      "saveXmlFirst": "Save or revert XML changes before switching to the form.",
+      "saveFailed": "Failed to save PREMIS. Your changes remain in the form."
+    },
     "atm": {
       "regeneratePremis": "Regenerate PREMIS",
       "regeneratePremisHint": "Regenerate PREMIS from saved values. Save software and device changes first.",
@@ -2936,7 +2946,8 @@
     "pdf": "Pdf",
     "comment": "Comment",
     "image": "Image",
-    "premis": "PREMIS XML",
+    "premis": "PREMIS",
+    "premisXML": "PREMIS XML",
     "media": "Media",
     "workFlow": {
       "profileLabel": "Material",

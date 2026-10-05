@@ -69,15 +69,16 @@
       (onChangePanelType)="changePanelType($event)"></app-editor-atm>
     }
     }
-    <!-- 
     @case ('premis') {
-      @if (numOfSelected < 2) {
-          <app-editor-premis [pid]="lastSelectedItem().pid"></app-editor-premis>
-      } @else {
-          <app-editor-premis-multiple ></app-editor-premis-multiple>
-      }
+      <app-editor-premis [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
     }
-     -->
+    @case ('premisXML') {
+      <app-editor-premis [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
 
     @case ('metadata') {
       @if (showIssuesEditor) {

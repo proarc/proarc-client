@@ -68,12 +68,20 @@ describe('Bulk ATM editor', () => {
   });
 
   it('regenerates PREMIS for the complete selection after saving software', () => {
+    layout.type = 'repo';
+    layout.batchId = null;
     editor.software = 'software:new';
     editor.regeneratePremis();
     expect(api.regeneratePremis).not.toHaveBeenCalled();
     editor.onSave();
     editor.regeneratePremis();
-    expect(api.regeneratePremis).toHaveBeenCalledOnceWith(['uuid:first', 'uuid:second'], '42');
+    expect(api.regeneratePremis).toHaveBeenCalledOnceWith(['uuid:first', 'uuid:second'], null);
     expect(editor.state).toBe('success');
+  });
+
+  it('does not regenerate PREMIS in an import batch', () => {
+    layout.type = 'import';
+    editor.regeneratePremis();
+    expect(api.regeneratePremis).not.toHaveBeenCalled();
   });
 });

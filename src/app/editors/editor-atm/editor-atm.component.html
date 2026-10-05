@@ -4,10 +4,12 @@
       <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
     </div>
     <div class="app-h-100">
+      @if (layout.type === 'repo' && layout.batchId == null) {
       <button mat-button (click)="regeneratePremis()" [disabled]="!atm || atm.hasChanged() || state !== 'success'"
         [matTooltip]="'editor.atm.regeneratePremisHint' | translate">
         {{ 'editor.atm.regeneratePremis' | translate }}
       </button>
+      }
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate"  [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>
       </button>

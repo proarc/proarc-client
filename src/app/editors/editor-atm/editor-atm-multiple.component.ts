@@ -99,7 +99,7 @@ export class EditorAtmMultipleComponent implements OnInit {
   }
 
   regeneratePremis() {
-    if (this.hasChanged() || this.pids.length < 2 || this.state !== 'success') {
+    if (this.layout.type !== 'repo' || this.layout.batchId != null || this.hasChanged() || this.pids.length < 2 || this.state !== 'success') {
       return;
     }
     this.state = 'saving';

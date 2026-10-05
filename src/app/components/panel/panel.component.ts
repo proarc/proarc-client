@@ -27,10 +27,11 @@ import { UserSettings } from '../../shared/user-settings';
 import { LayoutService } from '../../services/layout-service';
 import { EditorIssuesComponent } from "../../editors/editor-issues/editor-issues.component";
 import { EditorSwitcherComponent } from '../../editors/editor-switcher/editor-switcher.component';
+import { EditorPremisComponent } from '../../editors/editor-premis/editor-premis.component';
 
 @Component({
   selector: 'app-panel',
-  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorAtmMultipleComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent, EditorSwitcherComponent],
+  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorAtmMultipleComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent, EditorSwitcherComponent, EditorPremisComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

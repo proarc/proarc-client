@@ -1,4 +1,4 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,7 @@ import { DocumentItem } from '../../model/documentItem.model';
 export class EditorSwitcherComponent {
 
   panelType = input<string>();
+  isPremisPanel = computed(() => this.panelType() === 'premis' || this.panelType() === 'premisXML');
   onChangeEditorType = output<string>();
 
   subscriptions: Subscription[] = [];
@@ -68,6 +69,9 @@ export class EditorSwitcherComponent {
   }
 
   changeEditorType(t: string) {
+    if (this.isPremisPanel() !== (t === 'premis' || t === 'premisXML')) {
+      return;
+    }
     this.onChangeEditorType.emit(t);
   }
 

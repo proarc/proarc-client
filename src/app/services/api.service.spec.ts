@@ -6,6 +6,57 @@ import { ProArc } from '../utils/proarc';
 import { UserSettings } from '../shared/user-settings';
 import { Atm } from '../model/atm.model';
 
+describe('ApiService PREMIS editor', () => {
+  let http: jasmine.SpyObj<HttpClient>;
+  let api: ApiService;
+
+  beforeEach(() => {
+    http = jasmine.createSpyObj<HttpClient>('HttpClient', ['get', 'put']);
+    http.get.and.returnValue(of({record: {content: '<mets/>', timestamp: -1, status: 0}}));
+    http.put.and.returnValue(of({response: {status: 0, data: [{timestamp: 1}]}}));
+    api = new ApiService(http, {proarcUrl: '/api'} as Configuration);
+  });
+
+  it('reads the PREMIS from the requested import batch', () => {
+    api.getPremis('uuid:page', '7').subscribe();
+    const [url, options] = http.get.calls.mostRecent().args;
+    expect(url).toBe('/api/rest/v2/object/technicalMetadataXmlPremis');
+    expect(options.params).toEqual({pid: 'uuid:page', batchId: '7'});
+  });
+
+  it('unwraps the StringRecord envelope returned by the technical metadata API', () => {
+    const record = {
+      pid: 'uuid:de37c3d1-fd35-40ea-afa2-754f7a6f4a41',
+      model: 'model:ndkpage',
+      content: '<mets xmlns="http://www.loc.gov/METS/"/>',
+      timestamp: -1,
+      status: 0
+    };
+    http.get.and.returnValue(of({record}));
+    api.getPremis(record.pid).subscribe(result => expect(result).toEqual(record));
+  });
+
+  it('preserves wrapped record errors and unwrapped transport errors', () => {
+    const record = {status: -1, data: {message: 'Cannot generate PREMIS'}};
+    http.get.and.returnValue(of({record}));
+    api.getPremis('uuid:page').subscribe(result => expect(result).toEqual(record));
+    const error = {response: {status: 500, errors: ['Server error']}};
+    http.get.and.returnValue(of(error));
+    api.getPremis('uuid:page').subscribe(result => expect(result).toEqual(error));
+  });
+
+  it('encodes XML without corrupting plus signs, percent signs, Unicode or entities', () => {
+    const xml = '<mets label="Český + 50% &amp; další">#?=</mets>';
+    api.savePremis('uuid:page', xml, -1, false, '7').subscribe();
+    const [url, body] = http.put.calls.mostRecent().args;
+    const decoded = new URLSearchParams(body.toString());
+    expect(url).toBe('/api/rest/v2/object/technicalPremis');
+    expect(decoded.get('xmlData')).toBe(xml);
+    expect(decoded.get('timestamp')).toBe('-1');
+    expect(decoded.get('batchId')).toBe('7');
+  });
+});
+
 describe('UserSettings MODS language', () => {
   it('uses the second language from the combined UI and MODS locale', () => {
     const settings = new UserSettings();

@@ -6,23 +6,34 @@
   </span>
 }
 <ng-container>
-  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="panelType() === 'metadata'" (click)="changeEditorType('metadata')">
-    <span class="app-text-icon">M</span>
-  </button>
-  @if (layout.lastSelectedItem() && model === 'song') {
-    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="panelType() === 'song'" (click)="changeEditorType('song')">
-      <mat-icon>audiotrack</mat-icon>
+  @if (isPremisPanel()) {
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate"
+      [class.app-active]="panelType() === 'premis'" (click)="changeEditorType('premis')">
+      <span class="app-text-icon">P</span>
+    </button>
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_premisXML' | translate"
+      [class.app-active]="panelType() === 'premisXML'" (click)="changeEditorType('premisXML')">
+      <span class="app-text-icon">&lt;P&gt;</span>
+    </button>
+  } @else {
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="panelType() === 'metadata'" (click)="changeEditorType('metadata')">
+      <span class="app-text-icon">M</span>
+    </button>
+    @if (layout.lastSelectedItem() && model === 'song') {
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="panelType() === 'song'" (click)="changeEditorType('song')">
+        <mat-icon>audiotrack</mat-icon>
+      </button>
+    }
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"  [class.app-active]="panelType() === 'mods'" (click)="changeEditorType('mods')">
+      <mat-icon>code</mat-icon>
+    </button>
+    @if (layout.lastSelectedItem() && model === 'page') {
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="panelType() === 'ocr'" (click)="changeEditorType('ocr')">
+        <mat-icon>title</mat-icon>
+      </button>
+    }
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [class.app-active]="panelType() === 'atm'" (click)="changeEditorType('atm')">
+      <span class="app-text-icon">A</span>
     </button>
   }
-  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"  [class.app-active]="panelType() === 'mods'" (click)="changeEditorType('mods')">
-    <mat-icon>code</mat-icon>
-  </button>
-  @if (layout.lastSelectedItem() && model === 'page') {
-    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="panelType() === 'ocr'" (click)="changeEditorType('ocr')">
-      <mat-icon>title</mat-icon>
-    </button>
-  }
-  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [class.app-active]="panelType() === 'atm'" (click)="changeEditorType('atm')">
-    <span class="app-text-icon">A</span>
-  </button>
 </ng-container>
