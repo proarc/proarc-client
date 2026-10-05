@@ -335,6 +335,14 @@
       "editor_premisXML": "PREMIS XML"
     },
     "atm": {
+      "regeneratePremis": "Přegenerovat PREMIS",
+      "regeneratePremisHint": "Přegenerovat PREMIS z uložených hodnot. Nejprve uložte změny softwaru a zařízení.",
+      "premisRegenerated": "PREMIS byl přegenerován.",
+      "premisRegenerationFailed": "Nepodařilo se přegenerovat PREMIS.",
+      "software": "Software",
+      "no_software": "Žádný software",
+      "unchanged": "Beze změny",
+      "optionsLoadFailed": "Nepodařilo se načíst zařízení a software. Otevřete editor znovu.",
       "title": "Administrativní a technická metadata",
       "pid": "PID",
       "model": "Model",
@@ -3572,6 +3580,7 @@
   },
   "alert": {
     "info": {
+      "editorInactiveForMultipleSelection": "Toto okno je neaktivní, pokud je vybráno více objektů. Pro editaci vyberte jeden objekt.",
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "digitalContentIsNotLoadedForModel": "Pro tento typ objektu se digitální obsah nenačítá.",
       "imageIsNotLoadedForModel": "Pro tento typ objektu se obrázek nenačítá.",

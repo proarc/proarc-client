@@ -1,0 +1,51 @@
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-atm">
+    <div class="app-fxFlex">
+      <app-editor-switcher class="app-fxLayout app-row app-center-v" [panelType]="panelType()"
+        (onChangeEditorType)="onChangePanelType.emit($event)"></app-editor-switcher>
+    </div>
+    <button mat-button (click)="regeneratePremis()" [disabled]="hasChanged() || state !== 'success'"
+      [matTooltip]="'editor.atm.regeneratePremisHint' | translate">
+      {{ 'editor.atm.regeneratePremis' | translate }}
+    </button>
+    <button mat-icon-button (click)="onRevert()" [disabled]="!hasChanged() || state === 'saving'"
+      [matTooltip]="'common.revert' | translate"><mat-icon>replay</mat-icon></button>
+    <button mat-icon-button (click)="onSave()" [disabled]="!hasChanged() || state !== 'success'"
+      [matTooltip]="'common.save' | translate"><mat-icon>save</mat-icon></button>
+  </div>
+  <div class="app-fxFlex app-oa-y">
+    @if (state === 'loading' || state === 'saving') {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+    @if (state === 'error') {
+      <div class="app-p-2">{{ 'editor.atm.optionsLoadFailed' | translate }}</div>
+    } @else if (state !== 'loading') {
+      <div class="app-editor-container">
+        <div class="app-form-wrapper app-top-level">
+          <div class="app-form"><div class="app-form-content">
+            <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+              <mat-label>{{ 'editor.atm.device' | translate }}</mat-label>
+              <mat-select [(ngModel)]="device" (selectionChange)="onChange()" [disabled]="state === 'saving'">
+                <mat-option [value]="null">{{ 'editor.atm.unchanged' | translate }}</mat-option>
+                <mat-option value="null">{{ 'editor.atm.no_device' | translate }}</mat-option>
+                @for (item of devices; track item.id) {
+                  <mat-option [value]="item.id">{{ item.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+              <mat-label>{{ 'editor.atm.software' | translate }}</mat-label>
+              <mat-select [(ngModel)]="software" (selectionChange)="onChange()" [disabled]="state === 'saving'">
+                <mat-option [value]="null">{{ 'editor.atm.unchanged' | translate }}</mat-option>
+                <mat-option value="null">{{ 'editor.atm.no_software' | translate }}</mat-option>
+                @for (item of softwares; track item.id) {
+                  <mat-option [value]="item.id">{{ item.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div></div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

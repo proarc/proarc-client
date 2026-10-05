@@ -1,6 +1,19 @@
 <div class="app-fxLayout app-column app-fill" [class.app-form-highlighting]="formHighlighting">
   @if (lastSelectedItem()) {
   <div class="app-fxFlex">
+    @if (isInactiveForMultipleSelection()) {
+    <div class="app-fxLayout app-column app-fill">
+      <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar">
+        <app-editor-switcher class="app-fxLayout app-row app-center-v" [panelType]="panelType"
+          (onChangeEditorType)="changePanelType($event)"></app-editor-switcher>
+      </div>
+      <mat-card class="app-alert app-info app-m-4" appearance="outlined">
+        <mat-card-content>
+          <mat-icon>info</mat-icon>{{ 'alert.info.editorInactiveForMultipleSelection' | translate }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    } @else {
     @switch (panelType) {
     @case ('tree') {
     <div class="app-editor-content app-tree">
@@ -48,8 +61,13 @@
       (onChangePanelType)="changePanelType($event)"></app-editor-comment>
     }
     @case ('atm') {
+    @if (numOfSelected() > 1) {
+    <app-editor-atm-multiple [panel]="panel()" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-atm-multiple>
+    } @else {
     <app-editor-atm [panel]="panel()" [pid]="lastSelectedItem()?.pid" [panelType]="panelType"
       (onChangePanelType)="changePanelType($event)"></app-editor-atm>
+    }
     }
     <!-- 
     @case ('premis') {
@@ -80,6 +98,7 @@
         [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
       </app-editor-metadata>
       }
+    }
     }
     }
   </div>

@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { EditorCommentComponent } from "../../editors/editor-comment/editor-comment.component";
 import { EditorAtmComponent } from "../../editors/editor-atm/editor-atm.component";
+import { EditorAtmMultipleComponent } from "../../editors/editor-atm/editor-atm-multiple.component";
 import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
 import { EditorPagesComponent } from "../../editors/editor-pages/editor-pages.component";
 import { EditorAudioPagesComponent } from "../../editors/editor-audioPages/editor-audioPages.component";
@@ -25,10 +26,11 @@ import { SongComponent } from "../song/song.component";
 import { UserSettings } from '../../shared/user-settings';
 import { LayoutService } from '../../services/layout-service';
 import { EditorIssuesComponent } from "../../editors/editor-issues/editor-issues.component";
+import { EditorSwitcherComponent } from '../../editors/editor-switcher/editor-switcher.component';
 
 @Component({
   selector: 'app-panel',
-  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent],
+  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorAtmMultipleComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent, EditorSwitcherComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
@@ -121,6 +123,28 @@ export class PanelComponent {
     //   }
     // }
     // return count > 0;
+  }
+
+  isInactiveForMultipleSelection(): boolean {
+    if (this.numOfSelected() < 2) {
+      return false;
+    }
+    switch (this.panelType) {
+      case 'tree':
+      case 'structure-list':
+      case 'structure-grid':
+      case 'structure-icons':
+      case 'image':
+      case 'media':
+      case 'song':
+        return false;
+      case 'metadata':
+        return !this.showPagesEditor && !this.showAudioPagesEditor && !this.showIssuesEditor;
+      case 'atm':
+        return this.layout.type !== 'repo';
+      default:
+        return true;
+    }
   }
 
   changePanelType(newType: string) {

@@ -335,6 +335,14 @@
       "editor_premisXML": "PREMIS XML"
     },
     "atm": {
+      "regeneratePremis": "Regenerate PREMIS",
+      "regeneratePremisHint": "Regenerate PREMIS from saved values. Save software and device changes first.",
+      "premisRegenerated": "PREMIS has been regenerated.",
+      "premisRegenerationFailed": "Failed to regenerate PREMIS.",
+      "software": "Software",
+      "no_software": "No software",
+      "unchanged": "Unchanged",
+      "optionsLoadFailed": "Failed to load devices and software. Reopen the editor.",
       "title": "Administrative and technical metadata",
       "pid": "PID",
       "model": "Model",
@@ -3538,6 +3546,7 @@
   },
   "alert": {
     "info": {
+      "editorInactiveForMultipleSelection": "This panel is inactive when multiple objects are selected. Select one object to edit.",
       "digitalContentIsNotSupported": "Digital content is not supported",
       "digitalContentIsNotLoadedForModel": "Digital content is not loaded for this object type.",
       "imageIsNotLoadedForModel": "The image is not loaded for this object type.",

@@ -593,9 +593,25 @@ export class ApiService {
   }
 
   editAtm(atm: Atm, batchId: any = null): Observable<any> {
-    let data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}&donator=${atm.donator}&archivalCopies=${atm.archivalCopies}`;
+    let data = `pid=${atm.pid}&device=${atm.device}&software=${encodeURIComponent(atm.software || 'null')}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}&donator=${atm.donator}&archivalCopies=${atm.archivalCopies}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
+    }
+    return this.put('object/atm', data);
+  }
+
+  // null leaves an assignment unchanged; the string 'null' removes it.
+  editAtmDevices(pids: string[], device: string = null, software: string = null, batchId: string = null): Observable<any> {
+    let data = new HttpParams();
+    pids.forEach(pid => data = data.append('pid', pid));
+    if (device !== null) {
+      data = data.set('device', device);
+    }
+    if (software !== null) {
+      data = data.set('software', software);
+    }
+    if (batchId) {
+      data = data.set('batchId', batchId);
     }
     return this.put('object/atm', data);
   }
@@ -1371,6 +1387,15 @@ export class ApiService {
   getPremis(pid: string): Observable<any> {
     const params: any = { pid: pid };
     return this.get('object/technicalMetadataXmlPremis', params);
+  }
+
+  regeneratePremis(pids: string[], batchId: string = null): Observable<any> {
+    let data = new HttpParams();
+    pids.forEach(pid => data = data.append('pid', pid));
+    if (batchId) {
+      data = data.set('batchId', batchId);
+    }
+    return this.post('object/technicalMetadataXmlPremisGenerate', data);
   }
 
   savePremis(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId: any = null): Observable<any> {

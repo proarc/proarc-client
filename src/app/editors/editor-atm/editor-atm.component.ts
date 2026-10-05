@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { Atm } from '../../model/atm.model';
 import { Device } from '../../model/device.model';
@@ -20,6 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { UserSettings } from '../../shared/user-settings';
+import { forkJoin } from 'rxjs';
+import { Software, SOFTWARE_MODELS } from '../../model/software.model';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
@@ -40,6 +42,7 @@ export class EditorAtmComponent implements OnInit {
   state = 'none';
   atm: Atm;
   devices: Device[];
+  softwares: Software[];
   organizations: string[];
   users: User[];
   donators: string[];
@@ -60,7 +63,8 @@ export class EditorAtmComponent implements OnInit {
     private config: Configuration, 
     private ui: UIService,
     public auth: AuthService,
-    public settings: UserSettings) {
+    public settings: UserSettings,
+    private translator: TranslateService) {
       effect(() => {
         const pid = this.pid();
         if (!pid) {
@@ -84,15 +88,21 @@ export class EditorAtmComponent implements OnInit {
     this.state = 'loading';
     this.api.getAtm(pid, this.layout.batchId).subscribe((atm: Atm) => {
       this.atm = atm;
-      if (this.devices) {
+      if (this.devices && this.users && this.softwares) {
         this.state = 'success';
       } else {
-        this.api.getDevices().subscribe((devices: Device[]) => {
-          this.devices = devices;
-          this.api.getUsers().subscribe((users: User[]) => {
+        forkJoin({
+          devices: this.api.getDevices(),
+          users: this.api.getUsers(),
+          softwares: this.api.getAllSoftware(SOFTWARE_MODELS.set)
+        }).subscribe({
+          next: ({ devices, users, softwares }) => {
+            this.devices = devices;
             this.users = users;
+            this.softwares = softwares;
             this.state = 'success';
-          });
+          },
+          error: () => this.state = 'failure'
         });
       }
     }, () => {
@@ -133,6 +143,27 @@ export class EditorAtmComponent implements OnInit {
         this.atm = newAtm;
         this.state = 'success';
         this.layout.clearPanelEditing();
+    });
+  }
+
+  regeneratePremis() {
+    if (!this.atm || this.atm.hasChanged() || this.state !== 'success') {
+      return;
+    }
+    this.state = 'loading';
+    this.api.regeneratePremis([this.atm.pid], this.layout.batchId).subscribe({
+      next: response => {
+        this.state = 'success';
+        if (response.response.errors || response.response.status < 0) {
+          this.ui.showErrorDialogFromObject(response.response.errors || response.response);
+          return;
+        }
+        this.ui.showInfoSnackBar(this.translator.instant('editor.atm.premisRegenerated'));
+      },
+      error: () => {
+        this.state = 'success';
+        this.ui.showErrorSnackBar(this.translator.instant('editor.atm.premisRegenerationFailed'));
+      }
     });
   }
 
