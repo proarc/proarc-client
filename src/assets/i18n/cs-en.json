@@ -3436,6 +3436,7 @@
     },
     "preferredTops": {
       "title": {
+        "catalog": "Preferované katalogy",
         "pageType": "Preferované typy stran",
         "lang": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",

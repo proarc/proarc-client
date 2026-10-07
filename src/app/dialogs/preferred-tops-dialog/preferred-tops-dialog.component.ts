@@ -25,9 +25,10 @@ export class PreferredTopsDialogComponent implements OnInit {
   relatedItemExpanded: boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { 
-      prefix: string, top: string[], 
-      conf: string[], 
+    @Inject(MAT_DIALOG_DATA) public data: {
+      prefix: string, top: string[],
+      conf: string[],
+      labels?: Record<string, string>,
       expanded: boolean,
       relatedItemExpanded: boolean },
     private dialogRef: MatDialogRef<PreferredTopsDialogComponent>,
@@ -38,7 +39,7 @@ export class PreferredTopsDialogComponent implements OnInit {
 
     let top: string[];
     let rest: string[];
-    
+
     this.items = [];
     top = this.data.conf.filter((a: string) => this.data.top.includes(a));
     rest =  this.data.conf.filter((a: string) => !this.data.top.includes(a));

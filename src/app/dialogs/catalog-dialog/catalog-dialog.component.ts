@@ -79,9 +79,9 @@ export class CatalogDialogComponent implements OnInit {
   }
 
   onCatalogsLoaded(catalogs: Catalogue[]) {
-    this.catalogs = catalogs;
-    if (catalogs.length > 0) {
-      this.activeCatalog = catalogs[0];
+    this.catalogs = this.type === 'authors' ? catalogs : this.settings.orderCatalogs(catalogs);
+    if (this.catalogs.length > 0) {
+      this.activeCatalog = this.catalogs[0];
       this.onCatalogChanged(this.activeCatalog);
     }
     this.state = 'success';

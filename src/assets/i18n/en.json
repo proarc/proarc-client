@@ -3403,6 +3403,7 @@
     },
     "preferredTops": {
       "title": {
+        "catalog": "Preferred catalogs",
         "pageType": "Preferred types of parties",
         "lang": "Preferred languages",
         "locations": "Preferred storage locations",

@@ -45,7 +45,7 @@ export class UpdateInSourceDialogComponent implements OnInit {
         this.message = String(this.translator.instant('dialog.updateInSource.alert.error'));
         return;
       }
-      this.catalogs = Catalogue.fromJsonArray(response['response']['data']);
+      this.catalogs = this.settings.orderCatalogs(Catalogue.fromJsonArray(response['response']['data']));
       this.selectedCatalogue = this.catalogs[0];
       this.state = 'none';
     });
