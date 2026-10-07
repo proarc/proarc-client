@@ -11,6 +11,24 @@
         <div class="app-song-wrapper">
             <div class="app-controls">
                 <div class="app-track-position">
+                    {{ formatTime(currentTime) }}
+                    <input 
+                        type="range" 
+                        min="0" 
+                        [max]="duration || 100" 
+                        [value]="currentTime" 
+                        (mousedown)="onSliderStart()"
+                        (touchstart)="onSliderStart()"
+                        (input)="onSliderInput($event)"
+                        (change)="onSliderChange($event)"
+                    />
+
+                    {{ formatTime(duration)}}
+
+                    <!-- <mat-slider min="0" [max]="trackDuration" step="0.5">
+                        <input matSliderThumb [(ngModel)]="audio.currentTime">
+                    </mat-slider> -->
+
                    {{ trackPositionText }}@if (trackDurationText !== 'Infinity') { {{ trackDurationText }} }
                 </div>
                 @if (playing) {
