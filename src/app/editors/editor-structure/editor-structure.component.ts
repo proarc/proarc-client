@@ -44,6 +44,7 @@ import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-objec
 import { TableItem } from '../../model/table-item.model';
 import { Batch } from '../../model/batch.model';
 import { ObjectDistributionDialogComponent } from '../../dialogs/object-distribution-dialog/object-distribution-dialog.component';
+import { ProarcMatDialog } from '../../shared/proarc-mat-dialog';
 
 
 @Component({
@@ -53,7 +54,8 @@ import { ObjectDistributionDialogComponent } from '../../dialogs/object-distribu
     MatTableModule, MatSortModule, ResizedDirective, UserTableComponent],
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
-  styleUrls: ['./editor-structure.component.scss']
+  styleUrls: ['./editor-structure.component.scss'],
+  providers:[{ provide: MatDialog, useClass: ProarcMatDialog },]
 })
 export class EditorStructureComponent implements OnInit {
 

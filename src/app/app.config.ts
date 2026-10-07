@@ -17,6 +17,8 @@ import { DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideMaterialCssVars } from "angular-material-css-vars";
 import { FundService } from './services/fund.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProarcMatDialog } from './shared/proarc-mat-dialog';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -42,6 +44,7 @@ export const appConfig: ApplicationConfig = {
       // ...
     }),
     provideAppInitializer(() => initializeApp(inject(AuthService))),
+    { provide: MatDialog, useClass: ProarcMatDialog },
     importProvidersFrom(TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -52,6 +55,9 @@ export const appConfig: ApplicationConfig = {
     provideHighlightOptions({
       fullLibraryLoader: () => import('highlight.js')
     }),
+
+     
+
     //{provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
     TranslateService, DatePipe, UserSettings,
     Configuration, ApiService, AuthService, FundService, UIService, UserSettingsService,
