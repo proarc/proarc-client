@@ -7,12 +7,16 @@
     </div>  
       
     <div class="app-editor-content">
-        @if (state === 'success') {
         <div class="app-song-wrapper">
             <div class="app-controls">
-                <div class="app-track-position">
+                <audio id="audiohtml" controls controlslist="noplaybackrate nodownload" [src]="audioUrl"></audio>
+                <!-- <div class="app-track-position">
+
+
+
                     {{ formatTime(currentTime) }}
                     <input 
+                    [disabled]="!isSeekable"
                         type="range" 
                         min="0" 
                         [max]="duration || 100" 
@@ -25,10 +29,6 @@
 
                     {{ formatTime(duration)}}
 
-                    <!-- <mat-slider min="0" [max]="trackDuration" step="0.5">
-                        <input matSliderThumb [(ngModel)]="audio.currentTime">
-                    </mat-slider> -->
-
                    {{ trackPositionText }}@if (trackDurationText !== 'Infinity') { {{ trackDurationText }} }
                 </div>
                 @if (playing) {
@@ -37,10 +37,9 @@
                     <mat-icon class="app-button" (click)="moveForward()">fast_forward</mat-icon>
                 } @else {
                     <mat-icon class="app-button" (click)="playTrack()">play_circle</mat-icon>
-                }
+                } -->
             </div>
         </div>
-        }
     </div>
 @if (state === 'loading') {
     <mat-spinner [strokeWidth]="5"  [diameter]="60" class="center-spinner"></mat-spinner>
