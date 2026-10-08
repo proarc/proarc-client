@@ -5,9 +5,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSliderModule} from '@angular/material/slider';
-import {FormsModule} from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -36,7 +36,9 @@ export class SongComponent implements OnInit, OnDestroy {
   // Stavy pro šablonu
   currentTime = 0;
   duration = 0;
-  isUserSeeking = false; 
+  isUserSeeking = false;
+  isSeekable = true;
+  audioUrl: string;
 
   constructor(private api: ApiService, private layout: LayoutService) {
     effect(() => {
@@ -46,89 +48,59 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // if (this.isPlaying()) {
-    //   this.pauseTrack();
+    // if (this.audio) {
+    //   this.audio.pause();
+    //   this.audio.src = '';
+    //   this.audio = null;
     // }
-    // this.audio = null;
-
-    this.audio.pause();
-    this.audio.src = '';
   }
 
   ngOnInit() {
   }
 
+
   onPidChanged(pid: string) {
 
-    console.log('AAA')
-    this.audio = null;
-    this.trackPosition = -1;
-    this.trackDuration = -1;
-    this.trackPositionText = '';
-    this.trackDurationText = '';
-    this.playing = false;
-    this.canPlay = false;
-    this.state = 'loading';
-    const url = this.api.getStreamUrl(pid, 'FULL', this.layout.batchId);
+    this.audioUrl = this.api.getStreamUrl(pid, 'FULL', this.layout.batchId);
 
-    if (this.audio) {
-      this.audio.setAttribute('src', url);
-      this.audio.load();
-    } else {
-      this.audio = new Audio(url);
-      this.audio.load();
-    }
+    // this.audio = null;
+    // this.trackPosition = -1;
+    // this.trackDuration = -1;
+    // this.trackPositionText = '';
+    // this.trackDurationText = '';
+    // this.playing = false;
+    // this.canPlay = false;
+    // this.state = 'loading';
 
-    // 1. Načtení celkové délky audia
-    this.audio.addEventListener('loadedmetadata', () => {
+    // if (this.audio) {
+    //   this.audio.setAttribute('src', this.audioUrl);
+    //   this.audio.load();
+    // } else {
+    //   this.audio = new Audio(this.audioUrl);
+    //   this.audio.load();
+    // }
 
-      this.duration = this.audio.duration;
-      this.state = 'success';
-      this.canPlay = true;
-    });
-
-    // 2. Aktualizace slideru během přehrávání
-    this.audio.addEventListener('timeupdate', () => {
-      if (!this.isUserSeeking) {
-    
-        this.currentTime = this.audio.currentTime;
-      }
-    });
-
-    // Sledování stavu přehrávání (volitelné)
-    this.audio.addEventListener('play', () => this.playing = true);
-    this.audio.addEventListener('pause', () => this.playing = false);
-
-
-    // this.audio.ontimeupdate = () => {
-    //   this.trackPosition = Math.round(this.audio.currentTime);
-    //   this.trackPositionText = this.formatTime(this.trackPosition);
-    // };
-
-    // this.audio.onloadedmetadata = () => {
-    //   if (this.audio.duration !== Infinity) {
-    //     this.trackDuration = Math.round(this.audio.duration);
-    //     this.trackDurationText = this.formatTime(this.trackDuration);
-    //   } else {
-    //     this.trackDurationText = 'Infinity';
-    //   }
-    //   this.trackPosition = Math.round(this.audio.currentTime);
-    //   this.trackPositionText = this.formatTime(this.trackPosition);
-    // };
-
-    // this.audio.onended = () => {
-    // };
-
-    // this.audio.oncanplay = () => {
+    // // 1. Načtení celkové délky audia
+    // this.audio.addEventListener('loadedmetadata', (a: any) => {
+    //   this.duration = this.audio.duration;
     //   this.state = 'success';
     //   this.canPlay = true;
-    // };
+    //   this.isSeekable = this.audio.seekable.length > 0;
+    // });
+
+    // // 2. Aktualizace slideru během přehrávání
+    // this.audio.addEventListener('timeupdate', () => {
+    //   if (!this.isUserSeeking) {
+
+    //     this.currentTime = this.audio.currentTime;
+    //   }
+    // });
+
+    // // Sledování stavu přehrávání (volitelné)
+    // this.audio.addEventListener('play', () => this.playing = true);
+    // this.audio.addEventListener('pause', () => this.playing = false);
   }
 
-
-  // isPlaying(): boolean {
-  //   return this.playing;
-  // }
 
   playTrack() {
     if (this.audio && this.canPlay) {
@@ -149,7 +121,7 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   moveForward() {
-    this.audio.currentTime = Math.min(this.audio.currentTime + 10, this.trackDuration);
+    this.audio.currentTime = Math.min(this.audio.currentTime + 10, this.duration);
   }
 
   moveBackward() {
@@ -184,9 +156,9 @@ export class SongComponent implements OnInit, OnDestroy {
   onSliderChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const targetTime = parseFloat(input.value);
-    
+
     this.audio.currentTime = targetTime;
-    this.isUserSeeking = false; 
+    this.isUserSeeking = false;
   }
 
 }
