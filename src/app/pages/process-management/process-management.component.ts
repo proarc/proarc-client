@@ -101,11 +101,12 @@ export class ProcessManagementComponent {
     'EXPORTING',
     'EXPORT_DONE',
     'EXPORT_FAILED',
-    'EXPORT_VALID_WARNING',
+    'EXPORT_WARNING',
     'INTERNAL_PLANNED',
     'INTERNAL_RUNNING',
     'INTERNAL_DONE',
     'INTERNAL_FAILED',
+    'INTERNAL_WARNING',
     'EXTERNAL_PLANNED',
     'EXTERNAL_RUNNING',
     'EXTERNAL_DONE',
@@ -114,6 +115,7 @@ export class ProcessManagementComponent {
     'UPLOADING',
     'UPLOAD_DONE',
     'UPLOAD_FAILED',
+    'UPLOAD_WARNING',
   ];
 
   priorities = [
@@ -156,7 +158,7 @@ export class ProcessManagementComponent {
       tooltip: 'button.viewErrorDetail',
       color: 'var(--app-color-warn)',
       condition: (e: any) => {
-        return e.failure
+        return e.logSeverity() === 'error'
       },
       action: (e: any) => {
         this.onShowLog(e);
@@ -166,11 +168,18 @@ export class ProcessManagementComponent {
       icon: 'info',
       tooltip: 'button.viewDetail',
       condition: (e: any) => {
-        return e.parameters && !e.failure
+        return (e.parameters || e.failure) && e.logSeverity() === 'info'
       },
       action: (e: any) => {
         this.onShowLog(e);
       }
+    });
+    this.actions.push({
+      icon: 'warning',
+      tooltip: 'button.viewWarningDetail',
+      color: 'var(--app-color-warning)',
+      condition: (e: Batch) => e.logSeverity() === 'warning',
+      action: (e: Batch) => this.onShowLog(e)
     });
     this.actions.push({
       icon: 'cancel',
@@ -743,10 +752,11 @@ export class ProcessManagementComponent {
 
   onShowLog(batch: Batch) {
     const data = [];
-    if (batch.failure) {
+    if (batch.failure || batch.logSeverity() !== 'info') {
       data.push({
-        title: 'desc.errorDetail',
-        content: batch.failure
+        title: batch.logSeverity() === 'error' ? 'desc.errorDetail'
+          : batch.logSeverity() === 'warning' ? 'desc.warningDetail' : 'desc.logInfo',
+        content: batch.failure || this.translator.instant('states.' + batch.state)
       });
     }
 

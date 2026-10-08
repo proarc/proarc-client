@@ -16,7 +16,7 @@ export class ProarcMatDialog extends MatDialog {
   ): MatDialogRef<T, R> {
 
     
-    const currentConfig = config || {};
+    const currentConfig = {...config};
     let componentName = '';
 
     if (componentOrTemplateRef instanceof Type) {
@@ -29,7 +29,6 @@ export class ProarcMatDialog extends MatDialog {
         currentConfig.height = savedPosition.height +'px';
         currentConfig.maxWidth = undefined;
       }
-    console.log(savedPosition)
     }
 
     // Voláme původní metodu open z MatDialog
