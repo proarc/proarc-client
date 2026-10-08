@@ -2829,6 +2829,7 @@
     "fullImportHint": "Performs a full import including relations.",
     "updateMods": "Update metadata only",
     "updateModsHint": "Updates bibliographic data only (BiblioMods and DC). Note: full indexing is performed.",
+    "deleteRawScansAfterExport": "Delete raw scans after successful export and BAGIT packaging",
     "nightOnly": "Night process",
     "bagitPackage": "BAGIT package",
     "login": "Login",

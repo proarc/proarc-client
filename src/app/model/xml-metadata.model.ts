@@ -36,7 +36,9 @@ const METS = 'http://www.loc.gov/METS/';
 /** Preserve the complete XML DOM, including namespaces and unknown extensions. */
 export class XmlMetadata {
   static formatXml(xml: string, omitEmptyElements = false): string {
-    const document = new DOMParser().parseFromString(xml, 'application/xml');
+    const declarationMatch = xml.match(/^\s*(<\?xml\s[^?]*\?>)/);
+    // Browsers may retain the declaration in the DOM; restore it exactly once ourselves.
+    const document = new DOMParser().parseFromString(declarationMatch ? xml.slice(declarationMatch[0].length) : xml, 'application/xml');
     if (document.getElementsByTagName('parsererror').length) { return xml; }
     if (omitEmptyElements) {
       const prune = (element: Element): boolean => {
@@ -69,7 +71,7 @@ export class XmlMetadata {
       element.appendChild(document.createTextNode('\n' + '  '.repeat(depth)));
     };
     indent(document.documentElement, 0);
-    const declaration = xml.match(/^\s*(<\?xml\s[^?]*\?>)/)?.[1];
+    const declaration = declarationMatch?.[1];
     return (declaration ? declaration + '\n' : '') + new XMLSerializer().serializeToString(document);
   }
 

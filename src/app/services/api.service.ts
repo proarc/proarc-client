@@ -241,7 +241,7 @@ export class ApiService {
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
     extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium', updateMods: boolean = false,
-    collections: string[] = []): Observable<any> | undefined {
+    collections: string[] = [], deleteRawScans: boolean = true): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -373,7 +373,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_EXTENDED_BAGIT: {
         path = 'export/archive';
-        data = `${data}&isBagit=true&extendedPackage=true`;
+        data = `${data}&isBagit=true&extendedPackage=true&deleteRawScans=${deleteRawScans}`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
@@ -384,7 +384,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_STT_EXTENDED_BAGIT: {
         path = 'export/archive';
-        data = `${data}&package=STT&isBagit=true&extendedPackage=true`;
+        data = `${data}&package=STT&isBagit=true&extendedPackage=true&deleteRawScans=${deleteRawScans}`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }

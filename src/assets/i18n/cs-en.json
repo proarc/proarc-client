@@ -2863,6 +2863,7 @@
     "fullImportHint": "Provede plný import včetně vazeb.",
     "updateMods": "Pouze update metadat",
     "updateModsHint": "Provede pouze update bibliografických dat (BiblioMods a DC). Poznámka: spouští se plná indexace.",
+    "deleteRawScansAfterExport": "Smazat surové skeny po úspěšném exportu a zabagitování / Delete raw scans after successful export and BAGIT packaging",
     "nightOnly": "Odložený proces",
     "bagitPackage": "BAGIT balíček",
     "login": "Přihlášení",

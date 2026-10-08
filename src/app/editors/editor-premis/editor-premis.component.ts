@@ -227,6 +227,9 @@ export class EditorPremisComponent implements OnDestroy {
     let xml: string;
     try {
       xml = this.xmlMode ? new Premis(this.xml, this.premis.timestamp, this.template).serialize() : this.premis.serialize();
+      if (this.copyrightMode && !this.xmlMode) {
+        xml = Premis.formatXml(xml, true);
+      }
     } catch {
       this.ui.showErrorSnackBar(this.translator.instant(this.metadataKey + 'invalidXml'));
       return;
@@ -262,7 +265,7 @@ export class EditorPremisComponent implements OnDestroy {
     this.premis.roots.forEach(populate);
     // The complete form remains a local draft until the user saves it.
     this.premis = new Premis(this.premis.serialize(), this.timestamp, this.template);
-    this.displayXml = Premis.formatXml(this.premis.xml);
+    this.displayXml = Premis.formatXml(this.premis.xml, true);
     this.previewXml = Premis.formatXml(this.premis.xml, true);
     this.xml = this.displayXml;
     this.creating = true;

@@ -139,6 +139,13 @@
     </mat-radio-group>
   </div>
 }
+@if (selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit') {
+  <div class="app-mb-4">
+    <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="deleteRawScans">
+      {{ 'desc.deleteRawScansAfterExport' | translate }}
+    </mat-checkbox>
+  </div>
+}
 @if (extendedType=='snkd') {
   <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <input required type="text" autocomplete="off" matInput
