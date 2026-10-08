@@ -5,9 +5,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSliderModule} from '@angular/material/slider';
-import {FormsModule} from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -36,7 +36,7 @@ export class SongComponent implements OnInit, OnDestroy {
   // Stavy pro šablonu
   currentTime = 0;
   duration = 0;
-  isUserSeeking = false; 
+  isUserSeeking = false;
   isSeekable = true;
   audioUrl: string;
 
@@ -48,13 +48,11 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // if (this.isPlaying()) {
-    //   this.pauseTrack();
+    // if (this.audio) {
+    //   this.audio.pause();
+    //   this.audio.src = '';
+    //   this.audio = null;
     // }
-    // this.audio = null;
-
-    this.audio.pause();
-    this.audio.src = '';
   }
 
   ngOnInit() {
@@ -93,7 +91,7 @@ export class SongComponent implements OnInit, OnDestroy {
     // // 2. Aktualizace slideru během přehrávání
     // this.audio.addEventListener('timeupdate', () => {
     //   if (!this.isUserSeeking) {
-    
+
     //     this.currentTime = this.audio.currentTime;
     //   }
     // });
@@ -158,9 +156,9 @@ export class SongComponent implements OnInit, OnDestroy {
   onSliderChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const targetTime = parseFloat(input.value);
-    
+
     this.audio.currentTime = targetTime;
-    this.isUserSeeking = false; 
+    this.isUserSeeking = false;
   }
 
 }
