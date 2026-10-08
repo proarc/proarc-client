@@ -2602,6 +2602,7 @@
     }
   },
   "workflow": {
+    "materialSaveError": "Nepodařilo se uložit bibliografický záznam. Zkuste to znovu.",
     "title": "Záměry",
     "task": "Úkol",
     "job": "Záměr",
@@ -3549,6 +3550,8 @@
       "sttPagetoNdkPage": "Převést STT stranu na NDK stranu"
     },
     "newMetadata": {
+      "invalidXml": "Neplatné MODS XML. Očekává se element mods nebo modsCollection obsahující mods.",
+      "xmlTemplateError": "Nepodařilo se načíst šablonu metadat. Zkuste to znovu.",
       "title": "Nový objekt",
       "title_edit": "Editace objektu",
       "onClose": {

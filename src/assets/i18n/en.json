@@ -2568,6 +2568,7 @@
     }
   },
   "workflow": {
+    "materialSaveError": "Could not save the bibliographic record. Please try again.",
     "title": "Jobs",
     "task": "Task",
     "job": "Job",
@@ -3515,6 +3516,8 @@
       "sttPagetoNdkPage": "Convert Old Print page to NDK page"
     },
     "newMetadata": {
+      "invalidXml": "Invalid MODS XML. A mods element or a modsCollection containing mods is required.",
+      "xmlTemplateError": "Could not load the metadata template. Please try again.",
       "title": "New object",
       "title_edit": "Edit object",
       "onClose": {

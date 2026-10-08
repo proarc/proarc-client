@@ -99,10 +99,11 @@
     </div>
   }
 
-  <div class="app-fxLayout app-row app-gap-2 app-pl-2 app-pr-2 app-pb-2">
-    <button mat-stroked-button (click)="save()" class="app-bg-color-lightnes">{{ 'button.save' | translate }}</button>
+  <div class="app-fxLayout app-row app-wrap app-gap-2 app-pl-2 app-pr-2 app-pb-2">
+    <button mat-stroked-button (click)="save()" [disabled]="saving || catalogOpen" class="app-bg-color-lightnes">{{ 'button.save' | translate }}</button>
     @if (material.type === 'PHYSICAL_DOCUMENT') {
-      <button mat-stroked-button (click)="editMetadata()" class="app-bg-color-lightnes">{{ 'button.editMetadata' | translate }}</button>
+      <button mat-stroked-button (click)="editMetadata()" [disabled]="saving || catalogOpen" class="app-bg-color-lightnes">{{ 'button.editMetadata' | translate }}</button>
+      <button mat-stroked-button (click)="loadFromCatalog()" [disabled]="saving || catalogOpen" class="app-bg-color-lightnes">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
     }
   </div>
 </div>

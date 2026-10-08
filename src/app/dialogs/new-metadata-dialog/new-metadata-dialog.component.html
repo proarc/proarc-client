@@ -1,5 +1,34 @@
 <div class="app-fxLayout app-column app-fill"  [class.app-form-highlighting]="formHighlighting">
   <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ title | translate }}: {{'model.' + data.model | translate }}</h1>
+  @if (canSwitchEditor && editorType === 'mods') {
+    <div class="app-fxLayout app-row app-center-v app-toolbar app-metadata-switcher">
+      <ng-container [ngTemplateOutlet]="editorToolbar"></ng-container>
+    </div>
+  }
+  <ng-template #editorToolbar>
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate"
+        [attr.aria-label]="'editor.toolbar.editor_metadata' | translate"
+        [class.app-active]="editorType === 'metadata'" [disabled]="!metadata || syncingXml"
+        (click)="changeEditorType('metadata')">
+        <span class="app-text-icon">M</span>
+      </button>
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"
+        [attr.aria-label]="'editor.toolbar.editor_mods' | translate"
+        [class.app-active]="editorType === 'mods'" [disabled]="!metadata || syncingXml"
+        (click)="changeEditorType('mods')">
+        <mat-icon>code</mat-icon>
+      </button>
+      @if (editorType === 'mods') {
+        <button mat-icon-button (click)="editXml()" [disabled]="xmlEditing || syncingXml"
+          [matTooltip]="'common.edit' | translate" [attr.aria-label]="'common.edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancelXmlEditing()" [disabled]="!xmlEditing || syncingXml"
+          [matTooltip]="'common.cancel' | translate" [attr.aria-label]="'common.cancel' | translate">
+          <mat-icon>clear</mat-icon>
+        </button>
+      }
+  </ng-template>
   <div mat-dialog-content class="app-fxFlex app-clean-max-height">
     @if (inited) {
       @if (isPage()) {
@@ -7,6 +36,17 @@
       } @else if(isAudioPage()) {
       <app-editor-audioPage [model]="data.model" [notSaved]="true" [pid]="data.pid" [panel]="panel"></app-editor-audioPage>
 
+      } @else if (editorType === 'mods') {
+      <div class="app-view-edit">
+        @if (xmlEditing) {
+          <pre class="app-xml-content app-mods-editing"><code class="app-mods-editing"
+            [highlight]="displayXml" language="xml" (input)="xmlChanged($event)"
+            [attr.contenteditable]="syncingXml ? 'false' : 'plaintext-only'" spellcheck="false"
+            role="textbox" aria-multiline="true" [attr.aria-label]="'editor.toolbar.editor_mods' | translate"></code></pre>
+        } @else {
+          <pre class="app-xml-content"><code [highlight]="displayXml" language="xml"></code></pre>
+        }
+      </div>
       } @else if(metadata) {
       <app-editor-metadata 
         [notSaved]="true"
@@ -14,14 +54,20 @@
         [pid]="data.pid" 
         [data]="metadata"
         [validating]="validating" 
-        [panel]="panel"></app-editor-metadata>
+        [panel]="panel">
+        @if (canSwitchEditor) {
+          <div metadataEditorSwitcher class="app-fxLayout app-row app-center-v">
+            <ng-container [ngTemplateOutlet]="editorToolbar"></ng-container>
+          </div>
+        }
+      </app-editor-metadata>
       }
     }
   </div>
 
   <div mat-dialog-actions cdkFocusRegionstart>
     @if (data.isWorkFlow) {
-    <button matButton="filled" (click)="onSave(false)">{{ 'button.save' | translate }}</button>
+    <button matButton="filled" (click)="onSave(false)" [disabled]="!metadata || syncingXml">{{ 'button.save' | translate }}</button>
     } @else {
     <button matButton="filled" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
     <button matButton="filled" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
