@@ -4,6 +4,7 @@ export class Atm {
     public pid: string;
     public model: string;
     public device: string;
+    public software: string;
     public state: string;
     public owner: string;
     public modified: Date;
@@ -21,6 +22,7 @@ export class Atm {
 
 
     public originalDevice: string;
+    public originalSoftware: string;
     public originalOrganization: string;
     public originalUserProcessor: string;
     public originalStatus: string;
@@ -35,6 +37,8 @@ export class Atm {
       atm.owner = json['owner'];
       atm.originalDevice = json['device'] || 'null';
       atm.device = json['device'] || 'null';
+      atm.originalSoftware = json['software'] || 'null';
+      atm.software = atm.originalSoftware;
       atm.filename = json['filename'];
       atm.organization = json['organization'];
       atm.userProcessor = json['userProcessor'];
@@ -61,6 +65,7 @@ export class Atm {
 
   public restore() {
     this.device = this.originalDevice;
+    this.software = this.originalSoftware;
     this.organization = this.originalOrganization;
     this.userProcessor = this.originalUserProcessor;
     this.status = this.originalStatus;
@@ -70,6 +75,7 @@ export class Atm {
 
   public hasChanged(): boolean {
     return this.originalDevice !== this.device || 
+           this.originalSoftware !== this.software ||
            this.originalOrganization !== this.organization || 
            this.originalUserProcessor !== this.userProcessor || 
            this.originalStatus !== this.status || 

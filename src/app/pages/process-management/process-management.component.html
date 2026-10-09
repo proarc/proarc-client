@@ -64,7 +64,7 @@
               {{ 'button.switchToMetacheck' | translate }}
             </button>
           }
-          @if (selectedBatch && (selectedBatch.state === 'EXPORT_FAILED' || selectedBatch.state === 'STOPPED') && isExportProfile(selectedBatch.profile)) {
+          @if (selectedBatch && (selectedBatch.state === 'EXPORT_FAILED' || selectedBatch.state === 'EXPORT_WARNING' || selectedBatch.state === 'STOPPED') && isExportProfile(selectedBatch.profile)) {
             <button mat-stroked-button (click)="onReexport()">
               {{ 'button.reexport' | translate }}
             </button>

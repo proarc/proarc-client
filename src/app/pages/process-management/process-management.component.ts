@@ -52,6 +52,7 @@ export class ProcessManagementComponent {
 
 
   state = 'none';
+  private catalogRetries = new Set<number>();
 
   pageIndex = 0;
   pageSize = 20;
@@ -101,11 +102,12 @@ export class ProcessManagementComponent {
     'EXPORTING',
     'EXPORT_DONE',
     'EXPORT_FAILED',
-    'EXPORT_VALID_WARNING',
+    'EXPORT_WARNING',
     'INTERNAL_PLANNED',
     'INTERNAL_RUNNING',
     'INTERNAL_DONE',
     'INTERNAL_FAILED',
+    'INTERNAL_WARNING',
     'EXTERNAL_PLANNED',
     'EXTERNAL_RUNNING',
     'EXTERNAL_DONE',
@@ -114,6 +116,7 @@ export class ProcessManagementComponent {
     'UPLOADING',
     'UPLOAD_DONE',
     'UPLOAD_FAILED',
+    'UPLOAD_WARNING',
   ];
 
   priorities = [
@@ -156,7 +159,7 @@ export class ProcessManagementComponent {
       tooltip: 'button.viewErrorDetail',
       color: 'var(--app-color-warn)',
       condition: (e: any) => {
-        return e.failure
+        return e.logSeverity() === 'error'
       },
       action: (e: any) => {
         this.onShowLog(e);
@@ -166,11 +169,18 @@ export class ProcessManagementComponent {
       icon: 'info',
       tooltip: 'button.viewDetail',
       condition: (e: any) => {
-        return e.parameters && !e.failure
+        return (e.parameters || e.failure) && e.logSeverity() === 'info'
       },
       action: (e: any) => {
         this.onShowLog(e);
       }
+    });
+    this.actions.push({
+      icon: 'warning',
+      tooltip: 'button.viewWarningDetail',
+      color: 'var(--app-color-warning)',
+      condition: (e: Batch) => e.logSeverity() === 'warning',
+      action: (e: Batch) => this.onShowLog(e)
     });
     this.actions.push({
       icon: 'cancel',
@@ -182,6 +192,12 @@ export class ProcessManagementComponent {
       action: (e: any) => {
         this.stopBatch(e);
       }
+    });
+    this.actions.push({
+      icon: 'replay',
+      tooltip: 'button.retryCatalogUpdate',
+      condition: (batch: Batch) => this.canRetryCatalogUpdate(batch),
+      action: (batch: Batch) => this.retryCatalogUpdate(batch)
     });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
@@ -743,10 +759,11 @@ export class ProcessManagementComponent {
 
   onShowLog(batch: Batch) {
     const data = [];
-    if (batch.failure) {
+    if (batch.failure || batch.logSeverity() !== 'info') {
       data.push({
-        title: 'desc.errorDetail',
-        content: batch.failure
+        title: batch.logSeverity() === 'error' ? 'desc.errorDetail'
+          : batch.logSeverity() === 'warning' ? 'desc.warningDetail' : 'desc.logInfo',
+        content: batch.failure || this.translator.instant('states.' + batch.state)
       });
     }
 
@@ -936,6 +953,33 @@ export class ProcessManagementComponent {
     q['state'] = val;
     q.page = null;
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+  }
+
+  canRetryCatalogUpdate(batch: Batch): boolean {
+    return !!batch && batch.profile === 'internalProfile.updateCatalogRecords'
+      && ['INTERNAL_FAILED', 'STOPPED'].includes(batch.state)
+      && this.auth.user.importToCatalogFunction === true
+      && (batch.userId === this.auth.user.userId || this.auth.user.sysAdminFunction === true)
+      && !this.catalogRetries.has(batch.id);
+  }
+
+  retryCatalogUpdate(batch: Batch): void {
+    if (!this.canRetryCatalogUpdate(batch)) return;
+    this.catalogRetries.add(batch.id);
+    this.api.retryCatalogUpdate(batch.id).subscribe({
+      next: (response: any) => {
+        this.catalogRetries.delete(batch.id);
+        if (response.response?.errors) {
+          this.ui.showErrorDialogFromObject(response.response.errors);
+        } else {
+          this.loadData();
+        }
+      },
+      error: error => {
+        this.catalogRetries.delete(batch.id);
+        this.ui.showErrorDialogFromObject([{errorMessage: error.message}]);
+      }
+    });
   }
 
   canStopProcess(batch: Batch) {

@@ -21,6 +21,7 @@
   --app-color-primary-no-rgb: 69, 106, 165;
   --app-color-accent: var(--palette-accent-500) ;
   --app-color-warn: var(--palette-warn-800);
+  --app-color-warning: #bf8904;
 
   --app-color-lightnes: #ffffff;
   --app-color-lightnes-rgb: 255, 255, 255;
@@ -41,7 +42,7 @@
 
   // custom
   --app-default-border-color: var(--app-color-gray-3);
-  --app-default-bg: var(--app-color-gray-1); 
+  --app-default-bg: var(--app-color-gray-1);
   --app-default-wrapper: 8px;
 
   // components
@@ -55,7 +56,7 @@
   --app-toolbar-button-bg-active: var(--app-toolbar-border-color);
   --app-toolbar-button-height: var(--app-toolbar-height);
   --app-toolbar-radio-button-size: 14px;
-  
+
   --app-breadcrumbsbar-height: 40px;
 
   --app-menu-item-height: 28px;
@@ -184,19 +185,21 @@ $states: (
   EXPORTING: #546E7A,
   EXPORT_DONE: var(--app-color-success),
   EXPORT_FAILED: var(--app-color-warn),
-  EXPORT_VALID_WARNING: var(--app-color-warn),
+  EXPORT_WARNING: var(--app-color-warning),
   REINDEXING: #546E7A,
   REINDEX_DONE: var(--app-color-success),
   REINDEX_FAILED: var(--app-color-warn),
   UPLOADING: #546E7A,
   UPLOAD_DONE: var(--app-color-success),
   UPLOAD_FAILED: var(--app-color-warn),
+  UPLOAD_WARNING: var(--app-color-warning),
   STOPPED: #546E7A,
   WAITING: #009688,
   INTERNAL_DONE: var(--app-color-success),
   INTERNAL_RUNNING: #546E7A,
   INTERNAL_PLANNED: var(--app-color-info),
   INTERNAL_FAILED: var(--app-color-warn),
+  INTERNAL_WARNING: var(--app-color-warning),
   IMPORT_PLANNED: var(--app-color-info),
   EXTERNAL_RUNNING: #546E7A,
   EXTERNAL_PLANNED: var(--app-color-info),

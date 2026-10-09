@@ -61,6 +61,17 @@ export class Batch extends TableItem {
     return [json['endRow'], json['totalRows']];
   }
 
+  logSeverity(): 'error' | 'warning' | 'info' {
+    if (['EXPORT_WARNING', 'UPLOAD_WARNING', 'INTERNAL_WARNING'].includes(this.state)) {
+      return 'warning';
+    }
+    if (['LOADING_FAILED', 'INGESTING_FAILED', 'EXPORT_FAILED', 'UPLOAD_FAILED',
+      'INTERNAL_FAILED', 'EXTERNAL_FAILED'].includes(this.state)) {
+      return 'error';
+    }
+    return 'info';
+  }
+
   isLoading() {
     return this.state === 'LOADING';
   }

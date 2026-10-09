@@ -1,4 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Highlight } from 'ngx-highlightjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -20,7 +23,7 @@ import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-me
 import { UserSettings } from '../../shared/user-settings';
 
 @Component({
-  imports: [TranslateModule, MatDialogModule, CdkDrag, CdkDragHandle, MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
+  imports: [TranslateModule, NgTemplateOutlet, Highlight, MatTooltipModule, MatDialogModule, CdkDrag, CdkDragHandle, MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
   selector: 'app-new-metadata-dialog',
   templateUrl: './new-metadata-dialog.component.html',
   styleUrls: ['./new-metadata-dialog.component.scss']
@@ -30,6 +33,83 @@ export class NewMetadataDialogComponent implements OnInit {
   public inited = true;
   state = 'none';
   metadata: Metadata;
+  @ViewChild(EditorMetadataComponent) metadataEditor: EditorMetadataComponent;
+  editorType: 'metadata' | 'mods' = 'metadata';
+  modsXml = '';
+  displayXml = '';
+  xmlEditing = false;
+  syncingXml = false;
+
+  get canSwitchEditor(): boolean {
+    return this.data.isWorkFlowMaterial && !this.isPage() && !this.isAudioPage();
+  }
+
+  changeEditorType(type: 'metadata' | 'mods') {
+    if (!this.canSwitchEditor || !this.metadata || this.syncingXml || type === this.editorType) {
+      return;
+    }
+    if (type === 'mods') {
+      this.metadata = this.metadataEditor?.metadata || this.metadata;
+      this.modsXml = this.metadata.toMods();
+      this.displayXml = this.modsXml;
+      this.xmlEditing = false;
+      this.editorType = type;
+    } else {
+      this.readModsXml(() => this.editorType = type);
+    }
+  }
+
+  editXml() {
+    if (this.editorType === 'mods' && !this.syncingXml) {
+      this.xmlEditing = true;
+    }
+  }
+
+  cancelXmlEditing() {
+    if (this.syncingXml) {
+      return;
+    }
+    this.modsXml = this.displayXml;
+    this.xmlEditing = false;
+  }
+
+  xmlChanged(event: Event) {
+    if (this.xmlEditing && !this.syncingXml) {
+      this.modsXml = (event.target as HTMLElement).innerText;
+    }
+  }
+
+  private readModsXml(onSuccess: () => void) {
+    const document = new DOMParser().parseFromString(this.modsXml, 'application/xml');
+    const root = document.documentElement;
+    if (document.getElementsByTagName('parsererror').length ||
+        !['mods', 'modsCollection'].includes(root.localName) ||
+        (root.localName === 'modsCollection' &&
+          !Array.from(root.children).some(child => child.localName === 'mods'))) {
+      this.ui.showErrorSnackBar(this.translator.instant('dialog.newMetadata.invalidXml'));
+      return;
+    }
+    const standard = document.getElementsByTagNameNS('*', 'descriptionStandard')[0]?.textContent?.trim() === 'aacr' ? 'aacr' : 'rda';
+    this.syncingXml = true;
+    this.tmpl.getTemplate(standard, this.data.model).subscribe({
+      next: template => {
+        try {
+          this.metadata = new Metadata(this.data.pid, this.data.model, this.modsXml,
+            this.data.timestamp, standard, template, this.userSettings);
+        } catch {
+          this.syncingXml = false;
+          this.ui.showErrorSnackBar(this.translator.instant('dialog.newMetadata.invalidXml'));
+          return;
+        }
+        this.syncingXml = false;
+        onSuccess();
+      },
+      error: () => {
+        this.syncingXml = false;
+        this.ui.showErrorSnackBar(this.translator.instant('dialog.newMetadata.xmlTemplateError'));
+      }
+    });
+  }
 
   title: string;
 
@@ -161,7 +241,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   saveJob(gotoEdit: boolean) {
     if (this.data.isWorkFlowMaterial) {
-        this.dialogRef.close({ mods: this.metadata.toMods() });
+        this.dialogRef.close({ mods: this.editorType === 'mods' ? this.modsXml : this.metadata.toMods() });
     } else {
       let data = `jobId=${this.data.jobId}&timestamp=${this.data.timestamp}&MetaModelRecord=${this.data.model}`;
       data = `${data}&xmlData=${encodeURIComponent(this.metadata.toMods())}`;
@@ -177,6 +257,20 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   onSave(gotoEdit: boolean) {
+    if (!this.metadata || this.syncingXml) {
+      return;
+    }
+    if (this.editorType === 'mods') {
+      this.readModsXml(() => this.saveMetadata(gotoEdit));
+    } else {
+      if (this.canSwitchEditor) {
+        this.metadata = this.metadataEditor?.metadata || this.metadata;
+      }
+      this.saveMetadata(gotoEdit);
+    }
+  }
+
+  private saveMetadata(gotoEdit: boolean) {
     if (this.isPage()) {
       this.savePage();
       return;

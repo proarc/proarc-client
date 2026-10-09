@@ -67,7 +67,9 @@ export class Configuration {
 
   roleCodes: string[];
   updateInSource: boolean;
-  updateInSourceModels: string[];
+  // Loaded from the API; instance globals no longer define the supported models.
+  catalogUpdateModels: string[] = [];
+  exportUpdateCatalog = true;
 
   searchExpandTree: boolean;
   showSearchProcessor: boolean;

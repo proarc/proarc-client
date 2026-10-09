@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { ModelTemplate } from '../model/modelTemplate';
+import { PremisTemplate } from '../model/premis.model';
 //var JSON6 = require('json-6');
 //import JSON6 = require('json-6');
 declare var JSON6: any;
@@ -21,6 +22,14 @@ export class TemplateService {
 
   addTemplate(standard: string, model: string, tmpl: any) {
     this.templates[standard][model] = tmpl;
+  }
+
+  getCopyrightMdTemplate(): Observable<PremisTemplate> {
+    return this.http.get<PremisTemplate>('/assets/templates/copyrightMD/copyrightMD.template.json6');
+  }
+
+  getPremisTemplate(): Observable<PremisTemplate> {
+    return this.http.get<PremisTemplate>('/assets/templates/premis/premis.template.json6');
   }
 
   getTemplate(standard: string, model: string) {

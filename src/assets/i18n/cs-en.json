@@ -219,6 +219,8 @@
   "import": {
     "profile": "Profil",
     "device": "Zařízení",
+    "software": "Software",
+    "no_software": "Bez softwaru",
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generovat index stránek",
@@ -259,6 +261,8 @@
     "process-management": "Správa procesů",
     "catalog": "Katalog",
     "devices": "Zařízení",
+    "devicesAndSoftware": "Zařízení a software",
+    "software": "Software",
     "login": "Přihlásit",
     "logout": "Odhlásit",
     "profile": "Profil",
@@ -328,9 +332,80 @@
       "editor_enter_double_right": "Otevřít třetí panel",
       "editor_leave_double_right": "Zavřít třetí panel",
       "editor_premis": "PREMIS ",
+      "editor_copyrightMD": "copyrightMD",
+      "editor_copyrightMDXML": "copyrightMD XML",
       "editor_premisXML": "PREMIS XML"
     },
+    "copyrightMD": {
+      "form": "Formulář copyrightMD",
+      "xml": "copyrightMD XML",
+      "unsupported": "CopyrightMD lze upravovat pouze v repozitáři pro jeden uložený objekt, kromě stran.",
+      "empty": "Objekt nemá copyrightMD.",
+      "failure": "Nepodařilo se načíst copyrightMD.",
+      "invalidXml": "Neplatné XML. Očekává se samostatný element copyright ve formátu copyrightMD.",
+      "saveFailed": "Nepodařilo se uložit copyrightMD. Vaše změny zůstaly ve formuláři.",
+      "create": "Vytvořit copyrightMD",
+      "delete": "Odstranit copyrightMD",
+      "confirmDelete": "Potvrdit odstranění copyrightMD",
+      "saveXmlFirst": "Před přepnutím editoru uložte změny nebo je vraťte zpět.",
+      "fields": {
+        "copyright": "Autorskoprávní metadata",
+        "copyrightStatus": "Autorskoprávní status",
+        "publicationStatus": "Status publikování",
+        "creation": "Vytvoření dokumentu",
+        "yearCreation": "Rok vytvoření",
+        "countryCreation": "Země vytvoření",
+        "creator": "Tvůrce dokumentu",
+        "corporate": "Instituce",
+        "person": "Osoba",
+        "name": "Jméno nebo název",
+        "birth": "Rok narození",
+        "death": "Rok úmrtí",
+        "publication": "Vydání dokumentu",
+        "countryPublication": "Země vydání",
+        "publisher": "Nakladatel",
+        "yearPublication": "Rok vydání",
+        "yearCopyright": "Rok copyrightu",
+        "yearRenewal": "Rok obnovení copyrightu",
+        "holder": "Držitel práv",
+        "contact": "Kontakt",
+        "note": "Poznámka",
+        "notice": "Oznámení o copyrightu",
+        "generalNote": "Obecná poznámka / licence",
+        "yearType": "Přesnost roku",
+        "countryCode": "Kód země (ISO alpha-2)"
+      },
+      "values": {
+        "copyrighted": "Autorsky chráněný (copyrighted)",
+        "pd": "Volné dílo (pd)",
+        "pd_expired": "Práva vypršela (pd_expired)",
+        "pd_holder": "Uvolněno držitelem práv (pd_holder)",
+        "unknown": "Neznámý (unknown)",
+        "published": "Publikovaný (published)",
+        "unpublished": "Nepublikovaný (unpublished)",
+        "exact": "Přesný (exact)",
+        "approximate": "Odhadovaný (approximate)"
+      }
+    },
+    "premis": {
+      "form": "Formulář PREMIS",
+      "xml": "PREMIS XML",
+      "unsupported": "PREMIS lze upravovat pouze v repozitáři pro jednu uloženou stranu, NDK stranu nebo STT stranu.",
+      "empty": "Strana nemá PREMIS a API nevrátilo výchozí data.",
+      "failure": "Nepodařilo se načíst PREMIS. Zkontrolujte zařízení a jeho PREMIS šablonu.",
+      "invalidXml": "Neplatné XML. Očekává se celý dokument METS s blokem PREMIS.",
+      "saveXmlFirst": "Před přechodem do formuláře uložte změny XML, nebo je vraťte zpět.",
+      "saveFailed": "Nepodařilo se uložit PREMIS. Vaše změny zůstaly ve formuláři."
+    },
     "atm": {
+      "regeneratePremis": "Přegenerovat PREMIS",
+      "regeneratePremisHint": "Přegenerovat PREMIS z uložených hodnot. Nejprve uložte změny softwaru a zařízení.",
+      "premisRegenerated": "PREMIS byl přegenerován.",
+      "premisRegenerationFailed": "Nepodařilo se přegenerovat PREMIS.",
+      "software": "Software",
+      "no_software": "Žádný software",
+      "unchanged": "Beze změny",
+      "optionsLoadFailed": "Nepodařilo se načíst zařízení a software. Otevřete editor znovu.",
       "title": "Administrativní a technická metadata",
       "pid": "PID",
       "model": "Model",
@@ -794,6 +869,14 @@
     "note": "Poznámka"
   },
   "viewer": {
+    "upload": {
+      "selected": "Vybrané objekty: {{count}}",
+      "loadPdf": "Nahrát stejné PDF ke všem vybraným objektům",
+      "pdfOnly": "Pro nahrání k více objektům vyberte soubor PDF.",
+      "progress": "Nahrávání: {{completed}} / {{total}}",
+      "success": "Digitální obsah byl nahrán k {{succeeded}} objektům.",
+      "failed": "Nahráno k {{succeeded}} z {{total}} objektů. Nahrání selhalo u těchto objektů:"
+    },
     "tooltip": {
       "lock": "Uzamknout pozici",
       "unlock": "Odemknout pozici",
@@ -2521,6 +2604,7 @@
     }
   },
   "workflow": {
+    "materialSaveError": "Nepodařilo se uložit bibliografický záznam. Zkuste to znovu.",
     "title": "Záměry",
     "task": "Úkol",
     "job": "Záměr",
@@ -2673,6 +2757,7 @@
     "folderNamePid": "Složka/název/PID",
     "numberOfPages": "Počet stran",
     "errorDetail": "Detail logu",
+    "warningDetail": "Detail upozornění",
     "logInfo": "Detail",
     "params": "Parametry",
     "markRow": "Označit řadu",
@@ -2779,6 +2864,8 @@
     "fullImportHint": "Provede plný import včetně vazeb.",
     "updateMods": "Pouze update metadat",
     "updateModsHint": "Provede pouze update bibliografických dat (BiblioMods a DC). Poznámka: spouští se plná indexace.",
+    "deleteRawScansAfterExport": "Smazat surové skeny po úspěšném exportu a zabagitování / Delete raw scans after successful export and BAGIT packaging",
+    "updateCatalogAfterImport": "Po importu do Krameria zapsat odkaz do katalogu",
     "nightOnly": "Odložený proces",
     "bagitPackage": "BAGIT balíček",
     "login": "Přihlášení",
@@ -2849,6 +2936,7 @@
     }
   },
   "button": {
+    "retryCatalogUpdate": "Opakovat zápis do katalogu",
     "setLayout": "nastavit rozložení",
     "close": "Zavřít",
     "continue": "Pokračovat",
@@ -2884,6 +2972,7 @@
     "addReference": "Přidat seznam použité literatury",
     "filter": "Filtrovat",
     "viewErrorDetail": "Zobrazit detail chyby",
+    "viewWarningDetail": "Zobrazit detail upozornění",
     "viewDetail": "Zobrazit detail",
     "saveAgain": "Uložit znovu",
     "stop": "Stopnout",
@@ -2959,6 +3048,9 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
+    "premisXML": "PREMIS XML",
+    "copyrightMD": "copyrightMD",
+    "copyrightMDXML": "copyrightMD XML",
     "media": "Média",
     "workFlow": {
       "profileLabel": "Materiál",
@@ -3101,17 +3193,19 @@
     "EXPORT_FAILED": "Chyba exportu",
     "EXPORT_DONE": "Exportováno",
     "EXPORT_PLANNED": "Export - Naplánováno",
-    "EXPORT_VALID_WARNING": "Export skončil upozorněním",
+    "EXPORT_WARNING": "Export skončil upozorněním",
     "REINDEXING": "Reindexování",
     "REINDEX_FAILED": "Reindexace - Chyba",
     "REINDEX_DONE": "Reindexovace - Hotovo",
     "UPLOADING": "Nahrávání",
     "UPLOAD_FAILED": "Nahrání - Chyba",
+    "UPLOAD_WARNING": "Nahrání skončilo upozorněním",
     "UPLOAD_DONE": "Nahrání - Hotovo",
     "WAITING": "Čeká ve frontě",
     "INTERNAL_RUNNING": "Interní - Probíhá",
     "INTERNAL_PLANNED": "Interní - Naplánováno",
     "INTERNAL_FAILED": "Interní - Chyba",
+    "INTERNAL_WARNING": "Interní - Upozornění",
     "INTERNAL_DONE": "Interní - Hotovo",
     "IMPORT_PLANNED": "Import - Naplánováno",
     "EXTERNAL_RUNNING": "Externí - Probíhá",
@@ -3350,6 +3444,7 @@
     },
     "preferredTops": {
       "title": {
+        "catalog": "Preferované katalogy",
         "pageType": "Preferované typy stran",
         "lang": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",
@@ -3461,6 +3556,8 @@
       "sttPagetoNdkPage": "Převést STT stranu na NDK stranu"
     },
     "newMetadata": {
+      "invalidXml": "Neplatné MODS XML. Očekává se element mods nebo modsCollection obsahující mods.",
+      "xmlTemplateError": "Nepodařilo se načíst šablonu metadat. Zkuste to znovu.",
       "title": "Nový objekt",
       "title_edit": "Editace objektu",
       "onClose": {
@@ -3487,7 +3584,7 @@
     "updateInSource": {
       "title": "Zapsat do zdrojového katalogu",
       "alert": {
-        "success": "Zapsáno do katalogu",
+        "success": "Zápis do katalogu byl naplánován. Výsledek najdete ve správě procesů.",
         "error": "Chyba zapsání!"
       }
     }
@@ -3564,6 +3661,7 @@
   },
   "alert": {
     "info": {
+      "editorInactiveForMultipleSelection": "Toto okno je neaktivní, pokud je vybráno více objektů. Pro editaci vyberte jeden objekt.",
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "digitalContentIsNotLoadedForModel": "Pro tento typ objektu se digitální obsah nenačítá.",
       "imageIsNotLoadedForModel": "Pro tento typ objektu se obrázek nenačítá.",
@@ -3743,6 +3841,49 @@
     "url": "URL",
     "issue number": "Issue number",
     "matrix number": "Matrix number"
+  },
+  "software": {
+    "type": {
+      "agent": "Agent",
+      "event": "Event",
+      "object": "Object",
+      "set": "Skupina"
+    },
+    "add": "Přidat",
+    "empty": "Nebyly nalezeny žádné záznamy.",
+    "id": "PID",
+    "label": "Název",
+    "model": "Model",
+    "general": "Obecné",
+    "members": "Navázané objekty",
+    "metadata": "PREMIS metadata",
+    "defaultMetadata": "Výchozí metadata",
+    "noMetadata": "Bez metadat",
+    "noMember": "Bez vazby",
+    "preview": "Náhled kompletních metadat",
+    "create": {
+      "title": "Nový záznam",
+      "button": "Vytvořit",
+      "success": "Záznam byl vytvořen."
+    },
+    "update": {
+      "success": "Záznam byl uložen."
+    },
+    "delete": {
+      "title": "Odstranit záznam",
+      "message": "Opravdu chcete odstranit {{label}}?",
+      "success": "Záznam byl odstraněn."
+    },
+    "metadataType": {
+      "default": "Výchozí agent",
+      "eventDigitalization": "Digitalizace",
+      "eventCreation": "Vytvoření obrazového souboru",
+      "eventXmlCreation": "Vytvoření XML",
+      "eventDeletion": "Odstranění",
+      "objectPreservationArchival": "Archivní obrazový soubor",
+      "objectPreservationAlto": "ALTO XML",
+      "objectDeletionTif": "Odstraněný TIFF"
+    }
   },
   "validityOptions": {
     "": "Platný",

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.app-view-edit {
+  min-height: 20rem;
+  max-height: 70vh;
+  padding: 0;
+  overflow: auto;
+}

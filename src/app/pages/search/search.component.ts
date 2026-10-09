@@ -475,15 +475,16 @@ export class SearchComponent {
     this.api.getImportBatches(params).subscribe((resp: any) => {
       const batches = resp.data.map((d: any) => Batch.fromJson(d));
       if (batches.length > 0 && batches[0].failure) {
-        this.onShowLog(batches[0].failure)
+        this.onShowLog(batches[0])
       }
     });
   }
 
-  onShowLog(info: string) {
-    const data = {
-      content: info
-    }
+  onShowLog(batch: Batch) {
+    const data = [{
+      title: batch.logSeverity() === 'warning' ? 'desc.warningDetail' : 'desc.errorDetail',
+      content: batch.failure
+    }];
     this.dialog.open(LogDialogComponent, {
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]

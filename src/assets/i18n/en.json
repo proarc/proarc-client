@@ -219,6 +219,8 @@
   "import": {
     "profile": "Profile",
     "device": "Device",
+    "software": "Software",
+    "no_software": "No software",
     "pero": "PERO",
     "metakat": "MetaKat",
     "generate_index": "Generate page indices",
@@ -259,6 +261,8 @@
     "process-management": "Process management",
     "catalog": "Catalog",
     "devices": "Devices",
+    "devicesAndSoftware": "Devices and software",
+    "software": "Software",
     "login": "Log in",
     "logout": "Log out",
     "profile": "Profile",
@@ -328,9 +332,80 @@
       "editor_enter_double_right": "Open the image in a new panel",
       "editor_leave_double_right": "Close the panel with the image",
       "editor_premis": "PREMIS ",
+      "editor_copyrightMD": "copyrightMD",
+      "editor_copyrightMDXML": "copyrightMD XML",
       "editor_premisXML": "PREMIS XML"
     },
+    "copyrightMD": {
+      "form": "CopyrightMD form",
+      "xml": "CopyrightMD XML",
+      "unsupported": "CopyrightMD is available only in the repository for a single saved object other than a page.",
+      "empty": "The object has no copyrightMD.",
+      "failure": "Could not load copyrightMD.",
+      "invalidXml": "Invalid XML. A standalone copyright element in the copyrightMD namespace is required.",
+      "saveFailed": "Could not save copyrightMD. Your changes remain in the form.",
+      "create": "Create copyrightMD",
+      "delete": "Delete copyrightMD",
+      "confirmDelete": "Confirm copyrightMD deletion",
+      "saveXmlFirst": "Save or cancel changes before switching editors.",
+      "fields": {
+        "copyright": "Copyright metadata",
+        "copyrightStatus": "Copyright status",
+        "publicationStatus": "Publication status",
+        "creation": "Creation",
+        "yearCreation": "Year of creation",
+        "countryCreation": "Country of creation",
+        "creator": "Creator",
+        "corporate": "Corporate creator",
+        "person": "Person",
+        "name": "Name",
+        "birth": "Year of birth",
+        "death": "Year of death",
+        "publication": "Publication",
+        "countryPublication": "Country of publication",
+        "publisher": "Publisher",
+        "yearPublication": "Year of publication",
+        "yearCopyright": "Copyright year",
+        "yearRenewal": "Renewal year",
+        "holder": "Rights holder",
+        "contact": "Contact",
+        "note": "Note",
+        "notice": "Copyright notice",
+        "generalNote": "General note / license",
+        "yearType": "Year precision",
+        "countryCode": "Country code (ISO alpha-2)"
+      },
+      "values": {
+        "copyrighted": "Copyrighted",
+        "pd": "Public domain (pd)",
+        "pd_expired": "Expired copyright (pd_expired)",
+        "pd_holder": "Dedicated by holder (pd_holder)",
+        "unknown": "Unknown",
+        "published": "Published",
+        "unpublished": "Unpublished",
+        "exact": "Exact",
+        "approximate": "Approximate"
+      }
+    },
+    "premis": {
+      "form": "PREMIS form",
+      "xml": "PREMIS XML",
+      "unsupported": "PREMIS can only be edited in the repository for a single saved page, NDK page or STT page.",
+      "empty": "This page has no PREMIS and the API did not return default metadata.",
+      "failure": "Failed to load PREMIS. Check the device and its PREMIS template.",
+      "invalidXml": "Invalid XML. A complete METS document containing PREMIS is required.",
+      "saveXmlFirst": "Save or revert XML changes before switching to the form.",
+      "saveFailed": "Failed to save PREMIS. Your changes remain in the form."
+    },
     "atm": {
+      "regeneratePremis": "Regenerate PREMIS",
+      "regeneratePremisHint": "Regenerate PREMIS from saved values. Save software and device changes first.",
+      "premisRegenerated": "PREMIS has been regenerated.",
+      "premisRegenerationFailed": "Failed to regenerate PREMIS.",
+      "software": "Software",
+      "no_software": "No software",
+      "unchanged": "Unchanged",
+      "optionsLoadFailed": "Failed to load devices and software. Reopen the editor.",
       "title": "Administrative and technical metadata",
       "pid": "PID",
       "model": "Model",
@@ -800,6 +875,14 @@
     "note": "Poznámka"
   },
   "viewer": {
+    "upload": {
+      "selected": "Selected objects: {{count}}",
+      "loadPdf": "Upload the same PDF to all selected objects",
+      "pdfOnly": "Select a PDF file to upload to multiple objects.",
+      "progress": "Uploading: {{completed}} / {{total}}",
+      "success": "Digital content uploaded to {{succeeded}} objects.",
+      "failed": "Uploaded to {{succeeded}} of {{total}} objects. Upload failed for these objects:"
+    },
     "tooltip": {
       "lock": "Lock Position",
       "unlock": "Unlock Position",
@@ -2485,6 +2568,7 @@
     }
   },
   "workflow": {
+    "materialSaveError": "Could not save the bibliographic record. Please try again.",
     "title": "Jobs",
     "task": "Task",
     "job": "Job",
@@ -2639,6 +2723,7 @@
     "folderNamePid": "Folder/name/PID",
     "numberOfPages": "Number of pages",
     "errorDetail": "Log detail",
+    "warningDetail": "Warning details",
     "params": "Parameters",
     "logInfo": "Detail",
     "markRow": "Mark row",
@@ -2745,6 +2830,8 @@
     "fullImportHint": "Performs a full import including relations.",
     "updateMods": "Update metadata only",
     "updateModsHint": "Updates bibliographic data only (BiblioMods and DC). Note: full indexing is performed.",
+    "deleteRawScansAfterExport": "Delete raw scans after successful export and BAGIT packaging",
+    "updateCatalogAfterImport": "Write a link to the catalog after import to Kramerius",
     "nightOnly": "Night process",
     "bagitPackage": "BAGIT package",
     "login": "Login",
@@ -2815,6 +2902,7 @@
     }
   },
   "button": {
+    "retryCatalogUpdate": "Retry catalog update",
     "setLayout": "Set layout",
     "close": "Close",
     "continue": "Continue",
@@ -2850,6 +2938,7 @@
     "addReference": "Add references",
     "filter": "Filter",
     "viewErrorDetail": "View error detail",
+    "viewWarningDetail": "Show warning details",
     "viewDetail": "View detail",
     "saveAgain": "Save again",
     "stop": "Stop",
@@ -2924,7 +3013,10 @@
     "pdf": "Pdf",
     "comment": "Comment",
     "image": "Image",
-    "premis": "PREMIS XML",
+    "premis": "PREMIS",
+    "premisXML": "PREMIS XML",
+    "copyrightMD": "copyrightMD",
+    "copyrightMDXML": "copyrightMD XML",
     "media": "Media",
     "workFlow": {
       "profileLabel": "Material",
@@ -3067,17 +3159,19 @@
     "EXPORT_FAILED": "Export - Failed",
     "EXPORT_DONE": "Export - Done",
     "EXPORT_PLANNED": "Export - Planed",
-    "EXPORT_VALID_WARNING": "Export - Warning",
+    "EXPORT_WARNING": "Export - Warning",
     "REINDEXING": "Reindexing",
     "REINDEX_FAILED": "Reindexing - Failed",
     "REINDEX_DONE": "Reindex - Done",
     "UPLOADING": "Uploading",
     "UPLOAD_FAILED": "Upload - Failed",
+    "UPLOAD_WARNING": "Upload - Warning",
     "UPLOAD_DONE": "Upload - Done",
     "WAITING": "Waiting in queue",
     "INTERNAL_RUNNING": "Internal - Running",
     "INTERNAL_PLANNED": "Internal - Planed",
     "INTERNAL_FAILED": "Internal - Failed",
+    "INTERNAL_WARNING": "Internal - Warning",
     "INTERNAL_DONE": "Internal - Done",
     "IMPORT_PLANNED": "Import - Planed",
     "EXTERNAL_RUNNING": "External - Running",
@@ -3317,6 +3411,7 @@
     },
     "preferredTops": {
       "title": {
+        "catalog": "Preferred catalogs",
         "pageType": "Preferred types of parties",
         "lang": "Preferred languages",
         "locations": "Preferred storage locations",
@@ -3428,6 +3523,8 @@
       "sttPagetoNdkPage": "Convert Old Print page to NDK page"
     },
     "newMetadata": {
+      "invalidXml": "Invalid MODS XML. A mods element or a modsCollection containing mods is required.",
+      "xmlTemplateError": "Could not load the metadata template. Please try again.",
       "title": "New object",
       "title_edit": "Edit object",
       "onClose": {
@@ -3454,7 +3551,7 @@
     "updateInSource": {
       "title": "Update catalog´s record",
       "alert": {
-        "success": "Edited",
+        "success": "Catalog update scheduled. See the process list for its result.",
         "error": "Error!"
       }
     },
@@ -3534,6 +3631,7 @@
   },
   "alert": {
     "info": {
+      "editorInactiveForMultipleSelection": "This panel is inactive when multiple objects are selected. Select one object to edit.",
       "digitalContentIsNotSupported": "Digital content is not supported",
       "digitalContentIsNotLoadedForModel": "Digital content is not loaded for this object type.",
       "imageIsNotLoadedForModel": "The image is not loaded for this object type.",
@@ -3713,6 +3811,49 @@
     "url": "URL",
     "issue number": "Issue number",
     "matrix number": "Matrix number"
+  },
+  "software": {
+    "type": {
+      "agent": "Agent",
+      "event": "Event",
+      "object": "Object",
+      "set": "Group"
+    },
+    "add": "Add",
+    "empty": "No records were found.",
+    "id": "PID",
+    "label": "Name",
+    "model": "Model",
+    "general": "General",
+    "members": "Linked objects",
+    "metadata": "PREMIS metadata",
+    "defaultMetadata": "Default metadata",
+    "noMetadata": "No metadata",
+    "noMember": "No link",
+    "preview": "Complete metadata preview",
+    "create": {
+      "title": "New record",
+      "button": "Create",
+      "success": "The record was created."
+    },
+    "update": {
+      "success": "The record was saved."
+    },
+    "delete": {
+      "title": "Delete record",
+      "message": "Do you really want to delete {{label}}?",
+      "success": "The record was deleted."
+    },
+    "metadataType": {
+      "default": "Default agent",
+      "eventDigitalization": "Digitization",
+      "eventCreation": "Image file creation",
+      "eventXmlCreation": "XML creation",
+      "eventDeletion": "Deletion",
+      "objectPreservationArchival": "Archival image file",
+      "objectPreservationAlto": "ALTO XML",
+      "objectDeletionTif": "Deleted TIFF"
+    }
   },
   "validityOptions": {
     "": "Valid",

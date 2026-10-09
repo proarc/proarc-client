@@ -4,6 +4,12 @@
       <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
     </div>
     <div class="app-h-100">
+      @if (layout.type === 'repo' && layout.batchId == null) {
+      <button mat-button (click)="regeneratePremis()" [disabled]="!atm || atm.hasChanged() || state !== 'success'"
+        [matTooltip]="'editor.atm.regeneratePremisHint' | translate">
+        {{ 'editor.atm.regeneratePremis' | translate }}
+      </button>
+      }
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate"  [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>
       </button>
@@ -56,6 +62,15 @@
                   <mat-option [value]="'null'">{{ 'editor.atm.no_device' | translate }}</mat-option>
                   @for(device of devices; track $index;) {
                     <mat-option [value]="device.id">{{ device.label }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
+                <mat-label>{{ 'editor.atm.software' | translate }}</mat-label>
+                <mat-select [placeholder]="'editor.atm.software' | translate" name="software" [(value)]="atm.software">
+                  <mat-option value="null">{{ 'editor.atm.no_software' | translate }}</mat-option>
+                  @for(software of softwares; track $index) {
+                    <mat-option [value]="software.id">{{ software.label }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>

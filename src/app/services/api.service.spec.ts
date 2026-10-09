@@ -4,6 +4,58 @@ import { ApiService } from './api.service';
 import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
 import { UserSettings } from '../shared/user-settings';
+import { Atm } from '../model/atm.model';
+
+describe('ApiService PREMIS editor', () => {
+  let http: jasmine.SpyObj<HttpClient>;
+  let api: ApiService;
+
+  beforeEach(() => {
+    http = jasmine.createSpyObj<HttpClient>('HttpClient', ['get', 'put']);
+    http.get.and.returnValue(of({record: {content: '<mets/>', timestamp: -1, status: 0}}));
+    http.put.and.returnValue(of({response: {status: 0, data: [{timestamp: 1}]}}));
+    api = new ApiService(http, {proarcUrl: '/api'} as Configuration);
+  });
+
+  it('reads the PREMIS from the requested import batch', () => {
+    api.getPremis('uuid:page', '7').subscribe();
+    const [url, options] = http.get.calls.mostRecent().args;
+    expect(url).toBe('/api/rest/v2/object/technicalMetadataXmlPremis');
+    expect(options.params).toEqual({pid: 'uuid:page', batchId: '7'});
+  });
+
+  it('unwraps the StringRecord envelope returned by the technical metadata API', () => {
+    const record = {
+      pid: 'uuid:de37c3d1-fd35-40ea-afa2-754f7a6f4a41',
+      model: 'model:ndkpage',
+      content: '<mets xmlns="http://www.loc.gov/METS/"/>',
+      timestamp: -1,
+      status: 0
+    };
+    http.get.and.returnValue(of({record}));
+    api.getPremis(record.pid).subscribe(result => expect(result).toEqual(record));
+  });
+
+  it('preserves wrapped record errors and unwrapped transport errors', () => {
+    const record = {status: -1, data: {message: 'Cannot generate PREMIS'}};
+    http.get.and.returnValue(of({record}));
+    api.getPremis('uuid:page').subscribe(result => expect(result).toEqual(record));
+    const error = {response: {status: 500, errors: ['Server error']}};
+    http.get.and.returnValue(of(error));
+    api.getPremis('uuid:page').subscribe(result => expect(result).toEqual(error));
+  });
+
+  it('encodes XML without corrupting plus signs, percent signs, Unicode or entities', () => {
+    const xml = '<mets label="Český + 50% &amp; další">#?=</mets>';
+    api.savePremis('uuid:page', xml, -1, false, '7').subscribe();
+    const [url, body] = http.put.calls.mostRecent().args;
+    const decoded = new URLSearchParams(body.toString());
+    expect(url).toBe('/api/rest/v2/object/technicalPremis');
+    expect(decoded.get('xmlData')).toBe(xml);
+    expect(decoded.get('timestamp')).toBe('-1');
+    expect(decoded.get('batchId')).toBe('7');
+  });
+});
 
 describe('UserSettings MODS language', () => {
   it('uses the second language from the combined UI and MODS locale', () => {
@@ -89,6 +141,7 @@ describe('ApiService import pids', () => {
       true,
       false,
       null,
+      null,
       'medium',
       null,
       null,
@@ -109,6 +162,7 @@ describe('ApiService import pids', () => {
       null,
       null,
       null,
+      null,
       ['uuid:first', 'uuid:second']
     ).subscribe();
 
@@ -125,6 +179,7 @@ describe('ApiService import pids', () => {
       true,
       false,
       null,
+      null,
       'medium',
       null,
       null
@@ -132,6 +187,142 @@ describe('ApiService import pids', () => {
 
     const body = http.post.calls.mostRecent().args[1] as string;
     expect(body).not.toContain('&pids=');
+  });
+
+  it('sends selected software with a single import batch', () => {
+    api.createImportBatch(
+      '/folder',
+      'profile.test',
+      true,
+      true,
+      false,
+      'device:1',
+      'uuid:software-set',
+      'medium',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&device=device:1');
+    expect(body).toContain('&software=uuid:software-set');
+  });
+
+  it('sends selected software with multiple import batches', () => {
+    api.createImportBatches(
+      ['/folder-1', '/folder-2'],
+      'profile.test',
+      true,
+      true,
+      null,
+      'uuid:software-set',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).toContain('&software=uuid:software-set');
+  });
+
+  it('does not send software when none was selected', () => {
+    api.createImportBatch(
+      '/folder',
+      'profile.test',
+      true,
+      true,
+      false,
+      null,
+      null,
+      'medium',
+      null,
+      null
+    ).subscribe();
+
+    const body = http.post.calls.mostRecent().args[1] as string;
+    expect(body).not.toContain('&software=');
+  });
+});
+
+describe('ApiService bulk ATM changes', () => {
+  let http: jasmine.SpyObj<HttpClient>;
+  let api: ApiService;
+
+  beforeEach(() => {
+    http = jasmine.createSpyObj<HttpClient>('HttpClient', ['put']);
+    http.put.and.returnValue(of({ response: { status: 0 } }));
+    api = new ApiService(http, { proarcUrl: '/api' } as Configuration);
+  });
+
+  it('saves software together with the other ATM fields', () => {
+    const atm = Atm.fromJson({ pid: 'uuid:item', device: 'device:1', software: 'software:old',
+      status: 'described', model: 'model:ndkpage', userProcessor: 'processor',
+      organization: 'library', donator: 'norway', archivalCopies: '/scans' });
+    atm.software = 'software:new';
+    api.editAtm(atm, '42').subscribe();
+    const params = new URLSearchParams(http.put.calls.mostRecent().args[1].toString());
+    expect(params.get('software')).toBe('software:new');
+    expect(params.get('pid')).toBe('uuid:item');
+    expect(params.get('device')).toBe('device:1');
+    expect(params.get('donator')).toBe('norway');
+    expect(params.get('archivalCopies')).toBe('/scans');
+    expect(params.get('organization')).toBe('library');
+    expect(params.get('userProcessor')).toBe('processor');
+    expect(params.get('status')).toBe('described');
+    expect(params.get('model')).toBe('model:ndkpage');
+    expect(params.get('batchId')).toBe('42');
+  });
+
+  it('sends an explicit null to remove software from one object', () => {
+    const atm = Atm.fromJson({ pid: 'uuid:item', software: 'software:old' });
+    atm.software = 'null';
+    expect(atm.hasChanged()).toBeTrue();
+    api.editAtm(atm).subscribe();
+    const params = new URLSearchParams(http.put.calls.mostRecent().args[1].toString());
+    expect(params.get('software')).toBe('null');
+    atm.restore();
+    expect(atm.software).toBe('software:old');
+    expect(atm.hasChanged()).toBeFalse();
+  });
+
+  it('initializes an object without software to the no software option', () => {
+    const atm = Atm.fromJson({ pid: 'uuid:item' });
+    expect(atm.software).toBe('null');
+    expect(atm.hasChanged()).toBeFalse();
+  });
+
+  it('sends every selected PID and only the requested fields', () => {
+    api.editAtmDevices(['uuid:first', 'uuid:second'], null, 'software:new', '123').subscribe();
+    const [url, body] = http.put.calls.mostRecent().args;
+    const params = new URLSearchParams(body.toString());
+    expect(url).toBe('/api/rest/v2/object/atm');
+    expect(params.getAll('pid')).toEqual(['uuid:first', 'uuid:second']);
+    expect(params.get('software')).toBe('software:new');
+    expect(params.get('batchId')).toBe('123');
+    expect(params.has('device')).toBeFalse();
+    expect(params.has('donator')).toBeFalse();
+    expect(params.has('archivalCopies')).toBeFalse();
+  });
+
+  it('distinguishes removing an assignment from leaving it unchanged', () => {
+    api.editAtmDevices(['uuid:first', 'uuid:second'], 'null').subscribe();
+    const params = new URLSearchParams(http.put.calls.mostRecent().args[1].toString());
+    expect(params.get('device')).toBe('null');
+    expect(params.has('software')).toBeFalse();
+    expect(params.has('batchId')).toBeFalse();
+  });
+});
+
+describe('ApiService PREMIS regeneration', () => {
+  it('posts repeated PID parameters and the import batch ID', () => {
+    const http = jasmine.createSpyObj<HttpClient>('HttpClient', ['post']);
+    http.post.and.returnValue(of({ response: { status: 0 } }));
+    const api = new ApiService(http, { proarcUrl: '/api' } as Configuration);
+    api.regeneratePremis(['uuid:first', 'uuid:second'], '42').subscribe();
+    const [url, body] = http.post.calls.mostRecent().args;
+    expect(url).toBe('/api/rest/v2/object/technicalMetadataXmlPremisGenerate');
+    const params = new URLSearchParams(body.toString());
+    expect(params.getAll('pid')).toEqual(['uuid:first', 'uuid:second']);
+    expect(params.get('batchId')).toBe('42');
   });
 });
 

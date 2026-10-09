@@ -1,6 +1,19 @@
 <div class="app-fxLayout app-column app-fill" [class.app-form-highlighting]="formHighlighting">
   @if (lastSelectedItem()) {
   <div class="app-fxFlex">
+    @if (isInactiveForMultipleSelection()) {
+    <div class="app-fxLayout app-column app-fill">
+      <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar">
+        <app-editor-switcher class="app-fxLayout app-row app-center-v" [panelType]="panelType"
+          (onChangeEditorType)="changePanelType($event)"></app-editor-switcher>
+      </div>
+      <mat-card class="app-alert app-info app-m-4" appearance="outlined">
+        <mat-card-content>
+          <mat-icon>info</mat-icon>{{ 'alert.info.editorInactiveForMultipleSelection' | translate }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    } @else {
     @switch (panelType) {
     @case ('tree') {
     <div class="app-editor-content app-tree">
@@ -30,7 +43,7 @@
     }
     }
     @case ('media') {
-    <app-media [lastSelectedItem]="lastSelectedItem()"></app-media>
+    <app-media [lastSelectedItem]="lastSelectedItem()" [numOfSelected]="numOfSelected()"></app-media>
     }
     @case ('song') {
     <app-song [pid]="lastSelectedItem().pid"></app-song>
@@ -48,18 +61,34 @@
       (onChangePanelType)="changePanelType($event)"></app-editor-comment>
     }
     @case ('atm') {
+    @if (numOfSelected() > 1) {
+    <app-editor-atm-multiple [panel]="panel()" [panelType]="panelType"
+      (onChangePanelType)="changePanelType($event)"></app-editor-atm-multiple>
+    } @else {
     <app-editor-atm [panel]="panel()" [pid]="lastSelectedItem()?.pid" [panelType]="panelType"
       (onChangePanelType)="changePanelType($event)"></app-editor-atm>
     }
-    <!-- 
-    @case ('premis') {
-      @if (numOfSelected < 2) {
-          <app-editor-premis [pid]="lastSelectedItem().pid"></app-editor-premis>
-      } @else {
-          <app-editor-premis-multiple ></app-editor-premis-multiple>
-      }
     }
-     -->
+    @case ('copyrightMD') {
+      <app-editor-premis metadataType="copyrightMD" [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
+    @case ('copyrightMDXML') {
+      <app-editor-premis metadataType="copyrightMD" [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
+    @case ('premis') {
+      <app-editor-premis [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
+    @case ('premisXML') {
+      <app-editor-premis [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+        [notSaved]="!!lastSelectedItem().notSaved" [panel]="panel()" [panelType]="panelType"
+        (onChangePanelType)="changePanelType($event)"></app-editor-premis>
+    }
 
     @case ('metadata') {
       @if (showIssuesEditor) {
@@ -80,6 +109,7 @@
         [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
       </app-editor-metadata>
       }
+    }
     }
     }
   </div>
