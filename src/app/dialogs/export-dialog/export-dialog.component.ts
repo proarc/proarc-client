@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Configuration } from '../../shared/configuration';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
@@ -37,6 +38,8 @@ interface KrameriusLicense {
 interface KrameriusInstance {
   krameriusInstanceId: string;
   krameriusInstanceName: string;
+  catalogUpdateAvailable?: boolean;
+  catalogId?: string;
   krameriusInstanceLicenses?: KrameriusLicense[];
   krameriusInstanceCollections?: KrameriusCollection[];
 }
@@ -69,6 +72,7 @@ export class ExportDialogComponent implements OnInit {
   nightOnly = false;
   deleteRawScans = true;
   updateMods = false;
+  updateCatalog = true;
   cesnetLtpToken: string;
   //isBagit: boolean = false;
   target: string;
@@ -92,6 +96,7 @@ export class ExportDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     public settings: UserSettings,
+    private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}[]) { }
 
   ngOnInit() {
@@ -126,7 +131,7 @@ export class ExportDialogComponent implements OnInit {
     this.api.export(this.selectedType, pids, policy,
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
       this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.selectedPriority, this.updateMods,
-      this.updateMods ? [] : this.selectedCollections, this.deleteRawScans).subscribe((response: any) => {
+      this.updateMods ? [] : this.selectedCollections, this.deleteRawScans, this.canUpdateCatalog && this.updateCatalog).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -161,6 +166,14 @@ export class ExportDialogComponent implements OnInit {
         log: error.error
       });
     });
+  }
+
+  get canUpdateCatalog(): boolean {
+    return this.config.exportUpdateCatalog === true
+      && this.auth.user?.importToCatalogFunction === true
+      && this.importInstance?.catalogUpdateAvailable === true
+      && ['kramerius', 'ndk_psp_upload_kramerius', 'ndk_oldprint_upload_kramerius', 'ndk_sip_upload_kramerius']
+        .includes(this.selectedType);
   }
 
   formDisabled(): boolean {
@@ -231,6 +244,7 @@ export class ExportDialogComponent implements OnInit {
   }
 
   onKrameriusInstanceChange(): void {
+    this.updateCatalog = true;
     this.licenseName = null;
     this.collectionFilter = '';
     this.selectedCollections = [];

@@ -241,7 +241,7 @@ export class ApiService {
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
     extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium', updateMods: boolean = false,
-    collections: string[] = [], deleteRawScans: boolean = true): Observable<any> | undefined {
+    collections: string[] = [], deleteRawScans: boolean = true, updateCatalog: boolean = false): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -268,7 +268,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
-        data = `${data}&updateMods=${updateMods}`;
+        data = `${data}&updateMods=${updateMods}&updateCatalog=${updateCatalog}`;
         collections.forEach(collection => {
           data += `&collection=${encodeURIComponent(collection)}`;
         });
@@ -316,7 +316,7 @@ export class ApiService {
       case ProArc.EXPORT_NDK_OLDPRINT_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_SIP_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
-        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false`;
+        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false&updateCatalog=${updateCatalog}`;
         collections.forEach(collection => {
           data += `&collection=${encodeURIComponent(collection)}`;
         });
@@ -820,6 +820,14 @@ export class ApiService {
 
   getCatalogsForUpdate(): Observable<any> {
     return this.get('bibliographies?allowUpdate=true');
+  }
+
+  retryCatalogUpdate(batchId: number): Observable<any> {
+    return this.post('object/updateCatalogRecord/retry', 'batchId=' + batchId);
+  }
+
+  getCatalogUpdateModels(): Observable<any> {
+    return this.get('export/catalogUpdateModels');
   }
 
   updateInSource(pid: string, catalogId: string) {

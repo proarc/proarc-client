@@ -2831,6 +2831,7 @@
     "updateMods": "Update metadata only",
     "updateModsHint": "Updates bibliographic data only (BiblioMods and DC). Note: full indexing is performed.",
     "deleteRawScansAfterExport": "Delete raw scans after successful export and BAGIT packaging",
+    "updateCatalogAfterImport": "Write a link to the catalog after import to Kramerius",
     "nightOnly": "Night process",
     "bagitPackage": "BAGIT package",
     "login": "Login",
@@ -2901,6 +2902,7 @@
     }
   },
   "button": {
+    "retryCatalogUpdate": "Retry catalog update",
     "setLayout": "Set layout",
     "close": "Close",
     "continue": "Continue",
@@ -3549,7 +3551,7 @@
     "updateInSource": {
       "title": "Update catalog´s record",
       "alert": {
-        "success": "Edited",
+        "success": "Catalog update scheduled. See the process list for its result.",
         "error": "Error!"
       }
     },

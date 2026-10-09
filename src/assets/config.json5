@@ -192,8 +192,7 @@
         'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'],
   updateInSource: true,
-  updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
-  'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
+  exportUpdateCatalog: true,
 
   musicDocumentIdentifiers: ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ismn','ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
   chronicleIdentifiers: ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localid', 'officialNumber'],

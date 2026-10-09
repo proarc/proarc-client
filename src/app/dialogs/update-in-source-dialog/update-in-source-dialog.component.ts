@@ -1,5 +1,6 @@
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { DialogRef as CdkDialogRef } from '@angular/cdk/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -19,7 +20,7 @@ import { UserSettings } from '../../shared/user-settings';
   templateUrl: './update-in-source-dialog.component.html',
   styleUrls: ['./update-in-source-dialog.component.scss']
 })
-export class UpdateInSourceDialogComponent implements OnInit {
+export class UpdateInSourceDialogComponent implements OnInit, AfterViewInit {
 
   state: string;
   message: string;
@@ -33,7 +34,15 @@ export class UpdateInSourceDialogComponent implements OnInit {
     private dialog: MatDialog,
     private translator: TranslateService,
     public settings: UserSettings,
+    private cdkDialogRef: CdkDialogRef,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
+
+  ngAfterViewInit(): void {
+    // Keep the restored width, but let the height follow the current message content.
+    // The host may not have a layout yet here; use the configured width instead of measuring it.
+    const width = this.cdkDialogRef.config.width;
+    this.dialogRef.updateSize(width && parseFloat(width) > 0 ? width : '600px', 'auto');
+  }
 
   ngOnInit(): void {
     this.state = 'saving';
@@ -52,6 +61,9 @@ export class UpdateInSourceDialogComponent implements OnInit {
   }
 
   update() {
+    if (this.state === 'saving' || this.state === 'success' || !this.selectedCatalogue) {
+      return;
+    }
     this.state = 'saving';
     this.api.updateInSource(this.data, this.selectedCatalogue.id).subscribe((response: any) => {
       if (response['response'].errors) {

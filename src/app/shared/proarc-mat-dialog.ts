@@ -15,19 +15,21 @@ export class ProarcMatDialog extends MatDialog {
     config?: MatDialogConfig<D>
   ): MatDialogRef<T, R> {
 
-    
+
     const currentConfig = {...config};
     let componentName = '';
 
     if (componentOrTemplateRef instanceof Type) {
       componentName = componentOrTemplateRef.name;
-      
+
       const savedPosition = this.dialogPos?.[componentName];
       if (savedPosition) {
         currentConfig.position = {left: savedPosition.left +'px', top: savedPosition.top +'px', };
-        currentConfig.width = savedPosition.width +'px';
-        currentConfig.height = savedPosition.height +'px';
-        currentConfig.maxWidth = undefined;
+        if (componentName !== '_LogDialogComponent') {
+          currentConfig.width = savedPosition.width + 'px';
+          currentConfig.height = savedPosition.height + 'px';
+          currentConfig.maxWidth = undefined;
+        }
       }
     }
 
@@ -38,7 +40,7 @@ export class ProarcMatDialog extends MatDialog {
       dialogRef.beforeClosed().subscribe(() => {
 
         const dialogElement = document.getElementById(dialogRef.id);
-    
+
         if (dialogElement) {
           let rect = dialogElement.getBoundingClientRect();
 
@@ -50,7 +52,7 @@ export class ProarcMatDialog extends MatDialog {
           this.dialogPos[componentName] = rect;
         }
 
-        
+
       });
     }
 

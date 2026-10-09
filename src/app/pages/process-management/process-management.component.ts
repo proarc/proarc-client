@@ -52,6 +52,7 @@ export class ProcessManagementComponent {
 
 
   state = 'none';
+  private catalogRetries = new Set<number>();
 
   pageIndex = 0;
   pageSize = 20;
@@ -191,6 +192,12 @@ export class ProcessManagementComponent {
       action: (e: any) => {
         this.stopBatch(e);
       }
+    });
+    this.actions.push({
+      icon: 'replay',
+      tooltip: 'button.retryCatalogUpdate',
+      condition: (batch: Batch) => this.canRetryCatalogUpdate(batch),
+      action: (batch: Batch) => this.retryCatalogUpdate(batch)
     });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
@@ -946,6 +953,33 @@ export class ProcessManagementComponent {
     q['state'] = val;
     q.page = null;
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+  }
+
+  canRetryCatalogUpdate(batch: Batch): boolean {
+    return !!batch && batch.profile === 'internalProfile.updateCatalogRecords'
+      && ['INTERNAL_FAILED', 'STOPPED'].includes(batch.state)
+      && this.auth.user.importToCatalogFunction === true
+      && (batch.userId === this.auth.user.userId || this.auth.user.sysAdminFunction === true)
+      && !this.catalogRetries.has(batch.id);
+  }
+
+  retryCatalogUpdate(batch: Batch): void {
+    if (!this.canRetryCatalogUpdate(batch)) return;
+    this.catalogRetries.add(batch.id);
+    this.api.retryCatalogUpdate(batch.id).subscribe({
+      next: (response: any) => {
+        this.catalogRetries.delete(batch.id);
+        if (response.response?.errors) {
+          this.ui.showErrorDialogFromObject(response.response.errors);
+        } else {
+          this.loadData();
+        }
+      },
+      error: error => {
+        this.catalogRetries.delete(batch.id);
+        this.ui.showErrorDialogFromObject([{errorMessage: error.message}]);
+      }
+    });
   }
 
   canStopProcess(batch: Batch) {

@@ -2865,6 +2865,7 @@
     "updateMods": "Pouze update metadat",
     "updateModsHint": "Provede pouze update bibliografických dat (BiblioMods a DC). Poznámka: spouští se plná indexace.",
     "deleteRawScansAfterExport": "Smazat surové skeny po úspěšném exportu a zabagitování / Delete raw scans after successful export and BAGIT packaging",
+    "updateCatalogAfterImport": "Po importu do Krameria zapsat odkaz do katalogu",
     "nightOnly": "Odložený proces",
     "bagitPackage": "BAGIT balíček",
     "login": "Přihlášení",
@@ -2935,6 +2936,7 @@
     }
   },
   "button": {
+    "retryCatalogUpdate": "Opakovat zápis do katalogu",
     "setLayout": "nastavit rozložení",
     "close": "Zavřít",
     "continue": "Pokračovat",
@@ -3582,7 +3584,7 @@
     "updateInSource": {
       "title": "Zapsat do zdrojového katalogu",
       "alert": {
-        "success": "Zapsáno do katalogu",
+        "success": "Zápis do katalogu byl naplánován. Výsledek najdete ve správě procesů.",
         "error": "Chyba zapsání!"
       }
     }

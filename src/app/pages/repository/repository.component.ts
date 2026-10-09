@@ -384,7 +384,7 @@ export class RepositoryComponent {
 
   canUpdateInSource() {
     if (this.layout.item) {
-      return this.config.updateInSourceModels.includes(this.layout.item.model)
+      return this.config.catalogUpdateModels.includes(this.layout.item.model)
     } else {
       return false;
     }
