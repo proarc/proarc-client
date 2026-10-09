@@ -9,29 +9,31 @@
   @if (isPreservationPanel()) {
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate"
       [class.app-active]="panelType() === 'premis'" (click)="changeEditorType('premis')">
-      <span class="app-text-icon">P</span>
+      <mat-icon svgIcon="premis"></mat-icon>
     </button>
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_premisXML' | translate"
+      [attr.aria-label]="'editor.toolbar.editor_premisXML' | translate"
       [class.app-active]="panelType() === 'premisXML'" (click)="changeEditorType('premisXML')">
-      <span class="app-text-icon">&lt;P&gt;</span>
+      <mat-icon svgIcon="premis-xml"></mat-icon>
     </button>
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_copyrightMD' | translate"
       [disabled]="!canUseCopyrightMd()"
-      [class.app-active]="panelType() === 'copyrightMD'" (click)="changeEditorType('copyrightMD')"><span class="app-text-icon">C</span></button>
+      [class.app-active]="panelType() === 'copyrightMD'" (click)="changeEditorType('copyrightMD')"><mat-icon svgIcon="copyright"></mat-icon></button>
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_copyrightMDXML' | translate"
+      [attr.aria-label]="'editor.toolbar.editor_copyrightMDXML' | translate"
       [disabled]="!canUseCopyrightMd()"
-      [class.app-active]="panelType() === 'copyrightMDXML'" (click)="changeEditorType('copyrightMDXML')"><span class="app-text-icon">&lt;C&gt;</span></button>
+      [class.app-active]="panelType() === 'copyrightMDXML'" (click)="changeEditorType('copyrightMDXML')"><mat-icon svgIcon="copyright-xml"></mat-icon></button>
   } @else {
     <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="panelType() === 'metadata'" (click)="changeEditorType('metadata')">
-      <span class="app-text-icon">M</span>
+      <mat-icon svgIcon="mods"></mat-icon>
     </button>
     @if (layout.lastSelectedItem() && model === 'song') {
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="panelType() === 'song'" (click)="changeEditorType('song')">
         <mat-icon>audiotrack</mat-icon>
       </button>
     }
-    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"  [class.app-active]="panelType() === 'mods'" (click)="changeEditorType('mods')">
-      <mat-icon>code</mat-icon>
+    <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate" [attr.aria-label]="'editor.toolbar.editor_mods' | translate" [class.app-active]="panelType() === 'mods'" (click)="changeEditorType('mods')">
+      <mat-icon svgIcon="mods-xml"></mat-icon>
     </button>
     @if (layout.lastSelectedItem() && model === 'page') {
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="panelType() === 'ocr'" (click)="changeEditorType('ocr')">

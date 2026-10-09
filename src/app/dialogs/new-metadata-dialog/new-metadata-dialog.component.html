@@ -10,13 +10,13 @@
         [attr.aria-label]="'editor.toolbar.editor_metadata' | translate"
         [class.app-active]="editorType === 'metadata'" [disabled]="!metadata || syncingXml"
         (click)="changeEditorType('metadata')">
-        <span class="app-text-icon">M</span>
+        <mat-icon svgIcon="mods"></mat-icon>
       </button>
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"
         [attr.aria-label]="'editor.toolbar.editor_mods' | translate"
         [class.app-active]="editorType === 'mods'" [disabled]="!metadata || syncingXml"
         (click)="changeEditorType('mods')">
-        <mat-icon>code</mat-icon>
+        <mat-icon svgIcon="mods-xml"></mat-icon>
       </button>
       @if (editorType === 'mods') {
         <button mat-icon-button (click)="editXml()" [disabled]="xmlEditing || syncingXml"
