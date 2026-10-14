@@ -1,10 +1,18 @@
 <h1 mat-dialog-title>{{ 'dialog.convertPages.title' | translate }}</h1>
+@if (inProgress) {
+  <mat-progress-bar mode="indeterminate" class="app-progress-bar" [attr.aria-label]="'dialog.changeModel.pending' | translate"></mat-progress-bar>
+}
 <div mat-dialog-content>
+  @if (inProgress) {
+    <mat-card appearance="outlined" class="app-alert app-info app-mb-4" role="status">
+      <mat-card-content><mat-icon>info</mat-icon>{{ 'dialog.changeModel.pending' | translate }}</mat-card-content>
+    </mat-card>
+  }
   <div class="app-fxLayout app-column app-gap-2">
-    <button matButton="filled" (click)="convert('changePageToNdkPage')">{{ 'dialog.convertPages.pageToNdkPage' | translate }}</button>
-    <button matButton="filled" (click)="convert('changeNdkPageToPage')">{{ 'dialog.convertPages.ndkPagetoPage' | translate }}</button>
-    <button matButton="filled" (click)="convert('changeNdkPageToSttPage')">{{ 'dialog.convertPages.ndkPagetoSttPage' | translate }}</button>
-    <button matButton="filled" (click)="convert('changeSttPageToNdkPage')">{{ 'dialog.convertPages.sttPagetoNdkPage' | translate }}</button>
+    <button matButton="filled" [disabled]="inProgress" (click)="convert('changePageToNdkPage')">{{ 'dialog.convertPages.pageToNdkPage' | translate }}</button>
+    <button matButton="filled" [disabled]="inProgress" (click)="convert('changeNdkPageToPage')">{{ 'dialog.convertPages.ndkPagetoPage' | translate }}</button>
+    <button matButton="filled" [disabled]="inProgress" (click)="convert('changeNdkPageToSttPage')">{{ 'dialog.convertPages.ndkPagetoSttPage' | translate }}</button>
+    <button matButton="filled" [disabled]="inProgress" (click)="convert('changeSttPageToNdkPage')">{{ 'dialog.convertPages.sttPagetoNdkPage' | translate }}</button>
   </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>

@@ -996,12 +996,11 @@ export class EditorStructureComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (result.status == 'ok') {
-          this.layout.setShouldRefresh(false);
+        this.layout.setShouldRefresh(false);
+        if (result.status == 'ok' && !result.messageShown) {
           this.ui.showInfoSnackBar("Strany byly převedeny");
 
-        } else if (result.status == 'failure') {
-          this.layout.setShouldRefresh(false);
+        } else if (result.status == 'failure' && !result.messageShown) {
           this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
         }
       }

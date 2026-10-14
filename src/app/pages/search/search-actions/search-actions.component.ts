@@ -377,10 +377,10 @@ export class SearchActionsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (result.status == 'ok') {
+        if (result.status == 'ok' && !result.messageShown) {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.success'));
 
-        } else if (result.status == 'failure') {
+        } else if (result.status == 'failure' && !result.messageShown) {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.failure'));
         }
         this.reload.emit(null);

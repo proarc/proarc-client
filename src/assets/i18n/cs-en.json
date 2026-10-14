@@ -3323,7 +3323,17 @@
     },
     "changeModel": {
       "title": "Převod modelu",
-      "action": "Převést {{value1}} na {{value2}}"
+      "action": "Převést {{value1}} na {{value2}}",
+      "pending": "Probíhá převod modelu…",
+      "foundObjects": "Nalezené objekty",
+      "convertedObjects": "Převedené objekty",
+      "failedObject": "Objekt s chybou",
+      "unprocessedObjects": "Nezpracované objekty",
+      "unsearchedRoots": "Dosud neprohledané objekty",
+      "progress": "Převedeno {{converted}} z {{total}} nalezených objektů.",
+      "failedPid": "Převod selhal u objektu {{pid}}.",
+      "unprocessedPids": "Nezpracované objekty: {{pids}}.",
+      "unprocessedRootPids": "Dosud neprohledané objekty: {{pids}}."
     },
     "addReferences": {
       "title": "Přidat seznam použité literatury",
