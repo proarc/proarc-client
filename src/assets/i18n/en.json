@@ -3235,7 +3235,17 @@
     },
     "changeModel": {
       "title": "Model conversion",
-      "action": "Convert {{value1}} to {{value2}}"
+      "action": "Convert {{value1}} to {{value2}}",
+      "pending": "Converting model…",
+      "foundObjects": "Objects found",
+      "convertedObjects": "Objects converted",
+      "failedObject": "Failed object",
+      "unprocessedObjects": "Unprocessed objects",
+      "unsearchedRoots": "Objects not yet searched",
+      "progress": "Converted {{converted}} of {{total}} objects found.",
+      "failedPid": "Conversion failed at object {{pid}}.",
+      "unprocessedPids": "Unprocessed objects: {{pids}}.",
+      "unprocessedRootPids": "Objects not yet searched: {{pids}}."
     },
     "addReferences": {
       "title": "Add references",

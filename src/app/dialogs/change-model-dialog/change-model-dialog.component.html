@@ -1,8 +1,16 @@
 <h1 mat-dialog-title>{{ 'dialog.changeModel.title' | translate }}</h1>
+@if (inProgress) {
+  <mat-progress-bar mode="indeterminate" class="app-progress-bar" [attr.aria-label]="'dialog.changeModel.pending' | translate"></mat-progress-bar>
+}
 <div mat-dialog-content>
+  @if (inProgress) {
+    <mat-card appearance="outlined" class="app-alert app-info app-mb-4" role="status">
+      <mat-card-content><mat-icon>info</mat-icon>{{ 'dialog.changeModel.pending' | translate }}</mat-card-content>
+    </mat-card>
+  }
   <div class="app-fxLayout app-column app-gap-2">
     @for(dest of data.dest; track $index;) {
-      <button matButton="filled" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
+      <button matButton="filled" [disabled]="inProgress" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
     }
   </div>
 </div>
