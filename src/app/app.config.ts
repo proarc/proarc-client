@@ -19,6 +19,8 @@ import { provideMaterialCssVars } from "angular-material-css-vars";
 import { FundService } from './services/fund.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProarcMatDialog } from './shared/proarc-mat-dialog';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -36,6 +38,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideAppInitializer(() => {
+      const icons = inject(MatIconRegistry);
+      const sanitizer = inject(DomSanitizer);
+      for (const name of ['mods', 'premis', 'copyright', 'mods-xml', 'premis-xml', 'copyright-xml']) {
+        icons.addSvgIcon(name, sanitizer.bypassSecurityTrustResourceUrl(`assets/img/icons/${name}.svg`));
+      }
+    }),
     provideNativeDateAdapter(),
     provideMaterialCssVars({
       // all optional

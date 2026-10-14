@@ -1,12 +1,12 @@
 
-import { Component, effect, ElementRef, input, Input, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, input, Input, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { StreamProfile } from '../../model/stream-profile';
@@ -33,6 +33,22 @@ export class MediaComponent implements OnInit {
 
 
   lastSelectedItem = input<DocumentItem>();
+  numOfSelected = input<number>(1);
+  uploading = false;
+  uploadCompleted = 0;
+  uploadTotal = 0;
+  private uploadTargets: string[] = [];
+  private panelLocked = signal(false);
+  private currentItem = signal<DocumentItem>(null);
+  uploadItems = computed(() => {
+    this.numOfSelected();
+    const item = this.lastSelectedItem();
+    if (this.panelLocked()) {
+      return this.currentItem() ? [this.currentItem()] : [];
+    }
+    const selected = this.layout.getSelected();
+    return selected.length ? selected : item ? [item] : [];
+  });
 
   @ViewChild('pdfInput') pdfInput: ElementRef;
   @ViewChild('epubInput') epubInput: ElementRef;
@@ -68,9 +84,13 @@ export class MediaComponent implements OnInit {
     private dialog: MatDialog,
     private ui: UIService,
     private layout: LayoutService,
+    private translator: TranslateService,
     public settings: UserSettings) {
     effect(() => {
-      this.onPidChanged(this.lastSelectedItem().pid, this.lastSelectedItem().model);
+      const item = this.lastSelectedItem();
+      if (item) {
+        this.onPidChanged(item.pid, item.model);
+      }
     })
   }
 
@@ -125,6 +145,7 @@ export class MediaComponent implements OnInit {
 
   changeLockPanel() {
     this.isLocked = !this.isLocked;
+    this.panelLocked.set(this.isLocked);
     if (!this.isLocked) {
       this.onPidChanged(this.inputPid, this.inputModel)
     }
@@ -139,6 +160,7 @@ export class MediaComponent implements OnInit {
     }
     this.currentPid.set(pid);
     this.currentModel = model;
+    this.currentItem.set(this.lastSelectedItem());
     this.canAddPdf = this.allowedModels.includes(model);
     this.canContainDigitalContent = this.lastSelectedItem().canContainDigitalContent();
     if (!this.canContainDigitalContent) {
@@ -184,10 +206,18 @@ export class MediaComponent implements OnInit {
   }
 
   onAddPdf() {
-    let event = new MouseEvent('click', { bubbles: true });
-    console.log(event)
-    this.pdfInput.nativeElement.dispatchEvent(event);
+    if (!this.canUpload()) {
+      return;
+    }
+    this.uploadTargets = this.uploadItems().map(item => item.pid);
+    this.pdfInput.nativeElement.value = '';
+    this.pdfInput.nativeElement.click();
+  }
 
+  canUpload(): boolean {
+    const items = this.uploadItems();
+    return this.isRepo && !this.uploading && items.length > 0 &&
+      items.every(item => item.pid && !item.notSaved && this.allowedModels.includes(item.model));
   }
 
   generatePdfA() {
@@ -233,16 +263,44 @@ export class MediaComponent implements OnInit {
   }
 
   uploadFile(event: any) {
-    console.log('uploadEpub', event);
     const files = <Array<File>>event.target.files;
-    if (files.length != 1) {
+    if (files.length !== 1 || this.uploading || !this.uploadTargets.length) {
       return;
     }
+    const file = files[0];
+    const pids = [...new Set(this.uploadTargets)];
+    if (pids.length > 1 && !/\.pdf$/i.test(file.name)) {
+      this.ui.showErrorDialogFromString(this.translator.instant('viewer.upload.pdfOnly'));
+      event.target.value = '';
+      return;
+    }
+    this.uploading = true;
+    this.uploadCompleted = 0;
+    this.uploadTotal = pids.length;
     this.state = 'loading';
     this.streamProfile = null;
-    this.api.uploadFile(files[0], this.currentPid(), files[0].type).subscribe(response => {
-      this.pdfInput.nativeElement.value = null;
-      this.getProfiles(this.currentPid());
+    const failures: string[] = [];
+    const mime = /\.pdf$/i.test(file.name) ? 'application/pdf' : file.type;
+    this.api.uploadFileToObjects(file, pids, mime).subscribe({
+      next: ({pid, response}) => {
+        this.uploadCompleted++;
+        const result = response?.response;
+        if (!result || result.errors || result.errorMessage || (result.status != null && result.status !== 0)) {
+          failures.push(pid);
+        }
+      },
+      complete: () => {
+        this.uploading = false;
+        event.target.value = '';
+        this.getProfiles(this.currentPid());
+        const params = {succeeded: pids.length - failures.length, total: pids.length};
+        if (failures.length) {
+          this.ui.showErrorDialogFromString(
+            this.translator.instant('viewer.upload.failed', params) + '\n' + failures.join('\n'));
+        } else {
+          this.ui.showInfoSnackBar(this.translator.instant('viewer.upload.success', params));
+        }
+      }
     });
   }
 

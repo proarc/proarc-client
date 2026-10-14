@@ -67,7 +67,9 @@ export class Configuration {
 
   roleCodes: string[];
   updateInSource: boolean;
-  updateInSourceModels: string[];
+  // Loaded from the API; instance globals no longer define the supported models.
+  catalogUpdateModels: string[] = [];
+  exportUpdateCatalog = true;
 
   searchExpandTree: boolean;
   showSearchProcessor: boolean;
@@ -128,7 +130,7 @@ export class Configuration {
   }
 
   public isMusicDocument(model: string): boolean {
-    return model === 'model:ndkphonographcylinder' || model === 'model:ndkmusicdocument'
+    return model === 'model:ndkphonographcylinder' || model === 'model:ndkaudiodisc' || model === 'model:ndkdigitalaudio' || model === 'model:ndkmusicdocument'
       || model === 'model:ndksong' || model === 'model:ndktrack' || model === 'ndkaudiopage';
   }
 

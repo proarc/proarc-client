@@ -74,11 +74,14 @@ export class AuthService {
         const configReq = this.api.getConfig();
         const checkLoggedReq = this.checkLogged();
         const userSettings = this.api.getUserSettings();
-        return forkJoin([valueMapReq, configReq, checkLoggedReq, userSettings, infoReq]).pipe(
-            tap(([valueMapResp, configResp, checkLoggedResp, userSettingsResp, infoResp]: [any, any, any, any, any]) => {
+        const catalogModelsReq = this.api.getCatalogUpdateModels().pipe(
+            catchError(() => of({response: {data: []}})));
+        return forkJoin([valueMapReq, configReq, checkLoggedReq, userSettings, infoReq, catalogModelsReq]).pipe(
+            tap(([valueMapResp, configResp, checkLoggedResp, userSettingsResp, infoResp, catalogModelsResp]: [any, any, any, any, any, any]) => {
                 if (configResp.response?.data && !configResp.response.data[0].error) {
                     this.config.mergeConfig(configResp.response.data[0].configFile);
                 }
+                this.config.catalogUpdateModels = catalogModelsResp.response?.data || [];
                 this.settings.reset();
                 if (userSettingsResp.response?.data?.length > 0) {
                     this.settings.load(JSON.parse(userSettingsResp.response.data[0].userSetting));

@@ -50,7 +50,9 @@ export class NewJobDialogComponent implements OnInit {
   ngOnInit(): void {
     this.selectedProfile = this.data.profiles[0];
     this.api.getCatalogs().subscribe((c: Catalogue[]) => {
-      this.catalogues = c;
+      this.catalogues = this.settings.orderCatalogs(c);
+      this.selectedCatalogue = this.catalogues[0];
+      this.activeField = this.selectedCatalogue?.fields[0];
     })
   }
 

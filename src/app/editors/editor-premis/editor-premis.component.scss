@@ -1,0 +1,7 @@
+:host { display: block; height: 100%; }
+.app-form-content[hidden] { display: none; }
+.app-premis-nested {
+  margin: 0 4px 12px 12px !important;
+  border-left: 3px solid var(--app-form-border-color) !important;
+}
+.app-form-title { overflow-wrap: anywhere; }

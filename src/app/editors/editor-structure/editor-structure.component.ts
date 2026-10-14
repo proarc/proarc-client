@@ -64,6 +64,9 @@ export class EditorStructureComponent implements OnInit {
     'model:ndkperiodicalsupplement',
     'model:ndkmonographvolume',
     'model:ndkmonographunit',
+    'model:ndkclippingunit',
+    'model:ndkclippingindex',
+    'model:ndkcardindex',
     'model:ndkmonographsupplement',
     'model:ndkmap',
     'model:ndkgraphic',
@@ -80,6 +83,8 @@ export class EditorStructureComponent implements OnInit {
     'model:ndkperiodical',
     'model:ndkperiodicalvolume',
     'model:ndkmonographtitle',
+    'model:ndkclippingcollection',
+    'model:ndkclippingdirectory',
     'model:oldprintmonographtitle',
     'model:oldprintomnibusvolume'
   ]);

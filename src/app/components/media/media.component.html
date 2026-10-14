@@ -13,16 +13,19 @@
 		</div>
 		<div class="app-fxLayout app-row app-center-v app-h-100">
 			@if (canAddPDF_A) {
-			<button mat-button [disabled]="!canAddPdf" (click)="generatePdfA()">
+			<button mat-button [disabled]="!canAddPdf || uploading || uploadItems().length > 1" (click)="generatePdfA()">
 				{{ 'Generovat PDF-A' | translate }}
 			</button>
 			}
-			<button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" [matTooltip]="'viewer.tooltip.loadNewDigitalContent' | translate">
+			@if (uploadItems().length > 1) {
+			<span class="app-mr-2">{{ 'viewer.upload.selected' | translate: {count: uploadItems().length} }}</span>
+			}
+			<button mat-icon-button [disabled]="!canUpload()" (click)="onAddPdf()" [matTooltip]="(uploadItems().length > 1 ? 'viewer.upload.loadPdf' : 'viewer.tooltip.loadNewDigitalContent') | translate">
 				<mat-icon>upload</mat-icon>
 			</button>
-			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" [accept]="uploadItems().length > 1 ? '.pdf,.PDF' : '.pdf,.PDF,.epub'" />
 			@if (streamProfile) {
-			<button mat-icon-button (click)="onRemove()" [matTooltip]="'viewer.tooltip.deleteDigitalContent' | translate">
+			<button mat-icon-button [disabled]="uploading || uploadItems().length > 1" (click)="onRemove()" [matTooltip]="'viewer.tooltip.deleteDigitalContent' | translate">
 				<mat-icon>delete</mat-icon>
 			</button>
 			}
@@ -68,7 +71,10 @@
 			</mat-card>
 			}
 		</div>
-		@if (state ==='loading') {
+		@if (uploading) {
+		<div role="status" class="app-m-4">{{ 'viewer.upload.progress' | translate: {completed: uploadCompleted, total: uploadTotal} }}</div>
+		<mat-progress-bar mode="determinate" [value]="100 * uploadCompleted / uploadTotal" class="app-progress-bar"></mat-progress-bar>
+		} @else if (state ==='loading') {
 		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 		}
 	</div>

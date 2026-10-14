@@ -8,3 +8,8 @@
 @include mat-css-vars.init-material-css-vars();
 
 @import 'highlight.js/styles/atom-one-light.css';
+.app-snackbar-warning {
+  --mat-snack-bar-container-color: var(--app-color-warning);
+  --mat-snack-bar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}

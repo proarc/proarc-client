@@ -314,6 +314,31 @@ fieldset {
     
     .mat-icon {
       @include app-mixins.setIcon(20);
+
+      // Material's icon-button rule otherwise forces even wide SVGs into 24x24.
+      &[data-mat-icon-type="svg"] {
+        flex-shrink: 0;
+
+        svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &[data-mat-icon-name="mods"],
+      &[data-mat-icon-name="premis"],
+      &[data-mat-icon-name="copyright"] {
+        width: 24px;
+        height: 24px;
+      }
+
+      &[data-mat-icon-name="mods-xml"],
+      &[data-mat-icon-name="premis-xml"],
+      &[data-mat-icon-name="copyright-xml"] {
+        width: 32px;
+        height: 24px;
+      }
     }
   }
 

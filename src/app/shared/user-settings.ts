@@ -7,6 +7,7 @@ import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
 import { TranslateService } from "@ngx-translate/core";
 import { ModelTemplate } from "../model/modelTemplate";
+import { Catalogue } from "../model/catalogue.model";
 
 @Injectable()
 export class UserSettings {
@@ -46,6 +47,7 @@ export class UserSettings {
     topLanguages: string[];
     languages: string[];
     topIdentifiers: string[];
+    topCatalogs: string[] = [];
     identifiers: string[];
     expandedModels: string[];
     relatedItemExpanded: boolean;
@@ -79,6 +81,14 @@ export class UserSettings {
     appearance: MatFormFieldAppearance = 'fill'; //fill | outline
 
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
+
+    orderCatalogs(catalogs: Catalogue[]): Catalogue[] {
+      const preferred = this.topCatalogs || [];
+      return [
+        ...[...new Set(preferred)].map(id => catalogs.find(catalog => catalog.id === id)).filter(catalog => !!catalog),
+        ...catalogs.filter(catalog => !preferred.includes(catalog.id))
+      ];
+    }
 
 }
 
@@ -368,6 +378,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.languages = Utils.mergeOrdered(this.settings.topLanguages, this.config.languages, this.translator, 'lang');
 
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
+        this.settings.topCatalogs = [];
         this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers, this.translator, 'identifier');
 
         
