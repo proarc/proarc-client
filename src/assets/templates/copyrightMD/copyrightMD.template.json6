@@ -1,0 +1,1817 @@
+{
+  "root": "copyright",
+  "namespace": "http://www.cdlib.org/inside/diglib/copyrightMD",
+  "elements": {
+    "copyright": {
+      "name": "copyright",
+      "label": "editor.copyrightMD.fields.copyright",
+      "max": 1,
+      "children": [
+        {
+          "name": "creation",
+          "label": "editor.copyrightMD.fields.creation",
+          "max": 1,
+          "children": [
+            {
+              "name": "year.creation",
+              "label": "editor.copyrightMD.fields.yearCreation",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "year.type",
+                  "label": "editor.copyrightMD.fields.yearType",
+                  "options": [
+                    {
+                      "value": "exact",
+                      "label": "editor.copyrightMD.values.exact"
+                    },
+                    {
+                      "value": "approximate",
+                      "label": "editor.copyrightMD.values.approximate"
+                    },
+                    {
+                      "value": "unknown",
+                      "label": "editor.copyrightMD.values.unknown"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "country.creation",
+              "label": "editor.copyrightMD.fields.countryCreation",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "iso.code",
+                  "label": "editor.copyrightMD.fields.countryCode",
+                  "options": [
+                    {
+                      "value": "AD"
+                    },
+                    {
+                      "value": "AE"
+                    },
+                    {
+                      "value": "AF"
+                    },
+                    {
+                      "value": "AG"
+                    },
+                    {
+                      "value": "AI"
+                    },
+                    {
+                      "value": "AL"
+                    },
+                    {
+                      "value": "AM"
+                    },
+                    {
+                      "value": "AO"
+                    },
+                    {
+                      "value": "AQ"
+                    },
+                    {
+                      "value": "AR"
+                    },
+                    {
+                      "value": "AS"
+                    },
+                    {
+                      "value": "AT"
+                    },
+                    {
+                      "value": "AU"
+                    },
+                    {
+                      "value": "AW"
+                    },
+                    {
+                      "value": "AX"
+                    },
+                    {
+                      "value": "AZ"
+                    },
+                    {
+                      "value": "BA"
+                    },
+                    {
+                      "value": "BB"
+                    },
+                    {
+                      "value": "BD"
+                    },
+                    {
+                      "value": "BE"
+                    },
+                    {
+                      "value": "BF"
+                    },
+                    {
+                      "value": "BG"
+                    },
+                    {
+                      "value": "BH"
+                    },
+                    {
+                      "value": "BI"
+                    },
+                    {
+                      "value": "BJ"
+                    },
+                    {
+                      "value": "BL"
+                    },
+                    {
+                      "value": "BM"
+                    },
+                    {
+                      "value": "BN"
+                    },
+                    {
+                      "value": "BO"
+                    },
+                    {
+                      "value": "BQ"
+                    },
+                    {
+                      "value": "BR"
+                    },
+                    {
+                      "value": "BS"
+                    },
+                    {
+                      "value": "BT"
+                    },
+                    {
+                      "value": "BV"
+                    },
+                    {
+                      "value": "BW"
+                    },
+                    {
+                      "value": "BY"
+                    },
+                    {
+                      "value": "BZ"
+                    },
+                    {
+                      "value": "CA"
+                    },
+                    {
+                      "value": "CC"
+                    },
+                    {
+                      "value": "CD"
+                    },
+                    {
+                      "value": "CF"
+                    },
+                    {
+                      "value": "CG"
+                    },
+                    {
+                      "value": "CH"
+                    },
+                    {
+                      "value": "CI"
+                    },
+                    {
+                      "value": "CK"
+                    },
+                    {
+                      "value": "CL"
+                    },
+                    {
+                      "value": "CM"
+                    },
+                    {
+                      "value": "CN"
+                    },
+                    {
+                      "value": "CO"
+                    },
+                    {
+                      "value": "CR"
+                    },
+                    {
+                      "value": "CU"
+                    },
+                    {
+                      "value": "CV"
+                    },
+                    {
+                      "value": "CW"
+                    },
+                    {
+                      "value": "CX"
+                    },
+                    {
+                      "value": "CY"
+                    },
+                    {
+                      "value": "CZ"
+                    },
+                    {
+                      "value": "DE"
+                    },
+                    {
+                      "value": "DJ"
+                    },
+                    {
+                      "value": "DK"
+                    },
+                    {
+                      "value": "DM"
+                    },
+                    {
+                      "value": "DO"
+                    },
+                    {
+                      "value": "DZ"
+                    },
+                    {
+                      "value": "EC"
+                    },
+                    {
+                      "value": "EE"
+                    },
+                    {
+                      "value": "EG"
+                    },
+                    {
+                      "value": "EH"
+                    },
+                    {
+                      "value": "ER"
+                    },
+                    {
+                      "value": "ES"
+                    },
+                    {
+                      "value": "ET"
+                    },
+                    {
+                      "value": "FI"
+                    },
+                    {
+                      "value": "FJ"
+                    },
+                    {
+                      "value": "FK"
+                    },
+                    {
+                      "value": "FM"
+                    },
+                    {
+                      "value": "FO"
+                    },
+                    {
+                      "value": "FR"
+                    },
+                    {
+                      "value": "GA"
+                    },
+                    {
+                      "value": "GB"
+                    },
+                    {
+                      "value": "GD"
+                    },
+                    {
+                      "value": "GE"
+                    },
+                    {
+                      "value": "GF"
+                    },
+                    {
+                      "value": "GG"
+                    },
+                    {
+                      "value": "GH"
+                    },
+                    {
+                      "value": "GI"
+                    },
+                    {
+                      "value": "GL"
+                    },
+                    {
+                      "value": "GM"
+                    },
+                    {
+                      "value": "GN"
+                    },
+                    {
+                      "value": "GP"
+                    },
+                    {
+                      "value": "GQ"
+                    },
+                    {
+                      "value": "GR"
+                    },
+                    {
+                      "value": "GS"
+                    },
+                    {
+                      "value": "GT"
+                    },
+                    {
+                      "value": "GU"
+                    },
+                    {
+                      "value": "GW"
+                    },
+                    {
+                      "value": "GY"
+                    },
+                    {
+                      "value": "HK"
+                    },
+                    {
+                      "value": "HM"
+                    },
+                    {
+                      "value": "HN"
+                    },
+                    {
+                      "value": "HR"
+                    },
+                    {
+                      "value": "HT"
+                    },
+                    {
+                      "value": "HU"
+                    },
+                    {
+                      "value": "ID"
+                    },
+                    {
+                      "value": "IE"
+                    },
+                    {
+                      "value": "IL"
+                    },
+                    {
+                      "value": "IM"
+                    },
+                    {
+                      "value": "IN"
+                    },
+                    {
+                      "value": "IO"
+                    },
+                    {
+                      "value": "IQ"
+                    },
+                    {
+                      "value": "IR"
+                    },
+                    {
+                      "value": "IS"
+                    },
+                    {
+                      "value": "IT"
+                    },
+                    {
+                      "value": "JE"
+                    },
+                    {
+                      "value": "JM"
+                    },
+                    {
+                      "value": "JO"
+                    },
+                    {
+                      "value": "JP"
+                    },
+                    {
+                      "value": "KE"
+                    },
+                    {
+                      "value": "KG"
+                    },
+                    {
+                      "value": "KH"
+                    },
+                    {
+                      "value": "KI"
+                    },
+                    {
+                      "value": "KM"
+                    },
+                    {
+                      "value": "KN"
+                    },
+                    {
+                      "value": "KP"
+                    },
+                    {
+                      "value": "KR"
+                    },
+                    {
+                      "value": "KW"
+                    },
+                    {
+                      "value": "KY"
+                    },
+                    {
+                      "value": "KZ"
+                    },
+                    {
+                      "value": "LA"
+                    },
+                    {
+                      "value": "LB"
+                    },
+                    {
+                      "value": "LC"
+                    },
+                    {
+                      "value": "LI"
+                    },
+                    {
+                      "value": "LK"
+                    },
+                    {
+                      "value": "LR"
+                    },
+                    {
+                      "value": "LS"
+                    },
+                    {
+                      "value": "LT"
+                    },
+                    {
+                      "value": "LU"
+                    },
+                    {
+                      "value": "LV"
+                    },
+                    {
+                      "value": "LY"
+                    },
+                    {
+                      "value": "MA"
+                    },
+                    {
+                      "value": "MC"
+                    },
+                    {
+                      "value": "MD"
+                    },
+                    {
+                      "value": "ME"
+                    },
+                    {
+                      "value": "MF"
+                    },
+                    {
+                      "value": "MG"
+                    },
+                    {
+                      "value": "MH"
+                    },
+                    {
+                      "value": "MK"
+                    },
+                    {
+                      "value": "ML"
+                    },
+                    {
+                      "value": "MM"
+                    },
+                    {
+                      "value": "MN"
+                    },
+                    {
+                      "value": "MO"
+                    },
+                    {
+                      "value": "MP"
+                    },
+                    {
+                      "value": "MQ"
+                    },
+                    {
+                      "value": "MR"
+                    },
+                    {
+                      "value": "MS"
+                    },
+                    {
+                      "value": "MT"
+                    },
+                    {
+                      "value": "MU"
+                    },
+                    {
+                      "value": "MV"
+                    },
+                    {
+                      "value": "MW"
+                    },
+                    {
+                      "value": "MX"
+                    },
+                    {
+                      "value": "MY"
+                    },
+                    {
+                      "value": "MZ"
+                    },
+                    {
+                      "value": "NA"
+                    },
+                    {
+                      "value": "NC"
+                    },
+                    {
+                      "value": "NE"
+                    },
+                    {
+                      "value": "NF"
+                    },
+                    {
+                      "value": "NG"
+                    },
+                    {
+                      "value": "NI"
+                    },
+                    {
+                      "value": "NL"
+                    },
+                    {
+                      "value": "NO"
+                    },
+                    {
+                      "value": "NP"
+                    },
+                    {
+                      "value": "NR"
+                    },
+                    {
+                      "value": "NU"
+                    },
+                    {
+                      "value": "NZ"
+                    },
+                    {
+                      "value": "OM"
+                    },
+                    {
+                      "value": "PA"
+                    },
+                    {
+                      "value": "PE"
+                    },
+                    {
+                      "value": "PF"
+                    },
+                    {
+                      "value": "PG"
+                    },
+                    {
+                      "value": "PH"
+                    },
+                    {
+                      "value": "PK"
+                    },
+                    {
+                      "value": "PL"
+                    },
+                    {
+                      "value": "PM"
+                    },
+                    {
+                      "value": "PN"
+                    },
+                    {
+                      "value": "PR"
+                    },
+                    {
+                      "value": "PS"
+                    },
+                    {
+                      "value": "PT"
+                    },
+                    {
+                      "value": "PW"
+                    },
+                    {
+                      "value": "PY"
+                    },
+                    {
+                      "value": "QA"
+                    },
+                    {
+                      "value": "RE"
+                    },
+                    {
+                      "value": "RO"
+                    },
+                    {
+                      "value": "RS"
+                    },
+                    {
+                      "value": "RU"
+                    },
+                    {
+                      "value": "RW"
+                    },
+                    {
+                      "value": "SA"
+                    },
+                    {
+                      "value": "SB"
+                    },
+                    {
+                      "value": "SC"
+                    },
+                    {
+                      "value": "SD"
+                    },
+                    {
+                      "value": "SE"
+                    },
+                    {
+                      "value": "SG"
+                    },
+                    {
+                      "value": "SH"
+                    },
+                    {
+                      "value": "SI"
+                    },
+                    {
+                      "value": "SJ"
+                    },
+                    {
+                      "value": "SK"
+                    },
+                    {
+                      "value": "SL"
+                    },
+                    {
+                      "value": "SM"
+                    },
+                    {
+                      "value": "SN"
+                    },
+                    {
+                      "value": "SO"
+                    },
+                    {
+                      "value": "SR"
+                    },
+                    {
+                      "value": "SS"
+                    },
+                    {
+                      "value": "ST"
+                    },
+                    {
+                      "value": "SV"
+                    },
+                    {
+                      "value": "SX"
+                    },
+                    {
+                      "value": "SY"
+                    },
+                    {
+                      "value": "SZ"
+                    },
+                    {
+                      "value": "TC"
+                    },
+                    {
+                      "value": "TD"
+                    },
+                    {
+                      "value": "TF"
+                    },
+                    {
+                      "value": "TG"
+                    },
+                    {
+                      "value": "TH"
+                    },
+                    {
+                      "value": "TJ"
+                    },
+                    {
+                      "value": "TK"
+                    },
+                    {
+                      "value": "TL"
+                    },
+                    {
+                      "value": "TM"
+                    },
+                    {
+                      "value": "TN"
+                    },
+                    {
+                      "value": "TO"
+                    },
+                    {
+                      "value": "TR"
+                    },
+                    {
+                      "value": "TT"
+                    },
+                    {
+                      "value": "TV"
+                    },
+                    {
+                      "value": "TW"
+                    },
+                    {
+                      "value": "TZ"
+                    },
+                    {
+                      "value": "UA"
+                    },
+                    {
+                      "value": "UG"
+                    },
+                    {
+                      "value": "UM"
+                    },
+                    {
+                      "value": "US"
+                    },
+                    {
+                      "value": "UY"
+                    },
+                    {
+                      "value": "UZ"
+                    },
+                    {
+                      "value": "VA"
+                    },
+                    {
+                      "value": "VC"
+                    },
+                    {
+                      "value": "VE"
+                    },
+                    {
+                      "value": "VG"
+                    },
+                    {
+                      "value": "VI"
+                    },
+                    {
+                      "value": "VN"
+                    },
+                    {
+                      "value": "VU"
+                    },
+                    {
+                      "value": "WF"
+                    },
+                    {
+                      "value": "WS"
+                    },
+                    {
+                      "value": "YE"
+                    },
+                    {
+                      "value": "YT"
+                    },
+                    {
+                      "value": "ZA"
+                    },
+                    {
+                      "value": "ZM"
+                    },
+                    {
+                      "value": "ZW"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "creator",
+          "label": "editor.copyrightMD.fields.creator",
+          "max": 1,
+          "children": [
+            {
+              "name": "creator.corporate",
+              "label": "editor.copyrightMD.fields.corporate"
+            },
+            {
+              "name": "creator.person",
+              "label": "editor.copyrightMD.fields.person",
+              "children": [
+                {
+                  "name": "name",
+                  "label": "editor.copyrightMD.fields.name",
+                  "max": 1
+                },
+                {
+                  "name": "year.birth",
+                  "label": "editor.copyrightMD.fields.birth",
+                  "max": 1,
+                  "attributes": [
+                    {
+                      "name": "year.type",
+                      "label": "editor.copyrightMD.fields.yearType",
+                      "options": [
+                        {
+                          "value": "exact",
+                          "label": "editor.copyrightMD.values.exact"
+                        },
+                        {
+                          "value": "approximate",
+                          "label": "editor.copyrightMD.values.approximate"
+                        },
+                        {
+                          "value": "unknown",
+                          "label": "editor.copyrightMD.values.unknown"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "year.death",
+                  "label": "editor.copyrightMD.fields.death",
+                  "max": 1,
+                  "attributes": [
+                    {
+                      "name": "year.type",
+                      "label": "editor.copyrightMD.fields.yearType",
+                      "options": [
+                        {
+                          "value": "exact",
+                          "label": "editor.copyrightMD.values.exact"
+                        },
+                        {
+                          "value": "approximate",
+                          "label": "editor.copyrightMD.values.approximate"
+                        },
+                        {
+                          "value": "unknown",
+                          "label": "editor.copyrightMD.values.unknown"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "note",
+              "label": "editor.copyrightMD.fields.note"
+            }
+          ]
+        },
+        {
+          "name": "publication",
+          "label": "editor.copyrightMD.fields.publication",
+          "max": 1,
+          "children": [
+            {
+              "name": "country.publication",
+              "label": "editor.copyrightMD.fields.countryPublication",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "iso.code",
+                  "label": "editor.copyrightMD.fields.countryCode",
+                  "options": [
+                    {
+                      "value": "AD"
+                    },
+                    {
+                      "value": "AE"
+                    },
+                    {
+                      "value": "AF"
+                    },
+                    {
+                      "value": "AG"
+                    },
+                    {
+                      "value": "AI"
+                    },
+                    {
+                      "value": "AL"
+                    },
+                    {
+                      "value": "AM"
+                    },
+                    {
+                      "value": "AO"
+                    },
+                    {
+                      "value": "AQ"
+                    },
+                    {
+                      "value": "AR"
+                    },
+                    {
+                      "value": "AS"
+                    },
+                    {
+                      "value": "AT"
+                    },
+                    {
+                      "value": "AU"
+                    },
+                    {
+                      "value": "AW"
+                    },
+                    {
+                      "value": "AX"
+                    },
+                    {
+                      "value": "AZ"
+                    },
+                    {
+                      "value": "BA"
+                    },
+                    {
+                      "value": "BB"
+                    },
+                    {
+                      "value": "BD"
+                    },
+                    {
+                      "value": "BE"
+                    },
+                    {
+                      "value": "BF"
+                    },
+                    {
+                      "value": "BG"
+                    },
+                    {
+                      "value": "BH"
+                    },
+                    {
+                      "value": "BI"
+                    },
+                    {
+                      "value": "BJ"
+                    },
+                    {
+                      "value": "BL"
+                    },
+                    {
+                      "value": "BM"
+                    },
+                    {
+                      "value": "BN"
+                    },
+                    {
+                      "value": "BO"
+                    },
+                    {
+                      "value": "BQ"
+                    },
+                    {
+                      "value": "BR"
+                    },
+                    {
+                      "value": "BS"
+                    },
+                    {
+                      "value": "BT"
+                    },
+                    {
+                      "value": "BV"
+                    },
+                    {
+                      "value": "BW"
+                    },
+                    {
+                      "value": "BY"
+                    },
+                    {
+                      "value": "BZ"
+                    },
+                    {
+                      "value": "CA"
+                    },
+                    {
+                      "value": "CC"
+                    },
+                    {
+                      "value": "CD"
+                    },
+                    {
+                      "value": "CF"
+                    },
+                    {
+                      "value": "CG"
+                    },
+                    {
+                      "value": "CH"
+                    },
+                    {
+                      "value": "CI"
+                    },
+                    {
+                      "value": "CK"
+                    },
+                    {
+                      "value": "CL"
+                    },
+                    {
+                      "value": "CM"
+                    },
+                    {
+                      "value": "CN"
+                    },
+                    {
+                      "value": "CO"
+                    },
+                    {
+                      "value": "CR"
+                    },
+                    {
+                      "value": "CU"
+                    },
+                    {
+                      "value": "CV"
+                    },
+                    {
+                      "value": "CW"
+                    },
+                    {
+                      "value": "CX"
+                    },
+                    {
+                      "value": "CY"
+                    },
+                    {
+                      "value": "CZ"
+                    },
+                    {
+                      "value": "DE"
+                    },
+                    {
+                      "value": "DJ"
+                    },
+                    {
+                      "value": "DK"
+                    },
+                    {
+                      "value": "DM"
+                    },
+                    {
+                      "value": "DO"
+                    },
+                    {
+                      "value": "DZ"
+                    },
+                    {
+                      "value": "EC"
+                    },
+                    {
+                      "value": "EE"
+                    },
+                    {
+                      "value": "EG"
+                    },
+                    {
+                      "value": "EH"
+                    },
+                    {
+                      "value": "ER"
+                    },
+                    {
+                      "value": "ES"
+                    },
+                    {
+                      "value": "ET"
+                    },
+                    {
+                      "value": "FI"
+                    },
+                    {
+                      "value": "FJ"
+                    },
+                    {
+                      "value": "FK"
+                    },
+                    {
+                      "value": "FM"
+                    },
+                    {
+                      "value": "FO"
+                    },
+                    {
+                      "value": "FR"
+                    },
+                    {
+                      "value": "GA"
+                    },
+                    {
+                      "value": "GB"
+                    },
+                    {
+                      "value": "GD"
+                    },
+                    {
+                      "value": "GE"
+                    },
+                    {
+                      "value": "GF"
+                    },
+                    {
+                      "value": "GG"
+                    },
+                    {
+                      "value": "GH"
+                    },
+                    {
+                      "value": "GI"
+                    },
+                    {
+                      "value": "GL"
+                    },
+                    {
+                      "value": "GM"
+                    },
+                    {
+                      "value": "GN"
+                    },
+                    {
+                      "value": "GP"
+                    },
+                    {
+                      "value": "GQ"
+                    },
+                    {
+                      "value": "GR"
+                    },
+                    {
+                      "value": "GS"
+                    },
+                    {
+                      "value": "GT"
+                    },
+                    {
+                      "value": "GU"
+                    },
+                    {
+                      "value": "GW"
+                    },
+                    {
+                      "value": "GY"
+                    },
+                    {
+                      "value": "HK"
+                    },
+                    {
+                      "value": "HM"
+                    },
+                    {
+                      "value": "HN"
+                    },
+                    {
+                      "value": "HR"
+                    },
+                    {
+                      "value": "HT"
+                    },
+                    {
+                      "value": "HU"
+                    },
+                    {
+                      "value": "ID"
+                    },
+                    {
+                      "value": "IE"
+                    },
+                    {
+                      "value": "IL"
+                    },
+                    {
+                      "value": "IM"
+                    },
+                    {
+                      "value": "IN"
+                    },
+                    {
+                      "value": "IO"
+                    },
+                    {
+                      "value": "IQ"
+                    },
+                    {
+                      "value": "IR"
+                    },
+                    {
+                      "value": "IS"
+                    },
+                    {
+                      "value": "IT"
+                    },
+                    {
+                      "value": "JE"
+                    },
+                    {
+                      "value": "JM"
+                    },
+                    {
+                      "value": "JO"
+                    },
+                    {
+                      "value": "JP"
+                    },
+                    {
+                      "value": "KE"
+                    },
+                    {
+                      "value": "KG"
+                    },
+                    {
+                      "value": "KH"
+                    },
+                    {
+                      "value": "KI"
+                    },
+                    {
+                      "value": "KM"
+                    },
+                    {
+                      "value": "KN"
+                    },
+                    {
+                      "value": "KP"
+                    },
+                    {
+                      "value": "KR"
+                    },
+                    {
+                      "value": "KW"
+                    },
+                    {
+                      "value": "KY"
+                    },
+                    {
+                      "value": "KZ"
+                    },
+                    {
+                      "value": "LA"
+                    },
+                    {
+                      "value": "LB"
+                    },
+                    {
+                      "value": "LC"
+                    },
+                    {
+                      "value": "LI"
+                    },
+                    {
+                      "value": "LK"
+                    },
+                    {
+                      "value": "LR"
+                    },
+                    {
+                      "value": "LS"
+                    },
+                    {
+                      "value": "LT"
+                    },
+                    {
+                      "value": "LU"
+                    },
+                    {
+                      "value": "LV"
+                    },
+                    {
+                      "value": "LY"
+                    },
+                    {
+                      "value": "MA"
+                    },
+                    {
+                      "value": "MC"
+                    },
+                    {
+                      "value": "MD"
+                    },
+                    {
+                      "value": "ME"
+                    },
+                    {
+                      "value": "MF"
+                    },
+                    {
+                      "value": "MG"
+                    },
+                    {
+                      "value": "MH"
+                    },
+                    {
+                      "value": "MK"
+                    },
+                    {
+                      "value": "ML"
+                    },
+                    {
+                      "value": "MM"
+                    },
+                    {
+                      "value": "MN"
+                    },
+                    {
+                      "value": "MO"
+                    },
+                    {
+                      "value": "MP"
+                    },
+                    {
+                      "value": "MQ"
+                    },
+                    {
+                      "value": "MR"
+                    },
+                    {
+                      "value": "MS"
+                    },
+                    {
+                      "value": "MT"
+                    },
+                    {
+                      "value": "MU"
+                    },
+                    {
+                      "value": "MV"
+                    },
+                    {
+                      "value": "MW"
+                    },
+                    {
+                      "value": "MX"
+                    },
+                    {
+                      "value": "MY"
+                    },
+                    {
+                      "value": "MZ"
+                    },
+                    {
+                      "value": "NA"
+                    },
+                    {
+                      "value": "NC"
+                    },
+                    {
+                      "value": "NE"
+                    },
+                    {
+                      "value": "NF"
+                    },
+                    {
+                      "value": "NG"
+                    },
+                    {
+                      "value": "NI"
+                    },
+                    {
+                      "value": "NL"
+                    },
+                    {
+                      "value": "NO"
+                    },
+                    {
+                      "value": "NP"
+                    },
+                    {
+                      "value": "NR"
+                    },
+                    {
+                      "value": "NU"
+                    },
+                    {
+                      "value": "NZ"
+                    },
+                    {
+                      "value": "OM"
+                    },
+                    {
+                      "value": "PA"
+                    },
+                    {
+                      "value": "PE"
+                    },
+                    {
+                      "value": "PF"
+                    },
+                    {
+                      "value": "PG"
+                    },
+                    {
+                      "value": "PH"
+                    },
+                    {
+                      "value": "PK"
+                    },
+                    {
+                      "value": "PL"
+                    },
+                    {
+                      "value": "PM"
+                    },
+                    {
+                      "value": "PN"
+                    },
+                    {
+                      "value": "PR"
+                    },
+                    {
+                      "value": "PS"
+                    },
+                    {
+                      "value": "PT"
+                    },
+                    {
+                      "value": "PW"
+                    },
+                    {
+                      "value": "PY"
+                    },
+                    {
+                      "value": "QA"
+                    },
+                    {
+                      "value": "RE"
+                    },
+                    {
+                      "value": "RO"
+                    },
+                    {
+                      "value": "RS"
+                    },
+                    {
+                      "value": "RU"
+                    },
+                    {
+                      "value": "RW"
+                    },
+                    {
+                      "value": "SA"
+                    },
+                    {
+                      "value": "SB"
+                    },
+                    {
+                      "value": "SC"
+                    },
+                    {
+                      "value": "SD"
+                    },
+                    {
+                      "value": "SE"
+                    },
+                    {
+                      "value": "SG"
+                    },
+                    {
+                      "value": "SH"
+                    },
+                    {
+                      "value": "SI"
+                    },
+                    {
+                      "value": "SJ"
+                    },
+                    {
+                      "value": "SK"
+                    },
+                    {
+                      "value": "SL"
+                    },
+                    {
+                      "value": "SM"
+                    },
+                    {
+                      "value": "SN"
+                    },
+                    {
+                      "value": "SO"
+                    },
+                    {
+                      "value": "SR"
+                    },
+                    {
+                      "value": "SS"
+                    },
+                    {
+                      "value": "ST"
+                    },
+                    {
+                      "value": "SV"
+                    },
+                    {
+                      "value": "SX"
+                    },
+                    {
+                      "value": "SY"
+                    },
+                    {
+                      "value": "SZ"
+                    },
+                    {
+                      "value": "TC"
+                    },
+                    {
+                      "value": "TD"
+                    },
+                    {
+                      "value": "TF"
+                    },
+                    {
+                      "value": "TG"
+                    },
+                    {
+                      "value": "TH"
+                    },
+                    {
+                      "value": "TJ"
+                    },
+                    {
+                      "value": "TK"
+                    },
+                    {
+                      "value": "TL"
+                    },
+                    {
+                      "value": "TM"
+                    },
+                    {
+                      "value": "TN"
+                    },
+                    {
+                      "value": "TO"
+                    },
+                    {
+                      "value": "TR"
+                    },
+                    {
+                      "value": "TT"
+                    },
+                    {
+                      "value": "TV"
+                    },
+                    {
+                      "value": "TW"
+                    },
+                    {
+                      "value": "TZ"
+                    },
+                    {
+                      "value": "UA"
+                    },
+                    {
+                      "value": "UG"
+                    },
+                    {
+                      "value": "UM"
+                    },
+                    {
+                      "value": "US"
+                    },
+                    {
+                      "value": "UY"
+                    },
+                    {
+                      "value": "UZ"
+                    },
+                    {
+                      "value": "VA"
+                    },
+                    {
+                      "value": "VC"
+                    },
+                    {
+                      "value": "VE"
+                    },
+                    {
+                      "value": "VG"
+                    },
+                    {
+                      "value": "VI"
+                    },
+                    {
+                      "value": "VN"
+                    },
+                    {
+                      "value": "VU"
+                    },
+                    {
+                      "value": "WF"
+                    },
+                    {
+                      "value": "WS"
+                    },
+                    {
+                      "value": "YE"
+                    },
+                    {
+                      "value": "YT"
+                    },
+                    {
+                      "value": "ZA"
+                    },
+                    {
+                      "value": "ZM"
+                    },
+                    {
+                      "value": "ZW"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "publisher",
+              "label": "editor.copyrightMD.fields.publisher",
+              "max": 1
+            },
+            {
+              "name": "year.publication",
+              "label": "editor.copyrightMD.fields.yearPublication",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "year.type",
+                  "label": "editor.copyrightMD.fields.yearType",
+                  "options": [
+                    {
+                      "value": "exact",
+                      "label": "editor.copyrightMD.values.exact"
+                    },
+                    {
+                      "value": "approximate",
+                      "label": "editor.copyrightMD.values.approximate"
+                    },
+                    {
+                      "value": "unknown",
+                      "label": "editor.copyrightMD.values.unknown"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "year.copyright",
+              "label": "editor.copyrightMD.fields.yearCopyright",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "year.type",
+                  "label": "editor.copyrightMD.fields.yearType",
+                  "options": [
+                    {
+                      "value": "exact",
+                      "label": "editor.copyrightMD.values.exact"
+                    },
+                    {
+                      "value": "approximate",
+                      "label": "editor.copyrightMD.values.approximate"
+                    },
+                    {
+                      "value": "unknown",
+                      "label": "editor.copyrightMD.values.unknown"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "year.renewal",
+              "label": "editor.copyrightMD.fields.yearRenewal",
+              "max": 1,
+              "attributes": [
+                {
+                  "name": "year.type",
+                  "label": "editor.copyrightMD.fields.yearType",
+                  "options": [
+                    {
+                      "value": "exact",
+                      "label": "editor.copyrightMD.values.exact"
+                    },
+                    {
+                      "value": "approximate",
+                      "label": "editor.copyrightMD.values.approximate"
+                    },
+                    {
+                      "value": "unknown",
+                      "label": "editor.copyrightMD.values.unknown"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "note",
+              "label": "editor.copyrightMD.fields.note"
+            }
+          ]
+        },
+        {
+          "name": "rights.holder",
+          "label": "editor.copyrightMD.fields.holder",
+          "max": 1,
+          "children": [
+            {
+              "name": "name",
+              "label": "editor.copyrightMD.fields.name",
+              "max": 1
+            },
+            {
+              "name": "contact",
+              "label": "editor.copyrightMD.fields.contact"
+            },
+            {
+              "name": "note",
+              "label": "editor.copyrightMD.fields.note"
+            }
+          ]
+        },
+        {
+          "name": "notice",
+          "label": "editor.copyrightMD.fields.notice",
+          "max": 1
+        },
+        {
+          "name": "general.note",
+          "label": "editor.copyrightMD.fields.generalNote",
+          "suggestions": [
+            "BY",
+            "BY-SA",
+            "BY-ND",
+            "BY-NC",
+            "BY-NC-SA",
+            "BY-NC-ND"
+          ]
+        }
+      ],
+      "attributes": [
+        {
+          "name": "copyright.status",
+          "label": "editor.copyrightMD.fields.copyrightStatus",
+          "required": true,
+          "options": [
+            {
+              "value": "copyrighted",
+              "label": "editor.copyrightMD.values.copyrighted"
+            },
+            {
+              "value": "pd",
+              "label": "editor.copyrightMD.values.pd"
+            },
+            {
+              "value": "pd_expired",
+              "label": "editor.copyrightMD.values.pd_expired"
+            },
+            {
+              "value": "pd_holder",
+              "label": "editor.copyrightMD.values.pd_holder"
+            },
+            {
+              "value": "unknown",
+              "label": "editor.copyrightMD.values.unknown"
+            }
+          ]
+        },
+        {
+          "name": "publication.status",
+          "label": "editor.copyrightMD.fields.publicationStatus",
+          "required": true,
+          "options": [
+            {
+              "value": "published",
+              "label": "editor.copyrightMD.values.published"
+            },
+            {
+              "value": "unpublished",
+              "label": "editor.copyrightMD.values.unpublished"
+            },
+            {
+              "value": "unknown",
+              "label": "editor.copyrightMD.values.unknown"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

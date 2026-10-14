@@ -13,6 +13,19 @@ export interface TableColumn {
 @Injectable()
 export class Configuration {
 
+  private static readonly PERIODICAL_PAGE_PARENTS = new Set([
+    'model:ndkperiodicalissue',
+    'model:ndkperiodicalsupplement'
+  ]);
+
+  private static readonly MONOGRAPH_ONLY_PAGE_TYPES = new Set([
+    'appendix',
+    'frontispiece',
+    'impressum',
+    'edge',
+    'imprimatur'
+  ]);
+
   // proarcUrl: "http://proarc.inovatika.dev/api",
   //   proarcUrl: "/api",
   //   ga: "UA-159265713-1",
@@ -32,6 +45,7 @@ export class Configuration {
   showCommentEditor: boolean;
   showWorkflow: boolean;
   showLogoutCounter: boolean;
+  showUpgradeMods38 = true;
   topPageTypes: string[];
   pageTypes: string[];
   topLanguages: string[];
@@ -53,7 +67,9 @@ export class Configuration {
 
   roleCodes: string[];
   updateInSource: boolean;
-  updateInSourceModels: string[];
+  // Loaded from the API; instance globals no longer define the supported models.
+  catalogUpdateModels: string[] = [];
+  exportUpdateCatalog = true;
 
   searchExpandTree: boolean;
   showSearchProcessor: boolean;
@@ -100,12 +116,21 @@ export class Configuration {
     return model === 'model:page' || model === 'model:ndkpage' || model === 'model:oldprintpage';
   }
 
+  public getPageTypes(pageTypes: string[], parentModel?: string): string[] {
+    const configuredPageTypes = new Set(this.pageTypes || []);
+    const allowedPageTypes = pageTypes.filter(pageType => configuredPageTypes.has(pageType));
+    if (!Configuration.PERIODICAL_PAGE_PARENTS.has(parentModel)) {
+      return allowedPageTypes;
+    }
+    return allowedPageTypes.filter(pageType => !Configuration.MONOGRAPH_ONLY_PAGE_TYPES.has(pageType));
+  }
+
   public isAudioPage(model: string): boolean {
     return model == 'model:ndkaudiopage';
   }
 
   public isMusicDocument(model: string): boolean {
-    return model === 'model:ndkphonographcylinder' || model === 'model:ndkmusicdocument'
+    return model === 'model:ndkphonographcylinder' || model === 'model:ndkaudiodisc' || model === 'model:ndkdigitalaudio' || model === 'model:ndkmusicdocument'
       || model === 'model:ndksong' || model === 'model:ndktrack' || model === 'ndkaudiopage';
   }
 

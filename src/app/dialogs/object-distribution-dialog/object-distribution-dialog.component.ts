@@ -16,6 +16,7 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { UserSettings } from '../../shared/user-settings';
+import { Configuration } from '../../shared/configuration';
 import { ObjectTargetSelectionDialogComponent } from '../object-target-selection-dialog/object-target-selection-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import {
@@ -59,8 +60,13 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private ui: UIService,
     private translator: TranslateService,
+    private config: Configuration,
     public settings: UserSettings
   ) { }
+
+  get pageTypes(): string[] {
+    return this.config.getPageTypes(this.settings.pageTypes, this.data.source?.model);
+  }
 
   ngOnInit(): void {
     this.scheduleRecalculation();

@@ -166,6 +166,8 @@ export class KrameriusComponent implements OnInit {
       }  else if (response && response['response'] && response['response']['data']) {
         if (response['response']['data'][0].status === 'Failed') {
           this.ui.showErrorSnackBar(response['response']['data'][0].reason, 2000);
+        } else if (response['response']['data'][0].status === 'Warning') {
+          this.ui.showWarningSnackBar(response['response']['data'][0].reason);
         } else {
           this.ui.showInfoSnackBar(response['response']['data'][0].reason, 2000);
         }

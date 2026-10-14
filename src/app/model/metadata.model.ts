@@ -46,7 +46,7 @@ export class Metadata {
   }
 
   private parseMods(mods: string) {
-    const xml = mods.replace(/xmlns.*=".*"/g, '');
+    const xml = mods.replace(/\sxmlns(?::[\w.-]+)?\s*=\s*(?:"[^"]*"|'[^']*')/g, '');
     const data = { tagNameProcessors: [processors.stripPrefix], explicitCharkey: true };
     const ctx = this;
     parseString(xml, data, function (err: any, result: any) {

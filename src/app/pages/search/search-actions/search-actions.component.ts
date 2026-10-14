@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DocumentItem, TreeDocumentItem } from '../../../model/documentItem.model';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../../services/auth.service';
 import { UrnnbnDialogComponent } from '../../../dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ExportDialogComponent } from '../../../dialogs/export-dialog/export-dialog.component';
@@ -26,7 +26,7 @@ import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   selector: 'app-search-actions',
-  imports: [TranslateModule, FormsModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatDialogModule],
+  imports: [TranslateModule, FormsModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatMenuModule],
   templateUrl: './search-actions.component.html',
   styleUrl: './search-actions.component.scss'
 })
@@ -404,7 +404,7 @@ export class SearchActionsComponent {
 
   canUpdateInSource() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
-    return this.config.updateInSourceModels.includes(item?.model)
+    return this.config.catalogUpdateModels.includes(item?.model)
   }
 
   updateInSource() {

@@ -5,10 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   standalone: true,
-  imports: [TranslateModule, MatDialogModule, MatButtonModule, MatTooltipModule],
+  imports: [TranslateModule, MatDialogModule, MatButtonModule, MatTooltipModule, CdkDrag, CdkDragHandle],
   selector: 'app-log-dialog',
   templateUrl: './log-dialog.component.html',
   styleUrls: ['./log-dialog.component.scss']

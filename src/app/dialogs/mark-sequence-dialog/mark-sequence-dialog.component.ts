@@ -26,6 +26,7 @@ import { UIService } from '../../services/ui.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { Configuration } from '../../shared/configuration';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
@@ -70,6 +71,7 @@ export class MarkSequenceDialogComponent implements OnInit {
     private layout: LayoutService,
     public settings: UserSettings,
     private settingsService: UserSettingsService,
+    public config: Configuration,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

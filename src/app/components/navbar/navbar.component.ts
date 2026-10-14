@@ -368,4 +368,46 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  upgradeMods38() {
+    const data: SimpleDialogData = {
+      title: this.translator.instant('navbar.mods38Upgrade.title'),
+      message: this.translator.instant('navbar.mods38Upgrade.message'),
+      alertClass: 'app-message',
+      btn1: {
+        label: this.translator.instant('button.yes'),
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: this.translator.instant('button.no'),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== 'yes') {
+        return;
+      }
+
+      this.state.update(() => 'loading');
+      this.api.upgradeMods38().subscribe((response: any) => {
+        if (response.response.errors) {
+          this.state.update(() => 'error');
+          this.ui.showErrorDialogFromObject(response.response.errors);
+          return;
+        }
+
+        this.state.update(() => 'success');
+        this.ui.showInfoSnackBar(this.translator.instant('navbar.mods38Upgrade.scheduled'));
+        this.router.navigate(['/process-management'], {
+          queryParams: { state: 'ALL', profile: 'internalProfile.upgradeMods38' }
+        });
+      });
+    });
+  }
+
 }

@@ -58,6 +58,19 @@
                   <button matButton="filled" (click)="changeCodebookTops('identifier', 'topIdentifiers', config.identifiers)">{{ 'button.edit' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>
+                <span class="app-label">{{ 'dialog.preferredTops.title.catalog' | translate }}</span>
+                <div class="app-fxLayout app-row app-gap-4 app-mb-4">
+                  <span class="app-fxFlex">
+                    @for(c of curSettings.topCatalogs; let last = $last; track $index;) {
+                      {{ catalogName(c) }} {{ last ? '' : ', '}}
+                    }
+                    @if (!curSettings.topCatalogs?.length) {
+                      <em class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
+                    }
+                  </span>
+                  <button matButton="filled" [disabled]="!catalogs.length" (click)="changeCatalogTops()">{{ 'button.edit' | translate }}</button>
+                </div>
+                <mat-divider class="app-mb-4"></mat-divider>
                 <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
                 <div class="app-fxLayout app-row app-gap-4 app-mb-4">
                   <span class="app-fxFlex">

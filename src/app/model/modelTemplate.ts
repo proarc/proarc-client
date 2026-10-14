@@ -22,6 +22,8 @@ export class ModelTemplate {
       "model:ndkclippingcollection": 'NdkClippingCollection',
       "model:ndkclippingdirectory": 'NdkClippingDirectory',
       "model:ndkclippingunit": 'NdkClippingUnit',
+      "model:ndkclippingindex": 'NdkClippingIndex',
+      "model:ndkcardindex": 'NdkCardIndex',
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
@@ -53,8 +55,10 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents
-      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
       "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndkaudiodisc": 'NdkMusicDocument',
+      "model:ndkdigitalaudio": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
       "model:ndkaudiopage": 'NdkMusicAudioPage',
@@ -80,6 +84,8 @@ export class ModelTemplate {
       "model:ndkclippingcollection": 'NdkClippingCollection',
       "model:ndkclippingdirectory": 'NdkClippingDirectory',
       "model:ndkclippingunit": 'NdkClippingUnit',
+      "model:ndkclippingindex": 'NdkClippingIndex',
+      "model:ndkcardindex": 'NdkCardIndex',
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
@@ -111,8 +117,10 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographSupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
       "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndkaudiodisc": 'NdkMusicDocument',
+      "model:ndkdigitalaudio": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
       "model:ndkaudiopage": 'NdkMusicAudioPage',
@@ -137,9 +145,11 @@ export class ModelTemplate {
     'ndksheetmusic': ['ndkpage', 'page', 'ndkmonographsupplement'],
     'ndkpage': [],
     'page': [],
-    'ndkclippingcollection': ['ndkclippingdirectory', 'ndkclippingunit'],
-    'ndkclippingdirectory': ['ndkclippingunit'],
+    'ndkclippingcollection': ['ndkclippingdirectory', 'ndkclippingunit', 'ndkclippingindex', 'ndkcardindex'],
+    'ndkclippingdirectory': ['ndkclippingunit', 'ndkclippingindex', 'ndkcardindex'],
     'ndkclippingunit': ['ndkpage'],
+    'ndkclippingindex': ['ndkpage'],
+    'ndkcardindex': ['ndkpage'],
     'oldprintomnibusvolume': ['oldprintvolume', 'oldprintmonographtitle', 'oldprintgraphics', 'oldprintmap', 'oldprintsheetmusic', 'oldprintpage'],
     'oldprintmonographtitle': ['oldprintmonographunit'],
     'oldprintmonographunit': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
@@ -162,6 +172,8 @@ export class ModelTemplate {
     'ndkechapter': [],
     'ndkphonographcylinder': ['ndksong', 'ndkmonographsupplement'],
     'ndkmusicdocument': ['ndksong', 'ndkmonographsupplement'],
+    'ndkaudiodisc': ['ndksong', 'ndkmonographsupplement'],
+    'ndkdigitalaudio': ['ndksong', 'ndkmonographsupplement'],
     'ndksong': ['ndktrack', 'ndkaudiopage'],
     'ndktrack': ['ndkaudiopage'],
     'ndkaudiopage': [],

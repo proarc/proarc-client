@@ -69,6 +69,11 @@
       'model:ndkmap',
       'model:ndkgraphic',
       'model:ndksheetmusic',
+      'model:ndkclippingcollection',
+      'model:ndkclippingdirectory',
+      'model:ndkclippingunit',
+      'model:ndkclippingindex',
+      'model:ndkcardindex',
       'model:ndkpage',
       'model:page',
       'model:oldprintomnibusvolume',
@@ -105,6 +110,7 @@
   showCommentEditor: true,
   showWorkflow: true,
   showLogoutCounter: true,
+  showUpgradeMods38: true,
   pageTypes: [
     'normalPage',
     'bibliography',
@@ -191,8 +197,7 @@
         'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'],
   updateInSource: true,
-  updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
-  'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
+  exportUpdateCatalog: true,
 
   musicDocumentIdentifiers: ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ismn','ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localid'],
   chronicleIdentifiers: ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localid', 'officialNumber'],
@@ -238,11 +243,16 @@
     'internalProfile.changeOwners',
     'internalProfile.urnnbn',
     'internalProfile.deletion',
-        'internalProfile.updateCatalogRecords',
+    'internalProfile.updateCatalogRecords',
     'uploadProfile.proarc',
     'uploadProfile.kramerius',
     'externalProfile.pero',
-    'externalProfile.pdfa'
+    'externalProfile.pdfa',
+    'internalProfile.indexObjectsToSolr',
+    'internalProfile.indexParentsToSolr',
+    'internalProfile.objectDistribution',
+    'internalProfile.upgradeMods38',
+    'externalProfile.thumbnail'
   ],
 
 

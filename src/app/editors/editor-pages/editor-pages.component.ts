@@ -161,6 +161,11 @@ export class EditorPagesComponent implements OnInit {
     }));
   }
 
+  get pageTypes(): string[] {
+    const parentModel = this.layout.type === 'repo' ? this.layout.selectedParentItem?.model : null;
+    return this.config.getPageTypes(this.settings.pageTypes, parentModel);
+  }
+
   setPageHolder() {
     this.layout.lastPageUpdateHolder = new PageUpdateHolder();
     this.layout.lastPageUpdateHolder.fillValues(this.controls.value);

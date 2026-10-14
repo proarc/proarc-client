@@ -26,6 +26,7 @@ import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog
 import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
 import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { RouterModule } from '@angular/router';
+import { Catalogue } from '../../model/catalogue.model';
 
 @Component({
   standalone: true,
@@ -61,6 +62,7 @@ export class SettingsComponent implements OnInit {
   // searchExpandTree: boolean = true;
 
   curSettings: UserSettings;
+  catalogs: Catalogue[] = [];
 
   constructor(
     private api: ApiService,
@@ -76,6 +78,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.curSettings = this.settingsService.cloneSettings();
+    this.api.getCatalogs().subscribe(catalogs => this.catalogs = catalogs);
     this.appearance = this.curSettings.appearance === 'outline';
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
@@ -98,10 +101,11 @@ export class SettingsComponent implements OnInit {
     // this.initSelectedColumnsEditingRepo();
   }
 
-  changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
-    const top: string[] = this.curSettings[listName];
+  changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false,
+                    labels?: Record<string, string>) {
+    const top: string[] = this.curSettings[listName] || [];
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
-      data: { prefix, top, conf: [...conf], expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded },
+      data: { prefix, top, conf: [...conf], expanded, labels, relatedItemExpanded: this.curSettings.relatedItemExpanded },
       panelClass: ['app-dialog-preferred-tops', 'app-form-view-' + this.settings.appearance]
     });
 
@@ -118,6 +122,15 @@ export class SettingsComponent implements OnInit {
         this.settingsService.setSettings(this.curSettings);
       }
     });
+  }
+
+  changeCatalogTops() {
+    this.changeCodebookTops('catalog', 'topCatalogs', this.catalogs.map(catalog => catalog.id), false,
+      Object.fromEntries(this.catalogs.map(catalog => [catalog.id, catalog.name])));
+  }
+
+  catalogName(id: string): string {
+    return this.catalogs.find(catalog => catalog.id === id)?.name || id;
   }
 
 

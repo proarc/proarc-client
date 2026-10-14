@@ -15,6 +15,7 @@ import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { UserSettings } from '../../../shared/user-settings';
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule, MatDividerModule,
@@ -42,20 +43,23 @@ export class NewJobDialogComponent implements OnInit {
   constructor(
     private api: ApiService,
     private ui: UIService,
+    private settings: UserSettings,
     public dialogRef: MatDialogRef<NewJobDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { profiles: any }) { }
 
   ngOnInit(): void {
     this.selectedProfile = this.data.profiles[0];
     this.api.getCatalogs().subscribe((c: Catalogue[]) => {
-      this.catalogues = c;
+      this.catalogues = this.settings.orderCatalogs(c);
+      this.selectedCatalogue = this.catalogues[0];
+      this.activeField = this.selectedCatalogue?.fields[0];
     })
   }
 
   search() {
 
     this.state = 'loading';
-    this.api.getCatalogSearchResults('', this.selectedCatalogue.id, this.activeField.id, this.activeQuery).subscribe((response: any) => {
+    this.api.getCatalogSearchResults('', this.selectedCatalogue.id, this.activeField.id, this.activeQuery, this.settings.getModsLang()).subscribe((response: any) => {
       this.results = CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry']);
       if (this.results.length > 0) {
         this.activeIndex = 0;

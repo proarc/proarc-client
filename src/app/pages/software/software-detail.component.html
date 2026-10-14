@@ -1,0 +1,151 @@
+<div class="app-fxLayout app-column app-fill app-form-field-dens-6">
+  <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <a [routerLink]="['/software', type]">{{ 'software.type.' + type | translate }}</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ mode === 'new' ? ('software.create.title' | translate) : software?.label }}</span>
+    </div>
+  </div>
+
+  @if (state === 'loading' || state === 'saving') {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+  }
+
+  @if (software && state !== 'loading') {
+    <form #softwareForm="ngForm" (ngSubmit)="save()" class="app-fxFlex app-content-wrapper app-oa-y app-editor-container">
+      <div class="app-gap-fixer"></div>
+      <div class="app-form-wrapper app-top-level">
+        <div class="app-form">
+          <div class="app-fxLayout app-row app-center-v app-form-header">
+            <span class="app-form-title app-pl-2">{{ 'software.general' | translate }}</span>
+          </div>
+          <div class="app-form-content">
+          <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+            <mat-label>{{ 'software.label' | translate }}</mat-label>
+            <input matInput name="label" required [(ngModel)]="software.label" [disabled]="mode === 'detail' || state === 'saving'">
+          </mat-form-field>
+          <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+            <mat-label>{{ 'software.model' | translate }}</mat-label>
+            <input matInput [value]="software.model" disabled>
+          </mat-form-field>
+          @if (software.id) {
+          <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+            <mat-label>{{ 'software.id' | translate }}</mat-label>
+            <input matInput [value]="software.id" disabled>
+          </mat-form-field>
+          }
+          @if (mode === 'new' && defaultMetadataTypes.length) {
+          <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+            <mat-label>{{ 'software.defaultMetadata' | translate }}</mat-label>
+            <mat-select name="defaultMetadata" [(ngModel)]="defaultMetadataType">
+              <mat-option value="">{{ 'software.noMetadata' | translate }}</mat-option>
+              @for (metadataType of defaultMetadataTypes; track metadataType) {
+                <mat-option [value]="metadataType">{{ 'software.metadataType.' + metadataType | translate }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          }
+          </div>
+        </div>
+      </div>
+      <div class="app-gap-fixer"></div>
+
+      @if (software.model !== 'proarc:softwareagent') {
+        <div class="app-form-wrapper app-top-level">
+          <div class="app-form">
+            <div class="app-fxLayout app-row app-center-v app-form-header">
+              <span class="app-form-title app-pl-2">{{ 'software.members' | translate }}</span>
+            </div>
+            <div class="app-form-content">
+          <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+            <mat-label>{{ 'software.members' | translate }}</mat-label>
+            @if (software.model === 'proarc:softwareset') {
+              <mat-select name="members" multiple [(ngModel)]="software.members" [disabled]="mode === 'detail' || state === 'saving'">
+                @for (candidate of candidates; track candidate.id) {
+                  <mat-option [value]="candidate.id">{{ candidate.label }} ({{ candidate.id }})</mat-option>
+                }
+              </mat-select>
+            } @else {
+              <mat-select name="member" [(ngModel)]="selectedMember" [disabled]="mode === 'detail' || state === 'saving'">
+                <mat-option value="">{{ 'software.noMember' | translate }}</mat-option>
+                @for (candidate of candidates; track candidate.id) {
+                  <mat-option [value]="candidate.id">{{ candidate.label }} ({{ candidate.id }})</mat-option>
+                }
+              </mat-select>
+            }
+          </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="app-gap-fixer"></div>
+      }
+
+      @if (mode !== 'new' && software.model !== 'proarc:softwareset') {
+        <div class="app-form-wrapper app-top-level">
+          <div class="app-form metadata-form">
+            <div class="app-fxLayout app-row app-center-v app-form-header">
+              <span class="app-form-title app-pl-2">{{ 'software.metadata' | translate }}</span>
+            </div>
+            @if (software.metadataGroups.length) {
+              <div class="metadata-groups">
+              @for (group of software.metadataGroups; track group.key) {
+                @if (group.rootLevel) {
+                  <div class="app-form-content metadata-root-fields">
+                    @for (field of group.fields; track field.key) {
+                      <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                        <mat-label>{{ field.label }}</mat-label>
+                        <input matInput [name]="field.key" [(ngModel)]="field.value"
+                          [disabled]="mode === 'detail' || state === 'saving'">
+                      </mat-form-field>
+                    }
+                  </div>
+                } @else {
+                <div class="app-form-wrapper metadata-group">
+                  <div class="app-form">
+                    <div class="app-fxLayout app-row app-center-v app-form-header">
+                      <span class="app-form-title app-pl-2">{{ group.label }}</span>
+                    </div>
+                    <div class="app-form-content">
+                    @for (field of group.fields; track field.key) {
+                <mat-form-field [appearance]="settings.appearance" class="app-field-col"
+                  [class.app-field-col-2]="group.fields.length > 1 && group.fields.length !== 3"
+                  [class.app-field-col-3]="group.fields.length === 3">
+                  <mat-label>{{ field.label }}</mat-label>
+                  <input matInput [name]="field.key" [(ngModel)]="field.value"
+                    [disabled]="mode === 'detail' || state === 'saving'">
+                </mat-form-field>
+                    }
+                    </div>
+                  </div>
+                </div>
+                }
+              }
+              </div>
+            } @else {
+              <div class="no-metadata">{{ 'software.noMetadata' | translate }}</div>
+            }
+          </div>
+        </div>
+        <div class="app-gap-fixer"></div>
+      }
+
+      <div class="app-fxLayout app-row app-gap-2 app-mb-2 app-ml-1">
+        @if (mode === 'new' || mode === 'edit') {
+          <button mat-stroked-button type="submit" [disabled]="softwareForm.invalid || state === 'saving'">
+            {{ mode === 'new' ? ('software.create.button' | translate) : ('button.save' | translate) }}
+          </button>
+          @if (mode === 'edit') {
+            <button mat-stroked-button type="button" [routerLink]="['/software', type, software.id]">{{ 'button.cancel' | translate }}</button>
+            <button mat-stroked-button type="button" (click)="preview()">{{ 'software.preview' | translate }}</button>
+          }
+        } @else {
+          <button mat-stroked-button color="primary" type="button" [routerLink]="['/software', type, software.id, 'edit']">{{ 'button.edit' | translate }}</button>
+          <button mat-stroked-button type="button" (click)="preview()">{{ 'software.preview' | translate }}</button>
+          <button mat-stroked-button color="warn" type="button" (click)="remove()">{{ 'button.delete' | translate }}</button>
+        }
+      </div>
+    </form>
+  }
+</div>

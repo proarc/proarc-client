@@ -94,6 +94,8 @@ export class UserTreeTableComponent {
     "described",
     "exported"];
 
+    currentTreePath: string = '';
+
 
   subscriptions: Subscription[] = [];
 
@@ -111,12 +113,11 @@ export class UserTreeTableComponent {
   ) {
 
     effect(() => {
-      // const path = this.treePath();
-      // const root = this.rootTreeItem();
       const initData = this.initData();
-      console.log(initData)
-      if (initData) {
+      const newTreePath = initData.treePath.join('/');
+      if (initData && (this.currentTreePath !== newTreePath || this.visibleTreeItems.length === 0)) {
         this.generateTree(initData.treePath, initData.rootTreeItem);
+        this.currentTreePath = newTreePath;
       }
 
     });
@@ -155,6 +156,7 @@ export class UserTreeTableComponent {
   generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
     this.treeItems = [];
     this.worflowTreeItems = [];
+    this.visibleTreeItems = [];
     if (!root) {
       return;
     }

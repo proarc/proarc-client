@@ -20,7 +20,9 @@ export class ModsRole extends ModsElement {
 
     private init() {
         if (!this.modsElement['roleTerm']) {
-            const attrs = {'type': 'code', 'authority': 'marcrelator'};
+            const attrs = this.template?.selector === 'originInfo/agent/role' || this.template?.selector === 'relatedItem/originInfo/agent/role'
+                ? null
+                : {'type': 'code', 'authority': 'marcrelator'};
             this.modsElement['roleTerm'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.roleTerm = this.modsElement['roleTerm'][0];

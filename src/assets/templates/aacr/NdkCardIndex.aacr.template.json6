@@ -1,0 +1,2870 @@
+{
+  "titleInfo": {
+    "usage": "M",
+    "label": "Název: Soubor kartotéčních lístků",
+    "selector": "titleInfo",
+    "labelKey": "titleInfo",
+    "fields": {
+      "type": {
+        "usage": "MA",
+        "label": "Typ",
+        "selector": "titleInfo/@type",
+        "labelKey": "titleInfo/@type",
+        "cols": 2,
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "abbreviated",
+            "Zkrácený název"
+          ],
+          [
+            "translated",
+            "Přeložený název"
+          ],
+          [
+            "alternative",
+            "Alternativní název"
+          ],
+          [
+            "uniform",
+            "Jednotný název"
+          ]
+        ]
+      },
+      "nonSort": {
+        "usage": "O",
+        "label": "Část vynechaná při hledání",
+        "selector": "titleInfo/nonSort",
+        "labelKey": "titleInfo/nonSort",
+        "cols": 2
+      },
+      "title": {
+        "usage": "M",
+        "required": true,
+        "label": "Název: Soubor kartotéčních lístků",
+        "selector": "titleInfo/title",
+        "labelKey": "titleInfo/title"
+      },
+      "subTitle": {
+        "usage": "MA",
+        "label": "Podnázev",
+        "selector": "titleInfo/subTitle",
+        "labelKey": "titleInfo/subTitle"
+      },
+      "partNumber": {
+        "usage": "MA",
+        "label": "Číslo části",
+        "selector": "titleInfo/partNumber",
+        "labelKey": "titleInfo/partNumber",
+        "cols": 2
+      },
+      "partName": {
+        "usage": "MA",
+        "label": "Název části",
+        "selector": "titleInfo/partName",
+        "labelKey": "titleInfo/partName",
+        "cols": 2
+      }
+    }
+  },
+  "name": {
+    "usage": "R",
+    "label": "Autor",
+    "selector": "name",
+    "labelKey": "name",
+    "fields": {
+      "type": {
+        "usage": "MA",
+        "label": "Typ",
+        "selector": "name/@type",
+        "labelKey": "name/@type",
+        "cols": 2,
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "personal",
+            "Osoba"
+          ],
+          [
+            "corporate",
+            "Organizace"
+          ],
+          [
+            "conference",
+            "Konference"
+          ],
+          [
+            "family",
+            "Rodina"
+          ]
+        ]
+      },
+      "namePart": {
+        "usage": "MA",
+        "label": "Jméno",
+        "selector": "name/namePart",
+        "labelKey": "name/namePart",
+        "fields": {
+          "type": {
+            "usage": "MA",
+            "label": "Typ",
+            "selector": "name/namePart/@type",
+            "labelKey": "name/namePart/@type",
+            "cols": 2,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "given",
+                "Křestní jméno"
+              ],
+              [
+                "family",
+                "Příjmení"
+              ],
+              [
+                "date",
+                "Datum"
+              ],
+              [
+                "termsOfAddress",
+                "Ostatní související se jménem"
+              ]
+            ]
+          },
+          "value": {
+            "label": "Hodnota",
+            "usage": "MA",
+            "selector": "name/namePart",
+            "labelKey": "name/namePart/value",
+            "cols": 2,
+            "help": "off"
+          }
+        }
+      },
+      "alternativeName": {
+        "usage": "O",
+        "label": "Alternativní jméno",
+        "selector": "name/alternativeName",
+        "labelKey": "name/alternativeName",
+        "fields": {
+          "namePart": {
+            "usage": "MA",
+            "label": "Jméno",
+            "selector": "name/alternativeName/namePart",
+            "labelKey": "name/alternativeName/namePart",
+            "fields": {
+              "type": {
+                "usage": "MA",
+                "label": "Typ",
+                "selector": "name/alternativeName/namePart/@type",
+                "labelKey": "name/alternativeName/namePart/@type",
+                "cols": 2,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "given",
+                    "Křestní jméno"
+                  ],
+                  [
+                    "family",
+                    "Příjmení"
+                  ],
+                  [
+                    "date",
+                    "Datum"
+                  ],
+                  [
+                    "termsOfAddress",
+                    "Ostatní související se jménem"
+                  ]
+                ]
+              },
+              "value": {
+                "label": "Hodnota",
+                "usage": "MA",
+                "selector": "name/alternativeName/namePart",
+                "labelKey": "name/alternativeName/namePart/value",
+                "cols": 2,
+                "help": "off"
+              }
+            }
+          }
+        }
+      },
+      "nameIdentifier": {
+        "usage": "MA",
+        "label": "Identifikátor autora",
+        "selector": "name/nameIdentifier",
+        "labelKey": "name/nameIdentifier",
+        "cols": 2
+      },
+      "etal": {
+        "usage": "O",
+        "label": "Etal",
+        "selector": "name/etal",
+        "labelKey": "name/etal",
+        "cols": 2
+      },
+      "role": {
+        "usage": "MA",
+        "label": "Role",
+        "selector": "name/role/roleTerm",
+        "labelKey": "name/role/roleTerm",
+        "expanded": true,
+        "fields": {}
+      }
+    }
+  },
+  "originInfo": {
+    "usage": "M",
+    "label": "Původ předlohy",
+    "selector": "originInfo",
+    "labelKey": "originInfo",
+    "fields": {
+      "agent": {
+        "usage": "MA",
+        "label": "Nakladatel",
+        "selector": "originInfo/agent",
+        "labelKey": "originInfo/agent",
+        "fields": {
+          "namePart": {
+            "usage": "MA",
+            "label": "Jméno",
+            "selector": "originInfo/agent/namePart",
+            "labelKey": "originInfo/agent/namePart",
+            "fields": {
+              "value": {
+                "usage": "M",
+                "label": "Hodnota",
+                "selector": "originInfo/agent/namePart",
+                "labelKey": "originInfo/agent/namePart/value",
+                "help": "off"
+              }
+            }
+          },
+          "role": {
+            "usage": "MA",
+            "label": "Role",
+            "selector": "originInfo/agent/role",
+            "labelKey": "originInfo/agent/role",
+            "fields": {
+              "roleTerm": {
+                "usage": "MA",
+                "label": "Role",
+                "selector": "agent/role/roleTerm",
+                "labelKey": "agent/role/roleTerm",
+                "options": [
+                  [
+                    "producer",
+                    "Tvůrce"
+                  ],
+                  [
+                    "publisher",
+                    "Nakladatel"
+                  ],
+                  [
+                    "distributor",
+                    "Distributor"
+                  ],
+                  [
+                    "manufacturer",
+                    "Výrobce"
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "dateIssued": {
+        "usage": "MA",
+        "label": "Datum vydání",
+        "selector": "originInfo/dateIssued",
+        "labelKey": "originInfo/dateIssued",
+        "cols": 2,
+        "fields": {
+          "value": {
+            "usage": "MA",
+            "selector": "originInfo/dateIssued/value",
+            "labelKey": "originInfo/dateIssued/value",
+            "label": "Hodnota",
+            "help": "off"
+          },
+          "qualifier": {
+            "usage": "R",
+            "label": "Upřesnění data",
+            "selector": "originInfo/dateIssued/@qualifier",
+            "labelKey": "originInfo/dateIssued/@qualifier",
+            "cols": 3,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "approximate",
+                "Datum je přibližné"
+              ],
+              [
+                "inferred",
+                "Datum je odvozené"
+              ],
+              [
+                "questionable",
+                "Datum je sporné"
+              ]
+            ]
+          },
+          "encoding": {
+            "usage": "R",
+            "label": "Kódování",
+            "selector": "originInfo/dateIssued/@encoding",
+            "labelKey": "originInfo/dateIssued/@encoding",
+            "cols": 3,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "marc",
+                "MARC"
+              ],
+              [
+                "iso8601",
+                "ISO 8601"
+              ],
+              [
+                "edtf",
+                "EDTF"
+              ],
+              [
+                "temper",
+                "temper"
+              ],
+              [
+                "w3cdtf",
+                "W3CDTF"
+              ]
+            ]
+          },
+          "point": {
+            "usage": "MA",
+            "label": "Point",
+            "selector": "originInfo/dateIssued/@point",
+            "labelKey": "originInfo/dateIssued/@point",
+            "cols": 3,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "start",
+                "start"
+              ],
+              [
+                "end",
+                "end"
+              ]
+            ]
+          },
+          "calendar": {
+            "usage": "O",
+            "label": "Kalendář",
+            "selector": "originInfo/dateIssued/@calendar",
+            "labelKey": "originInfo/dateIssued/@calendar",
+            "cols": 3,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "gregorian",
+                "gregorian"
+              ],
+              [
+                "hebrew",
+                "hebrew"
+              ],
+              [
+                "julian",
+                "julian"
+              ]
+            ]
+          }
+        }
+      },
+      "edition": {
+        "usage": "R",
+        "label": "Vydání",
+        "selector": "originInfo/edition",
+        "labelKey": "originInfo/edition",
+        "cols": 2,
+        "fields": {
+          "value": {
+            "usage": "R",
+            "selector": "originInfo/edition/value",
+            "labelKey": "originInfo/edition/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      },
+      "issuance": {
+        "usage": "M",
+        "required": true,
+        "label": "Vydání",
+        "selector": "originInfo/issuance",
+        "labelKey": "originInfo/issuance",
+        "defaultValue": "multipart monograph",
+        "cols": 2,
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "monographic",
+            "Monografické"
+          ],
+          [
+            "multipart monograph",
+            "Vícedílné"
+          ]
+        ]
+      },
+      "place": {
+        "usage": "MA",
+        "label": "Místo",
+        "selector": "originInfo/place",
+        "labelKey": "originInfo/place",
+        "fields": {
+          "placeTerm": {
+            "usage": "MA",
+            "selector": "originInfo/place/placeTerm",
+            "labelKey": "originInfo/place/placeTerm",
+            "label": "Místo",
+            "fields": {
+              "value": {
+                "usage": "MA",
+                "selector": "originInfo/place/placeTerm/value",
+                "labelKey": "originInfo/place/placeTerm/value",
+                "label": "Hodnota",
+                "help": "off"
+              },
+              "type": {
+                "usage": "M",
+                "cols": 2,
+                "selector": "originInfo/place/placeTerm/@type",
+                "labelKey": "originInfo/place/placeTerm/@type",
+                "label": "Type",
+                "defaultValue": "text",
+                "options": [
+                  [
+                    "code",
+                    "Kód"
+                  ],
+                  [
+                    "text",
+                    "Text"
+                  ]
+                ]
+              },
+              "authority": {
+                "usage": "MA",
+                "cols": 2,
+                "selector": "originInfo/place/placeTerm/@authority",
+                "labelKey": "originInfo/place/placeTerm/@authority",
+                "label": "Authority",
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "marccountry",
+                    "Marc country"
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "dateCreated": {
+        "usage": "R",
+        "label": "Datum vytvoření",
+        "selector": "originInfo/dateCreated",
+        "labelKey": "originInfo/dateCreated",
+        "cols": 3,
+        "fields": {
+          "value": {
+            "usage": "R",
+            "selector": "originInfo/dateCreated/value",
+            "labelKey": "originInfo/dateCreated/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      }
+    }
+  },
+  "location": {
+    "usage": "MA",
+    "label": "Uložení",
+    "selector": "location",
+    "labelKey": "location",
+    "fields": {
+      "physicalLocation": {
+        "usage": "M",
+        "label": "Místo uložení",
+        "selector": "location/physicalLocation",
+        "labelKey": "location/physicalLocation",
+        "fields": {
+          "value": {
+            "usage": "M",
+            "required": true,
+            "cols": 2,
+            "selector": "location/physicalLocation/value",
+            "labelKey": "location/physicalLocation/value",
+            "label": "Hodnota",
+            "help": "off"
+          },
+          "authority": {
+            "usage": "MA",
+            "cols": 2,
+            "selector": "location/physicalLocation/@authority",
+            "labelKey": "location/physicalLocation/@authority",
+            "defaultValue": "siglaADR",
+            "label": "Hodnota",
+            "help": "off",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "siglaADR",
+                "Sigla ADR"
+              ],
+              [
+                "ICO",
+                "ICO"
+              ],
+              [
+                "NARP",
+                "NARP"
+              ]
+            ]
+          }
+        }
+      },
+      "shelfLocator": {
+        "usage": "MA",
+        "label": "Signatura",
+        "selector": "location/shelfLocator",
+        "labelKey": "location/shelfLocator",
+        "fields": {
+          "value": {
+            "usage": "MA",
+            "required": true,
+            "selector": "location/shelfLocator/value",
+            "labelKey": "location/shelfLocator/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      },
+      "url": {
+        "usage": "O",
+        "label": "URL",
+        "selector": "location/url",
+        "labelKey": "location/url",
+        "fields": {
+          "value": {
+            "usage": "O",
+            "selector": "location/url/value",
+            "labelKey": "location/url/value",
+            "label": "Hodnota",
+            "help": "off"
+          },
+          "note": {
+            "usage": "O",
+            "selector": "location/url/@note",
+            "labelKey": "location/url/@note",
+            "cols": 2,
+            "label": "Note",
+            "help": "off"
+          }
+        }
+      }
+    }
+  },
+  "subject": {
+    "usage": "R",
+    "label": "Věcné třídění",
+    "selector": "subject",
+    "labelKey": "subject",
+    "fields": {
+      "authority": {
+        "usage": "R",
+        "label": "Autorita",
+        "selector": "subject/@authority",
+        "labelKey": "subject/@authority",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "czenas",
+            "czenas"
+          ],
+          [
+            "eczenas",
+            "eczenas"
+          ],
+          [
+            "mednas",
+            "mednas"
+          ],
+          [
+            "czmesh",
+            "czmesh"
+          ],
+          [
+            "msvkth",
+            "msvkth"
+          ],
+          [
+            "agrovoc",
+            "agrovoc"
+          ],
+          [
+            "Konspekt",
+            "Konspekt"
+          ]
+        ]
+      },
+      "topic": {
+        "usage": "R",
+        "label": "Klíčové slovo/Předmětové heslo",
+        "selector": "subject/topic",
+        "labelKey": "subject/topic",
+        "fields": {
+          "value": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/topic/value",
+            "labelKey": "subject/topic/value",
+            "hint": false
+          },
+          "valueURI": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/topic/@valueURI",
+            "labelKey": "subject/topic/@valueURI"
+          }
+        }
+      },
+      "geographic": {
+        "usage": "R",
+        "label": "Geografické věcné třídění",
+        "selector": "subject/geographic",
+        "labelKey": "subject/geographic",
+        "max": 1,
+        "fields": {
+          "valueURI": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/geographic/@valueURI",
+            "labelKey": "subject/geographic/@valueURI"
+          },
+          "value": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/geographic/value",
+            "labelKey": "subject/geographic/value",
+            "hint": false
+          }
+        }
+      },
+      "temporal": {
+        "usage": "R",
+        "label": "Chronologické věcné třídění",
+        "selector": "subject/temporal",
+        "labelKey": "subject/temporal",
+        "fields": {
+          "valueURI": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/temporal/@valueURI",
+            "labelKey": "subject/temporal/@valueURI"
+          },
+          "value": {
+            "usage": "R",
+            "label": "Hodnota",
+            "selector": "subject/temporal/value",
+            "labelKey": "subject/temporal/value",
+            "hint": false
+          }
+        }
+      },
+      "name": {
+        "usage": "R",
+        "label": "Jméno použité jako všcné záhlaví",
+        "selector": "subject/name",
+        "labelKey": "subject/name",
+        "fields": {
+          "type": {
+            "usage": "MA",
+            "label": "Typ",
+            "selector": "name/@type",
+            "labelKey": "name/@type",
+            "cols": 2,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "personal",
+                "Osoba"
+              ],
+              [
+                "corporate",
+                "Organizace"
+              ],
+              [
+                "conference",
+                "Konference"
+              ],
+              [
+                "family",
+                "Rodina"
+              ]
+            ]
+          },
+          "namePart": {
+            "usage": "MA",
+            "label": "Jméno",
+            "selector": "name/namePart",
+            "labelKey": "name/namePart",
+            "fields": {
+              "type": {
+                "usage": "R",
+                "label": "Typ",
+                "selector": "name/namePart/@type",
+                "labelKey": "name/namePart/@type",
+                "cols": 2,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "given",
+                    "Křestní jméno"
+                  ],
+                  [
+                    "family",
+                    "Příjmení"
+                  ],
+                  [
+                    "date",
+                    "Datum"
+                  ],
+                  [
+                    "termsOfAddress",
+                    "Ostatní související se jménem"
+                  ]
+                ]
+              },
+              "value": {
+                "label": "Hodnota",
+                "usage": "MA",
+                "selector": "name/namePart",
+                "labelKey": "name/namePart/value",
+                "cols": 2,
+                "help": "off"
+              }
+            }
+          },
+          "nameIdentifier": {
+            "usage": "MA",
+            "label": "Identifikátor autora",
+            "selector": "name/nameIdentifier",
+            "labelKey": "name/nameIdentifier",
+            "cols": 2
+          },
+          "role": {
+            "usage": "MA",
+            "label": "Role",
+            "selector": "name/role/roleTerm",
+            "labelKey": "name/role/roleTerm",
+            "expanded": true,
+            "fields": {}
+          }
+        }
+      }
+    }
+  },
+  "language": {
+    "usage": "M",
+    "label": "Jazyk",
+    "selector": "language",
+    "labelKey": "language",
+    "fields": {
+      "objectPart": {
+        "usage": "MA",
+        "label": "Část",
+        "selector": "language/@objectPart",
+        "labelKey": "language/@objectPart",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "summary",
+            "Shrnutí"
+          ],
+          [
+            "table of contents",
+            "Obsah"
+          ],
+          [
+            "accompanying material",
+            "Doprovodný materiál"
+          ],
+          [
+            "translation",
+            "Překlad"
+          ]
+        ]
+      },
+      "language": {
+        "usage": "M",
+        "required": true,
+        "label": "Jazyk",
+        "selector": "language/languageTerm",
+        "labelKey": "language/languageTerm"
+      }
+    }
+  },
+  "abstract": {
+    "usage": "R",
+    "label": "Abstrakt",
+    "selector": "abstract",
+    "labelKey": "abstract",
+    "fields": {
+      "abstract": {
+        "usage": "R",
+        "label": "Abstrakt",
+        "selector": "abstract",
+        "labelKey": "abstract/value",
+        "help": "off"
+      }
+    }
+  },
+  "physicalDescription": {
+    "usage": "M",
+    "label": "Fyzický popis",
+    "selector": "physicalDescription",
+    "labelKey": "physicalDescription",
+    "fields": {
+      "extent": {
+        "usage": "RA",
+        "label": "Rozsah",
+        "selector": "physicalDescription/extent",
+        "labelKey": "physicalDescription/extent",
+        "fields": {
+          "value": {
+            "usage": "RA",
+            "selector": "physicalDescription/extent/value",
+            "labelKey": "physicalDescription/extent/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      },
+      "note": {
+        "usage": "RA",
+        "label": "Poznámka",
+        "selector": "physicalDescription/note",
+        "labelKey": "physicalDescription/note"
+      },
+      "form": {
+        "usage": "M",
+        "label": "Forma",
+        "selector": "physicalDescription/form",
+        "labelKey": "physicalDescription/form",
+        "fields": {
+          "authority": {
+            "usage": "MA",
+            "label": "Autorita",
+            "selector": "physicalDescription/form/@authority",
+            "labelKey": "physicalDescription/form/@authority",
+            "cols": 2,
+            "options": [
+              [
+                "marcform",
+                "marcform"
+              ],
+              [
+                "marccategory",
+                "marccategory"
+              ],
+              [
+                "marcsmd",
+                "marcsmd"
+              ],
+              [
+                "gmd",
+                "gmd"
+              ]
+            ]
+          },
+          "value": {
+            "usage": "M",
+            "required": true,
+            "selector": "physicalDescription/form/value",
+            "labelKey": "physicalDescription/form/value",
+            "label": "Hodnota",
+            "help": "off",
+            "options": [
+              [
+                "braille",
+                "braille"
+              ],
+              [
+                "electronic",
+                "electronic"
+              ],
+              [
+                "large print",
+                "large print"
+              ],
+              [
+                "microfilm",
+                "microfilm"
+              ],
+              [
+                "microfiche",
+                "microfiche"
+              ],
+              [
+                "print",
+                "print"
+              ],
+              [
+                "jiný",
+                "jiný"
+              ],
+              [
+                "audio",
+                "audio"
+              ],
+              [
+                "počítač",
+                "počítač"
+              ],
+              [
+                "mikroforma",
+                "mikroforma"
+              ],
+              [
+                "mikroskop",
+                "mikroskop"
+              ],
+              [
+                "projekce",
+                "projekce"
+              ],
+              [
+                "stereograf",
+                "stereograf"
+              ],
+              [
+                "bez média",
+                "bez_media"
+              ],
+              [
+                "video",
+                "video"
+              ],
+              [
+                "svazek",
+                "svazek"
+              ],
+              [
+                "online zdroj",
+                "online_zdroj"
+              ],
+              [
+                "audiodisk",
+                "audiodisk"
+              ],
+              [
+                "počítačový disk",
+                "počítačový disk"
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tableOfContents": {
+    "usage": "O",
+    "label": "Tabulka souvislostí",
+    "selector": "tableOfContents",
+    "labelKey": "tableOfContents",
+    "fields": {
+      "displayLabel": {
+        "usage": "0",
+        "label": "Zobrazená část",
+        "selector": "tableOfContents/@displayLabel",
+        "labelKey": "tableOfContents/@displayLabel",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "Contents",
+            "Contents"
+          ],
+          [
+            "Incomplete contents",
+            "Incomplete contents"
+          ],
+          [
+            "Partial contents",
+            "Partial contents"
+          ]
+        ]
+      },
+      "value": {
+        "usage": "O",
+        "label": "Hodnota",
+        "help": "off",
+        "selector": "tableOfContents/value",
+        "labelKey": "tableOfContents/value"
+      }
+    }
+  },
+  "note": {
+    "usage": "RA",
+    "label": "Poznámka",
+    "selector": "note",
+    "labelKey": "note",
+    "fields": {
+      "type": {
+        "usage": "O",
+        "label": "Typ",
+        "cols": 2,
+        "selector": "note/@type",
+        "labelKey": "note/@type",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "uuid",
+            "uuid"
+          ]
+        ]
+      },
+      "xlink:href": {
+        "usage": "O",
+        "cols": 2,
+        "label": "xLink",
+        "selector": "note/@xlink",
+        "labelKey": "note/@xlink"
+      },
+      "note": {
+        "usage": "RA",
+        "selector": "note/value",
+        "labelKey": "note/value",
+        "label": "Poznámka",
+        "help": "off"
+      }
+    }
+  },
+  "genre": {
+    "usage": "MA",
+    "label": "Žánr",
+    "selector": "genre",
+    "labelKey": "genre",
+    "fields": {
+      "value": {
+        "usage": "MA",
+        "selector": "genre/value",
+        "labelKey": "genre/value",
+        "label": "Hodnota",
+        "help": "off"
+      },
+      "authority": {
+        "usage": "R",
+        "label": "Autorita",
+        "selector": "relatedItem/genre/@authority",
+        "labelKey": "relatedItem/genre/@authority",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "czenas",
+            "czenas"
+          ],
+          [
+            "rdacontent",
+            "rdacontent"
+          ]
+        ]
+      }
+    },
+    "description": "Druh dokumentu: Soubor kartotéčních lístků. Hodnotu žánru doplňuje server."
+  },
+  "identifier": {
+    "usage": "M",
+    "label": "Identifikátor",
+    "selector": "identifier",
+    "labelKey": "identifier",
+    "fields": {
+      "type": {
+        "usage": "M",
+        "required": true,
+        "label": "Typ",
+        "selector": "identifier/@type",
+        "labelKey": "identifier/@type",
+        "cols": 2
+      },
+      "validity": {
+        "usage": "MA",
+        "label": "Platnost",
+        "selector": "identifier/@invalid",
+        "labelKey": "identifier/@invalid",
+        "cols": 2
+      },
+      "value": {
+        "usage": "M",
+        "required": true,
+        "selector": "identifier/value",
+        "labelKey": "identifier/value",
+        "label": "Hodnota",
+        "help": "off"
+      }
+    },
+    "description": "Identifikátory jednotky. UUID vytváří ProArc; URN:NBN se přiděluje této jednotce."
+  },
+  "classification": {
+    "usage": "R",
+    "label": "Klasifikace",
+    "selector": "classification",
+    "labelKey": "classification",
+    "fields": {
+      "authority": {
+        "usage": "MA",
+        "label": "Autorita",
+        "selector": "classification/@authority",
+        "labelKey": "classification/@authority",
+        "cols": 2,
+        "options": [
+          [
+            "udc",
+            "udc"
+          ],
+          [
+            "Konspekt",
+            "Konspekt"
+          ],
+          [
+            "lcc",
+            "lcc"
+          ],
+          [
+            "ddc",
+            "ddc"
+          ],
+          [
+            "nlm",
+            "nlm"
+          ],
+          [
+            "sudocs",
+            "sudocs"
+          ],
+          [
+            "candocs",
+            "candocs"
+          ]
+        ]
+      },
+      "edition": {
+        "usage": "MA",
+        "label": "Vydání",
+        "selector": "classification/@edition",
+        "labelKey": "classification/@edition",
+        "cols": 2,
+        "options": [
+          [
+            "Konspekt",
+            "Konspekt"
+          ]
+        ]
+      },
+      "value": {
+        "usage": "R",
+        "selector": "classification/value",
+        "labelKey": "classification/value",
+        "label": "Hodnota",
+        "help": "off"
+      }
+    }
+  },
+  "typeOfResource": {
+    "usage": "R",
+    "label": "Typ zdroje",
+    "selector": "typeOfResource",
+    "labelKey": "typeOfResource",
+    "fields": {
+      "value": {
+        "usage": "R",
+        "selector": "typeOfResource/value",
+        "labelKey": "typeOfResource/value",
+        "label": "Typ zdroje",
+        "help": "off",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "text",
+            "text"
+          ],
+          [
+            "cartographic",
+            "cartographic"
+          ],
+          [
+            "still image",
+            "still image"
+          ],
+          [
+            "notated music",
+            "notated music"
+          ]
+        ]
+      }
+    }
+  },
+  "part": {
+    "usage": "O",
+    "label": "Popis části",
+    "selector": "part",
+    "labelKey": "part",
+    "fields": {
+      "type": {
+        "usage": "O",
+        "label": "Typ",
+        "selector": "part/@type",
+        "labelKey": "part/@type",
+        "options": [
+          [
+            "volume",
+            "volume"
+          ]
+        ]
+      },
+      "detail": {
+        "usage": "RA",
+        "label": "Detail",
+        "selector": "part/detail",
+        "labelKey": "part/detail",
+        "fields": {
+          "caption": {
+            "usage": "RA",
+            "label": "Typ",
+            "selector": "part/detail/caption",
+            "labelKey": "part/detail/caption"
+          }
+        }
+      },
+      "part": {
+        "usage": "O",
+        "label": "Část",
+        "selector": "part",
+        "labelKey": "part",
+        "help": "off"
+      }
+    }
+  },
+  "recordInfo": {
+    "usage": "M",
+    "label": "Údaje o metadatovém záznamu",
+    "selector": "recordInfo",
+    "labelKey": "recordInfo",
+    "fields": {
+      "descriptionStandard": {
+        "usage": "M",
+        "label": "Standard metadat",
+        "cols": 2,
+        "selector": "recordInfo/descriptionStandard",
+        "labelKey": "recordInfo/descriptionStandard",
+        "options": [
+          [
+            "aacr",
+            "aacr"
+          ],
+          [
+            "rda",
+            "rda"
+          ]
+        ]
+      },
+      "recordContentSource": {
+        "usage": "R",
+        "label": "Content source",
+        "selector": "recordInfo/recordContentSource",
+        "labelKey": "recordInfo/recordContentSource",
+        "fields": {
+          "value": {
+            "usage": "R",
+            "label": "Content source",
+            "cols": 2,
+            "selector": "recordInfo/recordContentSource",
+            "labelKey": "recordInfo/recordContentSource",
+            "help": "off"
+          },
+          "authority": {
+            "usage": "R",
+            "defaultValue": "siglaADR",
+            "label": "Autorita",
+            "cols": 2,
+            "selector": "recordInfo/recordContentSource/@authority",
+            "labelKey": "recordInfo/recordContentSource/@authority",
+            "options": [
+              [
+                "siglaADR",
+                "siglaADR"
+              ]
+            ]
+          }
+        }
+      },
+      "recordCreationDate": {
+        "usage": "M",
+        "label": "Datum vytvoření",
+        "selector": "recordInfo/recordCreationDate",
+        "labelKey": "recordInfo/recordCreationDate",
+        "fields": {
+          "value": {
+            "usage": "M",
+            "required": true,
+            "label": "Datum vytvoření",
+            "cols": 2,
+            "selector": "recordInfo/recordCreationDate",
+            "labelKey": "recordInfo/recordCreationDate",
+            "help": "off"
+          },
+          "encoding": {
+            "usage": "M",
+            "required": true,
+            "label": "Kódování",
+            "cols": 2,
+            "selector": "recordInfo/recordCreationDate/@encoding",
+            "labelKey": "recordInfo/recordCreationDate/@encoding",
+            "options": [
+              [
+                "iso8601",
+                "iso8601"
+              ]
+            ]
+          }
+        }
+      },
+      "recordChangeDate": {
+        "usage": "MA",
+        "label": "Datum změny",
+        "selector": "recordInfo/recordChangeDate",
+        "labelKey": "recordInfo/recordChangeDate",
+        "fields": {
+          "value": {
+            "usage": "MA",
+            "label": "Datum změny",
+            "cols": 2,
+            "selector": "recordInfo/recordChangeDate",
+            "labelKey": "recordInfo/recordChangeDate",
+            "help": "off"
+          },
+          "encoding": {
+            "usage": "MA",
+            "label": "Kódování",
+            "cols": 2,
+            "selector": "recordInfo/recordChangeDate/@encoding",
+            "labelKey": "recordInfo/recordChangeDate/@encoding",
+            "options": [
+              [
+                "iso8601",
+                "iso8601"
+              ]
+            ]
+          }
+        }
+      },
+      "recordIdentifier": {
+        "usage": "MA",
+        "label": "Identifikátor záznamu",
+        "selector": "recordInfo/recordIdentifier",
+        "labelKey": "recordInfo/recordIdentifier",
+        "fields": {
+          "value": {
+            "usage": "MA",
+            "label": "Identifikátor záznamu",
+            "cols": 2,
+            "selector": "recordInfo/recordIdentifier",
+            "labelKey": "recordInfo/recordIdentifier",
+            "help": "off"
+          },
+          "source": {
+            "usage": "MA",
+            "label": "Zdroj",
+            "cols": 2,
+            "selector": "recordInfo/recordIdentifier/@source",
+            "labelKey": "recordInfo/recordIdentifier/@source"
+          }
+        }
+      },
+      "recordOrigin": {
+        "usage": "R",
+        "label": "Údaje o vzniku záznamu",
+        "selector": "recordInfo/recordOrigin",
+        "labelKey": "recordInfo/recordOrigin",
+        "cols": 2,
+        "options": [
+          [
+            "machine generated",
+            "machine generated"
+          ],
+          [
+            "human prepared",
+            "human prepared"
+          ]
+        ]
+      },
+      "languageOfCataloging": {
+        "usage": "R",
+        "label": "Jazyk záznamu",
+        "selector": "recordInfo/languageOfCataloging",
+        "labelKey": "recordInfo/languageOfCataloging",
+        "fields": {
+          "language": {
+            "usage": "MA",
+            "label": "Jazyk",
+            "selector": "recordInfo/languageOfCataloging/languageTerm",
+            "labelKey": "recordInfo/languageOfCataloging/languageTerm"
+          },
+          "type": {
+            "usage": "R",
+            "defaultValue": "code",
+            "label": "Typ",
+            "selector": "recordInfo/languageOfCataloging/languageTerm/@type",
+            "labelKey": "recordInfo/languageOfCataloging/languageTerm/@type",
+            "options": [
+              [
+                "code",
+                "code"
+              ]
+            ]
+          },
+          "authority": {
+            "usage": "R",
+            "defaultValue": "iso639-2b",
+            "label": "Autorita",
+            "selector": "recordInfo/languageOfCataloging/languageTerm/@authority",
+            "labelKey": "recordInfo/languageOfCataloging/languageTerm/@authority",
+            "options": [
+              [
+                "iso639-2b",
+                "iso639-2b"
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "relatedItem": {
+    "usage": "RA",
+    "label": "Informace o dalších dokumentech",
+    "selector": "relatedItem",
+    "labelKey": "relatedItem",
+    "fields": {
+      "type": {
+        "usage": "R",
+        "label": "Typ",
+        "selector": "relatedItem/@type",
+        "labelKey": "relatedItem/@type",
+        "options": [
+          [
+            "",
+            "-"
+          ],
+          [
+            "series",
+            "Series"
+          ],
+          [
+            "original",
+            "original"
+          ],
+          [
+            "isReferencedBy",
+            "isReferencedBy"
+          ],
+          [
+            "preceding",
+            "preceding"
+          ],
+          [
+            "succeeding",
+            "succeeding"
+          ],
+          [
+            "host",
+            "host"
+          ],
+          [
+            "constituent",
+            "constituent"
+          ],
+          [
+            "otherVersion",
+            "otherVersion"
+          ],
+          [
+            "otherFormat",
+            "otherFormat"
+          ]
+        ]
+      },
+      "otherType": {
+        "usage": "O",
+        "label": "Other type",
+        "selector": "relatedItem/@otherType",
+        "labelKey": "relatedItem/@otherType",
+        "cols": 2
+      },
+      "otherTypeURI": {
+        "usage": "O",
+        "label": "Other Type URI",
+        "selector": "relatedItem/@otherTypeURI",
+        "labelKey": "relatedItem/@otherTypeURI",
+        "cols": 2
+      },
+      "otherTypeAuth": {
+        "usage": "O",
+        "label": "Other Type Auth",
+        "selector": "relatedItem/@otherTypeAuth",
+        "labelKey": "relatedItem/@otherTypeAuth",
+        "cols": 2
+      },
+      "otherTypeAuthURI": {
+        "usage": "O",
+        "label": "Other Type Auth URI",
+        "selector": "relatedItem/@otherTypeAuthURI",
+        "labelKey": "relatedItem/@otherTypeAuthURI",
+        "cols": 2
+      },
+      "titleInfo": {
+        "usage": "MA",
+        "label": "Název",
+        "selector": "relatedItem/titleInfo",
+        "labelKey": "relatedItem/titleInfo",
+        "fields": {
+          "type": {
+            "usage": "MA",
+            "label": "Typ",
+            "selector": "relatedItem/titleInfo/@type",
+            "labelKey": "relatedItem/titleInfo/@type",
+            "cols": 2,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "abbreviated",
+                "Zkrácený název"
+              ],
+              [
+                "translated",
+                "Přeložený název"
+              ],
+              [
+                "alternative",
+                "Alternativní název"
+              ],
+              [
+                "uniform",
+                "Jednotný název"
+              ]
+            ]
+          },
+          "nonSort": {
+            "usage": "O",
+            "label": "Část vynechaná při hledání",
+            "selector": "relatedItem/titleInfo/nonSort",
+            "labelKey": "relatedItem/titleInfo/nonSort",
+            "cols": 2
+          },
+          "title": {
+            "usage": "MA",
+            "label": "Název",
+            "selector": "relatedItem/titleInfo/title",
+            "labelKey": "relatedItem/titleInfo/title"
+          },
+          "subTitle": {
+            "usage": "MA",
+            "label": "Podnázev",
+            "selector": "relatedItem/titleInfo/subTitle",
+            "labelKey": "relatedItem/titleInfo/subTitle"
+          },
+          "partNumber": {
+            "usage": "MA",
+            "label": "Číslo části",
+            "selector": "relatedItem/titleInfo/partNumber",
+            "labelKey": "relatedItem/titleInfo/partNumber",
+            "cols": 2
+          },
+          "partName": {
+            "usage": "MA",
+            "label": "Název části",
+            "selector": "relatedItem/titleInfo/partName",
+            "labelKey": "relatedItem/titleInfo/partName",
+            "cols": 2
+          }
+        }
+      },
+      "name": {
+        "usage": "R",
+        "label": "Autor",
+        "selector": "relatedItem/name",
+        "labelKey": "relatedItem/name",
+        "fields": {
+          "type": {
+            "usage": "MA",
+            "label": "Typ",
+            "selector": "relatedItem/name/@type",
+            "labelKey": "relatedItem/name/@type",
+            "cols": 2,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "personal",
+                "Osoba"
+              ],
+              [
+                "corporate",
+                "Organizace"
+              ],
+              [
+                "conference",
+                "Konference"
+              ],
+              [
+                "family",
+                "Rodina"
+              ]
+            ]
+          },
+          "namePart": {
+            "usage": "MA",
+            "label": "Jméno",
+            "selector": "relatedItem/name/namePart",
+            "labelKey": "relatedItem/name/namePart",
+            "fields": {
+              "type": {
+                "usage": "MA",
+                "label": "Typ",
+                "selector": "relatedItem/name/namePart/@type",
+                "labelKey": "relatedItem/name/namePart/@type",
+                "cols": 2,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "given",
+                    "Křestní jméno"
+                  ],
+                  [
+                    "family",
+                    "Příjmení"
+                  ],
+                  [
+                    "date",
+                    "Datum"
+                  ],
+                  [
+                    "termsOfAddress",
+                    "Ostatní související se jménem"
+                  ]
+                ]
+              },
+              "value": {
+                "label": "Hodnota",
+                "usage": "MA",
+                "selector": "relatedItem/name/namePart",
+                "labelKey": "relatedItem/name/namePart/value",
+                "cols": 2,
+                "help": "off"
+              }
+            }
+          },
+          "alternativeName": {
+            "usage": "O",
+            "label": "Alternativní jméno",
+            "selector": "relatedItem/name/alternativeName",
+            "labelKey": "relatedItem/name/alternativeName",
+            "fields": {
+              "namePart": {
+                "usage": "MA",
+                "label": "Jméno",
+                "selector": "relatedItem/name/alternativeName/namePart",
+                "labelKey": "relatedItem/name/alternativeName/namePart",
+                "fields": {
+                  "type": {
+                    "usage": "MA",
+                    "label": "Typ",
+                    "selector": "relatedItem/name/alternativeName/namePart/@type",
+                    "labelKey": "relatedItem/name/alternativeName/namePart/@type",
+                    "cols": 2,
+                    "options": [
+                      [
+                        "",
+                        "-"
+                      ],
+                      [
+                        "given",
+                        "Křestní jméno"
+                      ],
+                      [
+                        "family",
+                        "Příjmení"
+                      ],
+                      [
+                        "date",
+                        "Datum"
+                      ],
+                      [
+                        "termsOfAddress",
+                        "Ostatní související se jménem"
+                      ]
+                    ]
+                  },
+                  "value": {
+                    "label": "Hodnota",
+                    "usage": "MA",
+                    "selector": "relatedItem/name/alternativeName/namePart",
+                    "labelKey": "relatedItem/name/alternativeName/namePart/value",
+                    "cols": 2,
+                    "help": "off"
+                  }
+                }
+              }
+            }
+          },
+          "nameIdentifier": {
+            "usage": "MA",
+            "label": "Identifikátor autora",
+            "selector": "relatedItem/name/nameIdentifier",
+            "labelKey": "relatedItem/name/nameIdentifier",
+            "cols": 2
+          },
+          "etal": {
+            "usage": "O",
+            "label": "Etal",
+            "selector": "relatedItem/name/etal",
+            "labelKey": "relatedItem/name/etal",
+            "cols": 2
+          },
+          "role": {
+            "usage": "MA",
+            "label": "Role",
+            "selector": "relatedItem/name/role/roleTerm",
+            "labelKey": "relatedItem/name/role/roleTerm",
+            "expanded": true,
+            "fields": {}
+          }
+        }
+      },
+      "originInfo": {
+        "usage": "MA",
+        "label": "Původ předlohy",
+        "selector": "relatedItem/originInfo",
+        "labelKey": "relatedItem/originInfo",
+        "fields": {
+          "agent": {
+            "usage": "MA",
+            "label": "Nakladatel",
+            "selector": "relatedItem/originInfo/agent",
+            "labelKey": "relatedItem/originInfo/agent",
+            "fields": {
+              "namePart": {
+                "usage": "MA",
+                "label": "Jméno",
+                "selector": "relatedItem/originInfo/agent/namePart",
+                "labelKey": "relatedItem/originInfo/agent/namePart",
+                "fields": {
+                  "value": {
+                    "usage": "MA",
+                    "label": "Hodnota",
+                    "selector": "relatedItem/originInfo/agent/namePart",
+                    "labelKey": "relatedItem/originInfo/agent/namePart/value",
+                    "help": "off"
+                  }
+                }
+              },
+              "role": {
+                "usage": "MA",
+                "label": "Role",
+                "selector": "relatedItem/originInfo/agent/role",
+                "labelKey": "relatedItem/originInfo/agent/role",
+                "fields": {
+                  "roleTerm": {
+                    "usage": "MA",
+                    "label": "Role",
+                    "selector": "relatedItem/originInfo/agent/role/roleTerm",
+                    "labelKey": "relatedItem/originInfo/agent/role/roleTerm",
+                    "options": [
+                      [
+                        "producer",
+                        "Tvůrce"
+                      ],
+                      [
+                        "publisher",
+                        "Nakladatel"
+                      ],
+                      [
+                        "distributor",
+                        "Distributor"
+                      ],
+                      [
+                        "manufacturer",
+                        "Výrobce"
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "dateIssued": {
+            "usage": "MA",
+            "label": "Datum vydání",
+            "selector": "relatedItem/originInfo/dateIssued",
+            "labelKey": "relatedItem/originInfo/dateIssued",
+            "cols": 2,
+            "fields": {
+              "value": {
+                "usage": "MA",
+                "selector": "relatedItem/originInfo/dateIssued/value",
+                "labelKey": "relatedItem/originInfo/dateIssued/value",
+                "label": "Hodnota",
+                "help": "off"
+              },
+              "qualifier": {
+                "usage": "R",
+                "label": "Upřesnění data",
+                "selector": "relatedItem/originInfo/dateIssued/@qualifier",
+                "labelKey": "relatedItem/originInfo/dateIssued/@qualifier",
+                "cols": 3,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "approximate",
+                    "Datum je přibližné"
+                  ],
+                  [
+                    "inferred",
+                    "Datum je odvozené"
+                  ],
+                  [
+                    "questionable",
+                    "Datum je sporné"
+                  ]
+                ]
+              },
+              "encoding": {
+                "usage": "R",
+                "label": "Kódování",
+                "selector": "relatedItem/originInfo/dateIssued/@encoding",
+                "labelKey": "relatedItem/originInfo/dateIssued/@encoding",
+                "cols": 3,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "marc",
+                    "MARC"
+                  ],
+                  [
+                    "iso8601",
+                    "ISO 8601"
+                  ],
+                  [
+                    "edtf",
+                    "EDTF"
+                  ],
+                  [
+                    "temper",
+                    "temper"
+                  ],
+                  [
+                    "w3cdtf",
+                    "W3CDTF"
+                  ]
+                ]
+              },
+              "point": {
+                "usage": "MA",
+                "label": "Point",
+                "selector": "relatedItem/originInfo/dateIssued/@point",
+                "labelKey": "relatedItem/originInfo/dateIssued/@point",
+                "cols": 3,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "start",
+                    "start"
+                  ],
+                  [
+                    "end",
+                    "end"
+                  ]
+                ]
+              },
+              "calendar": {
+                "usage": "O",
+                "label": "Kalendář",
+                "selector": "relatedItem/originInfo/dateIssued/@calendar",
+                "labelKey": "relatedItem/originInfo/dateIssued/@calendar",
+                "cols": 3,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "gregorian",
+                    "gregorian"
+                  ],
+                  [
+                    "hebrew",
+                    "hebrew"
+                  ],
+                  [
+                    "julian",
+                    "julian"
+                  ]
+                ]
+              }
+            }
+          },
+          "edition": {
+            "usage": "R",
+            "label": "Vydání",
+            "selector": "relatedItem/originInfo/edition",
+            "labelKey": "relatedItem/originInfo/edition",
+            "cols": 2,
+            "fields": {
+              "value": {
+                "usage": "R",
+                "selector": "relatedItem/originInfo/edition/value",
+                "labelKey": "relatedItem/originInfo/edition/value",
+                "label": "Hodnota",
+                "help": "off"
+              }
+            }
+          },
+          "issuance": {
+            "usage": "MA",
+            "label": "Vydání",
+            "selector": "relatedItem/originInfo/issuance",
+            "labelKey": "relatedItem/originInfo/issuance",
+            "defaultValue": "multipart monograph",
+            "cols": 2,
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "monographic",
+                "Monografické"
+              ],
+              [
+                "multipart monograph",
+                "Vícedílné"
+              ]
+            ]
+          },
+          "place": {
+            "usage": "MA",
+            "label": "Místo",
+            "selector": "relatedItem/originInfo/place",
+            "labelKey": "relatedItem/originInfo/place",
+            "fields": {
+              "placeTerm": {
+                "usage": "MA",
+                "selector": "relatedItem/originInfo/place/placeTerm",
+                "labelKey": "relatedItem/originInfo/place/placeTerm",
+                "label": "Místo",
+                "fields": {
+                  "value": {
+                    "usage": "MA",
+                    "selector": "relatedItem/originInfo/place/placeTerm/value",
+                    "labelKey": "relatedItem/originInfo/place/placeTerm/value",
+                    "label": "Hodnota",
+                    "help": "off"
+                  },
+                  "type": {
+                    "usage": "MA",
+                    "cols": 2,
+                    "selector": "relatedItem/originInfo/place/placeTerm/@type",
+                    "labelKey": "relatedItem/originInfo/place/placeTerm/@type",
+                    "label": "Type",
+                    "defaultValue": "text",
+                    "options": [
+                      [
+                        "code",
+                        "Kód"
+                      ],
+                      [
+                        "text",
+                        "Text"
+                      ]
+                    ]
+                  },
+                  "authority": {
+                    "usage": "MA",
+                    "cols": 2,
+                    "selector": "relatedItem/originInfo/place/placeTerm/@authority",
+                    "labelKey": "relatedItem/originInfo/place/placeTerm/@authority",
+                    "label": "Authority",
+                    "options": [
+                      [
+                        "",
+                        "-"
+                      ],
+                      [
+                        "marccountry",
+                        "Marc country"
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "dateCreated": {
+            "usage": "R",
+            "label": "Datum vytvoření",
+            "selector": "relatedItem/originInfo/dateCreated",
+            "labelKey": "relatedItem/originInfo/dateCreated",
+            "cols": 3,
+            "fields": {
+              "value": {
+                "usage": "R",
+                "selector": "relatedItem/originInfo/dateCreated/value",
+                "labelKey": "relatedItem/originInfo/dateCreated/value",
+                "label": "Hodnota",
+                "help": "off"
+              }
+            }
+          }
+        }
+      },
+      "location": {
+        "usage": "MA",
+        "label": "Uložení",
+        "selector": "relatedItem/location",
+        "labelKey": "relatedItem/location",
+        "fields": {
+          "physicalLocation": {
+            "usage": "MA",
+            "label": "Místo uložení",
+            "selector": "relatedItem/location/physicalLocation",
+            "labelKey": "relatedItem/location/physicalLocation",
+            "fields": {
+              "value": {
+                "usage": "MA",
+                "cols": 2,
+                "selector": "relatedItem/location/physicalLocation/value",
+                "labelKey": "relatedItem/location/physicalLocation/value",
+                "label": "Hodnota",
+                "help": "off"
+              },
+              "authority": {
+                "usage": "MA",
+                "cols": 2,
+                "selector": "relatedItem/location/physicalLocation/@authority",
+                "labelKey": "relatedItem/location/physicalLocation/@authority",
+                "defaultValue": "siglaADR",
+                "label": "Hodnota",
+                "help": "off",
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "siglaADR",
+                    "Sigla ADR"
+                  ],
+                  [
+                    "ICO",
+                    "ICO"
+                  ],
+                  [
+                    "NARP",
+                    "NARP"
+                  ]
+                ]
+              }
+            }
+          },
+          "shelfLocator": {
+            "usage": "MA",
+            "label": "Signatura",
+            "selector": "relatedItem/location/shelfLocator",
+            "labelKey": "relatedItem/location/shelfLocator",
+            "fields": {
+              "value": {
+                "usage": "MA",
+                "selector": "relatedItem/location/shelfLocator/value",
+                "labelKey": "relatedItem/location/shelfLocator/value",
+                "label": "Hodnota",
+                "help": "off"
+              }
+            }
+          },
+          "url": {
+            "usage": "O",
+            "label": "URL",
+            "selector": "relatedItem/location/url",
+            "labelKey": "relatedItem/location/url",
+            "fields": {
+              "value": {
+                "usage": "O",
+                "selector": "relatedItem/location/url/value",
+                "labelKey": "relatedItem/location/url/value",
+                "label": "Hodnota",
+                "help": "off"
+              },
+              "note": {
+                "usage": "O",
+                "selector": "relatedItem/location/url/@note",
+                "labelKey": "relatedItem/location/url/@note",
+                "cols": 2,
+                "label": "Note",
+                "help": "off"
+              }
+            }
+          }
+        }
+      },
+      "subject": {
+        "usage": "R",
+        "label": "Věcné třídění",
+        "selector": "relatedItem/subject",
+        "labelKey": "relatedItem/subject",
+        "fields": {
+          "authority": {
+            "usage": "R",
+            "label": "Autorita",
+            "selector": "relatedItem/subject/@authority",
+            "labelKey": "relatedItem/subject/@authority",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "czenas",
+                "czenas"
+              ],
+              [
+                "eczenas",
+                "eczenas"
+              ],
+              [
+                "mednas",
+                "mednas"
+              ],
+              [
+                "czmesh",
+                "czmesh"
+              ],
+              [
+                "msvkth",
+                "msvkth"
+              ],
+              [
+                "agrovoc",
+                "agrovoc"
+              ],
+              [
+                "Konspekt",
+                "Konspekt"
+              ]
+            ]
+          },
+          "topic": {
+            "usage": "R",
+            "label": "Klíčové slovo/Předmětové heslo",
+            "selector": "relatedItem/subject/topic",
+            "labelKey": "relatedItem/subject/topic",
+            "fields": {
+              "value": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/topic/value",
+                "labelKey": "relatedItem/subject/topic/value",
+                "hint": false
+              },
+              "valueURI": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/topic/@valueURI",
+                "labelKey": "relatedItem/subject/topic/@valueURI"
+              }
+            }
+          },
+          "geographic": {
+            "usage": "R",
+            "label": "Geografické věcné třídění",
+            "selector": "relatedItem/subject/geographic",
+            "labelKey": "relatedItem/subject/geographic",
+            "max": 1,
+            "fields": {
+              "valueURI": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/geographic/@valueURI",
+                "labelKey": "relatedItem/subject/geographic/@valueURI"
+              },
+              "value": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/geographic/value",
+                "labelKey": "relatedItem/subject/geographic/value",
+                "hint": false
+              }
+            }
+          },
+          "temporal": {
+            "usage": "R",
+            "label": "Chronologické věcné třídění",
+            "selector": "relatedItem/subject/temporal",
+            "labelKey": "relatedItem/subject/temporal",
+            "fields": {
+              "valueURI": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/temporal/@valueURI",
+                "labelKey": "relatedItem/subject/temporal/@valueURI"
+              },
+              "value": {
+                "usage": "R",
+                "label": "Hodnota",
+                "selector": "relatedItem/subject/temporal/value",
+                "labelKey": "relatedItem/subject/temporal/value",
+                "hint": false
+              }
+            }
+          },
+          "name": {
+            "usage": "R",
+            "label": "Jméno použité jako všcné záhlaví",
+            "selector": "relatedItem/subject/name",
+            "labelKey": "relatedItem/subject/name",
+            "fields": {
+              "type": {
+                "usage": "MA",
+                "label": "Typ",
+                "selector": "relatedItem/name/@type",
+                "labelKey": "relatedItem/name/@type",
+                "cols": 2,
+                "options": [
+                  [
+                    "",
+                    "-"
+                  ],
+                  [
+                    "personal",
+                    "Osoba"
+                  ],
+                  [
+                    "corporate",
+                    "Organizace"
+                  ],
+                  [
+                    "conference",
+                    "Konference"
+                  ],
+                  [
+                    "family",
+                    "Rodina"
+                  ]
+                ]
+              },
+              "namePart": {
+                "usage": "MA",
+                "label": "Jméno",
+                "selector": "relatedItem/name/namePart",
+                "labelKey": "relatedItem/name/namePart",
+                "fields": {
+                  "type": {
+                    "usage": "R",
+                    "label": "Typ",
+                    "selector": "relatedItem/name/namePart/@type",
+                    "labelKey": "relatedItem/name/namePart/@type",
+                    "cols": 2,
+                    "options": [
+                      [
+                        "",
+                        "-"
+                      ],
+                      [
+                        "given",
+                        "Křestní jméno"
+                      ],
+                      [
+                        "family",
+                        "Příjmení"
+                      ],
+                      [
+                        "date",
+                        "Datum"
+                      ],
+                      [
+                        "termsOfAddress",
+                        "Ostatní související se jménem"
+                      ]
+                    ]
+                  },
+                  "value": {
+                    "label": "Hodnota",
+                    "usage": "MA",
+                    "selector": "relatedItem/name/namePart",
+                    "labelKey": "relatedItem/name/namePart/value",
+                    "cols": 2,
+                    "help": "off"
+                  }
+                }
+              },
+              "nameIdentifier": {
+                "usage": "MA",
+                "label": "Identifikátor autora",
+                "selector": "relatedItem/name/nameIdentifier",
+                "labelKey": "relatedItem/name/nameIdentifier",
+                "cols": 2
+              },
+              "role": {
+                "usage": "MA",
+                "label": "Role",
+                "selector": "relatedItem/name/role/roleTerm",
+                "labelKey": "relatedItem/name/role/roleTerm",
+                "expanded": true,
+                "fields": {}
+              }
+            }
+          }
+        }
+      },
+      "language": {
+        "usage": "MA",
+        "label": "Jazyk",
+        "selector": "relatedItem/language",
+        "labelKey": "relatedItem/language",
+        "fields": {
+          "objectPart": {
+            "usage": "MA",
+            "label": "Část",
+            "selector": "relatedItem/language/@objectPart",
+            "labelKey": "relatedItem/language/@objectPart",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "summary",
+                "Shrnutí"
+              ],
+              [
+                "table of contents",
+                "Obsah"
+              ],
+              [
+                "accompanying material",
+                "Doprovodný materiál"
+              ],
+              [
+                "translation",
+                "Překlad"
+              ]
+            ]
+          },
+          "language": {
+            "usage": "MA",
+            "label": "Jazyk",
+            "selector": "relatedItem/language/languageTerm",
+            "labelKey": "relatedItem/language/languageTerm"
+          }
+        }
+      },
+      "abstract": {
+        "usage": "R",
+        "label": "Abstrakt",
+        "selector": "relatedItem/abstract",
+        "labelKey": "relatedItem/abstract",
+        "fields": {
+          "abstract": {
+            "usage": "R",
+            "label": "Abstrakt",
+            "selector": "relatedItem/abstract",
+            "labelKey": "relatedItem/abstract/value",
+            "help": "off"
+          }
+        }
+      },
+      "physicalDescription": {
+        "usage": "MA",
+        "label": "Fyzický popis",
+        "selector": "relatedItem/physicalDescription",
+        "labelKey": "relatedItem/physicalDescription",
+        "fields": {
+          "extent": {
+            "usage": "RA",
+            "label": "Rozsah",
+            "selector": "relatedItem/physicalDescription/extent",
+            "labelKey": "relatedItem/physicalDescription/extent",
+            "fields": {
+              "value": {
+                "usage": "RA",
+                "selector": "relatedItem/physicalDescription/extent/value",
+                "labelKey": "relatedItem/physicalDescription/extent/value",
+                "label": "Hodnota",
+                "help": "off"
+              }
+            }
+          },
+          "note": {
+            "usage": "RA",
+            "label": "Poznámka",
+            "selector": "relatedItem/physicalDescription/note",
+            "labelKey": "relatedItem/physicalDescription/note"
+          },
+          "form": {
+            "usage": "MA",
+            "label": "Forma",
+            "selector": "relatedItem/physicalDescription/form",
+            "labelKey": "relatedItem/physicalDescription/form",
+            "fields": {
+              "authority": {
+                "usage": "MA",
+                "label": "Autorita",
+                "selector": "relatedItem/physicalDescription/form/@authority",
+                "labelKey": "relatedItem/physicalDescription/form/@authority",
+                "cols": 2,
+                "options": [
+                  [
+                    "marcform",
+                    "marcform"
+                  ],
+                  [
+                    "marccategory",
+                    "marccategory"
+                  ],
+                  [
+                    "marcsmd",
+                    "marcsmd"
+                  ],
+                  [
+                    "gmd",
+                    "gmd"
+                  ]
+                ]
+              },
+              "value": {
+                "usage": "MA",
+                "selector": "relatedItem/physicalDescription/form/value",
+                "labelKey": "relatedItem/physicalDescription/form/value",
+                "label": "Hodnota",
+                "help": "off",
+                "options": [
+                  [
+                    "braille",
+                    "braille"
+                  ],
+                  [
+                    "electronic",
+                    "electronic"
+                  ],
+                  [
+                    "large print",
+                    "large print"
+                  ],
+                  [
+                    "microfilm",
+                    "microfilm"
+                  ],
+                  [
+                    "microfiche",
+                    "microfiche"
+                  ],
+                  [
+                    "print",
+                    "print"
+                  ],
+                  [
+                    "jiný",
+                    "jiný"
+                  ],
+                  [
+                    "audio",
+                    "audio"
+                  ],
+                  [
+                    "počítač",
+                    "počítač"
+                  ],
+                  [
+                    "mikroforma",
+                    "mikroforma"
+                  ],
+                  [
+                    "mikroskop",
+                    "mikroskop"
+                  ],
+                  [
+                    "projekce",
+                    "projekce"
+                  ],
+                  [
+                    "stereograf",
+                    "stereograf"
+                  ],
+                  [
+                    "bez média",
+                    "bez_media"
+                  ],
+                  [
+                    "video",
+                    "video"
+                  ],
+                  [
+                    "svazek",
+                    "svazek"
+                  ],
+                  [
+                    "online zdroj",
+                    "online_zdroj"
+                  ],
+                  [
+                    "audiodisk",
+                    "audiodisk"
+                  ],
+                  [
+                    "počítačový disk",
+                    "počítačový disk"
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "note": {
+        "usage": "RA",
+        "label": "Poznámka",
+        "selector": "relatedItem/note",
+        "labelKey": "relatedItem/note",
+        "fields": {
+          "type": {
+            "usage": "O",
+            "label": "Typ",
+            "cols": 2,
+            "selector": "relatedItem/note/@type",
+            "labelKey": "relatedItem/note/@type",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "uuid",
+                "uuid"
+              ]
+            ]
+          },
+          "xlink:href": {
+            "usage": "O",
+            "cols": 2,
+            "label": "xLink",
+            "selector": "relatedItem/note/@xlink",
+            "labelKey": "relatedItem/note/@xlink"
+          },
+          "note": {
+            "usage": "RA",
+            "selector": "relatedItem/note/value",
+            "labelKey": "relatedItem/note/value",
+            "label": "Poznámka",
+            "help": "off"
+          }
+        }
+      },
+      "genre": {
+        "usage": "MA",
+        "label": "Žánr",
+        "selector": "relatedItem/genre",
+        "labelKey": "relatedItem/genre",
+        "fields": {
+          "value": {
+            "usage": "MA",
+            "selector": "relatedItem/genre/value",
+            "labelKey": "relatedItem/genre/value",
+            "label": "Hodnota",
+            "help": "off"
+          },
+          "authority": {
+            "usage": "R",
+            "label": "Autorita",
+            "selector": "relatedItem/genre/@authority",
+            "labelKey": "relatedItem/genre/@authority",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "czenas",
+                "czenas"
+              ],
+              [
+                "rdacontent",
+                "rdacontent"
+              ]
+            ]
+          }
+        }
+      },
+      "identifier": {
+        "usage": "MA",
+        "label": "Identifikátor",
+        "selector": "relatedItem/identifier",
+        "labelKey": "relatedItem/identifier",
+        "fields": {
+          "type": {
+            "usage": "MA",
+            "label": "Typ",
+            "selector": "relatedItem/identifier/@type",
+            "labelKey": "relatedItem/identifier/@type",
+            "cols": 2
+          },
+          "validity": {
+            "usage": "MA",
+            "label": "Platnost",
+            "selector": "relatedItem/identifier/@invalid",
+            "labelKey": "relatedItem/identifier/@invalid",
+            "cols": 2
+          },
+          "value": {
+            "usage": "MA",
+            "selector": "relatedItem/identifier/value",
+            "labelKey": "relatedItem/identifier/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      },
+      "classification": {
+        "usage": "R",
+        "label": "Klasifikace",
+        "selector": "relatedItem/classification",
+        "labelKey": "relatedItem/classification",
+        "fields": {
+          "authority": {
+            "usage": "MA",
+            "label": "Autorita",
+            "selector": "relatedItem/classification/@authority",
+            "labelKey": "relatedItem/classification/@authority",
+            "cols": 2,
+            "options": [
+              [
+                "udc",
+                "udc"
+              ],
+              [
+                "Konspekt",
+                "Konspekt"
+              ],
+              [
+                "lcc",
+                "lcc"
+              ],
+              [
+                "ddc",
+                "ddc"
+              ],
+              [
+                "nlm",
+                "nlm"
+              ],
+              [
+                "sudocs",
+                "sudocs"
+              ],
+              [
+                "candocs",
+                "candocs"
+              ]
+            ]
+          },
+          "edition": {
+            "usage": "MA",
+            "label": "Vydání",
+            "selector": "relatedItem/classification/@edition",
+            "labelKey": "relatedItem/classification/@edition",
+            "cols": 2,
+            "options": [
+              [
+                "Konspekt",
+                "Konspekt"
+              ]
+            ]
+          },
+          "value": {
+            "usage": "R",
+            "selector": "relatedItem/classification/value",
+            "labelKey": "relatedItem/classification/value",
+            "label": "Hodnota",
+            "help": "off"
+          }
+        }
+      },
+      "typeOfResource": {
+        "usage": "R",
+        "label": "Typ zdroje",
+        "selector": "relatedItem/typeOfResource",
+        "labelKey": "relatedItem/typeOfResource",
+        "fields": {
+          "value": {
+            "usage": "R",
+            "selector": "relatedItem/typeOfResource/value",
+            "labelKey": "relatedItem/typeOfResource/value",
+            "label": "Typ zdroje",
+            "help": "off",
+            "options": [
+              [
+                "",
+                "-"
+              ],
+              [
+                "text",
+                "text"
+              ],
+              [
+                "cartographic",
+                "cartographic"
+              ],
+              [
+                "still image",
+                "still image"
+              ],
+              [
+                "notated music",
+                "notated music"
+              ]
+            ]
+          }
+        }
+      },
+      "part": {
+        "usage": "O",
+        "label": "Popis části",
+        "selector": "relatedItem/part",
+        "labelKey": "relatedItem/part",
+        "fields": {
+          "type": {
+            "usage": "O",
+            "label": "Typ",
+            "selector": "relatedItem/part/@type",
+            "labelKey": "relatedItem/part/@type",
+            "options": [
+              [
+                "volume",
+                "volume"
+              ]
+            ]
+          },
+          "detail": {
+            "usage": "RA",
+            "label": "Detail",
+            "selector": "relatedItem/part/detail",
+            "labelKey": "relatedItem/part/detail",
+            "fields": {
+              "caption": {
+                "usage": "RA",
+                "label": "Typ",
+                "selector": "relatedItem/part/detail/caption",
+                "labelKey": "relatedItem/part/detail/caption"
+              }
+            }
+          },
+          "part": {
+            "usage": "O",
+            "label": "Část",
+            "selector": "relatedItem/part",
+            "labelKey": "relatedItem/part",
+            "help": "off"
+          }
+        }
+      }
+    }
+  }
+}

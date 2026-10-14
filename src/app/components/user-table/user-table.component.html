@@ -89,11 +89,11 @@
               [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">
               <mat-icon>{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
             </button>
-            @if (element.validationStatus === 'ERROR') {
+            @if (element.validationStatus === 'ERROR' || element.validationStatus === 'WARNING') {
               <button mat-icon-button color="primary"
                 (click)="onGetValidationError(element.validationProcess);"
-                [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
-                <mat-icon>error_outline</mat-icon>
+                [matTooltip]="(element.validationStatus === 'WARNING' ? 'button.viewWarningDetail' : 'button.viewErrorDetail') | translate" matTooltipPosition="below">
+                <mat-icon [style.color]="element.validationStatus === 'WARNING' ? 'var(--app-color-warning)' : 'var(--app-color-warn)'">{{ element.validationStatus === 'WARNING' ? 'warning' : 'error_outline' }}</mat-icon>
               </button>
             }
           </div>

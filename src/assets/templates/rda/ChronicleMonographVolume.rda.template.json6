@@ -123,7 +123,7 @@
         selector: 'originInfo/place',
         labelKey: 'originInfo/place',
         description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
-            odpovídá hodnotě 260 $a',
+            odpovídá hodnotě 264 $a',
         fields: {
           placeTerm: {
             usage: 'O',
@@ -467,6 +467,52 @@
           Kód role z kontrolovaného slovníku rolí\
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
         fields: {},
+      }
+    }
+  },
+  tableOfContents: {
+    usage: 'O',
+    label: 'Tabulka souvislostí',
+    selector: 'tableOfContents',
+    labelKey: 'tableOfContents',
+    description: 'Slouží k vepsání názvů částí; obsah pole 505 $a',
+    fields: {
+      displayLabel: {
+        usage: '0',
+        label: 'Zobrazená část',
+        selector: 'tableOfContents/@displayLabel',
+        labelKey: 'tableOfContents/@displayLabel',
+        description: 'Hodnoty dle prvního indikátoru pole 505 v katalogizačním záznamu<br/>\
+          <ul>\
+            <li><strong>Contents</strong>ind1=0 hodnota</li>\
+            <li><strong>Incomplete contents</strong>ind1=1 hodnota</li>\
+            <li><strong>Partial contents</strong>ind1=2 hodnota</li>\
+          </ul>',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'Contents',
+            'Contents'
+          ],
+          [
+            'Incomplete contents',
+            'Incomplete contents'
+          ],
+          [
+            'Partial contents',
+            'Partial contents'
+          ],
+        ]
+      },
+      value: {
+        usage: 'O',
+        label: 'Hodnota',
+        help: 'off',
+        selector: 'tableOfContents/value',
+        labelKey: 'tableOfContents/value'
       }
     }
   },

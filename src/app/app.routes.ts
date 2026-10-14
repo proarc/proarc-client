@@ -20,6 +20,8 @@ import { EditAudioDeviceComponent } from './pages/devices/edit-audio-device/edit
 import { WorkFlowComponent } from './pages/workflow/workflow.component';
 import { TaskComponent } from './pages/workflow/task/task.component';
 import { KrameriusComponent } from './pages/kramerius/kramerius.component';
+import { SoftwareListComponent } from './pages/software/software-list.component';
+import { SoftwareDetailComponent } from './pages/software/software-detail.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -34,6 +36,10 @@ export const routes: Routes = [
             { path: 'devices/:id/edit', component: EditDeviceComponent },
             { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
             { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
+            { path: 'software/:type/new', component: SoftwareDetailComponent },
+            { path: 'software/:type/:id/edit', component: SoftwareDetailComponent },
+            { path: 'software/:type/:id', component: SoftwareDetailComponent },
+            { path: 'software/:type', component: SoftwareListComponent },
             { path: 'search', component: SearchComponent },
             // { path: 'viewer', component: ViewerComponent },
             { path: 'process-management', component: ProcessManagementComponent },

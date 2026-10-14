@@ -53,7 +53,17 @@
   <div class="app-right">
     @if (auth.isLoggedIn()) {
       @if (auth.user.deviceFunction) {
-        <a mat-button [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
+        <a mat-button [matMenuTriggerFor]="device_menu">{{ "navbar.devicesAndSoftware" | translate }}</a>
+        <mat-menu #device_menu="matMenu">
+          <button [routerLink]="['/devices']" routerLinkActive="active" mat-menu-item>{{ "navbar.devices" | translate }}</button>
+          <button [matMenuTriggerFor]="software_menu" mat-menu-item>{{ "navbar.software" | translate }}</button>
+        </mat-menu>
+        <mat-menu #software_menu="matMenu">
+          <button [routerLink]="['/software/agent']" routerLinkActive="active" mat-menu-item>{{ "software.type.agent" | translate }}</button>
+          <button [routerLink]="['/software/event']" routerLinkActive="active" mat-menu-item>{{ "software.type.event" | translate }}</button>
+          <button [routerLink]="['/software/object']" routerLinkActive="active" mat-menu-item>{{ "software.type.object" | translate }}</button>
+          <button [routerLink]="['/software/set']" routerLinkActive="active" mat-menu-item>{{ "software.type.set" | translate }}</button>
+        </mat-menu>
       }
       @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction) {
         <a mat-button [routerLink]="['/admin']" routerLinkActive="active" [class.app-pl-4]="auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction">
@@ -66,6 +76,9 @@
           @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
             <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
             <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+            @if (config.showUpgradeMods38) {
+              <button mat-menu-item (click)="upgradeMods38()">{{ 'button.upgradeMods38' | translate }}</button>
+            }
           }
           @if (auth.user.changePagesFunction) {
             <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>

@@ -51,7 +51,7 @@ export class LayoutAdminComponent implements OnInit {
   config: IConfig = null;
   saved: boolean;
 
-  types = ['structure-list', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'premis', 'comment', 'image', 'media']; // structure-grid has been removed
+  types = ['structure-list', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'premis', 'premisXML', 'copyrightMD', 'copyrightMDXML', 'comment', 'image', 'media']; // structure-grid has been removed
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { layout: string },
@@ -65,6 +65,8 @@ export class LayoutAdminComponent implements OnInit {
 
     if (this.data.layout === 'repo') {
       this.types.unshift('tree');
+    } else {
+      this.types = this.types.filter(type => !['premis', 'premisXML', 'copyrightMD', 'copyrightMDXML'].includes(type));
     }
 
     let idx = 0;
