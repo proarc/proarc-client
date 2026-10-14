@@ -154,7 +154,7 @@ export class DocumentItem extends TableItem {
   }
 
   public isMusicDocument(): boolean {
-    return this.model === 'model:ndkphonographcylinder' || this.model === 'model:ndkmusicdocument'
+    return this.model === 'model:ndkphonographcylinder' || this.model === 'model:ndkaudiodisc' || this.model === 'model:ndkdigitalaudio' || this.model === 'model:ndkmusicdocument'
       || this.model === 'model:ndksong' || this.model === 'model:ndktrack' || this.model === 'ndkaudiopage';
   }
 

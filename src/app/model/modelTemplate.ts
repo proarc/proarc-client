@@ -53,8 +53,10 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents
-      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
       "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndkaudiodisc": 'NdkMusicDocument',
+      "model:ndkdigitalaudio": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
       "model:ndkaudiopage": 'NdkMusicAudioPage',
@@ -111,8 +113,10 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographSupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
       "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndkaudiodisc": 'NdkMusicDocument',
+      "model:ndkdigitalaudio": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
       "model:ndkaudiopage": 'NdkMusicAudioPage',
@@ -162,6 +166,8 @@ export class ModelTemplate {
     'ndkechapter': [],
     'ndkphonographcylinder': ['ndksong', 'ndkmonographsupplement'],
     'ndkmusicdocument': ['ndksong', 'ndkmonographsupplement'],
+    'ndkaudiodisc': ['ndksong', 'ndkmonographsupplement'],
+    'ndkdigitalaudio': ['ndksong', 'ndkmonographsupplement'],
     'ndksong': ['ndktrack', 'ndkaudiopage'],
     'ndktrack': ['ndkaudiopage'],
     'ndkaudiopage': [],

@@ -130,7 +130,7 @@ export class Configuration {
   }
 
   public isMusicDocument(model: string): boolean {
-    return model === 'model:ndkphonographcylinder' || model === 'model:ndkmusicdocument'
+    return model === 'model:ndkphonographcylinder' || model === 'model:ndkaudiodisc' || model === 'model:ndkdigitalaudio' || model === 'model:ndkmusicdocument'
       || model === 'model:ndksong' || model === 'model:ndktrack' || model === 'ndkaudiopage';
   }
 
