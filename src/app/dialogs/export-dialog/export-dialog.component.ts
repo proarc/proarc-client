@@ -115,6 +115,7 @@ export class ExportDialogComponent implements OnInit {
 
     this.api.getValidExports(this.data[0].model).subscribe((resp: any) => {
       this.types = this.config.exports.filter((t: string) => resp.response.data[0].includes(t));
+      this.selectedType = this.types[0];
     });
 
     this.selectedType = this.types[0];

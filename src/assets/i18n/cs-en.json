@@ -3088,6 +3088,8 @@
     "model:ndkclippingcollection": "NDK Sbírka výstřižků",
     "model:ndkclippingdirectory": "NDK Složka výstřižků",
     "model:ndkclippingunit": "NDK Výstřižek",
+    "model:ndkclippingindex": "NDK Soubor výstřižků",
+    "model:ndkcardindex": "NDK Soubor kartotéčních lístků",
     "model:oldprintomnibusvolume": "STT Konvolut",
     "model:oldprintmonographtitle": "STT Vícedílná monografie",
     "model:oldprintmonographunit": "STT Svazek Vícedílné monografie",

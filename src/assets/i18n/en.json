@@ -3054,6 +3054,8 @@
     "model:ndkclippingcollection": "NDK Clipping collection",
     "model:ndkclippingdirectory": "NDK Clipping directory",
     "model:ndkclippingunit": "NDK Clipping",
+    "model:ndkclippingindex": "NDK Clipping index",
+    "model:ndkcardindex": "NDK Card index",
     "model:oldprintomnibusvolume": "STT Convolut",
     "model:oldprintmonographtitle": "STT Multipart Monograph",
     "model:oldprintmonographunit": "STT Monograph Unit",
