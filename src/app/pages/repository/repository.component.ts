@@ -29,6 +29,7 @@ import { PanelComponent } from "../../components/panel/panel.component";
 import { LayoutService } from '../../services/layout-service';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { Utils } from '../../utils/utils';
+import { ProarcMatDialog } from '../../shared/proarc-mat-dialog';
 
 @Component({
   selector: 'app-repository',
@@ -36,7 +37,9 @@ import { Utils } from '../../utils/utils';
     MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
     MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
-  styleUrl: './repository.component.scss'
+  styleUrl: './repository.component.scss',
+  
+    providers:[{ provide: MatDialog, useClass: ProarcMatDialog },]
 })
 export class RepositoryComponent {
 
@@ -51,14 +54,14 @@ export class RepositoryComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
     public auth: AuthService,
     public config: Configuration,
     private ui: UIService,
     private api: ApiService,
     public settings: UserSettings,
     private settingsService: UserSettingsService,
-    public layout: LayoutService
+    public layout: LayoutService,
+    private dialog: MatDialog,
     // private tmpl: TemplateService
   ) {
   }
