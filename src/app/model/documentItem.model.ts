@@ -232,6 +232,7 @@ export class DocumentItem extends TableItem {
 }
 
 export interface TreeDocumentItem extends DocumentItem {
+  path?: string;
   parentPid?: string;
   level: number;
   expandable: boolean;

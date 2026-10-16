@@ -61,6 +61,7 @@ export class WorkFlow {
 
 
 export interface TreeWorkFlow extends WorkFlow {
+  path?: string;
   parentPid?: string;
   level: number;
   expandable: boolean;

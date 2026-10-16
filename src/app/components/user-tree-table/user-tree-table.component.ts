@@ -132,7 +132,7 @@ export class UserTreeTableComponent {
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
       const initData = this.initData();
       if (initData) {
-        this.generateTree(initData.treePath, initData.rootTreeItem);
+        this.generateTree(this.currentTreePath.split('/'), initData.rootTreeItem);
       }
     }));
   }
@@ -370,6 +370,7 @@ export class UserTreeTableComponent {
         ti.level = treeItem.level + 1;
         ti.expandable = true;
         ti.parentId = treeItem.id;
+        ti.path = treeItem.path ? (treeItem.path + '/' + c.pid) : (treeItem.pid + '/' + c.pid);
         return ti;
       });
 
@@ -400,6 +401,7 @@ export class UserTreeTableComponent {
         ti.level = treeItem.level + 1;
         ti.expandable = true;
         ti.parentPid = treeItem.pid;
+        ti.path = treeItem.path ? (treeItem.path + '/' + c.pid) : (treeItem.pid + '/' + c.pid);
         return ti;
       });
 
@@ -480,6 +482,7 @@ export class UserTreeTableComponent {
       this.visibleTreeItems.forEach(i => i.selected = false);
       treeItem.selected = true;
       this.startShiftClickIdxTree = idx;
+      this.currentTreePath = treeItem.path;
     }
 
     this.lastClickIdxTree = idx;

@@ -31,7 +31,7 @@ export class FieldDropdownComponent implements OnInit {
   
   addValue: boolean = false;
   ngOnInit() {
-    this.addValue = this.item.options(this.field).findIndex((o: any) => o === this.value) < 0;
+    this.addValue = this.item.options(this.field)?.findIndex((o: any) => o === this.value) < 0;
     if (this.item.controls[this.field].value !== this.value) {
       this.item.controls[this.field].patchValue(this.value);
     }
