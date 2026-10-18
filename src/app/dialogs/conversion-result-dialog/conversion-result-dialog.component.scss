@@ -1,0 +1,31 @@
+.result-summary {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    width: 40%;
+    font-weight: 500;
+  }
+}
+
+.pid-list {
+  max-height: 24vh;
+  overflow: auto;
+}
+
+.pid {
+  display: block;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.pid + button, .pid-list + button {
+  margin-top: 8px;
+}

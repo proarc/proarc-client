@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <mat-card appearance="outlined" class="app-alert app-mb-4" [class.app-success]="data.success" [class.app-warn]="!data.success">
+    <mat-card-content>
+      <mat-icon>{{ data.success ? 'check_circle' : 'warning' }}</mat-icon>
+      <div>
+        @for (message of data.messages; track $index) {
+          <div>{{ message }}</div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+  @if (progress) {
+    <table class="result-summary">
+      <tbody>
+        <tr>
+          <th scope="row">{{ 'dialog.changeModel.foundObjects' | translate }}</th>
+          <td>{{ progress.totalObjects }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ 'dialog.changeModel.convertedObjects' | translate }}</th>
+          <td>{{ progress.convertedObjects }}</td>
+        </tr>
+        @if (progress.failedPid) {
+          <tr>
+            <th scope="row">{{ 'dialog.changeModel.failedObject' | translate }}</th>
+            <td>
+              <span class="pid">{{ progress.failedPid }}</span>
+              <button matButton="outlined" (click)="copyPids([progress.failedPid])">{{ 'button.copy' | translate }}</button>
+            </td>
+          </tr>
+        }
+        <tr>
+          <th scope="row">{{ 'dialog.changeModel.unprocessedObjects' | translate }}</th>
+          <td>
+            @if (progress.unprocessedPids?.length) {
+              <div class="pid-list">
+                @for (pid of progress.unprocessedPids; track $index) {
+                  <span class="pid">{{ pid }}</span>
+                }
+              </div>
+              <button matButton="outlined" (click)="copyPids(progress.unprocessedPids)">{{ 'button.copy' | translate }}</button>
+            } @else { 0 }
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">{{ 'dialog.changeModel.unsearchedRoots' | translate }}</th>
+          <td>
+            @if (progress.unprocessedRootPids?.length) {
+              <div class="pid-list">
+                @for (pid of progress.unprocessedRootPids; track $index) {
+                  <span class="pid">{{ pid }}</span>
+                }
+              </div>
+              <button matButton="outlined" (click)="copyPids(progress.unprocessedRootPids)">{{ 'button.copy' | translate }}</button>
+            } @else { 0 }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  }
+</div>
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button matButton="outlined" mat-dialog-close="close">{{ 'button.close' | translate }}</button>
+</div>
