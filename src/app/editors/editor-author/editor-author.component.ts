@@ -113,6 +113,10 @@ export class EditorAuthorComponent implements OnInit {
     // });
   }
 
+  isUnknownRole(value: string): boolean {
+    return !!value && !this.roles.some(role => role.code === value);
+  }
+
   switchPrimary(item: ModsAuthor) {
     item.switchPrimary();
     this.layout.setPanelEditing(this.panel);

@@ -75,6 +75,10 @@ export class EditorRelatedItemComponent implements OnInit {
     // });
   }
 
+  isUnknownRole(value: string): boolean {
+    return !!value && !this.roles.some(role => role.code === value);
+  }
+
   getIdentifiers(): any[] {  
     return this.settingsService.getIdentifiers(this.model);
     // return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :

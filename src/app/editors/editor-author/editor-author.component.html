@@ -57,6 +57,11 @@
         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
           <mat-label>{{ 'desc.role' | translate }}</mat-label>
           <mat-select [formControl]="role.controls['roleTerm']" >
+            @if (isUnknownRole(role.controls['roleTerm'].value)) {
+              <mat-option [value]="role.controls['roleTerm'].value">
+                {{ role.controls['roleTerm'].value }}
+              </mat-option>
+            }
             @for(role of roles; track $index;) {
             <mat-option [value]="role.code">
                {{ role.name }} ({{ role.code }})
