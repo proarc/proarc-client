@@ -64,7 +64,7 @@
               {{ 'button.switchToMetacheck' | translate }}
             </button>
           }
-          @if (selectedBatch && (selectedBatch.state === 'EXPORT_FAILED' || selectedBatch.state === 'EXPORT_WARNING' || selectedBatch.state === 'STOPPED') && isExportProfile(selectedBatch.profile)) {
+          @if (canReexportSelected()) {
             <button mat-stroked-button (click)="onReexport()">
               {{ 'button.reexport' | translate }}
             </button>
@@ -74,9 +74,19 @@
               {{ 'button.resolveconflict' | translate }}
             </button>
           }
-          @if (canStopProcess(selectedBatch)) {
-            <button mat-stroked-button (click)="stopBatch(selectedBatch)">
+          @if (canStopSelected()) {
+            <button mat-stroked-button (click)="onStopSelected()">
               {{ 'button.stopProcess' | translate }}
+            </button>
+          }
+          @if (canRetrySelectedCatalogUpdates()) {
+            <button mat-stroked-button (click)="onRetrySelectedCatalogUpdates()">
+              {{ 'button.retryCatalogUpdate' | translate }}
+            </button>
+          }
+          @if (selectedBatch && selectedBatch.state === 'INGESTING_FAILED') {
+            <button mat-stroked-button (click)="reIngest(selectedBatch)">
+              {{ 'button.saveAgain' | translate }}
             </button>
           }
         }

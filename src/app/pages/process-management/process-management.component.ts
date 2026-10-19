@@ -37,6 +37,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { catchError, finalize, forkJoin, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-process-management',
@@ -52,7 +53,6 @@ export class ProcessManagementComponent {
 
 
   state = 'none';
-  private catalogRetries = new Set<number>();
 
   pageIndex = 0;
   pageSize = 20;
@@ -127,7 +127,30 @@ export class ProcessManagementComponent {
     'highest'
   ];
 
-  actions: { icon: string, color?: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string }[] = [];
+  actionPending = false;
+
+  actions = [
+    {
+      icon: 'info',
+      tooltip: 'button.viewErrorDetail',
+      color: 'var(--app-color-warn)',
+      condition: (batch: Batch) => batch.logSeverity() === 'error',
+      action: (batch: Batch) => this.onShowLog(batch)
+    },
+    {
+      icon: 'info',
+      tooltip: 'button.viewDetail',
+      condition: (batch: Batch) => !!(batch.parameters || batch.failure) && batch.logSeverity() === 'info',
+      action: (batch: Batch) => this.onShowLog(batch)
+    },
+    {
+      icon: 'warning',
+      tooltip: 'button.viewWarningDetail',
+      color: 'var(--app-color-warning)',
+      condition: (batch: Batch) => batch.logSeverity() === 'warning',
+      action: (batch: Batch) => this.onShowLog(batch)
+    }
+  ];
 
   constructor(
     private datePipe: DatePipe,
@@ -144,61 +167,6 @@ export class ProcessManagementComponent {
     private clipboard: Clipboard) { }
 
   ngOnInit() {
-    // this.actions.push({
-    //   icon: 'delete',
-    //   tooltip: 'button.delete',
-    //   condition: (e: any) => {
-    //     return true
-    //   },
-    //   action: (e: any) => {
-    //     this.deleteBatch(e.id);
-    //   }
-    // });
-    this.actions.push({
-      icon: 'info',
-      tooltip: 'button.viewErrorDetail',
-      color: 'var(--app-color-warn)',
-      condition: (e: any) => {
-        return e.logSeverity() === 'error'
-      },
-      action: (e: any) => {
-        this.onShowLog(e);
-      }
-    });
-    this.actions.push({
-      icon: 'info',
-      tooltip: 'button.viewDetail',
-      condition: (e: any) => {
-        return (e.parameters || e.failure) && e.logSeverity() === 'info'
-      },
-      action: (e: any) => {
-        this.onShowLog(e);
-      }
-    });
-    this.actions.push({
-      icon: 'warning',
-      tooltip: 'button.viewWarningDetail',
-      color: 'var(--app-color-warning)',
-      condition: (e: Batch) => e.logSeverity() === 'warning',
-      action: (e: Batch) => this.onShowLog(e)
-    });
-    this.actions.push({
-      icon: 'cancel',
-      color: 'var(--app-color-warn)',
-      tooltip: 'button.stop',
-      condition: (e: any) => {
-        return this.canStopProcess(e)
-      },
-      action: (e: any) => {
-        this.stopBatch(e);
-      }
-    });
-    this.actions.push({
-      icon: 'replay',
-      tooltip: 'button.retryCatalogUpdate',
-      condition: (batch: Batch) => this.canRetryCatalogUpdate(batch),
-      action: (batch: Batch) => this.retryCatalogUpdate(batch)
-    });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.loadData();
@@ -258,12 +226,7 @@ export class ProcessManagementComponent {
   lastClickIdx: number;
   totalSelected = signal<number>(0);
   selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
-    // this.batches.forEach(i => i.selected = false);
-    // e.item.selected = true;
-
-    // this.selectBatch(e.item);
-
-    if (event && (e.event.metaKey || e.event.ctrlKey)) {
+    if (e.event && (e.event.metaKey || e.event.ctrlKey)) {
       e.item.selected = !e.item.selected;
       this.startShiftClickIdx = e.idx;
     } else if (e.event && e.event.shiftKey) {
@@ -293,7 +256,7 @@ export class ProcessManagementComponent {
 
     this.lastClickIdx = e.idx;
     this.totalSelected.set(this.batches.filter(i => i.selected).length);
-    this.selectBatch(e.item);
+    this.selectedBatch = this.totalSelected() === 1 ? this.batches.find(batch => batch.selected) : null;
 
   }
 
@@ -309,7 +272,7 @@ export class ProcessManagementComponent {
     if (batch.state === 'INGESTED' && batch.parentPid) {
       this.router.navigate(['/repository', batch.parentPid]);
     } else if (batch.state === 'LOADED') {
-      this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
+      this.router.navigate(['/process-management', 'edit', batch.id]);
     }
   }
 
@@ -393,6 +356,9 @@ export class ProcessManagementComponent {
 
   deleteBatches(byFilters: boolean) {
     this.selectedBatch = null;
+    this.totalSelected.set(0);
+    this.startShiftClickIdx = -1;
+    this.lastClickIdx = -1;
     this.state = 'loading';
     let params: any = {};
 
@@ -536,6 +502,9 @@ export class ProcessManagementComponent {
 
   reloadBatches() {
     this.selectedBatch = null;
+    this.totalSelected.set(0);
+    this.startShiftClickIdx = -1;
+    this.lastClickIdx = -1;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
     let params: any = {
@@ -596,6 +565,9 @@ export class ProcessManagementComponent {
 
   reloadLoadingQueue() {
     this.selectedBatch = null;
+    this.totalSelected.set(0);
+    this.startShiftClickIdx = -1;
+    this.lastClickIdx = -1;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
     this.api.getBatchQueue().subscribe((batches: Batch[]) => {
@@ -810,14 +782,56 @@ export class ProcessManagementComponent {
   }
 
   onReexport() {
-    this.api.reExportBatch(this.selectedBatch.id).subscribe((response: any) => {
-      if (response.response.errors) {
-        this.ui.showErrorDialogFromObject(response.response.errors);
-      } else if (response.response.data[0].errors) {
-        this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
+    this.runSelectedAction(batch => this.api.reExportBatch(batch.id), batch => this.canReexport(batch));
+  }
+
+  canReexport(batch: Batch): boolean {
+    return !!batch && ['EXPORT_FAILED', 'EXPORT_WARNING', 'STOPPED'].includes(batch.state)
+      && this.isExportProfile(batch.profile);
+  }
+
+  selectedBatches(): Batch[] {
+    return (this.batches || []).filter(batch => batch.selected);
+  }
+
+  canApplyToSelection(condition: (batch: Batch) => boolean): boolean {
+    const selected = this.selectedBatches();
+    return this.state !== 'loading' && !this.actionPending && selected.length > 0 && selected.every(batch => condition(batch));
+  }
+
+  canStopSelected(): boolean {
+    return this.canApplyToSelection(batch => this.canStopProcess(batch));
+  }
+
+  canReexportSelected(): boolean {
+    return this.canApplyToSelection(batch => this.canReexport(batch));
+  }
+
+  canRetrySelectedCatalogUpdates(): boolean {
+    return this.canApplyToSelection(batch => this.canRetryCatalogUpdate(batch));
+  }
+
+  onStopSelected() {
+    this.runSelectedAction(batch => this.api.stopBatch(batch.id), batch => this.canStopProcess(batch));
+  }
+
+  onRetrySelectedCatalogUpdates() {
+    this.runSelectedAction(batch => this.api.retryCatalogUpdate(batch.id), batch => this.canRetryCatalogUpdate(batch));
+  }
+
+  private runSelectedAction(action: (batch: Batch) => Observable<any>, condition: (batch: Batch) => boolean) {
+    if (!this.canApplyToSelection(condition)) return;
+    const selected = this.selectedBatches();
+    this.actionPending = true;
+    forkJoin(selected.map(batch => action(batch).pipe(
+      catchError(error => of({ response: { errors: [{ errorMessage: error.message }] } }))
+    ))).pipe(finalize(() => this.actionPending = false)).subscribe(responses => {
+      for (const response of responses) {
+        const errors = response.response?.errors || response.response?.data?.[0]?.errors;
+        if (errors) this.ui.showErrorDialogFromObject(errors);
       }
-    })
-    this.reloadBatches();
+      this.reloadBatches();
+    });
   }
 
   onStateChanged() {
@@ -868,32 +882,6 @@ export class ProcessManagementComponent {
         }
 
       });
-    });
-  }
-
-  stopBatch(b: Batch) {
-    this.api.stopBatch(b.id).subscribe((response: any) => {
-
-      if (response.response.errors) {
-        this.state = 'error';
-        this.ui.showErrorDialogFromObject(response.response.errors);
-        return;
-      }
-
-      this.reloadBatches();
-
-      // const batch: Batch = Batch.fromJson(response['response']['data'][0]);
-      //
-      // const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
-      // dialogRef.afterClosed().subscribe(result => {
-      //
-      //   if (result === 'open') {
-      //     this.onIngestBatch();
-      //   } else {
-      //     this.reloadBatches();
-      //   }
-      //
-      // });
     });
   }
 
@@ -960,26 +948,7 @@ export class ProcessManagementComponent {
       && ['INTERNAL_FAILED', 'STOPPED'].includes(batch.state)
       && this.auth.user.importToCatalogFunction === true
       && (batch.userId === this.auth.user.userId || this.auth.user.sysAdminFunction === true)
-      && !this.catalogRetries.has(batch.id);
-  }
-
-  retryCatalogUpdate(batch: Batch): void {
-    if (!this.canRetryCatalogUpdate(batch)) return;
-    this.catalogRetries.add(batch.id);
-    this.api.retryCatalogUpdate(batch.id).subscribe({
-      next: (response: any) => {
-        this.catalogRetries.delete(batch.id);
-        if (response.response?.errors) {
-          this.ui.showErrorDialogFromObject(response.response.errors);
-        } else {
-          this.loadData();
-        }
-      },
-      error: error => {
-        this.catalogRetries.delete(batch.id);
-        this.ui.showErrorDialogFromObject([{errorMessage: error.message}]);
-      }
-    });
+      && !this.actionPending;
   }
 
   canStopProcess(batch: Batch) {
