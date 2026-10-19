@@ -51,6 +51,14 @@ export function buildObjectDistributionRequest(
   };
 }
 
+export function orderDistributionTargets(targets: DocumentItem[], siblingPids: string[]): DocumentItem[] {
+  const position = new Map(siblingPids.map((pid, index) => [pid, index]));
+  if (!targets.every(target => position.has(target.pid))) {
+    return targets;
+  }
+  return [...targets].sort((a, b) => position.get(a.pid)! - position.get(b.pid)!);
+}
+
 export function validateObjectDistribution(
   srcPid: string,
   pages: DocumentItem[],
@@ -65,9 +73,6 @@ export function validateObjectDistribution(
   }
   if (!targets.length) {
     return 'targetsRequired';
-  }
-  if (targets.some(target => target.pid === srcPid)) {
-    return 'sourceIsTarget';
   }
   if (new Set(targets.map(target => target.pid)).size !== targets.length) {
     return 'duplicateTargets';

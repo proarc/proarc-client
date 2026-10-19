@@ -22,6 +22,7 @@ import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import {
   buildObjectDistributionRequest,
   ObjectDistributionMode,
+  orderDistributionTargets,
   splitDistributionPages,
   validateObjectDistribution
 } from '../../model/object-distribution.model';
@@ -133,12 +134,36 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
     });
     picker.afterClosed().subscribe((result: DocumentItem | DocumentItem[] | undefined) => {
       if (result) {
-        const selectedTargets = Array.isArray(result) ? result : [result];
-        const existingPids = new Set(this.targets.map(target => target.pid));
-        this.targets = [
-          ...this.targets,
-          ...selectedTargets.filter(target => !existingPids.has(target.pid))
-        ];
+        this.addTargets(Array.isArray(result) ? result : [result]);
+      }
+    });
+  }
+
+  private addTargets(selectedTargets: DocumentItem[]): void {
+    const existingPids = new Set(this.targets.map(target => target.pid));
+    const combined = [
+      ...this.targets,
+      ...selectedTargets.filter(target => !existingPids.has(target.pid))
+    ];
+    if (combined.length === this.targets.length) {
+      return;
+    }
+
+    const parentPid = this.data.source?.parent;
+    if (!parentPid) {
+      this.targets = combined;
+      this.scheduleRecalculation();
+      return;
+    }
+
+    this.calculating = true;
+    this.api.getRelations(parentPid).subscribe({
+      next: siblings => {
+        this.targets = orderDistributionTargets(combined, siblings.map(item => item.pid));
+        this.scheduleRecalculation();
+      },
+      error: () => {
+        this.targets = combined;
         this.scheduleRecalculation();
       }
     });

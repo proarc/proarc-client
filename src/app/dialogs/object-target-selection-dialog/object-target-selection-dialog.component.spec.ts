@@ -54,4 +54,35 @@ describe('ObjectTargetSelectionDialogComponent selection', () => {
 
     expect(component.selectedTargets).toEqual([second]);
   });
+
+  it('orders selected distribution targets by their search result position', () => {
+    const component = createComponent('distribution');
+    const first = item('uuid:first');
+    const second = item('uuid:second');
+    component.items = [first, second];
+    const ctrlClick = {ctrlKey: true} as MouseEvent;
+
+    component.selectSearchTarget({item: second, event: ctrlClick, idx: 1});
+    component.selectSearchTarget({item: first, event: ctrlClick, idx: 0});
+
+    expect(component.selectedTargets.map(target => target.pid)).toEqual(['uuid:first', 'uuid:second']);
+  });
+
+  it('orders selected distribution targets by their tree position', () => {
+    const component = createComponent('distribution');
+    const first = item('uuid:first');
+    const second = item('uuid:second');
+    component.onTreeSelection({
+      event: {ctrlKey: true},
+      selectedItems: [second],
+      visibleItems: [first, second]
+    });
+    component.onTreeSelection({
+      event: {ctrlKey: true},
+      selectedItems: [first, second],
+      visibleItems: [first, second]
+    });
+
+    expect(component.selectedTargets.map(target => target.pid)).toEqual(['uuid:first', 'uuid:second']);
+  });
 });

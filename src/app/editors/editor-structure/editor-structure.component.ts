@@ -595,6 +595,21 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelection(true, null);
   }
 
+  hasPages(): boolean {
+    return this.layout.items().some(item => item.isPage());
+  }
+
+  selectAllPages() {
+    const pages = this.layout.items().filter(item => item.isPage());
+    if (!pages.length) {
+      return;
+    }
+    this.layout.items().forEach(item => item.selected = item.isPage());
+    const currentItem = this.layout.lastSelectedItem();
+    this.layout.setLastSelectedItem(pages.find(item => item.pid === currentItem?.pid) || pages[0]);
+    this.layout.setSelection(true, null);
+  }
+
   selectRow(e: { item: DocumentItem, event?: MouseEvent, idx?: number }) {
     this.rowClick(e.item, e.event, e.idx)
   }

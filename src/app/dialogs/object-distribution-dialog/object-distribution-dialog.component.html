@@ -1,6 +1,9 @@
 <div class="app-fxLayout app-column app-fill distribution-dialog">
   <h1 mat-dialog-title class="distribution-title">
     <span>{{ 'editor.children.distribution.title' | translate }}</span>
+    <span class="distribution-page-total">
+      {{ 'editor.children.distribution.pageCount' | translate }}: <strong>{{ data.pages.length }}</strong>
+    </span>
     <button mat-icon-button
             type="button"
             (click)="openHelpDialog()"
@@ -14,7 +17,6 @@
     @if (busy) {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
-
     <section class="distribution-settings">
       <h2>{{ 'editor.children.distribution.splitBy' | translate }}</h2>
       <mat-radio-group [(ngModel)]="mode" (ngModelChange)="scheduleRecalculation()" [disabled]="busy" class="distribution-modes">
@@ -45,7 +47,9 @@
           @for (target of targets; track $index; let index = $index; let odd = $odd) {
             <div class="target-row" [class.striped]="odd">
               <span class="target-order">{{ index + 1 }}.</span>
-              <span class="target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})</span>
+              <span class="target-label">{{ target.label }} ({{ 'model.' + target.model | translate }})
+                @if (target.pid === data.sourcePid) { — {{ 'editor.children.distribution.staysInSource' | translate }} }
+              </span>
               <button mat-icon-button (click)="moveTarget(index, -1)" [disabled]="index === 0 || busy" [matTooltip]="'common.move_up' | translate">
                 <mat-icon>arrow_upward</mat-icon>
               </button>
@@ -73,7 +77,7 @@
           </div>
           @for (target of targets; track $index; let index = $index; let odd = $odd) {
             <div class="preview-grid" [class.striped]="odd">
-              <span>{{ target.label }}</span>
+              <span>{{ target.label }}@if (target.pid === data.sourcePid) { — {{ 'editor.children.distribution.staysInSource' | translate }} }</span>
               <span>{{ groups[index]?.length || 0 }}</span>
               <span>{{ firstPageLabel(index) }}</span>
               <span>{{ lastPageLabel(index) }}</span>

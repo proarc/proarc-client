@@ -146,6 +146,9 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
       }
       this.addTarget(e.item);
     }
+    if (this.data.mode !== 'import') {
+      this.orderVisibleTargets(this.items);
+    }
     this.lastSearchClickIndex = index;
     this.showTree(e.item);
   }
@@ -173,7 +176,7 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
         !visiblePids.has(item.pid) || selectedPids.has(item.pid));
     }
     selectedItems.forEach(item => this.addTarget(item));
-    this.selectedTargets = [...this.selectedTargets];
+    this.orderVisibleTargets(e.visibleItems || []);
   }
 
   confirm(): void {
@@ -272,6 +275,15 @@ export class ObjectTargetSelectionDialogComponent implements OnInit {
       targets.push(target);
       targetPids.add(target.pid);
     }
+  }
+
+  private orderVisibleTargets(visibleItems: DocumentItem[]): void {
+    const selectedByPid = new Map(this.selectedTargets.map(target => [target.pid, target]));
+    const visiblePids = new Set(visibleItems.map(item => item.pid));
+    this.selectedTargets = [
+      ...this.selectedTargets.filter(target => !visiblePids.has(target.pid)),
+      ...visibleItems.filter(item => selectedByPid.has(item.pid)).map(item => selectedByPid.get(item.pid)!)
+    ];
   }
 
   private clearTargets(): void {

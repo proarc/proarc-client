@@ -6,8 +6,8 @@
 }
 
 .distribution-title button {
-  margin-left: auto;
   color: var(--app-color-primary);
+  flex-shrink: 0;
 }
 
 .distribution-content,
@@ -21,6 +21,13 @@
   min-width: min(760px, 80vw);
   max-height: calc(90vh - 148px);
   overflow: auto;
+}
+
+.distribution-page-total {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 section h2 {
