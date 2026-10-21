@@ -368,6 +368,40 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  backfillLogMetadata(): void {
+    const data: SimpleDialogData = {
+      title: this.translator.instant('loggingMetadataBackfill.title'),
+      message: this.translator.instant('loggingMetadataBackfill.confirm'),
+      alertClass: 'app-info',
+      btn1: { label: this.translator.instant('button.yes'), value: 'yes', color: 'primary' },
+      btn2: { label: this.translator.instant('button.no'), value: 'no', color: 'default' }
+    };
+    this.dialog.open(SimpleDialogComponent, {
+      data, panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+      if (result !== 'yes') return;
+      this.state.set('loading');
+      this.api.backfillLogMetadata().subscribe({
+        next: (response: any) => {
+          if (response.response?.status !== 0) {
+            this.state.set('error');
+            this.ui.showErrorDialogFromObject(response.response?.errors || response);
+            return;
+          }
+          this.state.set('success');
+          this.ui.showInfoSnackBar(this.translator.instant('loggingMetadataBackfill.scheduled'));
+          this.router.navigate(['/process-management'], {
+            queryParams: { state: 'ALL', profile: 'internalProfile.backfillLogMetadata' }
+          });
+        },
+        error: () => {
+          this.state.set('error');
+          this.ui.showInfoSnackBar(this.translator.instant('loggingMetadataBackfill.failed'));
+        }
+      });
+    });
+  }
+
   upgradeMods38() {
     const data: SimpleDialogData = {
       title: this.translator.instant('navbar.mods38Upgrade.title'),

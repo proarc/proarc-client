@@ -1,0 +1,125 @@
+<!-- Layout and responsive styles are kept here for direct editing. -->
+<style>
+  :host { display: block; }
+  .charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 1fr); align-items: start; gap: 32px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 600; padding: 12px 8px; }
+  th, td { padding: 8px; text-align: left; border-bottom: 1px solid #8885; }
+  .numeric { text-align: right; font-variant-numeric: tabular-nums; }
+  .legend { display: inline-flex; align-items: center; gap: 8px; text-align: left; background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 4px; }
+  .swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .hidden-model .legend { text-decoration: line-through; opacity: .65; }
+  figure { margin: 0; text-align: center; padding: 12px; }
+  svg { width: 100%; max-width: 420px; }
+  path { cursor: pointer; stroke: white; stroke-width: 1; }
+  path:hover, path:focus { opacity: .75; stroke: currentColor; stroke-width: 3; outline: none; }
+  figcaption { margin-top: 12px; }
+  @media (max-width: 900px) { .charts { grid-template-columns: 1fr; } }
+
+  .preview-pie { display: block; max-width: 280px; margin: 12px auto; }
+  .preview-pie path { cursor: inherit; }
+  .preview-pie path:hover { opacity: 1; stroke: white; stroke-width: 1; }
+  .preview-empty { display: grid; place-items: center; min-height: 240px; }
+  button[mat-stroked-button]:not(:disabled) { background-color: var(--statistics-primary); }
+</style>
+
+@if (preview) {
+  @if (visibleTotal) {
+    <svg class="preview-pie" viewBox="0 0 300 300" role="img" [attr.aria-label]="titleKey | translate">
+      @for (slice of slices; track slice.item.model) {
+        <path [attr.d]="slice.path" [attr.fill]="slice.item.color">
+          <title>{{ label(slice.item.model) }}: {{ slice.item.count | number }} ({{ slice.item.count / visibleTotal | percent:'1.1-1' }})</title>
+        </path>
+      }
+    </svg>
+  } @else {
+    <span class="preview-empty">{{ emptyKey | translate }}</span>
+  }
+} @else {
+          @if (showHint) {
+            <p>{{ 'statistics.hint' | translate }}</p>
+          }
+          @if (!models.length) {
+            <p role="status">{{ emptyKey | translate }}</p>
+          } @else {
+            <button mat-button (click)="showAll()" [disabled]="allVisible"
+          style="--mat-button-filled-container-color: var(--statistics-primary);
+            --mat-button-filled-label-text-color: #eaf3ff;
+            --mat-button-filled-state-layer-color: #eaf3ff;
+            --mat-button-outlined-label-text-color: #eaf3ff;
+            --mat-button-outlined-outline-color: var(--statistics-primary);
+            --mat-button-outlined-state-layer-color: #eaf3ff;
+            --mat-button-text-label-text-color: var(--statistics-primary);
+            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.showAll' | translate }}</button>
+            <div class="charts">
+              <div class="table-wrap">
+                <table>
+                  <caption>{{ (tableTitleKey || titleKey) | translate }}</caption>
+                  <thead><tr>
+                    <th>{{ 'statistics.show' | translate }}</th>
+                    <th>{{ labelKey | translate }}</th>
+                    @if (exportCounts) {
+                      <th class="numeric">{{ 'statistics.exports.pages' | translate }}</th>
+                      <th class="numeric">{{ 'statistics.exports.others' | translate }}</th>
+                      <th class="numeric">{{ 'statistics.exports.objects' | translate }}</th>
+                    } @else {
+                      <th class="numeric">{{ 'statistics.count' | translate }}</th>
+                      <th class="numeric">{{ 'statistics.share' | translate }}</th>
+                    }
+                  </tr></thead>
+                  <tbody>
+                    @for (item of models; track item.model) {
+                      <tr [class.hidden-model]="!item.visible">
+                        <td><mat-checkbox [checked]="item.visible" (change)="toggle(item)" [aria-label]="label(item.model)"
+          style="--mat-checkbox-selected-icon-color: var(--statistics-primary);
+            --mat-checkbox-selected-focus-icon-color: var(--statistics-primary);
+            --mat-checkbox-selected-hover-icon-color: var(--statistics-primary);
+            --mat-checkbox-selected-pressed-icon-color: var(--statistics-primary);
+            --mat-checkbox-selected-checkmark-color: #eaf3ff;
+            --mat-checkbox-selected-focus-state-layer-color: var(--statistics-primary);
+            --mat-checkbox-selected-hover-state-layer-color: var(--statistics-primary);
+            --mat-checkbox-selected-pressed-state-layer-color: var(--statistics-primary);
+            --mat-checkbox-unselected-icon-color: var(--statistics-primary);
+            --mat-checkbox-unselected-focus-icon-color: var(--statistics-primary);
+            --mat-checkbox-unselected-hover-icon-color: var(--statistics-primary);
+            --mat-checkbox-unselected-focus-state-layer-color: var(--statistics-primary);
+            --mat-checkbox-unselected-hover-state-layer-color: var(--statistics-primary);" /></td>
+                        <th scope="row"><button class="legend" (click)="toggle(item)" [attr.aria-pressed]="item.visible">
+                          <span class="swatch" [style.background-color]="item.color"></span>{{ label(item.model) }}
+                        </button></th>
+                        @if (exportCounts) {
+                          <td class="numeric">{{ (exportCounts[item.model]?.pageCount || 0) | number }}</td>
+                          <td class="numeric">{{ (exportCounts[item.model]?.otherModelCount || 0) | number }}</td>
+                          <td class="numeric">{{ ((exportCounts[item.model]?.pageCount || 0) + (exportCounts[item.model]?.otherModelCount || 0)) | number }}</td>
+                        } @else {
+                          <td class="numeric">{{ item.count | number }}</td>
+                          <td class="numeric">{{ item.visible && visibleTotal ? (item.count / visibleTotal | percent:'1.1-1') : '—' }}</td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <figure>
+                @if (exportCounts) { <h3>{{ titleKey | translate }}</h3> }
+                @if (visibleTotal) {
+                  <svg viewBox="0 0 300 300" role="group" [attr.aria-label]="titleKey | translate">
+                    @for (slice of slices; track slice.item.model) {
+                      <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
+                        [attr.aria-label]="label(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
+                        (click)="toggle(slice.item)" (keydown.enter)="toggle(slice.item)"
+                        (keydown.space)="$event.preventDefault(); toggle(slice.item)">
+                        <title>{{ label(slice.item.model) }}: {{ slice.item.count | number }} ({{ slice.item.count / visibleTotal | percent:'1.1-1' }})</title>
+                      </path>
+                    }
+                  </svg>
+                } @else {
+                  <p role="status">{{ (total ? 'statistics.noneSelected' : emptyKey) | translate }}</p>
+                }
+                <figcaption>{{ 'statistics.visibleTotal' | translate }}: {{ visibleTotal | number }}</figcaption>
+              </figure>
+            </div>
+          }
+
+}

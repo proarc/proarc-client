@@ -1,3 +1,7 @@
+import { ArticleExportResult } from '../model/article-export.model';
+import { ExportFilters, ExportOptions, ExportStatistic } from '../model/export-statistic.model';
+import { ProductivityStatistic } from '../model/productivity-statistic.model';
+import { ModelStatistic } from '../model/model-statistic.model';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -41,6 +45,72 @@ export class ApiService {
     } else {
       return 'cs';
     }
+  }
+
+  getModelStatistics(active = true, respectOrganization = false): Observable<ModelStatistic[]> {
+    return this.get('statistics/models', { active, respectOrganization }).pipe(
+      map((result: any) => {
+        if (result.response?.status !== 0 || !Array.isArray(result.response.data)) {
+          throw new Error('Invalid model statistics response');
+        }
+        return result.response.data as ModelStatistic[];
+      })
+    );
+  }
+
+  getProductivityStatistics(usernames: string[], dateFrom: string, dateTo: string, models: string[], respectOrganization: boolean, siglas: string[] = []): Observable<ProductivityStatistic> {
+    return this.get('statistics/productivity', { username: usernames, dateFrom, dateTo, model: models, sigla: siglas, respectOrganization }).pipe(
+      map((result: any) => {
+        if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+          throw new Error('Invalid productivity statistics response');
+        }
+        return result.response.data[0] as ProductivityStatistic;
+      })
+    );
+  }
+
+  getExportStatistics(filters: ExportFilters, respectOrganization: boolean): Observable<ExportStatistic> {
+    return this.get('statistics/exports', {
+      username: filters.usernames, dateFrom: filters.dateFrom, dateTo: filters.dateTo, model: filters.models,
+      exportType: filters.exportTypes, device: filters.devices, software: filters.software, sigla: filters.siglas,
+      unique: filters.unique, groupBy: filters.groupBy, respectOrganization
+    }).pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+        throw new Error('Invalid export statistics response');
+      }
+      return result.response.data[0] as ExportStatistic;
+    }));
+  }
+
+  getProductivityStatisticsOptions(respectOrganization: boolean): Observable<{ sigla: string[] }> {
+    return this.get('statistics/productivity/options', { respectOrganization }).pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+        throw new Error('Invalid productivity filter response');
+      }
+      return result.response.data[0] as { sigla: string[] };
+    }));
+  }
+
+  getArticleExportStatistics(filters: ExportFilters, respectOrganization: boolean, offset = 0, limit = 50): Observable<ArticleExportResult> {
+    return this.get('statistics/exports/articles', {
+      dateFrom: filters.dateFrom, dateTo: filters.dateTo, username: filters.usernames,
+      model: filters.models, exportType: filters.exportTypes, sigla: filters.siglas,
+      respectOrganization, unique: filters.unique, offset, limit
+    }).pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+        throw new Error('Invalid article export statistics response');
+      }
+      return result.response.data[0] as ArticleExportResult;
+    }));
+  }
+
+  getExportStatisticsOptions(respectOrganization: boolean, articles = false): Observable<ExportOptions> {
+    return this.get('statistics/exports/options', { respectOrganization, articles }).pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+        throw new Error('Invalid export filter response');
+      }
+      return result.response.data[0] as ExportOptions;
+    }));
   }
 
   public getApiUrl(): string {
@@ -1526,6 +1596,10 @@ export class ApiService {
 
   indexer(): Observable<any> {
     return this.post('indexer', null);
+  }
+
+  backfillLogMetadata(): Observable<any> {
+    return this.post('indexer/logging/metadata', null);
   }
 
   indexParents(): Observable<any> {

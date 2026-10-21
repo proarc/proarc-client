@@ -40,6 +40,7 @@ export const routes: Routes = [
             { path: 'software/:type/:id/edit', component: SoftwareDetailComponent },
             { path: 'software/:type/:id', component: SoftwareDetailComponent },
             { path: 'software/:type', component: SoftwareListComponent },
+            { path: 'statistics', loadComponent: () => import('./pages/statistics/statistics.component').then(m => m.StatisticsComponent) },
             { path: 'search', component: SearchComponent },
             // { path: 'viewer', component: ViewerComponent },
             { path: 'process-management', component: ProcessManagementComponent },
@@ -48,8 +49,8 @@ export const routes: Routes = [
             { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
             { path: 'admin/:id/edit-user', component: EditUserComponent },
             { path: 'admin/new-user', component: NewUserComponent },
-            
-            { path: 'workflow', 
+
+            { path: 'workflow',
                 loadChildren: () =>
                     import('./app.routes-workflow')
                         .then(m => m.routesWorkflow)

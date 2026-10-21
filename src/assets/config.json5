@@ -309,6 +309,20 @@
       ]
     },
     {
+      origin: 'ndkeperiodical',
+      dest: [
+        { model: 'ndkperiodical', originmodel: "ndkeperiodical", apiPoint: "object/changeNdkEPeriodicalToNdkPeriodical" },
+        { model: 'ndkperiodicalvolume', originmodel: "ndkeperiodicalvolume", apiPoint: "object/changeNdkEPeriodicalVolumeToNdkPeriodicalVolume" },
+        { model: 'ndkperiodicalissue', originmodel: "ndkeperiodicalissue", apiPoint: "object/changeNdkEPeriodicalIssueToNdkPeriodicalIssue" },
+        { model: 'ndkperiodicalsupplement', originmodel: "ndkeperiodicalsupplement", apiPoint: "object/changeNdkEPeriodicalSupplementToNdkPeriodicalSupplement" },
+        { model: 'ndkarticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
+        { model: 'ndkarticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
+        { model: 'ndkperiodicalvolume', originmodel: "periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume" },
+        { model: 'ndkperiodicalissue', originmodel: "periodicalitem", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+
+      ]
+    },
+    {
       origin: 'ndkperiodicalvolume',
       dest: [
         { model: 'ndkeperiodicalvolume', originmodel: "ndkperiodicalvolume", apiPoint: "object/changeNdkPeriodicalVolumeToNdkEPeriodicalVolume" },
