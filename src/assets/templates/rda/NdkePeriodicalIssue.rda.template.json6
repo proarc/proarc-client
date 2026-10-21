@@ -323,6 +323,40 @@
     expanded: true,
     description: 'informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit',
     fields: {
+      eventType: {
+        usage: 'M',
+        required: true,
+        label: 'Typ',
+        selector: 'originInfo/@eventType',
+        labelKey: 'originInfo/@eventType',
+        cols: 2,
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'production',
+            'Produkce'
+          ],
+          [
+            'publication',
+            'Publikace'
+          ],
+          [
+            'distribution',
+            'Distribuce'
+          ],
+          [
+            'manufacture',
+            'Výroba'
+          ],
+          [
+            'copyright',
+            'Copyright'
+          ]
+        ]
+      },
       agent: {
         usage: 'MA',
         label: 'Nakladatel',

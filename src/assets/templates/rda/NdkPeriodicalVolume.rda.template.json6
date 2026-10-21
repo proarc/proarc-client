@@ -246,6 +246,40 @@
     expanded: true,
     description: 'Informace o původu předlohy; vyplňuje se ručně',
     fields: {
+      eventType: {
+        usage: 'M',
+        required: true,
+        label: 'Typ',
+        selector: 'originInfo/@eventType',
+        labelKey: 'originInfo/@eventType',
+        cols: 2,
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'production',
+            'Produkce'
+          ],
+          [
+            'publication',
+            'Publikace'
+          ],
+          [
+            'distribution',
+            'Distribuce'
+          ],
+          [
+            'manufacture',
+            'Výroba'
+          ],
+          [
+            'copyright',
+            'Copyright'
+          ]
+        ]
+      },
       dateIssued: {
         usage: 'MA',
         label: 'Rok',
