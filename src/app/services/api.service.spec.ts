@@ -1,10 +1,75 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
 import { UserSettings } from '../shared/user-settings';
 import { Atm } from '../model/atm.model';
+
+describe('ApiService MODS encoding', () => {
+  let http: jasmine.SpyObj<HttpClient>;
+  let api: ApiService;
+
+  beforeEach(() => {
+    http = jasmine.createSpyObj<HttpClient>('HttpClient', ['put', 'post']);
+    http.put.and.returnValue(of({response: {status: 0}}));
+    http.post.and.returnValue(of({response: {status: 0}}));
+    api = new ApiService(http, {proarcUrl: '/api'} as Configuration);
+  });
+
+  const editors = [
+    {method: 'editModsXml' as const, path: 'object/mods/custom'},
+    {method: 'editKrameriusModsXml' as const, path: 'kramerius/updateMods'}
+  ];
+
+  editors.forEach(({method, path}) => {
+    it(`${method} preserves XML entities and special characters after form decoding`, () => {
+      const xml = '<mods><title>Český A &amp; B + 50% %26 &#38; &lt; #?=</title></mods>';
+      api[method]('uuid:item', xml, 123, 'ndk', true, '7', 'catalog & +').subscribe(
+        response => expect(response).toEqual({status: 0})
+      );
+
+      const [url, body, options] = http.put.calls.mostRecent().args;
+      const params = new URLSearchParams(body.toString());
+      expect(url).toBe(`/api/rest/v2/${path}`);
+      expect((options.headers as HttpHeaders).get('Content-Type')).toContain('application/x-www-form-urlencoded');
+      expect(params.get('xmlData')).toBe(xml);
+      expect(params.get('pid')).toBe('uuid:item');
+      expect(params.get('timestamp')).toBe('123');
+      expect(params.get('ignoreValidation')).toBe('true');
+      expect(params.get('standard')).toBe('ndk');
+      expect(params.get('batchId')).toBe('7');
+      expect(params.get('catalogId')).toBe('catalog & +');
+    });
+
+    it(`${method} omits absent optional parameters and preserves false and zero`, () => {
+      api[method]('uuid:item', '<mods/>', 0, null, false).subscribe();
+
+      const params = new URLSearchParams(http.put.calls.mostRecent().args[1].toString());
+      expect(params.get('timestamp')).toBe('0');
+      expect(params.get('ignoreValidation')).toBe('false');
+      expect(params.has('standard')).toBeFalse();
+      expect(params.has('batchId')).toBeFalse();
+      expect(params.has('catalogId')).toBeFalse();
+    });
+  });
+
+  it('preserves XML and the instance when saving MODS directly to Kramerius', () => {
+    const xml = '<mods><title>Český A &amp; B + 50% %26 &#38; &lt; #?=</title></mods>';
+    api.saveKrameriusMods('uuid:item', 'k7 & +', xml, 123).subscribe(
+      response => expect(response).toEqual({response: {status: 0}})
+    );
+
+    const [url, body, options] = http.post.calls.mostRecent().args;
+    const params = new URLSearchParams(body.toString());
+    expect(url).toBe('/api/rest/v2/kramerius/updateMods');
+    expect((options.headers as HttpHeaders).get('Content-Type')).toContain('application/x-www-form-urlencoded');
+    expect(params.get('xmlData')).toBe(xml);
+    expect(params.get('pid')).toBe('uuid:item');
+    expect(params.get('instance')).toBe('k7 & +');
+    expect(params.get('timestamp')).toBe('123');
+  });
+});
 
 describe('ApiService PREMIS editor', () => {
   let http: jasmine.SpyObj<HttpClient>;

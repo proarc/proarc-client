@@ -707,19 +707,20 @@ export class ApiService {
   }
 
   editModsXml(pid: string, xml: string, timestamp: number, standard: string, ignoreValidation: boolean, batchId: any = null, catalogId: string = null): Observable<any> {
-    //const xmlText = xml.replace(/&/g, '%26');
-    const xmlText = encodeURIComponent(xml.replace(/&/g, '%26'));
-    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    let data = new HttpParams()
+      .set('pid', pid)
+      .set('ignoreValidation', ignoreValidation)
+      .set('xmlData', xml)
+      .set('timestamp', timestamp);
     if (standard) {
-      data = `${data}&standard=${standard}`;
+      data = data.set('standard', standard);
     }
     if (batchId) {
-      data = `${data}&batchId=${batchId}`;
+      data = data.set('batchId', batchId);
     }
     if (catalogId) {
-      data = `${data}&catalogId=${catalogId}`;
+      data = data.set('catalogId', catalogId);
     }
-    // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
     return this.put('object/mods/custom', data).pipe(map((response: any) => response['response']));
   }
 
@@ -1532,29 +1533,31 @@ export class ApiService {
   }
 
   saveKrameriusMods(pid: string, instance: string, xml: string, timestamp: number): Observable<any> {
-    // const params: any = { pid, instance };
-    // return this.post('object/kramerius/custom', params);
-    const xmlText = xml.replace(/&/g, '%26');
-    let data = `pid=${pid}&instance=${instance}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    const data = new HttpParams()
+      .set('pid', pid)
+      .set('instance', instance)
+      .set('xmlData', xml)
+      .set('timestamp', timestamp);
     return this.post('kramerius/updateMods', data);
   }
 
 
 
   editKrameriusModsXml(pid: string, xml: string, timestamp: number, standard: string, ignoreValidation: boolean, batchId: any = null, catalogId: string = null): Observable<any> {
-    //const xmlText = xml.replace(/&/g, '%26');
-    const xmlText = encodeURIComponent(xml.replace(/&/g, '%26'));
-    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    let data = new HttpParams()
+      .set('pid', pid)
+      .set('ignoreValidation', ignoreValidation)
+      .set('xmlData', xml)
+      .set('timestamp', timestamp);
     if (standard) {
-      data = `${data}&standard=${standard}`;
+      data = data.set('standard', standard);
     }
     if (batchId) {
-      data = `${data}&batchId=${batchId}`;
+      data = data.set('batchId', batchId);
     }
     if (catalogId) {
-      data = `${data}&catalogId=${catalogId}`;
+      data = data.set('catalogId', catalogId);
     }
-    // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
     return this.put('kramerius/updateMods', data).pipe(map((response: any) => response['response']));
   }
 
