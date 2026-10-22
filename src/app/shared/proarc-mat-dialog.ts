@@ -25,11 +25,11 @@ export class ProarcMatDialog extends MatDialog {
       const savedPosition = this.dialogPos?.[componentName];
       if (savedPosition) {
         currentConfig.position = {left: savedPosition.left +'px', top: savedPosition.top +'px', };
-        if (componentName !== '_LogDialogComponent') {
-          currentConfig.width = savedPosition.width + 'px';
-          currentConfig.height = savedPosition.height + 'px';
-          currentConfig.maxWidth = undefined;
-        }
+        // if (componentName !== '_LogDialogComponent') {
+        //   currentConfig.width = savedPosition.width + 'px';
+        //   currentConfig.height = savedPosition.height + 'px';
+        //   currentConfig.maxWidth = undefined;
+        // }
       }
     }
 
