@@ -49,7 +49,7 @@
     <app-editor-field [field]="item.temporals" [nested]='true'>
       <ng-template let-temporal="item" #templateContent>
         <app-field-text field="valueURI" [item]="temporal" [(value)]="temporal.attrs['valueURI']"></app-field-text>
-        <app-field-codebook [prefix]="'lang'" field="lang" [item]="temporal" [(value)]="temporal.attrs['lang']"></app-field-codebook>
+        <app-field-codebook [prefix]="'lang'" field="lang" [item]="temporal" [options]="codebook.languages" [(value)]="temporal.attrs['lang']"></app-field-codebook>
         <app-field-text field="value" [item]="temporal" [(value)]='temporal.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>

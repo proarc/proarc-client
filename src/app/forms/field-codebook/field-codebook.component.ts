@@ -24,7 +24,7 @@ export class FieldCodebookComponent implements OnInit {
   @Input() field: string;
   @Input() prefix: string;
   @Input() value: string;
-  @Input() options: any;
+  @Input() options: string[];
   @Input() showCode: boolean;
   @Output() valueChange = new EventEmitter<string>();
 
@@ -33,9 +33,10 @@ export class FieldCodebookComponent implements OnInit {
 
   addValue: boolean = false;
   ngOnInit() {
-    this.addValue = this.options.findIndex((o: any) => o === this.value) < 0;
+    const options = this.options ?? [];
+    this.addValue = options.findIndex((o: string) => o === this.value) < 0;
   }
 
-  
+
 
 }
