@@ -247,6 +247,7 @@ export class PageUpdateHolder {
         this.repreSelect = source.repreSelect;
 
         this.useBrackets = source.useBrackets;
+        this.doubleColumns = source.doubleColumns;
 
     }
 

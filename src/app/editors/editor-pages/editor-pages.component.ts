@@ -60,7 +60,7 @@ export class EditorPagesComponent implements OnInit {
   applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 
-  pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
+  pageTypeControl = new FormControl<string>('');
   pageNumberNumberingControl: FormControl<string | null> = new FormControl<string | null>(this.numberingTypes[0].id);
   pageNumberFromControl = new FormControl();
   pageNumberPrefixControl = new FormControl();
@@ -169,6 +169,9 @@ export class EditorPagesComponent implements OnInit {
   setPageHolder() {
     this.layout.lastPageUpdateHolder = new PageUpdateHolder();
     this.layout.lastPageUpdateHolder.fillValues(this.controls.value);
+    if (this.layout.lastPageUpdateHolder.pageType === '[empty]') {
+      this.layout.lastPageUpdateHolder.pageType = '';
+    }
   }
 
   initControls() {

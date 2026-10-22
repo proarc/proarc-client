@@ -1653,7 +1653,7 @@ export class ApiService {
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    if (holder.pageType !== '') {
+    if (holder.pageType) {
       data += `&pageType=${holder.pageType}`;
     }
     if (holder.pageIndex !== null) {
