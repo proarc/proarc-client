@@ -318,7 +318,7 @@
             labelKey: 'originInfo/agent/namePart',
             fields: {
               value: {
-                usage: 'M',
+                usage: 'MA',
                 label: 'Hodnota',
                 selector: 'originInfo/agent/namePart',
                 labelKey: 'originInfo/agent/namePart/value',
