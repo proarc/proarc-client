@@ -1466,8 +1466,11 @@ export class ApiService {
     return url;
   }
 
-  getStreamProfile(pid: string) {
+  getStreamProfile(pid: string, batchId: string = null) {
     let url = `object/streamprofile?pid=${pid}`;
+    if (batchId != null) {
+      url += `&batchId=${batchId}`;
+    }
     return this.get(url);
   }
 

@@ -75,6 +75,7 @@ export class MediaComponent implements OnInit {
 
   streamProfile: StreamProfile;
   streamProfiles: StreamProfile[] = [];
+  private preferredStream = 'FULL';
   maxImageSize: number = 6000;
   imageUrl: string;
 
@@ -173,25 +174,25 @@ export class MediaComponent implements OnInit {
   }
 
   getProfiles(pid: string) {
-    if (!this.isRepo) {
-      this.streamProfiles = [];
-      this.streamProfile = null;
-      return;
-    }
     this.canAddPDF_A = false;
     this.state = 'loading';
-    this.api.getStreamProfile(pid).subscribe((response: any) => {
+    this.streamProfiles = [];
+    this.streamProfile = null;
+    const profiles = this.isRepo ? this.api.getStreamProfile(pid) : this.api.getStreamProfile(pid, this.layout.batchId);
+    profiles.subscribe((response: any) => {
+      if (pid !== this.currentPid()) {
+        return;
+      }
       if (response?.response?.data && !response?.response?.errorMessage) {
         this.streamProfiles = response.response.data;
         if (this.streamProfiles.length > 0) {
-          // try FULL as default
-          this.streamProfile = this.streamProfiles.find(s => s.dsid === 'FULL');
-          if (!this.streamProfile) {
-            this.streamProfile = this.streamProfiles[0];
-          }
+          this.streamProfile = this.streamProfiles.find(s => s.dsid === this.preferredStream)
+            || this.streamProfiles.find(s => s.dsid === 'FULL')
+            || this.streamProfiles[0];
 
           this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.batchId);
-          this.canAddPDF_A = this.streamProfiles.findIndex(sp => sp.dsid === 'RAW' && sp.mime === 'application/pdf') > -1;
+          this.canAddPDF_A = this.isRepo && this.streamProfiles.some(sp => sp.dsid === 'RAW' && sp.mime === 'application/pdf');
+          this.state = 'ok';
 
         } else {
           this.state = 'empty';
@@ -203,6 +204,11 @@ export class MediaComponent implements OnInit {
         this.streamProfile = null;
       }
     });
+  }
+
+  selectStreamProfile(profile: StreamProfile) {
+    this.streamProfile = profile;
+    this.preferredStream = profile.dsid;
   }
 
   onAddPdf() {

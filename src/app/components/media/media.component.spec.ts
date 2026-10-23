@@ -20,7 +20,7 @@ describe('Media selection upload', () => {
 
   beforeEach(async () => {
     selected = [article('uuid:1'), article('uuid:2')];
-    api = jasmine.createSpyObj('ApiService', ['getStreamProfile', 'uploadFileToObjects']);
+    api = jasmine.createSpyObj('ApiService', ['getStreamProfile', 'getStreamUrl', 'uploadFileToObjects']);
     api.getStreamProfile.and.returnValue(of({response: {data: []}}));
     ui = jasmine.createSpyObj('UIService', ['showErrorDialogFromString', 'showInfoSnackBar']);
     await TestBed.configureTestingModule({
@@ -89,5 +89,53 @@ describe('Media selection upload', () => {
     component.uploadFile({target: {files: [new File(['epub'], 'article.epub')], value: 'article.epub'}});
     expect(api.uploadFileToObjects).not.toHaveBeenCalled();
     expect(ui.showErrorDialogFromString).toHaveBeenCalled();
+  });
+
+  ['repo', 'import'].forEach(type => {
+    ['PREVIEW', 'THUMBNAIL'].forEach(dsid => {
+      it(`remembers ${dsid} across images and missing variants in ${type}`, () => {
+        TestBed.inject(LayoutService).type = type;
+        const profile = {dsid, mime: 'image/jpeg', width: 100, height: 100};
+        const full = {dsid: 'FULL', mime: 'image/jpeg', width: 3000, height: 4000};
+        component.selectStreamProfile(profile);
+        api.getStreamProfile.and.returnValue(of({response: {data: [full, {...profile}]}}));
+        component.onPidChanged('uuid:2', selected[0].model);
+        expect(component.streamProfile.dsid).toBe(dsid);
+        expect(component.streamProfile).not.toBe(profile);
+
+        api.getStreamProfile.and.returnValue(of({response: {data: [full]}}));
+        component.onPidChanged('uuid:3', selected[0].model);
+        expect(component.streamProfile.dsid).toBe('FULL');
+
+        api.getStreamProfile.and.returnValue(of({response: {data: []}}));
+        component.onPidChanged('uuid:4', selected[0].model);
+        expect(component.streamProfile).toBeNull();
+
+        api.getStreamProfile.and.returnValue(of({response: {data: [full, {...profile}]}}));
+        component.onPidChanged('uuid:5', selected[0].model);
+        expect(component.streamProfile.dsid).toBe(dsid);
+      });
+    });
+  });
+
+  [3000, 9000].forEach(width => {
+    it(`loads selectable image profiles for a ${width}px image in an import batch`, () => {
+      const layout = TestBed.inject(LayoutService);
+      layout.type = 'import';
+      layout.batchId = '42';
+      const profiles = [
+        {dsid: 'PREVIEW', mime: 'image/jpeg', width: 1200, height: 1600},
+        {dsid: 'FULL', mime: 'image/jpeg', width, height: width}
+      ];
+      api.getStreamProfile.and.returnValue(of({response: {data: profiles}}));
+      component.onPidChanged(selected[0].pid, selected[0].model);
+      expect(api.getStreamProfile).toHaveBeenCalledWith(selected[0].pid, '42');
+      expect(component.streamProfiles).toEqual(profiles);
+      expect(component.streamProfile.dsid).toBe('FULL');
+      expect(component.hasProfile('PREVIEW')).toBeTrue();
+      expect(component.canAddPDF_A).toBeFalse();
+      expect(component.canUpload()).toBeFalse();
+      expect(component.state).toBe('ok');
+    });
   });
 });

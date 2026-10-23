@@ -3,7 +3,7 @@
 		<div class="app-fxFlex">
 			@if (streamProfile) {
 			<mat-form-field class="app-clean-mb app-select">
-				<mat-select name="profiles" [(ngModel)]="streamProfile">
+				<mat-select name="profiles" [ngModel]="streamProfile" (ngModelChange)="selectStreamProfile($event)">
 					@for(p of streamProfiles; track $index; let idx = $index) {
 					<mat-option [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
 					}
@@ -24,7 +24,7 @@
 				<mat-icon>upload</mat-icon>
 			</button>
 			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" [accept]="uploadItems().length > 1 ? '.pdf,.PDF' : '.pdf,.PDF,.epub'" />
-			@if (streamProfile) {
+			@if (isRepo && streamProfile) {
 			<button mat-icon-button [disabled]="uploading || uploadItems().length > 1" (click)="onRemove()" [matTooltip]="'viewer.tooltip.deleteDigitalContent' | translate">
 				<mat-icon>delete</mat-icon>
 			</button>
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<div class="app-fxFlex app-oh">
-		@if (streamProfile || !isRepo) {
+		@if (streamProfile || (!isRepo && state !== 'loading')) {
 		<div class="app-editor-content app-h-100">
 			@if (isRepo && isPdf()) {
 			<app-pdf [stream]="streamProfile?.dsid" [pid]="currentPid()"></app-pdf>
