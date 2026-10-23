@@ -241,7 +241,7 @@
     <div class="group-panel summary-column">
       <div class="panel-header">
         <h2>{{ 'statistics.results' | translate }}</h2>
-        <button mat-stroked-button type="button" [disabled]="!result || loading" (click)="download()"
+        <button mat-stroked-button type="button" [disabled]="loading || (viewMode === 'table' ? !packageResult || packagesLoading || packagesError : !result)" (click)="download()"
           style="--mat-button-filled-container-color: var(--statistics-primary);
             --mat-button-filled-label-text-color: #eaf3ff;
             --mat-button-filled-state-layer-color: #eaf3ff;
@@ -255,13 +255,13 @@
       @if (error) { <p role="alert">{{ 'statistics.error' | translate }}</p> }
       @if (result) {
         <div class="summary" role="status" aria-live="polite">
-          <div><span>{{ 'statistics.exports.pages' | translate }}</span><strong>{{ result.pageCount | number }}</strong></div>
-          <div><span>{{ 'statistics.exports.others' | translate }}</span><strong>{{ result.otherModelCount | number }}</strong></div>
-          <div><span>{{ 'statistics.exports.packages' | translate }}</span><strong>{{ result.count | number }}</strong></div>
+          <div><span>{{ 'statistics.exports.pages' | translate }}</span><strong>{{ result.pageCount | statisticsNumber }}</strong></div>
+          <div><span>{{ 'statistics.exports.others' | translate }}</span><strong>{{ result.otherModelCount | statisticsNumber }}</strong></div>
+          <div><span>{{ 'statistics.exports.packages' | translate }}</span><strong>{{ result.count | statisticsNumber }}</strong></div>
           <p>{{ result.filters.dateFrom | date:'dd.MM.yyyy' }} – {{ result.filters.dateTo | date:'dd.MM.yyyy' }}</p>
           <p>{{ (result.filters.unique ? 'statistics.exports.unique' : 'statistics.exports.repeated') | translate }}</p>
         </div>
-        @if (result.incompleteCount) { <p class="warning" role="status">{{ 'statistics.exports.incomplete' | translate:{ count: result.incompleteCount } }}</p> }
+        @if (result.incompleteCount) { <p class="warning" role="status">{{ 'statistics.exports.incomplete' | translate:{ count: (result.incompleteCount | statisticsNumber) } }}</p> }
       }
       <aside class="info-box" role="note">
         <mat-icon aria-hidden="true">info_outline</mat-icon>
@@ -273,7 +273,46 @@
       </aside>
     </div>
   </div>
-  @if (result) {
+  <div class="chart-mode" style="margin-top:24px">
+    <span id="export-view-mode">{{ 'statistics.exports.view' | translate }}</span>
+    <mat-button-toggle-group [value]="viewMode" (change)="setViewMode($event.value)" aria-labelledby="export-view-mode" style="--mat-button-toggle-background-color: var(--statistics-tint);
+            --mat-button-toggle-text-color: var(--statistics-primary);
+            --mat-button-toggle-selected-state-background-color: var(--statistics-primary);
+            --mat-button-toggle-selected-state-text-color: #eaf3ff;
+            --mat-button-toggle-divider-color: var(--statistics-border);
+            --mat-button-toggle-state-layer-color: var(--statistics-primary);">
+      <mat-button-toggle value="chart">{{ 'statistics.exports.chart' | translate }}</mat-button-toggle>
+      <mat-button-toggle value="table">{{ 'statistics.exports.table' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  @if (viewMode === 'table') {
+    <div class="group-panel results-table" [attr.aria-busy]="packagesLoading">
+      @if (packagesLoading) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" /> }
+      @if (packagesError) { <p role="alert">{{ 'statistics.error' | translate }} <button mat-button (click)="loadPackages(packageResult?.offset || 0)">{{ 'statistics.refresh' | translate }}</button></p> }
+      @if (packageResult; as r) {
+        <div class="table-scroll"><table><caption>{{ 'statistics.exports.packageOverview' | translate }}</caption>
+          <thead><tr><th>UUID</th><th>{{ 'statistics.exports.label' | translate }}</th><th>URN:NBN</th>
+            <th>{{ 'statistics.model' | translate }}</th><th>{{ 'statistics.exports.exportType' | translate }}</th>
+            <th>{{ 'statistics.articles.date' | translate }}</th><th>{{ 'statistics.exports.user' | translate }}</th>
+            <th>{{ 'statistics.exports.pages' | translate }}</th><th>{{ 'statistics.exports.others' | translate }}</th></tr></thead>
+          <tbody>@for (row of r.packages; track row.source) {
+            <tr><td>{{ row.pid }}</td><td>{{ row.label || ('statistics.exports.missingMetadata' | translate) }}</td>
+              <td>{{ row.urnNbns.length ? row.urnNbns.join(', ') : ('statistics.exports.missingMetadata' | translate) }}</td>
+              <td>{{ row.model ? ('model.' + row.model | translate) : ('statistics.exports.missingMetadata' | translate) }}</td>
+              <td>{{ exportTypeLabel(row.exportType) }}</td><td>{{ row.date | date:'dd.MM.yyyy HH:mm' }}</td><td>{{ row.username }}</td>
+              <td>{{ row.pageCount == null ? '—' : (row.pageCount | statisticsNumber) }}</td>
+              <td>{{ row.otherModelCount == null ? '—' : (row.otherModelCount | statisticsNumber) }}</td></tr>
+          } @empty { <tr><td colspan="9">{{ 'statistics.exports.empty' | translate }}</td></tr> }</tbody>
+        </table></div>
+        <div class="pagination">
+          <button mat-button [disabled]="loading || packagesLoading || r.offset === 0" (click)="loadPackages(r.offset - r.limit)">{{ 'statistics.articles.previous' | translate }}</button>
+          <span>{{ (r.count ? r.offset + 1 : 0) | statisticsNumber }}–{{ (r.offset + r.packages.length) | statisticsNumber }} / {{ r.count | statisticsNumber }}</span>
+          <button mat-button [disabled]="loading || packagesLoading || r.offset + r.limit >= r.count" (click)="loadPackages(r.offset + r.limit)">{{ 'statistics.articles.next' | translate }}</button>
+        </div>
+      }
+    </div>
+  }
+  @if (result && viewMode === 'chart') {
     <div class="export-charts">
       <div class="chart-mode">
         <span id="export-chart-mode">{{ 'statistics.exports.chartDisplay' | translate }}</span>

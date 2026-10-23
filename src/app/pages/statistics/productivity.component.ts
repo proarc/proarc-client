@@ -1,3 +1,4 @@
+import { StatisticsNumberPipe } from './statistics-number.pipe';
 import { StatisticsFilterOptionsService } from './statistics-filter-options.service';
 import { MatIconModule } from '@angular/material/icon';
 import { StatisticsCsvService } from './statistics-csv.service';
@@ -25,7 +26,7 @@ import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-productivity',
-  imports: [MatIconModule, ModelBreakdownComponent, MatCheckboxModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
+  imports: [StatisticsNumberPipe, MatIconModule, ModelBreakdownComponent, MatCheckboxModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: {

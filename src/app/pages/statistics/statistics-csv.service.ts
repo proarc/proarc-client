@@ -1,3 +1,4 @@
+import { PackageExportResult } from '../../model/export-statistic.model';
 import { exportTypeLabel } from './export-type-label';
 import { ArticleExportResult } from '../../model/article-export.model';
 import { ExportStatistic } from '../../model/export-statistic.model';
@@ -58,6 +59,30 @@ export class StatisticsCsvService {
     this.saveCsv(buildTabularStatisticsCsv(t('title'),
       this.filter('statistics.csv.filters', filters.join(' | ')), headers, rows),
       'proarc-exports-' + f.groupBy + '-' + f.dateFrom + '_' + f.dateTo + '.csv');
+  }
+
+  exportPackages(result: PackageExportResult, devices: Record<string, string>, software: Record<string, string>): void {
+    const f = result.filters;
+    const selected = (values: string[], label: (id: string) => string = id => id) =>
+      values.length ? values.map(label).join(', ') : this.t('statistics.exports.all');
+    const filters = [f.dateFrom, f.dateTo,
+      this.filter('statistics.model', selected(f.models, id => this.modelLabel(id))),
+      this.filter('statistics.exports.exportType', selected(f.exportTypes, id => exportTypeLabel(id, key => this.t(key)))),
+      this.filter('statistics.exports.user', selected(f.usernames)),
+      this.filter('statistics.sigla', selected(f.siglas)),
+      this.filter('statistics.exports.device', selected(f.devices, id => devices[id] || id)),
+      this.filter('statistics.exports.software', selected(f.software, id => software[id] || id)),
+      this.filter('statistics.csv.organization', f.organization || this.t('statistics.allOrganizations')),
+      this.t(f.unique ? 'statistics.exports.unique' : 'statistics.exports.repeated'),
+      (result.count ? result.offset + 1 : 0) + '–' + (result.offset + result.packages.length) + ' / ' + result.count];
+    const headers = ['UUID', this.t('statistics.exports.label'), 'URN:NBN', this.t('statistics.model'),
+      this.t('statistics.exports.exportType'), this.t('statistics.articles.date'), this.t('statistics.exports.user'),
+      this.t('statistics.exports.pages'), this.t('statistics.exports.others')];
+    const rows = result.packages.map(row => [row.pid, row.label || '', row.urnNbns.join(', '),
+      row.model ? this.modelLabel(row.model) : '', exportTypeLabel(row.exportType, key => this.t(key)), row.date,
+      row.username || 'UNKNOWN', row.pageCount ?? '', row.otherModelCount ?? '']);
+    this.saveCsv(buildTabularStatisticsCsv(this.t('statistics.exports.packageOverview'), filters.join(' | '), headers, rows),
+      'proarc-package-exports-' + f.dateFrom + '_' + f.dateTo + '-page-' + (result.offset / result.limit + 1) + '.csv');
   }
 
   exportArticles(result: ArticleExportResult): void {

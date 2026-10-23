@@ -103,7 +103,7 @@
             } @else if (preview.error) {
               <span class="preview-placeholder" role="status">{{ 'statistics.error' | translate }}</span>
             } @else if (preview.updatedAt) {
-              <span class="preview-total">{{ preview.total | number }}</span>
+              <span class="preview-total">{{ preview.total | statisticsNumber }}</span>
               <span class="preview-total-label">{{ preview.totalKey | translate }}</span>
               @if (preview.view !== 'articles') {
               <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey"
@@ -184,8 +184,8 @@
             <p role="alert">{{ 'statistics.error' | translate }}</p>
           } @else if (updatedAt) {
             <div class="summary">
-              <div><span>{{ (active ? 'statistics.total' : 'statistics.inactiveTotal') | translate }}</span><strong>{{ total | number }}</strong></div>
-              <div><span>{{ 'statistics.visibleTotal' | translate }}</span><strong>{{ visibleTotal | number }}</strong></div>
+              <div><span>{{ (active ? 'statistics.total' : 'statistics.inactiveTotal') | translate }}</span><strong>{{ total | statisticsNumber }}</strong></div>
+              <div><span>{{ 'statistics.visibleTotal' | translate }}</span><strong>{{ visibleTotal | statisticsNumber }}</strong></div>
               <p>{{ 'statistics.updated' | translate }}: {{ updatedLabel() }}</p>
             </div>
           }

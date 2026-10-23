@@ -29,7 +29,7 @@
     <svg class="preview-pie" viewBox="0 0 300 300" role="img" [attr.aria-label]="titleKey | translate">
       @for (slice of slices; track slice.item.model) {
         <path [attr.d]="slice.path" [attr.fill]="slice.item.color">
-          <title>{{ label(slice.item.model) }}: {{ slice.item.count | number }} ({{ slice.item.count / visibleTotal | percent:'1.1-1' }})</title>
+          <title>{{ label(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
         </path>
       }
     </svg>
@@ -89,12 +89,12 @@
                           <span class="swatch" [style.background-color]="item.color"></span>{{ label(item.model) }}
                         </button></th>
                         @if (exportCounts) {
-                          <td class="numeric">{{ (exportCounts[item.model]?.pageCount || 0) | number }}</td>
-                          <td class="numeric">{{ (exportCounts[item.model]?.otherModelCount || 0) | number }}</td>
-                          <td class="numeric">{{ ((exportCounts[item.model]?.pageCount || 0) + (exportCounts[item.model]?.otherModelCount || 0)) | number }}</td>
+                          <td class="numeric">{{ (exportCounts[item.model]?.pageCount || 0) | statisticsNumber }}</td>
+                          <td class="numeric">{{ (exportCounts[item.model]?.otherModelCount || 0) | statisticsNumber }}</td>
+                          <td class="numeric">{{ ((exportCounts[item.model]?.pageCount || 0) + (exportCounts[item.model]?.otherModelCount || 0)) | statisticsNumber }}</td>
                         } @else {
-                          <td class="numeric">{{ item.count | number }}</td>
-                          <td class="numeric">{{ item.visible && visibleTotal ? (item.count / visibleTotal | percent:'1.1-1') : '—' }}</td>
+                          <td class="numeric">{{ item.count | statisticsNumber }}</td>
+                          <td class="numeric">{{ item.visible && visibleTotal ? (item.count / visibleTotal | statisticsPercent:'1.1-1') : '—' }}</td>
                         }
                       </tr>
                     }
@@ -110,14 +110,14 @@
                         [attr.aria-label]="label(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
                         (click)="toggle(slice.item)" (keydown.enter)="toggle(slice.item)"
                         (keydown.space)="$event.preventDefault(); toggle(slice.item)">
-                        <title>{{ label(slice.item.model) }}: {{ slice.item.count | number }} ({{ slice.item.count / visibleTotal | percent:'1.1-1' }})</title>
+                        <title>{{ label(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
                       </path>
                     }
                   </svg>
                 } @else {
                   <p role="status">{{ (total ? 'statistics.noneSelected' : emptyKey) | translate }}</p>
                 }
-                <figcaption>{{ 'statistics.visibleTotal' | translate }}: {{ visibleTotal | number }}</figcaption>
+                <figcaption>{{ 'statistics.visibleTotal' | translate }}: {{ visibleTotal | statisticsNumber }}</figcaption>
               </figure>
             </div>
           }

@@ -194,7 +194,7 @@
           @if (result) {
         <div class="summary" role="status" aria-live="polite"><div>
           <span>{{ 'statistics.productivity.count' | translate }}</span>
-          <strong>{{ result.count | number }}</strong>
+          <strong>{{ result.count | statisticsNumber }}</strong>
           </div><p>{{ result.usernames.length ? result.usernames.join(', ') : ('statistics.productivity.allUsers' | translate) }} · {{ result.dateFrom | date:'dd.MM.yyyy' }} – {{ result.dateTo | date:'dd.MM.yyyy' }} · {{ result.models.length ? modelLabels(result.models) : ('statistics.productivity.allModels' | translate) }}</p>
         </div>
           }

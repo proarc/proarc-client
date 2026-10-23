@@ -1,3 +1,4 @@
+import { StatisticsNumberPipe } from './statistics-number.pipe';
 import { exportTypeLabel as formatExportTypeLabel } from './export-type-label';
 import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter } from '@angular/material/core';
@@ -26,7 +27,7 @@ import { StatisticsCsvService } from './statistics-csv.service';
 
 @Component({
   selector: 'app-article-exports',
-  imports: [MatIconModule, MatDatepickerModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule,
+  imports: [StatisticsNumberPipe, MatIconModule, MatDatepickerModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule,
     MatInputModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },

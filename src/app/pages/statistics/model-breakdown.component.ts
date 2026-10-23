@@ -1,3 +1,4 @@
+import { StatisticsNumberPipe, StatisticsPercentPipe } from './statistics-number.pipe';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +13,7 @@ interface ModelCount extends ModelStatistic {
 
 @Component({
   selector: 'app-model-breakdown',
-  imports: [CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule],
+  imports: [StatisticsNumberPipe, StatisticsPercentPipe, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule],
   templateUrl: './model-breakdown.component.html'
 })
 export class ModelBreakdownComponent implements OnChanges {

@@ -1,3 +1,4 @@
+import { StatisticsNumberPipe } from './statistics-number.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ArticleExportsComponent } from './article-exports.component';
@@ -33,7 +34,7 @@ interface StatisticsPreview {
 
 @Component({
   selector: 'app-statistics',
-  imports: [MatButtonToggleModule, ArticleExportsComponent, ExportStatisticsComponent, MatIconModule, ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule, MatProgressBarModule],
+  imports: [StatisticsNumberPipe, MatButtonToggleModule, ArticleExportsComponent, ExportStatisticsComponent, MatIconModule, ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule, MatProgressBarModule],
   templateUrl: './statistics.component.html'
 })
 export class StatisticsComponent implements OnInit {
@@ -155,7 +156,7 @@ export class StatisticsComponent implements OnInit {
             .pipe(map(result => ({ counts: [] as ModelStatistic[], total: result.count })))
         : preview.view === 'exports'
         ? this.api.getExportStatistics({
-            dateFrom: this.previewDateFrom, dateTo: this.previewDateTo, usernames: [], models: [], exportTypes: [], devices: [], software: [], siglas: [],
+            dateFrom: this.previewDateFrom, dateTo: this.previewDateTo, usernames: [], models: [], exportTypes: ['exportProfile.ndk'], devices: [], software: [], siglas: [],
             groupBy: 'model', unique: true
           }, false).pipe(map(result => ({
             counts: result.groups.map(group => ({ model: group.model, count: group.pageCount })), total: result.pageCount
@@ -218,6 +219,6 @@ export class StatisticsComponent implements OnInit {
   }
 
   updatedLabel(): string {
-    return this.updatedAt?.toLocaleString(this.translator.currentLang === 'cs' ? 'cs-CZ' : 'en-GB') ?? '';
+    return this.updatedAt?.toLocaleString(this.translator.currentLang !== 'en' ? 'cs-CZ' : 'en-GB') ?? '';
   }
 }

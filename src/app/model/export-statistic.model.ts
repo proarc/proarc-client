@@ -38,3 +38,26 @@ export interface ExportOptions {
   device: string[];
   software: string[];
 }
+
+export interface PackageExport {
+  source: string;
+  pid: string;
+  model: string | null;
+  urnNbns: string[];
+  label: string | null;
+  exportType: string | null;
+  date: string;
+  username: string | null;
+  siglas: string[];
+  devices: string[];
+  software: string[];
+  pageCount: number | null;
+  otherModelCount: number | null;
+}
+export interface PackageExportResult {
+  filters: ExportFilters;
+  packages: PackageExport[];
+  count: number;
+  offset: number;
+  limit: number;
+}

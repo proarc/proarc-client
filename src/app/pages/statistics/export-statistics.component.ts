@@ -1,3 +1,5 @@
+import { PackageExportResult } from '../../model/export-statistic.model';
+import { StatisticsNumberPipe } from './statistics-number.pipe';
 import { exportTypeLabel as formatExportTypeLabel } from './export-type-label';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
@@ -28,7 +30,7 @@ import { StatisticsCsvService } from './statistics-csv.service';
 
 @Component({
   selector: 'app-export-statistics',
-  imports: [MatButtonToggleModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
+  imports: [StatisticsNumberPipe, MatButtonToggleModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
     MatIconModule, MatInputModule, MatProgressBarModule, MatSelectModule, TranslateModule, ModelBreakdownComponent],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
@@ -51,11 +53,18 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   dateTo: Moment | null = moment().startOf('day');
   selectedUsers: string[] = [];
   selectedModels: string[] = [];
-  selectedTypes: string[] = [];
+  selectedTypes: string[] = ['exportProfile.ndk'];
   selectedDevices: string[] = [];
   selectedSoftware: string[] = [];
   selectedSiglas: string[] = [];
   unique = true;
+  viewMode: 'chart' | 'table' = 'chart';
+  packageResult: PackageExportResult | null = null;
+  packagesLoading = false;
+  packagesError = false;
+  private packageRequest?: Subscription;
+  private appliedOrganization = false;
+  private appliedFilters: ExportFilters | null = null;
   chartMode: 'pages' | 'others' | 'all' = 'pages';
   options: ExportOptions = { user: [], model: [], exportType: [], device: [], software: [], sigla: [] };
   deviceLabels: Record<string, string> = {};
@@ -99,6 +108,7 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
       next: result => {
         this.options = { ...result.options, model: result.options.model.filter(model =>
           !['model:ndkarticle', 'model:ndkearticle', 'model:bdmarticle'].includes(model)) };
+        this.options.exportType = [...new Set(['exportProfile.ndk', ...this.options.exportType])];
         this.deviceLabels = result.deviceLabels;
         this.softwareLabels = result.softwareLabels;
         this.optionsError = result.incomplete;
@@ -120,11 +130,30 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
       groupBy: 'model',
       unique: this.unique
     };
+    this.result = null;
+    this.packageRequest?.unsubscribe(); this.packageResult = null; this.packagesLoading = false; this.packagesError = false;
+    this.appliedFilters = filters; this.appliedOrganization = this.respectOrganization;
+    if (this.viewMode === 'table') this.loadPackages(0);
     this.request?.unsubscribe(); this.error = false; this.loading = true;
     this.request = this.api.getExportStatistics(filters, this.respectOrganization).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: result => { this.result = result; this.loading = false; this.rebuildCharts(); },
       error: () => { this.error = true; this.loading = false; }
     });
+  }
+
+  setViewMode(mode: 'chart' | 'table'): void {
+    this.viewMode = mode;
+    if (mode === 'table' && !this.packageResult && !this.packagesLoading) this.loadPackages(0);
+  }
+
+  loadPackages(offset: number): void {
+    if (!this.appliedFilters) return;
+    this.packageRequest?.unsubscribe(); this.packagesLoading = true; this.packagesError = false;
+    this.packageRequest = this.api.getPackageExportStatistics(this.appliedFilters, this.appliedOrganization, offset)
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: result => { this.packageResult = result; this.packagesLoading = false; },
+        error: () => { this.packagesError = true; this.packagesLoading = false; }
+      });
   }
 
   groupLabel(group: ExportGroup): string {
@@ -162,6 +191,10 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   }
 
   download(): void {
+    if (this.viewMode === 'table') {
+      if (this.packageResult && !this.packagesError) this.csv.exportPackages(this.packageResult, this.deviceLabels, this.softwareLabels);
+      return;
+    }
     if (this.result) this.csv.exportExports(this.result, this.deviceLabels, this.softwareLabels);
   }
 

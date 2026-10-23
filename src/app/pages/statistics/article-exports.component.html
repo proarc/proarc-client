@@ -218,7 +218,7 @@
       @if (error) { <p role="alert">{{ 'statistics.error' | translate }}</p> }
       @if (result; as r) {
         <div class="summary" role="status" aria-live="polite">
-          <div><span>{{ 'statistics.articles.count' | translate }}</span><strong>{{ r.count | number }}</strong></div>
+          <div><span>{{ 'statistics.articles.count' | translate }}</span><strong>{{ r.count | statisticsNumber }}</strong></div>
           <p>{{ r.filters.dateFrom | date:'dd.MM.yyyy' }} &ndash; {{ r.filters.dateTo | date:'dd.MM.yyyy' }}</p>
           <p>{{ (r.filters.unique ? 'statistics.exports.unique' : 'statistics.exports.repeated') | translate }}</p>
         </div>
@@ -249,7 +249,7 @@
             --mat-button-outlined-state-layer-color: #eaf3ff;
             --mat-button-text-label-text-color: var(--statistics-primary);
             --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.articles.previous' | translate }}</button>
-        <span>{{ r.count ? r.offset + 1 : 0 }}–{{ r.offset + r.articles.length }} / {{ r.count }}</span>
+        <span>{{ (r.count ? r.offset + 1 : 0) | statisticsNumber }}–{{ (r.offset + r.articles.length) | statisticsNumber }} / {{ r.count | statisticsNumber }}</span>
         <button mat-button [disabled]="loading || r.offset + r.limit >= r.count" (click)="page(r.offset + r.limit)"
           style="--mat-button-filled-container-color: var(--statistics-primary);
             --mat-button-filled-label-text-color: #eaf3ff;

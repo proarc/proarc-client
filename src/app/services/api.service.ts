@@ -1,3 +1,4 @@
+import { PackageExportResult } from '../model/export-statistic.model';
 import { ArticleExportResult } from '../model/article-export.model';
 import { ExportFilters, ExportOptions, ExportStatistic } from '../model/export-statistic.model';
 import { ProductivityStatistic } from '../model/productivity-statistic.model';
@@ -101,6 +102,19 @@ export class ApiService {
         throw new Error('Invalid article export statistics response');
       }
       return result.response.data[0] as ArticleExportResult;
+    }));
+  }
+
+  getPackageExportStatistics(filters: ExportFilters, respectOrganization: boolean, offset = 0, limit = 50): Observable<PackageExportResult> {
+    return this.get('statistics/exports/packages', {
+      username: filters.usernames, dateFrom: filters.dateFrom, dateTo: filters.dateTo, model: filters.models,
+      exportType: filters.exportTypes, device: filters.devices, software: filters.software, sigla: filters.siglas,
+      unique: filters.unique, respectOrganization, offset, limit
+    }).pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !Array.isArray(result.response.data) || result.response.data.length !== 1) {
+        throw new Error('Invalid package export statistics response');
+      }
+      return result.response.data[0] as PackageExportResult;
     }));
   }
 
