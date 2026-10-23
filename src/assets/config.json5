@@ -110,6 +110,8 @@
   showCommentEditor: true,
   showWorkflow: true,
   showLogoutCounter: true,
+  // Additional attempts made immediately after a session check fails.
+  sessionCheckRetryCount: 5,
   showUpgradeMods38: true,
   pageTypes: [
     'normalPage',

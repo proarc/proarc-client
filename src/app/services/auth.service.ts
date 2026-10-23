@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
-import { firstValueFrom, forkJoin, Observable, of, tap } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { firstValueFrom, forkJoin, Observable, of, Subject, tap } from 'rxjs';
+import { catchError, finalize, map, retry, switchMap, takeUntil } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Configuration } from '../shared/configuration';
@@ -25,6 +25,8 @@ export class AuthService {
     loggedChecker: any;
     timerRemain: any;
     intervalMilis = 10000;
+    private checkingLogged = false;
+    private stopLoggedCheck = new Subject<void>();
 
     constructor(
         private http: HttpClient,
@@ -134,6 +136,7 @@ export class AuthService {
     }
 
     setLoggedOut() {
+        this.stopSessionChecks();
         this.user = null;
         this.dialogRef.closeAll();
         const queryParams = {url: document.location.pathname};
@@ -142,58 +145,45 @@ export class AuthService {
 
     logout() {
         return this.http.delete(`${this.config.proarcUrl}/proarclogin`).subscribe((result) => {
+            this.stopSessionChecks();
             this.user = null;
             this.router.navigate(['/login']);
         });
     }
 
-    private handleError(error: HttpErrorResponse, me: any) {
-        //  console.log(error);
-        if (error.status === 0) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error);
-        } else if (error.status === 503 || error.status === 504) {
-            // Forbiden. Redirect to login
-            console.log("Service Unavailable");
-            const url = me.router.routerState.snapshot.url;
-            if (me.router) {
-                me.router.navigate(['/login'], { url: url, err: '503' });
-            }
-        } else if (error.status === 403) {
-            // Forbiden. Redirect to login
-            console.log("Forbiden");
-            // const url = me.router.routerState.snapshot.url;
-            // if (me.router) {
-            //   me.router.navigate(['/login'], {url: url});
-            // }
-        } else {
-            console.error(
-                `Backend returned code ${error.status}, body was: `, error.error);
-        }
-        // Return an observable with a user-facing error message.
-        // return throwError({'status':error.status, 'message': error.message});
-        return of({ response: { 'status': error.status, 'message': error.message, 'errors': [error.error] } });
+    private stopSessionChecks() {
+        clearInterval(this.loggedChecker);
+        clearInterval(this.timerRemain);
+        this.loggedChecker = null;
+        this.timerRemain = null;
+        this.stopLoggedCheck.next();
     }
 
     checkLogged(): Observable<any> {
+        const configuredRetries = this.config.sessionCheckRetryCount;
+        const retryCount = Number.isInteger(configuredRetries) && configuredRetries >= 0 ? configuredRetries : 5;
         return this.http.get(`${this.config.proarcUrl}/isLogged`)
             .pipe(map((r: any) => {
-                if (r.response?.status === -1) {
-                    r.response.errors = [{ errorMessage: r.response.errorMessage }];
+                if (r?.response?.status === -1 || r?.response?.errors ||
+                    (r?.state !== 'logged' && r?.state !== 'nologged')) {
+                    throw new HttpErrorResponse({ error: r, status: 200, statusText: 'Invalid session check response' });
                 }
                 return r;
-
-            }))
-            .pipe(catchError(err => this.handleError(err, this)));;
+            }),
+                retry({ count: retryCount }),
+                catchError((error: HttpErrorResponse) => of({
+                    response: { status: error.status, message: error.message, errors: [error.error] }
+                })));
     }
 
     checkIsLogged() {
-        if (this.isLoggedIn()) {
-            this.checkLogged().subscribe((res: any) => {
+        if (this.isLoggedIn() && !this.checkingLogged) {
+            this.checkingLogged = true;
+            this.checkLogged().pipe(
+                takeUntil(this.stopLoggedCheck),
+                finalize(() => this.checkingLogged = false)
+            ).subscribe((res: any) => {
                 if (res?.response?.errors) {
-                    clearInterval(this.loggedChecker);
-                    clearInterval(this.timerRemain);
-                    // nalert(this.translator.instant('alert.sessionTimeout'));
                     this.setLoggedOut();
                 } else if (res.state === 'logged') {
                     this.remaining = res.remaining;
@@ -209,14 +199,10 @@ export class AuthService {
                         }, 1000);
                     }
                 } else {
-                    clearInterval(this.loggedChecker);
-                    clearInterval(this.timerRemain);
                     alert(this.translator.instant('alert.info.sessionTimeout'));
                     this.setLoggedOut();
                 }
             });
-            //} else {
-            //  clearInterval(this.loggedChecker);
         }
     }
 

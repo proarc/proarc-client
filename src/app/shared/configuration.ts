@@ -45,6 +45,7 @@ export class Configuration {
   showCommentEditor: boolean;
   showWorkflow: boolean;
   showLogoutCounter: boolean;
+  sessionCheckRetryCount = 5;
   showUpgradeMods38 = true;
   topPageTypes: string[];
   pageTypes: string[];
