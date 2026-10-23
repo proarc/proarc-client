@@ -268,11 +268,25 @@ export class UserTableComponent {
   }
 
   drop(event: CdkDragDrop<string>) {
-    const previousIndex = this.items().findIndex(d => d === event.item.data);
+    const items = this.items();
+    const previousIndex = items.findIndex(d => d === event.item.data);
+    if (previousIndex < 0 || previousIndex === event.currentIndex || !event.isPointerOverContainer) {
+      return;
+    }
 
-    moveItemInArray(this.items(), previousIndex, event.currentIndex);
+    const selected = items.filter(item => item.selected);
+    if (event.item.data.selected && selected.length > 1) {
+      // Insert before the target when moving up, and after it when moving down.
+      const boundary = event.currentIndex + (previousIndex < event.currentIndex ? 1 : 0);
+      const insertionIndex = items.slice(0, boundary).filter(item => !item.selected).length;
+      const remaining = items.filter(item => !item.selected);
+      remaining.splice(insertionIndex, 0, ...selected);
+      items.splice(0, items.length, ...remaining);
+    } else {
+      moveItemInArray(items, previousIndex, event.currentIndex);
+    }
     this.table.renderRows();
-    this.dragend.emit(this.items());
+    this.dragend.emit(items);
   }
 
   // dropCol(event: CdkDragDrop<any>) {
