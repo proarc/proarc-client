@@ -48,8 +48,68 @@
   button[mat-stroked-button]:not(:disabled) { background-color: var(--statistics-primary); }
 </style>
 
-<!-- Application colors inherited by all statistics reports. -->
-<main class="statistics"
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      @if (view === 'home' || view === 'active' || view === 'inactive') {
+        <span class="app-last">{{ 'Statistiky' | translate }}</span>
+      }
+      @if (view !== 'home') {
+        <a (click)="showHome()">{{ 'Statistiky' | translate }}</a>
+        <span class="app-separator">/</span>
+        <span class="app-last">{{ 'view' | translate }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-statistics">
+    @if (view === 'home' || view === 'active' || view === 'inactive') {
+      <div class="app-formbar app-mb-2 app-fxLayout app-row app-center-v app-gap-2">
+        <div class="app-fxFlex app-fxLayout app-row app-gap-1">
+          <mat-icon class="app-18">info_outline</mat-icon>
+          <span>{{ 'statistics.homeHint' | translate }}</span>
+        </div>
+        <button mat-stroked-button (click)="load()" [disabled]="refreshing">{{ 'statistics.refresh' | translate }}</button>   
+      </div>
+    }
+    @if (view === 'home') {
+      <div class="app-fxLayout app-row app-gap-2">
+        @for (preview of previews; track preview.view) {
+          <mat-card appearance="outlined" (click)="open(preview.view)" class="app-fxFlex">
+            @if (preview.loading) {
+              <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
+            }
+            <mat-card-header>
+              <mat-card-title>{{ preview.titleKey | translate }}</mat-card-title>
+                @if (preview.view === 'productivity' || preview.view === 'exports' || preview.view === 'articles') {
+                  <mat-card-subtitle>{{ previewDateFrom | date:'dd.MM.yyyy' }} – {{ previewDateTo | date:'dd.MM.yyyy' }}</mat-card-subtitle>
+                }
+            </mat-card-header>
+            <mat-card-content>
+              @if (preview.error) {
+                <span>{{ 'statistics.error' | translate }}</span>
+              } @else if (preview.updatedAt) {
+                <span>{{ preview.total | statisticsNumber }}</span>
+                <span>{{ preview.totalKey | translate }}</span>
+                @if (preview.view !== 'articles') {
+                <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey" [emptyKey]="preview.emptyKey" [preview]="true" />
+                }
+              }
+            </mat-card-content>
+            <mat-card-actions>
+              <button matButton>{{ 'statistics.openDetail' | translate }} →</button>
+            </mat-card-actions>
+          </mat-card>
+        } 
+      </div>
+    }
+    
+  </div>
+
+
+  <main class="statistics"
   style="--statistics-primary: var(--app-color-primary, #456aa5);
     --statistics-tint: color-mix(in srgb, var(--statistics-primary) 10%, #edf4fc);
     --statistics-panel: color-mix(in srgb, var(--statistics-primary) 3%, #f0f5fc);
@@ -205,4 +265,5 @@
       }
     </section>
   }
-</main>
+  </main>
+</div>

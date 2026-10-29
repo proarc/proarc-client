@@ -1,5 +1,5 @@
-import { StatisticsNumberPipe } from './statistics-number.pipe';
-import { exportTypeLabel as formatExportTypeLabel } from './export-type-label';
+import { StatisticsNumberPipe } from '../shared/statistics-number.pipe';
+import { exportTypeLabel as formatExportTypeLabel } from '../shared/export-type-label';
 import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter } from '@angular/material/core';
 import { MatDatepickerIntl, MatDatepickerModule } from '@angular/material/datepicker';
@@ -19,11 +19,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import moment, { Moment } from 'moment';
 import { Subscription } from 'rxjs';
-import { ArticleExportResult } from '../../model/article-export.model';
-import { ExportFilters, ExportOptions } from '../../model/export-statistic.model';
-import { ApiService } from '../../services/api.service';
-import { StatisticsFilterOptionsService } from './statistics-filter-options.service';
-import { StatisticsCsvService } from './statistics-csv.service';
+import { ArticleExportResult } from '../../../model/article-export.model';
+import { ExportFilters, ExportOptions } from '../../../model/export-statistic.model';
+import { ApiService } from '../../../services/api.service';
+import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
+import { StatisticsCsvService } from '../shared/statistics-csv.service';
 
 @Component({
   selector: 'app-article-exports',
@@ -33,7 +33,8 @@ import { StatisticsCsvService } from './statistics-csv.service';
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: { dateInput: 'DD.MM.YYYY', monthYearLabel: 'MMM YYYY', dateA11yLabel: 'LL', monthYearA11yLabel: 'MMMM YYYY' }
   }, { strict: true })],
-  templateUrl: './article-exports.component.html'
+  templateUrl: './article-exports.component.html',
+  styleUrls: ['./article-exports.component.scss']
 })
 export class ArticleExportsComponent implements OnInit, OnChanges {
   @Input() respectOrganization = false;

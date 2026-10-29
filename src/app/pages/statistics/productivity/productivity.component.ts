@@ -1,8 +1,8 @@
-import { StatisticsNumberPipe } from './statistics-number.pipe';
-import { StatisticsFilterOptionsService } from './statistics-filter-options.service';
+import { StatisticsNumberPipe } from '../shared/statistics-number.pipe';
+import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
 import { MatIconModule } from '@angular/material/icon';
-import { StatisticsCsvService } from './statistics-csv.service';
-import { ModelBreakdownComponent } from './model-breakdown.component';
+import { StatisticsCsvService } from '../shared/statistics-csv.service';
+import { ModelBreakdownComponent } from '../model-breakdown/model-breakdown.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
@@ -21,8 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ProductivityStatistic } from '../../model/productivity-statistic.model';
-import { ApiService } from '../../services/api.service';
+import { ProductivityStatistic } from '../../../model/productivity-statistic.model';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-productivity',
@@ -36,7 +36,8 @@ import { ApiService } from '../../services/api.service';
       monthYearA11yLabel: 'MMMM YYYY'
     }
   }, { strict: true })],
-  templateUrl: './productivity.component.html'
+  templateUrl: './productivity.component.html',
+  styleUrls: ['./productivity.component.scss']
 })
 export class ProductivityComponent implements OnInit, OnChanges {
   @Input() respectOrganization = false;

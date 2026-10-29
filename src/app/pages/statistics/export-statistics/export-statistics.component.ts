@@ -1,6 +1,6 @@
-import { PackageExportResult } from '../../model/export-statistic.model';
-import { StatisticsNumberPipe } from './statistics-number.pipe';
-import { exportTypeLabel as formatExportTypeLabel } from './export-type-label';
+import { PackageExportResult } from '../../../model/export-statistic.model';
+import { StatisticsNumberPipe } from '../shared/statistics-number.pipe';
+import { exportTypeLabel as formatExportTypeLabel } from '../shared/export-type-label';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
@@ -21,12 +21,12 @@ import moment, { Moment } from 'moment';
 import 'moment/locale/cs';
 import 'moment/locale/en-gb';
 import { Subscription } from 'rxjs';
-import { ExportFilters, ExportGroup, ExportOptions, ExportStatistic } from '../../model/export-statistic.model';
-import { ModelStatistic } from '../../model/model-statistic.model';
-import { StatisticsFilterOptionsService } from './statistics-filter-options.service';
-import { ApiService } from '../../services/api.service';
-import { ModelBreakdownComponent } from './model-breakdown.component';
-import { StatisticsCsvService } from './statistics-csv.service';
+import { ExportFilters, ExportGroup, ExportOptions, ExportStatistic } from '../../../model/export-statistic.model';
+import { ModelStatistic } from '../../../model/model-statistic.model';
+import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
+import { ApiService } from '../../../services/api.service';
+import { ModelBreakdownComponent } from '../model-breakdown/model-breakdown.component';
+import { StatisticsCsvService } from '../shared/statistics-csv.service';
 
 @Component({
   selector: 'app-export-statistics',
@@ -36,7 +36,8 @@ import { StatisticsCsvService } from './statistics-csv.service';
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: { dateInput: 'DD.MM.YYYY', monthYearLabel: 'MMM YYYY', dateA11yLabel: 'LL', monthYearA11yLabel: 'MMMM YYYY' }
   }, { strict: true })],
-  templateUrl: './export-statistics.component.html'
+  templateUrl: './export-statistics.component.html',
+  styleUrls: ['./export-statistics.component.scss']
 })
 export class ExportStatisticsComponent implements OnInit, OnChanges {
   @Input() respectOrganization = false;

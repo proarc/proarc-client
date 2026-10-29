@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
-import { ExportOptions } from '../../model/export-statistic.model';
-import { SOFTWARE_MODELS } from '../../model/software.model';
-import { ApiService } from '../../services/api.service';
-import { Configuration } from '../../shared/configuration';
+import { ExportOptions } from '../../../model/export-statistic.model';
+import { SOFTWARE_MODELS } from '../../../model/software.model';
+import { ApiService } from '../../../services/api.service';
+import { Configuration } from '../../../shared/configuration';
 
 export interface StatisticsFilterOptions {
   options: ExportOptions;

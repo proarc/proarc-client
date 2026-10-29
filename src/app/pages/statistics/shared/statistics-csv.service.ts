@@ -1,12 +1,12 @@
-import { PackageExportResult } from '../../model/export-statistic.model';
+import { PackageExportResult } from '../../../model/export-statistic.model';
 import { exportTypeLabel } from './export-type-label';
-import { ArticleExportResult } from '../../model/article-export.model';
-import { ExportStatistic } from '../../model/export-statistic.model';
+import { ArticleExportResult } from '../../../model/article-export.model';
+import { ExportStatistic } from '../../../model/export-statistic.model';
 import { Injectable, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../services/auth.service';
-import { ModelStatistic } from '../../model/model-statistic.model';
-import { ProductivityStatistic } from '../../model/productivity-statistic.model';
+import { AuthService } from '../../../services/auth.service';
+import { ModelStatistic } from '../../../model/model-statistic.model';
+import { ProductivityStatistic } from '../../../model/productivity-statistic.model';
 import { buildStatisticsCsv, buildTabularStatisticsCsv } from './statistics-csv';
 
 @Injectable({ providedIn: 'root' })

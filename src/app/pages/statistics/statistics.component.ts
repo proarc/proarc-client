@@ -1,17 +1,18 @@
-import { StatisticsNumberPipe } from './statistics-number.pipe';
+import { StatisticsNumberPipe } from './shared/statistics-number.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { ArticleExportsComponent } from './article-exports.component';
-import { ExportStatisticsComponent } from './export-statistics.component';
+import { ArticleExportsComponent } from './article-exports/article-exports.component';
+import { ExportStatisticsComponent } from './export-statistics/export-statistics.component';
 import { MatIconModule } from '@angular/material/icon';
-import { StatisticsCsvService } from './statistics-csv.service';
-import { ModelBreakdownComponent } from './model-breakdown.component';
+import { StatisticsCsvService } from './shared/statistics-csv.service';
+import { ModelBreakdownComponent } from './model-breakdown/model-breakdown.component';
 import { ModelStatistic } from '../../model/model-statistic.model';
-import { ProductivityComponent } from './productivity.component';
+import { ProductivityComponent } from './productivity/productivity.component';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -34,8 +35,11 @@ interface StatisticsPreview {
 
 @Component({
   selector: 'app-statistics',
-  imports: [StatisticsNumberPipe, MatButtonToggleModule, ArticleExportsComponent, ExportStatisticsComponent, MatIconModule, ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule, MatProgressBarModule],
-  templateUrl: './statistics.component.html'
+  imports: [StatisticsNumberPipe, MatButtonToggleModule, ArticleExportsComponent, ExportStatisticsComponent, MatIconModule, 
+            ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule,
+            MatProgressBarModule, MatCardModule],
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
   private readonly api = inject(ApiService);

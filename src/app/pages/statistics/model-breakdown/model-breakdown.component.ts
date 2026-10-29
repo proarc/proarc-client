@@ -1,10 +1,10 @@
-import { StatisticsNumberPipe, StatisticsPercentPipe } from './statistics-number.pipe';
+import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ModelStatistic } from '../../model/model-statistic.model';
+import { ModelStatistic } from '../../../model/model-statistic.model';
 
 interface ModelCount extends ModelStatistic {
   visible: boolean;
@@ -14,7 +14,8 @@ interface ModelCount extends ModelStatistic {
 @Component({
   selector: 'app-model-breakdown',
   imports: [StatisticsNumberPipe, StatisticsPercentPipe, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule],
-  templateUrl: './model-breakdown.component.html'
+  templateUrl: './model-breakdown.component.html',
+  styleUrls: ['./model-breakdown.component.scss']
 })
 export class ModelBreakdownComponent implements OnChanges {
   @Input() labels: Record<string, string> = {};
