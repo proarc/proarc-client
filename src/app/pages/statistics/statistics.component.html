@@ -77,7 +77,7 @@
     @if (view === 'home') {
       <div class="app-fxLayout app-row app-gap-2">
         @for (preview of previews; track preview.view) {
-          <mat-card appearance="outlined" (click)="open(preview.view)" class="app-fxFlex">
+          <mat-card appearance="outlined" (click)="open(preview.view)" class="app-fxFlex app-fxLayout app-column app-cursor-pointer">
             @if (preview.loading) {
               <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
             }
@@ -87,14 +87,14 @@
                   <mat-card-subtitle>{{ previewDateFrom | date:'dd.MM.yyyy' }} – {{ previewDateTo | date:'dd.MM.yyyy' }}</mat-card-subtitle>
                 }
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="app-fxFlex app-mt-4">
               @if (preview.error) {
                 <span>{{ 'statistics.error' | translate }}</span>
               } @else if (preview.updatedAt) {
-                <span>{{ preview.total | statisticsNumber }}</span>
-                <span>{{ preview.totalKey | translate }}</span>
+                <span class="app-mb-4">{{ preview.totalKey | translate }}</span>
+                <strong>{{ preview.total | statisticsNumber }}</strong>
                 @if (preview.view !== 'articles') {
-                <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey" [emptyKey]="preview.emptyKey" [preview]="true" />
+                  <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey" [emptyKey]="preview.emptyKey" [preview]="true" />
                 }
               }
             </mat-card-content>

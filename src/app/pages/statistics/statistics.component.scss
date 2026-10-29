@@ -1,0 +1,30 @@
+.app-statistics {
+  mat-card {
+    text-align: center;
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+
+    &:hover {
+      border-color: var(--app-color-gray-4);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    }
+
+    mat-card-header,
+    mat-card-actions {
+      justify-content: center;
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      strong {
+        font-size: 2rem;
+      }
+    }
+
+    app-model-breakdown {
+      width: 100%;
+    }
+  }
+}
