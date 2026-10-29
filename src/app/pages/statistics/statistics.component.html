@@ -97,7 +97,7 @@
               } @else if (preview.updatedAt) {
                 <span class="app-mb-4">{{ preview.totalKey | translate }}</span>
                 <strong>{{ preview.total | statisticsNumber }}</strong>
-                @if (preview.view !== 'articles') {
+                @if (preview.view !== 'articles' || preview.total === 0) {
                   <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey" [emptyKey]="preview.emptyKey" [preview]="true" />
                 }
               }

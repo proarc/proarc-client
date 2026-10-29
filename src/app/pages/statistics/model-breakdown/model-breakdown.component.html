@@ -34,7 +34,11 @@
       }
     </svg>
   } @else {
-    <span class="preview-empty">{{ emptyKey | translate }}</span>
+    <svg class="preview-pie preview-pie-empty" viewBox="0 0 300 300" role="img" [attr.aria-label]="emptyKey | translate">
+      <title>{{ emptyKey | translate }}</title>
+      <circle cx="150" cy="150" r="140" />
+      <path d="M150,10 V150 L271.24,220 M150,150 L28.76,220" />
+    </svg>
   }
 } @else {
           @if (showHint) {
