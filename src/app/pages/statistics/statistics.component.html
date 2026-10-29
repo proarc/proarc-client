@@ -89,7 +89,11 @@
             </mat-card-header>
             <mat-card-content class="app-fxFlex app-mt-4">
               @if (preview.error) {
-                <span>{{ 'statistics.error' | translate }}</span>
+                <mat-card appearance="outlined" class="app-alert app-warn app-mb-4">
+                  <mat-card-content>
+                    <mat-icon>warning</mat-icon> {{ 'statistics.error' | translate }}
+                  </mat-card-content>
+                </mat-card>
               } @else if (preview.updatedAt) {
                 <span class="app-mb-4">{{ preview.totalKey | translate }}</span>
                 <strong>{{ preview.total | statisticsNumber }}</strong>
@@ -105,7 +109,6 @@
         } 
       </div>
     }
-    
   </div>
 
 
@@ -114,7 +117,7 @@
     --statistics-tint: color-mix(in srgb, var(--statistics-primary) 10%, #edf4fc);
     --statistics-panel: color-mix(in srgb, var(--statistics-primary) 3%, #f0f5fc);
     --statistics-border: color-mix(in srgb, var(--statistics-primary) 45%, #c7d9ed);">
-  <header>
+  <!-- <header>
     <h1 id="statistics-view-title">{{ (view === 'home' ? 'statistics.home' : view === 'productivity' ? 'statistics.productivity.title' : titleKey) | translate }}</h1>
     <div class="header-actions">
       @if (view !== 'home') {
@@ -140,9 +143,9 @@
             --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.refresh' | translate }}</button>
       }
     </div>
-  </header>
+  </header> -->
   @if (view === 'home') {
-    <section aria-labelledby="statistics-view-title">
+   <!--  <section aria-labelledby="statistics-view-title">
       <div class="home-intro">
         <p>{{ 'statistics.homeHint' | translate }}</p>
       </div>
@@ -174,7 +177,7 @@
           </button>
         }
       </div>
-    </section>
+    </section> -->
   } @else if (view === 'articles') {
     <app-article-exports [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
   } @else if (view === 'exports') {
