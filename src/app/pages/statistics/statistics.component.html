@@ -1,5 +1,5 @@
 <!-- Layout and responsive styles are kept here for direct editing. -->
-<style>
+<!-- <style>
   :host { display: block; height: 100%; overflow: auto; }
   .statistics { padding: 24px; }
   header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -46,20 +46,20 @@
       .panel-header .csv-export { margin-inline-start: auto; }
       @media (max-width: 480px) { .group-panel { padding: 16px; } }
   button[mat-stroked-button]:not(:disabled) { background-color: var(--statistics-primary); }
-</style>
+</style> -->
 
 <div class="app-fxLayout app-column app-fill">
   <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
     <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
-      @if (view === 'home' || view === 'active' || view === 'inactive') {
+      @if (view === 'home') {
         <span class="app-last">{{ 'Statistiky' | translate }}</span>
       }
       @if (view !== 'home') {
         <a (click)="showHome()">{{ 'Statistiky' | translate }}</a>
         <span class="app-separator">/</span>
-        <span class="app-last">{{ 'view' | translate }}</span>
+        <span class="app-last">{{ (view === 'productivity' ? 'statistics.productivity.title' : titleKey) | translate }}</span>
       }
     </div>
   </div>
@@ -145,7 +145,7 @@
     </div>
   </header> -->
   @if (view === 'home') {
-   <!--  <section aria-labelledby="statistics-view-title">
+  <!--   <section aria-labelledby="statistics-view-title">
       <div class="home-intro">
         <p>{{ 'statistics.homeHint' | translate }}</p>
       </div>
