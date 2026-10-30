@@ -759,3 +759,63 @@ fieldset {
 }
 
 
+
+// new
+.app-statistics-report {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+
+  .app-fxFlex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .app-chart-panel {
+    border-left: 1px solid var(--app-default-border-color);
+  }
+
+  .app-model-color {
+    display: inline-block;
+    width: var(--app-statistics-model-marker-size);
+    height: var(--app-statistics-model-marker-size);
+    border-radius: 2px;
+  }
+
+  .app-model-hidden {
+    text-decoration: line-through;
+    opacity: 0.65;
+  }
+
+  .app-result-separator {
+    width: var(--app-statistics-separator-size);
+    height: var(--app-statistics-separator-size);
+    font-size: var(--app-statistics-separator-size);
+    line-height: var(--app-statistics-separator-size);
+    transform: translateY(-1px);
+  }
+
+  .app-statistics-chart {
+    width: 100%;
+    max-width: var(--app-statistics-chart-max-width);
+    height: auto;
+    max-height: 100%;
+    min-height: 0;
+    flex: 0 1 auto;
+
+    path {
+      cursor: pointer;
+      stroke: var(--app-color-lightnes);
+      stroke-width: 1;
+
+      &:hover,
+      &:focus-visible {
+        opacity: 0.75;
+        stroke: currentColor;
+        stroke-width: 3;
+        outline: none;
+      }
+    }
+  }
+}

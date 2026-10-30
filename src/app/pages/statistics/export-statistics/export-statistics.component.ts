@@ -1,7 +1,10 @@
 import { PackageExportResult } from '../../../model/export-statistic.model';
-import { StatisticsNumberPipe } from '../shared/statistics-number.pipe';
+import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { exportTypeLabel as formatExportTypeLabel } from '../shared/export-type-label';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -22,16 +25,23 @@ import 'moment/locale/cs';
 import 'moment/locale/en-gb';
 import { Subscription } from 'rxjs';
 import { ExportFilters, ExportGroup, ExportOptions, ExportStatistic } from '../../../model/export-statistic.model';
-import { ModelStatistic } from '../../../model/model-statistic.model';
 import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
 import { ApiService } from '../../../services/api.service';
-import { ModelBreakdownComponent } from '../model-breakdown/model-breakdown.component';
 import { StatisticsCsvService } from '../shared/statistics-csv.service';
+import { UserSettings } from '../../../shared/user-settings';
+
+interface ExportModel extends ExportGroup {
+  visible: boolean;
+  color: string;
+  chartCount: number;
+}
 
 @Component({
   selector: 'app-export-statistics',
-  imports: [StatisticsNumberPipe, MatButtonToggleModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
-    MatIconModule, MatInputModule, MatProgressBarModule, MatSelectModule, TranslateModule, ModelBreakdownComponent],
+  host: { class: 'app-statistics-report' },
+  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatCardModule, MatPaginatorModule, MatTableModule,
+    MatTooltipModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule,
+    MatFormFieldModule, MatIconModule, MatInputModule, MatProgressBarModule, MatSelectModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: { dateInput: 'DD.MM.YYYY', monthYearLabel: 'MMM YYYY', dateA11yLabel: 'LL', monthYearA11yLabel: 'MMMM YYYY' }
@@ -49,9 +59,14 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   private readonly datepickerIntl = inject(MatDatepickerIntl);
   readonly translator = inject(TranslateService);
   readonly csv = inject(StatisticsCsvService);
+  readonly settings = inject(UserSettings);
+  readonly columns = ['show', 'model', 'pages', 'others', 'objects'];
+  readonly packageColumns = ['pid', 'label', 'urnNbn', 'model', 'exportType', 'date', 'user', 'pages', 'others'];
+  readonly defaultDateFrom = moment().startOf('year');
+  readonly defaultDateTo = moment().startOf('day');
   datePlaceholder = 'DD.MM.RRRR';
-  dateFrom: Moment | null = moment().startOf('year');
-  dateTo: Moment | null = moment().startOf('day');
+  dateFrom: Moment | null = this.defaultDateFrom.clone();
+  dateTo: Moment | null = this.defaultDateTo.clone();
   selectedUsers: string[] = [];
   selectedModels: string[] = [];
   selectedTypes: string[] = ['exportProfile.ndk'];
@@ -74,9 +89,10 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   loading = false;
   optionsError = false;
   error = false;
-  chartCounts: ModelStatistic[] = [];
-  exportCounts: Record<string, { pageCount: number; otherModelCount: number }> = {};
-  labels: Record<string, string> = {};
+  models: ExportModel[] = [];
+  slices: { item: ExportModel; path: string }[] = [];
+  visibleTotal = 0;
+  chartTotal = 0;
   private request?: Subscription;
   private optionsRequest?: Subscription;
 
@@ -181,13 +197,42 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   }
 
   rebuildCharts(): void {
-    this.labels = {};
-    this.exportCounts = {};
-    this.chartCounts = (this.result?.groups || []).map(group => {
-      this.labels[group.model] = this.groupLabel(group);
-      this.exportCounts[group.model] = { pageCount: group.pageCount, otherModelCount: group.otherModelCount };
-      return { model: group.model, count: this.chartMode === 'pages' ? group.pageCount
-        : this.chartMode === 'others' ? group.otherModelCount : group.pageCount + group.otherModelCount };
+    const hidden = new Set(this.models.filter(item => !item.visible).map(item => item.model));
+    this.models = [...(this.result?.groups || [])]
+      .sort((a, b) => b.pageCount - a.pageCount || a.model.localeCompare(b.model))
+      .map((group, index) => ({ ...group, visible: !hidden.has(group.model),
+        color: index === 0 ? 'var(--app-color-primary, #456aa5)'
+          : `hsl(${(index * 137.508) % 360}, 60%, 43%)`,
+        chartCount: this.chartMode === 'pages' ? group.pageCount
+          : this.chartMode === 'others' ? group.otherModelCount : group.pageCount + group.otherModelCount }));
+    this.chartTotal = this.models.reduce((sum, item) => sum + item.chartCount, 0);
+    this.updateChart();
+  }
+
+  get allVisible(): boolean {
+    return this.models.every(item => item.visible);
+  }
+
+  toggleModel(item: ExportModel): void {
+    item.visible = !item.visible;
+    this.updateChart();
+  }
+
+  showAllModels(): void {
+    this.models.forEach(item => item.visible = true);
+    this.updateChart();
+  }
+
+  private updateChart(): void {
+    this.visibleTotal = this.models.filter(item => item.visible).reduce((sum, item) => sum + item.chartCount, 0);
+    let angle = -Math.PI / 2;
+    this.slices = this.models.filter(item => item.visible && item.chartCount > 0).map(item => {
+      const end = angle + item.chartCount / this.visibleTotal * 2 * Math.PI;
+      const point = (value: number) => `${150 + 140 * Math.cos(value)},${150 + 140 * Math.sin(value)}`;
+      const middle = (angle + end) / 2;
+      const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
+      angle = end;
+      return { item, path };
     });
   }
 

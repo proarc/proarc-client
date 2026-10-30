@@ -586,3 +586,28 @@
     bottom: 0;
   }
 }
+// new
+.app-statistics-report {
+  .app-formbar {
+    .mat-mdc-form-field {
+      min-width: var(--app-statistics-filter-min-width);
+      flex: 1 1 var(--app-statistics-filter-min-width);
+
+      &.app-date {
+        flex: 0 1 var(--app-statistics-date-width);
+      }
+
+      .mat-mdc-form-field-subscript-wrapper {
+        line-height: 8px !important;
+      }
+    }
+  }
+}
+
+.app-statistics-tooltip {
+  .mat-mdc-tooltip-surface {
+    max-width: min(var(--app-statistics-tooltip-max-width), calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+}

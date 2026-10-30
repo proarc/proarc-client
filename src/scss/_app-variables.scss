@@ -209,3 +209,13 @@ $states: (
   default: var(--app-color-gray-6),
 );
 
+
+// new
+:root {
+  --app-statistics-filter-min-width: 160px;
+  --app-statistics-date-width: 180px;
+  --app-statistics-chart-max-width: 420px;
+  --app-statistics-model-marker-size: 12px;
+  --app-statistics-separator-size: 5px;
+  --app-statistics-tooltip-max-width: 480px;
+}
