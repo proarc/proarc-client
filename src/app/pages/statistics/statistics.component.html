@@ -1,53 +1,3 @@
-<!-- Layout and responsive styles are kept here for direct editing. -->
-<!-- <style>
-  :host { display: block; height: 100%; overflow: auto; }
-  .statistics { padding: 24px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  h1 { margin: 0 0 16px; }
-  .dashboard { padding-top: 20px; }
-  .summary { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin: 16px 0; }
-  .summary div { padding: 16px 24px; background: transparent; border: 1px solid var(--mat-sys-outline-variant, #8885); border-radius: 8px; }
-  .summary span, .summary strong { display: block; }
-  .summary strong { font-size: 2rem; margin-top: 8px; }
-  @media (max-width: 900px) { .statistics { padding: 12px; } }
-
-  .header-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .previews { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
-  .preview-card { display: flex; flex-direction: column; align-items: stretch; gap: 8px; min-width: 0; padding: 16px; border: 1px solid var(--mat-sys-outline-variant, #8885); border-radius: 12px; background: transparent; color: inherit; font: inherit; text-align: center; cursor: pointer; transition: background-color .15s, box-shadow .15s; }
-  .preview-card:hover { background-color: #8881; box-shadow: 0 4px 16px #0002; }
-  .preview-card:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
-  .preview-title { font-size: 1.2rem; font-weight: 600; }
-  .preview-period, .preview-total-label { font-size: .9rem; }
-  .preview-total { margin-top: 12px; font-size: 2rem; font-weight: 600; }
-  .preview-card app-model-breakdown { margin-block: auto; }
-  .preview-placeholder { display: flex; flex-direction: column; justify-content: center; gap: 16px; min-height: 280px; }
-  .preview-open { display: block; margin-top: auto; padding-top: 16px; font-weight: 600; }
-  @media (max-width: 800px) { .previews { grid-template-columns: 1fr; } header { align-items: flex-start; flex-wrap: wrap; } }
-
-
-  .csv-export { align-self: flex-end; }
-
-  .home-intro { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 16px; }
-  .overview { display: grid; grid-template-columns: minmax(360px, 520px) minmax(0, 1fr); align-items: stretch; gap: 32px; margin-bottom: 24px; }
-  .detail-filters { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-  .detail-filters p { margin: 0; }
-  .summary-column { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-  .summary-column .summary { margin: 0; gap: 16px; }
-  .summary-column .summary p { width: 100%; margin: 0; }
-  .info-box { display: flex; align-items: start; gap: 12px; padding: 20px; border-radius: 8px; border-inline-start: 4px solid var(--statistics-primary); background: transparent; color: var(--app-color-gray-9); }
-  .info-box mat-icon { flex-shrink: 0; color: var(--statistics-primary); }
-  .info-box p { margin: 8px 0 0; line-height: 1.5; }
-  @media (max-width: 700px) { .overview { grid-template-columns: 1fr; gap: 24px; } }
-
-      .group-panel { box-sizing: border-box; min-width: 0; padding: 24px; border: 1px solid var(--mat-sys-outline-variant, #8885); border-radius: 12px; background: var(--mat-sys-surface-container-low, #8881); }
-      .group-title { margin: 0 0 12px; font-size: 1.15rem; font-weight: 600; }
-      .panel-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-      .panel-header .group-title { margin: 0; }
-      .panel-header .csv-export { margin-inline-start: auto; }
-      @media (max-width: 480px) { .group-panel { padding: 16px; } }
-  button[mat-stroked-button]:not(:disabled) { background-color: var(--statistics-primary); }
-</style> -->
-
 <div class="app-fxLayout app-column app-fill">
   <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
     <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
@@ -111,165 +61,95 @@
           </mat-card>
         } 
       </div>
+    } @else if (view === 'articles') {
+      <app-article-exports [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
+    } @else if (view === 'exports') {
+      <app-export-statistics [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
+    } @else if (view === 'productivity') {
+      <app-productivity [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
+    } @else {
+      <section class="dashboard" aria-labelledby="statistics-view-title" [attr.aria-busy]="loading">
+        <div class="overview">
+          <div class="detail-filters group-panel" role="region" [attr.aria-label]="'statistics.csv.filters' | translate">
+            <h2 class="group-title">{{ 'statistics.csv.filters' | translate }}</h2>
+            <mat-button-toggle-group [value]="view" (change)="open($event.value)" [attr.aria-label]="'statistics.csv.state' | translate"
+            style="--mat-button-toggle-background-color: var(--statistics-tint);
+              --mat-button-toggle-text-color: var(--statistics-primary);
+              --mat-button-toggle-selected-state-background-color: var(--statistics-primary);
+              --mat-button-toggle-selected-state-text-color: #eaf3ff;
+              --mat-button-toggle-divider-color: var(--statistics-border);
+              --mat-button-toggle-state-layer-color: var(--statistics-primary);">
+              <mat-button-toggle value="active">{{ 'statistics.csv.active' | translate }}</mat-button-toggle>
+              <mat-button-toggle value="inactive">{{ 'statistics.csv.inactive' | translate }}</mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-checkbox [checked]="respectOrganization" (change)="setOrganization($event.checked)" [disabled]="loading"
+            style="--mat-checkbox-selected-icon-color: var(--statistics-primary);
+              --mat-checkbox-selected-focus-icon-color: var(--statistics-primary);
+              --mat-checkbox-selected-hover-icon-color: var(--statistics-primary);
+              --mat-checkbox-selected-pressed-icon-color: var(--statistics-primary);
+              --mat-checkbox-selected-checkmark-color: #eaf3ff;
+              --mat-checkbox-selected-focus-state-layer-color: var(--statistics-primary);
+              --mat-checkbox-selected-hover-state-layer-color: var(--statistics-primary);
+              --mat-checkbox-selected-pressed-state-layer-color: var(--statistics-primary);
+              --mat-checkbox-unselected-icon-color: var(--statistics-primary);
+              --mat-checkbox-unselected-focus-icon-color: var(--statistics-primary);
+              --mat-checkbox-unselected-hover-icon-color: var(--statistics-primary);
+              --mat-checkbox-unselected-focus-state-layer-color: var(--statistics-primary);
+              --mat-checkbox-unselected-hover-state-layer-color: var(--statistics-primary);">{{ 'statistics.respectOrganization' | translate }}</mat-checkbox>
+            <p>{{ (respectOrganization ? 'statistics.organizationScope' : 'statistics.allOrganizations') | translate }}</p>
+            <button mat-flat-button type="button" (click)="load()" [disabled]="loading"
+            style="--mat-button-filled-container-color: var(--statistics-primary);
+              --mat-button-filled-label-text-color: #eaf3ff;
+              --mat-button-filled-state-layer-color: #eaf3ff;
+              --mat-button-outlined-label-text-color: #eaf3ff;
+              --mat-button-outlined-outline-color: var(--statistics-primary);
+              --mat-button-outlined-state-layer-color: #eaf3ff;
+              --mat-button-text-label-text-color: var(--statistics-primary);
+              --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.productivity.calculate' | translate }}</button>
+          </div>
+          <div class="summary-column group-panel" role="region" [attr.aria-label]="'statistics.results' | translate">
+            <div class="panel-header">
+              <h2 class="group-title">{{ 'statistics.results' | translate }}</h2>
+            <button mat-stroked-button type="button" class="csv-export" [disabled]="loading || error || !updatedAt"
+              (click)="csv.exportModels(active, models, resultRespectOrganization)"
+            style="--mat-button-filled-container-color: var(--statistics-primary);
+              --mat-button-filled-label-text-color: #eaf3ff;
+              --mat-button-filled-state-layer-color: #eaf3ff;
+              --mat-button-outlined-label-text-color: #eaf3ff;
+              --mat-button-outlined-outline-color: var(--statistics-primary);
+              --mat-button-outlined-state-layer-color: #eaf3ff;
+              --mat-button-text-label-text-color: var(--statistics-primary);
+              --mat-button-text-state-layer-color: var(--statistics-primary);">
+              {{ 'statistics.csv.download' | translate }}
+            </button>
+            </div>
+            @if (loading) {
+              <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
+            }
+            @if (error) {
+              <p role="alert">{{ 'statistics.error' | translate }}</p>
+            } @else if (updatedAt) {
+              <div class="summary">
+                <div><span>{{ (active ? 'statistics.total' : 'statistics.inactiveTotal') | translate }}</span><strong>{{ total | statisticsNumber }}</strong></div>
+                <div><span>{{ 'statistics.visibleTotal' | translate }}</span><strong>{{ visibleTotal | statisticsNumber }}</strong></div>
+                <p>{{ 'statistics.updated' | translate }}: {{ updatedLabel() }}</p>
+              </div>
+            }
+            <aside class="info-box" role="note" [attr.aria-label]="'statistics.information' | translate">
+              <mat-icon aria-hidden="true">info_outline</mat-icon>
+              <div>
+                <strong>{{ 'statistics.information' | translate }}</strong>
+                <p>{{ 'statistics.hint' | translate }}</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+        @if (!error && updatedAt) {
+          <app-model-breakdown [counts]="models" [titleKey]="titleKey" [showHint]="false"
+            [emptyKey]="active ? 'statistics.empty' : 'statistics.inactiveEmpty'"
+            (visibleTotalChange)="visibleTotal = $event" />
+        }
+      </section>
     }
   </div>
-
-
-  <main class="statistics"
-  style="--statistics-primary: var(--app-color-primary, #456aa5);
-    --statistics-tint: color-mix(in srgb, var(--statistics-primary) 10%, #edf4fc);
-    --statistics-panel: color-mix(in srgb, var(--statistics-primary) 3%, #f0f5fc);
-    --statistics-border: color-mix(in srgb, var(--statistics-primary) 45%, #c7d9ed);">
-  <!-- <header>
-    <h1 id="statistics-view-title">{{ (view === 'home' ? 'statistics.home' : view === 'productivity' ? 'statistics.productivity.title' : titleKey) | translate }}</h1>
-    <div class="header-actions">
-      @if (view !== 'home') {
-        <button mat-stroked-button (click)="showHome()"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.backHome' | translate }}</button>
-      }
-      @if (view === 'home' || view === 'active' || view === 'inactive') {
-        <button mat-stroked-button (click)="load()" [disabled]="refreshing"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.refresh' | translate }}</button>
-      }
-    </div>
-  </header> -->
-  @if (view === 'home') {
-  <!--   <section aria-labelledby="statistics-view-title">
-      <div class="home-intro">
-        <p>{{ 'statistics.homeHint' | translate }}</p>
-      </div>
-      <div class="previews">
-        @for (preview of previews; track preview.view) {
-          <button type="button" class="preview-card" (click)="open(preview.view)"
-            [attr.aria-label]="(preview.titleKey | translate) + ': ' + ('statistics.openDetail' | translate)"
-            [attr.aria-busy]="preview.loading">
-            <span class="preview-title">{{ preview.titleKey | translate }}</span>
-            @if (preview.view === 'productivity' || preview.view === 'exports' || preview.view === 'articles') {
-              <span class="preview-period">{{ previewDateFrom | date:'dd.MM.yyyy' }} – {{ previewDateTo | date:'dd.MM.yyyy' }}</span>
-            }
-            @if (preview.loading) {
-              <span class="preview-placeholder">
-                <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
-                <span>{{ 'statistics.loading' | translate }}</span>
-              </span>
-            } @else if (preview.error) {
-              <span class="preview-placeholder" role="status">{{ 'statistics.error' | translate }}</span>
-            } @else if (preview.updatedAt) {
-              <span class="preview-total">{{ preview.total | statisticsNumber }}</span>
-              <span class="preview-total-label">{{ preview.totalKey | translate }}</span>
-              @if (preview.view !== 'articles') {
-              <app-model-breakdown [counts]="preview.counts" [titleKey]="preview.titleKey"
-                [emptyKey]="preview.emptyKey" [preview]="true" />
-              }
-            }
-            <span class="preview-open">{{ 'statistics.openDetail' | translate }} →</span>
-          </button>
-        }
-      </div>
-    </section> -->
-  } @else if (view === 'articles') {
-    <app-article-exports [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
-  } @else if (view === 'exports') {
-    <app-export-statistics [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
-  } @else if (view === 'productivity') {
-    <app-productivity [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
-  } @else {
-    <section class="dashboard" aria-labelledby="statistics-view-title" [attr.aria-busy]="loading">
-      <div class="overview">
-        <div class="detail-filters group-panel" role="region" [attr.aria-label]="'statistics.csv.filters' | translate">
-          <h2 class="group-title">{{ 'statistics.csv.filters' | translate }}</h2>
-          <mat-button-toggle-group [value]="view" (change)="open($event.value)" [attr.aria-label]="'statistics.csv.state' | translate"
-          style="--mat-button-toggle-background-color: var(--statistics-tint);
-            --mat-button-toggle-text-color: var(--statistics-primary);
-            --mat-button-toggle-selected-state-background-color: var(--statistics-primary);
-            --mat-button-toggle-selected-state-text-color: #eaf3ff;
-            --mat-button-toggle-divider-color: var(--statistics-border);
-            --mat-button-toggle-state-layer-color: var(--statistics-primary);">
-            <mat-button-toggle value="active">{{ 'statistics.csv.active' | translate }}</mat-button-toggle>
-            <mat-button-toggle value="inactive">{{ 'statistics.csv.inactive' | translate }}</mat-button-toggle>
-          </mat-button-toggle-group>
-          <mat-checkbox [checked]="respectOrganization" (change)="setOrganization($event.checked)" [disabled]="loading"
-          style="--mat-checkbox-selected-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-checkmark-color: #eaf3ff;
-            --mat-checkbox-selected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-state-layer-color: var(--statistics-primary);">{{ 'statistics.respectOrganization' | translate }}</mat-checkbox>
-          <p>{{ (respectOrganization ? 'statistics.organizationScope' : 'statistics.allOrganizations') | translate }}</p>
-          <button mat-flat-button type="button" (click)="load()" [disabled]="loading"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.productivity.calculate' | translate }}</button>
-        </div>
-        <div class="summary-column group-panel" role="region" [attr.aria-label]="'statistics.results' | translate">
-          <div class="panel-header">
-            <h2 class="group-title">{{ 'statistics.results' | translate }}</h2>
-          <button mat-stroked-button type="button" class="csv-export" [disabled]="loading || error || !updatedAt"
-            (click)="csv.exportModels(active, models, resultRespectOrganization)"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">
-            {{ 'statistics.csv.download' | translate }}
-          </button>
-          </div>
-          @if (loading) {
-            <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
-          }
-          @if (error) {
-            <p role="alert">{{ 'statistics.error' | translate }}</p>
-          } @else if (updatedAt) {
-            <div class="summary">
-              <div><span>{{ (active ? 'statistics.total' : 'statistics.inactiveTotal') | translate }}</span><strong>{{ total | statisticsNumber }}</strong></div>
-              <div><span>{{ 'statistics.visibleTotal' | translate }}</span><strong>{{ visibleTotal | statisticsNumber }}</strong></div>
-              <p>{{ 'statistics.updated' | translate }}: {{ updatedLabel() }}</p>
-            </div>
-          }
-          <aside class="info-box" role="note" [attr.aria-label]="'statistics.information' | translate">
-            <mat-icon aria-hidden="true">info_outline</mat-icon>
-            <div>
-              <strong>{{ 'statistics.information' | translate }}</strong>
-              <p>{{ 'statistics.hint' | translate }}</p>
-            </div>
-          </aside>
-        </div>
-      </div>
-      @if (!error && updatedAt) {
-        <app-model-breakdown [counts]="models" [titleKey]="titleKey" [showHint]="false"
-          [emptyKey]="active ? 'statistics.empty' : 'statistics.inactiveEmpty'"
-          (visibleTotalChange)="visibleTotal = $event" />
-      }
-    </section>
-  }
-  </main>
 </div>
