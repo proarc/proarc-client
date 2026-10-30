@@ -586,6 +586,7 @@
     bottom: 0;
   }
 }
+
 // new
 .app-statistics-report {
   .app-formbar {
@@ -609,5 +610,30 @@
     max-width: min(var(--app-statistics-tooltip-max-width), calc(100vw - 32px));
     max-height: calc(100vh - 32px);
     overflow-y: auto;
+  }
+}
+
+// new
+.app-statistics-report {
+  .app-formbar {
+    .mat-button-toggle-group {
+      @include mat.button-toggle-overrides((
+        height: calc(var(--mat-button-outlined-container-height, 36px) - 2px),
+        shape: var(--mat-button-outlined-container-shape, 4px),
+        background-color: var(--app-color-gray-1),
+        text-color: var(--mat-button-outlined-label-text-color),
+        divider-color: var(--mat-button-outlined-outline-color),
+        label-text-font: var(--mat-button-outlined-label-text-font),
+        label-text-size: var(--mat-button-outlined-label-text-size),
+        label-text-weight: var(--mat-button-outlined-label-text-weight),
+        label-text-tracking: var(--mat-button-outlined-label-text-tracking, 0),
+        selected-state-background-color: var(--app-toolbar-button-bg-active),
+        selected-state-text-color: var(--mat-button-outlined-label-text-color)
+      ));
+
+      .mat-pseudo-checkbox {
+        transform: scale(0.75);
+      }
+    }
   }
 }

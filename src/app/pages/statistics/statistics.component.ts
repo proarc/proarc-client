@@ -1,5 +1,7 @@
-import { StatisticsNumberPipe } from './shared/statistics-number.pipe';
+import { StatisticsNumberPipe, StatisticsPercentPipe } from './shared/statistics-number.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ArticleExportsComponent } from './article-exports/article-exports.component';
 import { ExportStatisticsComponent } from './export-statistics/export-statistics.component';
@@ -21,6 +23,11 @@ import moment from 'moment';
 import { ApiService } from '../../services/api.service';
 
 type DetailView = 'active' | 'inactive' | 'productivity' | 'exports' | 'articles';
+interface StatisticsModel extends ModelStatistic {
+  visible: boolean;
+  color: string;
+}
+
 interface StatisticsPreview {
   view: DetailView;
   titleKey: string;
@@ -35,7 +42,8 @@ interface StatisticsPreview {
 
 @Component({
   selector: 'app-statistics',
-  imports: [StatisticsNumberPipe, MatButtonToggleModule, ArticleExportsComponent, ExportStatisticsComponent, MatIconModule, 
+  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
+            ArticleExportsComponent, ExportStatisticsComponent, MatIconModule,
             ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule,
             MatProgressBarModule, MatCardModule],
   templateUrl: './statistics.component.html',
@@ -58,6 +66,9 @@ export class StatisticsComponent implements OnInit {
   previewDateFrom = '';
   previewDateTo = '';
   models: ModelStatistic[] = [];
+  readonly columns = ['show', 'model', 'count', 'share'];
+  detailModels: StatisticsModel[] = [];
+  slices: { item: StatisticsModel; path: string }[] = [];
   active = true;
   respectOrganization = false;
   resultRespectOrganization = false;
@@ -218,8 +229,47 @@ export class StatisticsComponent implements OnInit {
     this.resultRespectOrganization = organization;
     this.models = counts;
     this.total = counts.reduce((sum, item) => sum + item.count, 0);
-    this.visibleTotal = this.total;
+    const hidden = new Set(this.detailModels.filter(item => !item.visible).map(item => item.model));
+    this.detailModels = [...counts]
+      .sort((a, b) => b.count - a.count || a.model.localeCompare(b.model))
+      .map((item, index) => ({ ...item, visible: !hidden.has(item.model),
+        color: index === 0 ? 'var(--app-color-primary, #456aa5)'
+          : `hsl(${(index * 137.508) % 360}, 60%, 43%)` }));
+    this.updateChart();
     this.updatedAt = updatedAt;
+  }
+
+  modelLabel(model: string): string {
+    const key = 'model.' + model;
+    const label = this.translator.instant(key);
+    return label === key ? model : label;
+  }
+
+  get allModelsVisible(): boolean {
+    return this.detailModels.every(item => item.visible);
+  }
+
+  toggleModel(item: StatisticsModel): void {
+    item.visible = !item.visible;
+    this.updateChart();
+  }
+
+  showAllModels(): void {
+    this.detailModels.forEach(item => item.visible = true);
+    this.updateChart();
+  }
+
+  private updateChart(): void {
+    this.visibleTotal = this.detailModels.filter(item => item.visible).reduce((sum, item) => sum + item.count, 0);
+    let angle = -Math.PI / 2;
+    this.slices = this.detailModels.filter(item => item.visible && item.count > 0).map(item => {
+      const end = angle + item.count / this.visibleTotal * 2 * Math.PI;
+      const point = (value: number) => `${150 + 140 * Math.cos(value)},${150 + 140 * Math.sin(value)}`;
+      const middle = (angle + end) / 2;
+      const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
+      angle = end;
+      return { item, path };
+    });
   }
 
   updatedLabel(): string {
