@@ -35,6 +35,7 @@ interface ProductivityModel extends ModelStatistic {
 
 @Component({
   selector: 'app-productivity',
+  host: { class: 'app-statistics-report' },
   imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatIconModule, MatTableModule, MatTooltipModule,
     MatCheckboxModule, MatCardModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule,
     MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],

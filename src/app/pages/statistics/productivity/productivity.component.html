@@ -102,7 +102,7 @@
         <span class="app-fxFlex"></span>
       }
       <button mat-icon-button type="button" [attr.aria-label]="'statistics.information' | translate"
-        matTooltipClass="app-productivity-tooltip"
+        matTooltipClass="app-statistics-tooltip"
         [matTooltip]="('statistics.productivity.hint' | translate) + ' ' + ('statistics.hint' | translate)">
         <mat-icon>info_outline</mat-icon>
       </button>
@@ -121,7 +121,7 @@
       </mat-card>
     }
     @if (result) {
-      <div class="app-fxFlex app-fxLayout app-row app-oh app-productivity-results">
+      <div class="app-fxFlex app-fxLayout app-row app-oh">
         <div class="app-fxFlex app-fxLayout app-column app-oh">
           <div class="app-toolbar app-fxLayout app-row app-center-v app-gap-2 app-pl-2 app-pr-2">
             <strong class="app-fxFlex">{{ 'statistics.productivity.byModel' | translate }}</strong>
@@ -171,13 +171,13 @@
             </table>
           </div>
         </div>
-        <div class="app-fxFlex app-fxLayout app-column app-oh app-productivity-chart-panel">
+        <div class="app-fxFlex app-fxLayout app-column app-oh app-chart-panel">
           <div class="app-toolbar app-fxLayout app-row app-center-v app-gap-2 app-pl-2 app-pr-2">
             <span>{{ 'statistics.visibleTotal' | translate }}: <strong>{{ visibleTotal | statisticsNumber }}</strong></span>
           </div>
           <div class="app-fxFlex app-fxLayout app-column app-center-h app-oh app-p-4">
             @if (visibleTotal) {
-              <svg class="app-productivity-chart app-as-v" viewBox="0 0 300 300" role="group"
+              <svg class="app-statistics-chart app-as-v" viewBox="0 0 300 300" role="group"
                 [attr.aria-label]="'statistics.productivity.byModel' | translate">
                 @for (slice of slices; track slice.item.model) {
                   <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
