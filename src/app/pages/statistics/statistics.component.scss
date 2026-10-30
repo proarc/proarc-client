@@ -3,9 +3,15 @@
     text-align: center;
     transition: box-shadow 200ms ease, border-color 200ms ease;
 
-    &:hover {
+    &:not(.app-preview-disabled):hover {
       border-color: var(--app-color-gray-4);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    }
+
+    &.app-preview-disabled {
+      opacity: 0.55;
+      filter: grayscale(1);
+      cursor: not-allowed;
     }
 
     mat-card-header,

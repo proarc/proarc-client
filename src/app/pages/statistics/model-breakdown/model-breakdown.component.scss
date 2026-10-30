@@ -1,7 +1,7 @@
 :host {
   .preview-pie {
     &.preview-pie-empty {
-      color: #aaa;
+      color: var(--app-color-gray-4);
       opacity: 0.45;
       pointer-events: none;
 

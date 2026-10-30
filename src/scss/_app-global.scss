@@ -77,6 +77,10 @@ a {
 .app-cursor-pointer {
   cursor: pointer;
 }
+
+.app-cursor-disabled {
+  cursor: not-allowed;
+}
   
 .app-oh {
   overflow: hidden;

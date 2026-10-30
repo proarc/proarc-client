@@ -77,7 +77,10 @@
     @if (view === 'home') {
       <div class="app-fxLayout app-row app-gap-2">
         @for (preview of previews; track preview.view) {
-          <mat-card appearance="outlined" (click)="open(preview.view)" class="app-fxFlex app-fxLayout app-column app-cursor-pointer">
+          <mat-card appearance="outlined" (click)="preview.total !== 0 && open(preview.view)"
+            class="app-fxFlex app-fxLayout app-column app-cursor-pointer"
+            [class.app-preview-disabled]="preview.total === 0"
+            [attr.aria-disabled]="preview.total === 0">
             @if (preview.loading) {
               <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
             }
@@ -103,7 +106,7 @@
               }
             </mat-card-content>
             <mat-card-actions>
-              <button matButton>{{ 'statistics.openDetail' | translate }} →</button>
+              <button matButton [disabled]="preview.total === 0">{{ 'statistics.openDetail' | translate }} →</button>
             </mat-card-actions>
           </mat-card>
         } 
