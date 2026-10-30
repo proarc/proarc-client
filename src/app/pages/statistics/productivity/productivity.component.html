@@ -41,14 +41,20 @@
   </form>
 
   @if (optionsError) {
-    <div class="app-fxLayout app-row app-center-v app-gap-2 app-mb-2" role="alert">
-      <mat-icon>warning</mat-icon>
-      <span>{{ 'statistics.exports.optionsError' | translate }}</span>
-      <button mat-button type="button" (click)="loadOptions()">{{ 'statistics.refresh' | translate }}</button>
-    </div>
+    <mat-card appearance="outlined" class="app-alert app-warn app-mb-2" role="alert">
+      <mat-card-content>
+        <mat-icon>warning</mat-icon>
+        <span>{{ 'statistics.exports.optionsError' | translate }}</span>
+        <button mat-button type="button" class="app-ml-2" (click)="loadOptions()">{{ 'statistics.refresh' | translate }}</button>
+      </mat-card-content>
+    </mat-card>
   }
   @if (invalidRange) {
-    <p class="app-m-0 app-mb-2" role="alert">{{ 'statistics.productivity.invalidRange' | translate }}</p>
+    <mat-card appearance="outlined" class="app-alert app-warn app-mb-2" role="alert">
+      <mat-card-content>
+        <mat-icon>warning</mat-icon>{{ 'statistics.productivity.invalidRange' | translate }}
+      </mat-card-content>
+    </mat-card>
   }
 
   <div class="app-fxFlex app-fxLayout app-column app-oh app-border-wrapper" role="region"
@@ -80,7 +86,11 @@
       <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
     }
     @if (error) {
-      <p class="app-m-2" role="alert">{{ 'statistics.error' | translate }}</p>
+      <mat-card appearance="outlined" class="app-alert app-warn app-m-2" role="alert">
+        <mat-card-content>
+          <mat-icon>warning</mat-icon>{{ 'statistics.error' | translate }}
+        </mat-card-content>
+      </mat-card>
     }
     @if (result) {
       <div class="app-fxFlex app-fxLayout app-row app-oh app-productivity-results">
@@ -122,8 +132,12 @@
               <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: columns"></tr>
               <tr *matNoDataRow>
-                <td [attr.colspan]="columns.length" class="app-p-4 app-text-center" role="status">
-                  {{ 'statistics.productivity.empty' | translate }}
+                <td [attr.colspan]="columns.length" class="app-p-4">
+                  <mat-card appearance="outlined" class="app-alert app-info" role="status">
+                    <mat-card-content>
+                      <mat-icon>info</mat-icon>{{ 'statistics.productivity.empty' | translate }}
+                    </mat-card-content>
+                  </mat-card>
                 </td>
               </tr>
             </table>
@@ -147,7 +161,11 @@
                 }
               </svg>
             } @else {
-              <p role="status">{{ (result.count ? 'statistics.noneSelected' : 'statistics.productivity.empty') | translate }}</p>
+              <mat-card appearance="outlined" class="app-alert app-info app-as-v" role="status">
+                <mat-card-content>
+                  <mat-icon>info</mat-icon>{{ (result.count ? 'statistics.noneSelected' : 'statistics.productivity.empty') | translate }}
+                </mat-card-content>
+              </mat-card>
             }
           </div>
         </div>

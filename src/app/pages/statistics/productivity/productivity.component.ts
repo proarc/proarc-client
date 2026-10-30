@@ -5,6 +5,7 @@ import { StatisticsCsvService } from '../shared/statistics-csv.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -35,7 +36,7 @@ interface ProductivityModel extends ModelStatistic {
 @Component({
   selector: 'app-productivity',
   imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatIconModule, MatTableModule, MatTooltipModule,
-    MatCheckboxModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule,
+    MatCheckboxModule, MatCardModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule,
     MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
