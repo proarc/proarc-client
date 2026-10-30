@@ -384,10 +384,10 @@
       align-items: center;
       justify-content: center !important;
             
-            .mat-mdc-button-touch-target {
-              width: var(--mat-icon-button-state-layer-size) !important;
-              height: var(--mat-icon-button-state-layer-size) !important;
-            }
+      .mat-mdc-button-touch-target {
+        width: var(--mat-icon-button-state-layer-size) !important;
+        height: var(--mat-icon-button-state-layer-size) !important;
+      }
 
       .mat-icon {
         &.app-16 {
