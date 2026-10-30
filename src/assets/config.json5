@@ -206,7 +206,12 @@
   eDocumentIdentifiers: ['doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'],
   oldprintIdentifiers: ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'],
 
-  donators: ['ilnorway', 'norway', 'dkrvo19-23', 'dkrvo24-28'],
+  donators: [
+    { code: 'ilnorway', label: { cs: 'Norské fondy (nové logo)', en: 'Norway Grants (new logo)' } },
+    { code: 'norway', label: { cs: 'Norské fondy (staré logo)', en: 'Norway Grants (old logo)' } },
+    { code: 'dkrvo19-23', label: { cs: 'DKRVO 2019 - 2023', en: 'DKRVO 2019 - 2023' } },
+    { code: 'dkrvo24-28', label: { cs: 'DKRVO 2024 - 2028', en: 'DKRVO 2024 - 2028' } },
+  ],
 
   showPageIndex: true,
   showPageIdentifiers: true,

@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
-import { Configuration } from '../../shared/configuration';
+import { Configuration, Donator } from '../../shared/configuration';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +45,7 @@ export class EditorAtmComponent implements OnInit {
   softwares: Software[];
   organizations: string[];
   users: User[];
-  donators: string[];
+  donators: Donator[];
 
 
   statuses = [
@@ -78,6 +78,10 @@ export class EditorAtmComponent implements OnInit {
   ngOnInit() {
     this.organizations = this.config.organizations;
     this.donators = this.config.donators;
+  }
+
+  getDonatorLabel(donator: Donator): string {
+    return donator.label[this.translator.currentLang] ?? donator.label['cs'] ?? donator.label['en'] ?? donator.code;
   }
 
 

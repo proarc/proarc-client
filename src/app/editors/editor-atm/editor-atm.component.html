@@ -118,8 +118,8 @@
                 <mat-label>{{ 'editor.atm.donator' | translate }}</mat-label>
                 <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator">
                   <mat-option [value]="null">{{ 'editor.atm.donators.none' | translate }}</mat-option>
-                  @for(donator of donators; track $index;) {
-                    <mat-option [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
+                  @for(donator of donators; track donator.code) {
+                    <mat-option [value]="donator.code">{{ getDonatorLabel(donator) }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>

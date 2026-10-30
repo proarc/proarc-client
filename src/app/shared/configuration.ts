@@ -10,6 +10,11 @@ export interface TableColumn {
   type: string, // 'string' | 'translated' | 'date' | 'datetime' | 'boolean'
 }
 
+export interface Donator {
+  code: string;
+  label: { [language: string]: string };
+}
+
 @Injectable()
 export class Configuration {
 
@@ -60,7 +65,7 @@ export class Configuration {
   eDocumentIdentifiers: string[];
   musicDocumentIdentifiers: string[];
 
-  donators: string[];
+  donators: Donator[];
 
   lang: string[];
   expandedModels: string[];
