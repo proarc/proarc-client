@@ -68,8 +68,10 @@ export class ProductivityComponent implements OnInit, OnChanges {
   visibleTotal = 0;
   selectedUsers: string[] = [];
   selectedModels: string[] = [];
-  dateFrom: Moment | null = moment().startOf('year');
-  dateTo: Moment | null = moment().startOf('day');
+  readonly defaultDateFrom = moment().startOf('year');
+  readonly defaultDateTo = moment().startOf('day');
+  dateFrom: Moment | null = this.defaultDateFrom.clone();
+  dateTo: Moment | null = this.defaultDateTo.clone();
 
   get invalidRange(): boolean {
     return !!(this.dateFrom?.isValid() && this.dateTo?.isValid() && this.dateFrom.isAfter(this.dateTo, 'day'));
