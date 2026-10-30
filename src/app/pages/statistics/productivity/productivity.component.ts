@@ -1,9 +1,11 @@
-import { StatisticsNumberPipe } from '../shared/statistics-number.pipe';
+import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
 import { MatIconModule } from '@angular/material/icon';
 import { StatisticsCsvService } from '../shared/statistics-csv.service';
-import { ModelBreakdownComponent } from '../model-breakdown/model-breakdown.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,10 +25,19 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ProductivityStatistic } from '../../../model/productivity-statistic.model';
 import { ApiService } from '../../../services/api.service';
+import { UserSettings } from '../../../shared/user-settings';
+import { ModelStatistic } from '../../../model/model-statistic.model';
+
+interface ProductivityModel extends ModelStatistic {
+  visible: boolean;
+  color: string;
+}
 
 @Component({
   selector: 'app-productivity',
-  imports: [StatisticsNumberPipe, MatIconModule, ModelBreakdownComponent, MatCheckboxModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
+  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatIconModule, MatTableModule, MatTooltipModule,
+    MatCheckboxModule, MatCardModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule,
+    MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: {
@@ -50,6 +61,11 @@ export class ProductivityComponent implements OnInit, OnChanges {
   private readonly datepickerIntl = inject(MatDatepickerIntl);
   datePlaceholder = 'DD.MM.RRRR';
   readonly translator = inject(TranslateService);
+  readonly settings = inject(UserSettings);
+  readonly columns = ['show', 'model', 'count', 'share'];
+  models: ProductivityModel[] = [];
+  slices: { item: ProductivityModel; path: string }[] = [];
+  visibleTotal = 0;
   selectedUsers: string[] = [];
   selectedModels: string[] = [];
   dateFrom: Moment | null = moment().startOf('year');
@@ -133,11 +149,50 @@ export class ProductivityComponent implements OnInit, OnChanges {
   }
 
   modelLabels(models: string[]): string {
-    return models.map(model => {
-      const key = 'model.' + model;
-      const label = this.translator.instant(key);
-      return label === key ? model : label;
-    }).join(', ');
+    return models.map(model => this.modelLabel(model)).join(', ');
+  }
+
+  modelLabel(model: string): string {
+    const key = 'model.' + model;
+    const label = this.translator.instant(key);
+    return label === key ? model : label;
+  }
+
+  get allVisible(): boolean {
+    return this.models.every(item => item.visible);
+  }
+
+  toggleModel(item: ProductivityModel): void {
+    item.visible = !item.visible;
+    this.updateChart();
+  }
+
+  showAllModels(): void {
+    this.models.forEach(item => item.visible = true);
+    this.updateChart();
+  }
+
+  private updateModels(counts: ModelStatistic[]): void {
+    const hidden = new Set(this.models.filter(item => !item.visible).map(item => item.model));
+    this.models = [...counts]
+      .sort((a, b) => b.count - a.count || a.model.localeCompare(b.model))
+      .map((item, index) => ({ ...item, visible: !hidden.has(item.model),
+        color: index === 0 ? 'var(--app-color-primary, #456aa5)'
+          : `hsl(${(index * 137.508) % 360}, 60%, 43%)` }));
+    this.updateChart();
+  }
+
+  private updateChart(): void {
+    this.visibleTotal = this.models.filter(item => item.visible).reduce((sum, item) => sum + item.count, 0);
+    let angle = -Math.PI / 2;
+    this.slices = this.models.filter(item => item.visible && item.count > 0).map(item => {
+      const end = angle + item.count / this.visibleTotal * 2 * Math.PI;
+      const point = (value: number) => `${150 + 140 * Math.cos(value)},${150 + 140 * Math.sin(value)}`;
+      const middle = (angle + end) / 2;
+      const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
+      angle = end;
+      return { item, path };
+    });
   }
 
   load(): void {
@@ -148,7 +203,12 @@ export class ProductivityComponent implements OnInit, OnChanges {
     this.loading = true;
     this.request = this.api.getProductivityStatistics(this.selectedUsers, this.dateFrom.format('YYYY-MM-DD'), this.dateTo.format('YYYY-MM-DD'), this.selectedModels, organization)
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: result => { this.result = result; this.resultRespectOrganization = organization; this.loading = false; },
+        next: result => {
+          this.result = result;
+          this.resultRespectOrganization = organization;
+          this.updateModels(result.modelCounts);
+          this.loading = false;
+        },
         error: () => { this.error = true; this.loading = false; }
       });
   }

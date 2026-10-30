@@ -1,0 +1,88 @@
+:host {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+
+  .app-fxFlex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .app-formbar {
+    mat-form-field {
+      min-width: 160px;
+
+      &.app-date {
+        flex: 0 1 180px;
+      }
+    }
+
+    ::ng-deep {
+      .mat-mdc-form-field-subscript-wrapper {
+        line-height: 8px !important;
+      }
+    }
+  }
+
+  .app-toolbar {
+    .app-result-separator {
+      width: 5px;
+      height: 5px;
+      font-size: 5px;
+      line-height: 5px;
+      transform: translateY(-1px);
+    }
+  }
+
+  .app-productivity-results {
+    .app-productivity-chart-panel {
+      border-left: 1px solid var(--app-default-border-color);
+    }
+
+    .app-model-color {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .app-model-hidden {
+      text-decoration: line-through;
+      opacity: 0.65;
+    }
+
+    .app-productivity-chart {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      max-height: 100%;
+      min-height: 0;
+      flex: 0 1 auto;
+
+      path {
+        cursor: pointer;
+        stroke: var(--app-color-lightnes);
+        stroke-width: 1;
+
+        &:hover,
+        &:focus-visible {
+          opacity: 0.75;
+          stroke: currentColor;
+          stroke-width: 3;
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .app-productivity-tooltip {
+    .mat-mdc-tooltip-surface {
+      max-width: min(480px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+    }
+  }
+}
