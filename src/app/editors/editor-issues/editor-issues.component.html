@@ -9,6 +9,11 @@
             </div>
         </div>
         <div class="app-fxLayout app-row app-center-v app-h-100">
+            <button mat-icon-button type="button" color="primary" class="app-update-help"
+                [matTooltip]="'editor.issues.updateHint' | translate" matTooltipPosition="below"
+                [attr.aria-label]="'editor.issues.updateHint' | translate" (click)="openHelpDialog()">
+                <mat-icon>info_outline</mat-icon>
+            </button>
             <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate">
                 <mat-icon>save</mat-icon>
             </button>
@@ -22,21 +27,6 @@
         <div class="app-editor-container">
             <div class="app-gap-fixer"></div>
             <div class="app-form-wrapper app-top-level">
-                <div class="app-form">
-                    <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
-                            <mat-label>{{ 'mods.location/shelfLocator' | translate }}</mat-label>
-                            <input autocomplete="off" matInput [placeholder]="'mods.location/shelfLocator' | translate"
-                                [formControl]="signatureControl">
-                        </mat-form-field>
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
-                            <mat-label>{{ 'mods.location/physicalLocation' | translate }}</mat-label>
-                            <input autocomplete="off" matInput [placeholder]="'mods.location/physicalLocation' | translate"
-                                [formControl]="siglaControl">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="app-gap-fixer"></div>
                 <div class="app-form">
                     <div class="app-form-content">
                         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
@@ -75,27 +65,12 @@
                 <div class="app-gap-fixer"></div>
                 <div class="app-form">
                     <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
-                            <mat-label>{{ 'mods.note' | translate }}</mat-label>
-                            <input autocomplete="off" matInput [placeholder]="'mods.note' | translate"
-                                [formControl]="noteControl">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="app-gap-fixer"></div>
-                <div class="app-form">
-                    <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
                             <mat-label>{{ 'mods.originInfo/publisher' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'mods.originInfo/publisher' | translate"
                                 [formControl]="publisherControl">
                         </mat-form-field>
-                    </div>
-                </div>
-                <div class="app-gap-fixer"></div>
-                <div class="app-form">
-                    <div class="app-form-content">
-                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
                             <mat-label>{{ 'mods.originInfo/place' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'mods.originInfo/place' | translate"
                                 [formControl]="placeControl">
@@ -109,6 +84,31 @@
                             <mat-label>{{ 'mods.originInfo/dateIssued' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'mods.originInfo/dateIssued' | translate"
                                 [formControl]="dateIssuedControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.location/physicalLocation' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.location/physicalLocation' | translate"
+                                [formControl]="siglaControl">
+                        </mat-form-field>
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'mods.location/shelfLocator' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.location/shelfLocator' | translate"
+                                [formControl]="signatureControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'mods.note' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'mods.note' | translate"
+                                [formControl]="noteControl">
                         </mat-form-field>
                     </div>
                 </div>

@@ -698,7 +698,9 @@
       }
     },
     "issues": {
-      "title": "Multiple issues, monograph and supplement edition"
+      "title": "Multiple issues, monograph and supplement edition",
+      "updateHint": "A note is added only if the object does not already contain the same text. All other filled-in fields replace all existing values with one new value in each block. Empty fields remain unchanged.",
+      "updateHelp": "<h2>How bulk metadata editing works</h2><p>Changes apply to all selected objects. Empty fields remain unchanged.</p><h3>Fields that are replaced</h3><p>Title, subtitle, part name, part number, publisher, place of publication, date of publication, sigla and shelf locator.</p><p>If you fill in a field, all its existing values are replaced with one new value. Check the selected objects and entered values before saving.</p><h3>Fields that are appended</h3><p>A note is added to the existing notes. If the object already contains a note with the same text, it is not added again. Other notes are preserved.</p>"
     },
     "pages": {
       "title": "Multiple pages edition",

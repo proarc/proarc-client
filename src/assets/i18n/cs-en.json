@@ -698,7 +698,9 @@
       }
     },
     "issues": {
-      "title": "Hromadná úprava čísel, monografií a příloh"
+      "title": "Hromadná úprava čísel, monografií a příloh",
+      "updateHint": "Poznámka se přidá, pouze pokud objekt ještě neobsahuje stejný text. Ostatní vyplněná pole nahradí všechny původní hodnoty jednou novou hodnotou v každém bloku. Nevyplněná pole se nemění.",
+      "updateHelp": "<h2>Jak funguje hromadná úprava metadat</h2><p>Změny se použijí pro všechny vybrané objekty. Nevyplněná pole se nemění.</p><h3>Pole, která se nahrazují</h3><p>Název, podnázev, název části, číslo části, vydavatel, místo vydání, datum vydání, sigla a signatura.</p><p>Pokud pole vyplníte, všechny jeho původní hodnoty se nahradí jednou novou hodnotou. Před uložením proto zkontrolujte výběr objektů i zadané údaje.</p><h3>Pole, která se doplňují</h3><p>Poznámka se přidá k původním poznámkám. Pokud objekt již obsahuje poznámku se stejným textem, znovu se nepřidá. Ostatní poznámky zůstanou zachovány.</p>"
     },
     "pages": {
       "title": "Hromadná úprava stránek",

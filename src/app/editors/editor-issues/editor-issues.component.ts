@@ -3,6 +3,8 @@ import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpDialogComponent } from '../../dialogs/help-dialog/help-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +32,7 @@ export class EditorIssuesComponent {
   private api = inject(ApiService);
   private layout = inject(LayoutService);
   private ui = inject(UIService);
+  private dialog = inject(MatDialog);
   public translator = inject(TranslateService);
 
   panel = input<ILayoutPanel>();
@@ -89,6 +92,13 @@ export class EditorIssuesComponent {
     } else {
       return this.numOfSelected + '';
     }
+  }
+
+  openHelpDialog(): void {
+    this.dialog.open(HelpDialogComponent, {
+      data: this.translator.instant('editor.issues.updateHelp'),
+      panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   onSave() {
