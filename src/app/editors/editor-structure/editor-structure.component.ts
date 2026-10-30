@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -113,7 +112,6 @@ export class EditorStructureComponent implements OnInit {
   sourceNext: any;
   dragEnabled = true;
   sourceIndex: number;
-  targetIndex: number;
   isDragging = false;
 
 
@@ -704,7 +702,7 @@ export class EditorStructureComponent implements OnInit {
   // Drag events
 
   private getIndex(el: any) {
-    return Array.prototype.indexOf.call(el.parentNode.childNodes, el);
+    return Array.prototype.indexOf.call(el.parentNode.children, el);
   }
 
   private isbefore(a: any, b: any) {
@@ -753,7 +751,7 @@ export class EditorStructureComponent implements OnInit {
     event.dataTransfer.setData("panel", this.panel.id);
   }
 
-  dragenter(event: any, idx: number) {
+  dragenter(event: any) {
     this.stop = true;
     const target = event.currentTarget;
     if (!this.dragEnabled || !this.source ||
@@ -762,8 +760,6 @@ export class EditorStructureComponent implements OnInit {
       // event.dataTransfer.dropEffect = 'none';
       return;
     }
-    this.targetIndex = idx;
-
     if (this.isbefore(this.source, target)) {
       target.parentNode.insertBefore(this.source, target); // insert before
     } else {
@@ -823,13 +819,17 @@ export class EditorStructureComponent implements OnInit {
 
     const isMultiple = this.layout.getNumOfSelected() > 1;
 
-    const targetIndex = this.getIndex(this.source);
-    let to = targetIndex;
-    to = this.targetIndex;
+    const to = this.getIndex(this.source);
+    // Restore Angular's DOM order before publishing the new item order.
+    this.source.parentNode.insertBefore(this.source, this.sourceNext);
+    this.source = null;
+    this.sourceNext = null;
+    if (this.sourceIndex === to) {
+      return;
+    }
     this.layout.lastItemIdxClicked = to;
-    // this.source.parentNode.insertBefore(this.source, this.sourceNext);
     if (isMultiple) {
-      this.dropMultiple();
+      this.dropMultiple(to);
     } else {
       const from = this.sourceIndex;
       this.hasChanges = true;
@@ -840,37 +840,18 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelectionChanged(true, this.panel);
   }
 
-  dropMultiple() {
+  dropMultiple(to: number) {
     const scPos = this.childrenListEl.nativeElement.scrollTop;
-    const selections: number[] = [];
-    let indexCounted = false;
-
-    // Get the indexes for all selected items
-    this.layout.items().forEach((item, i) => {
-      if (item.selected) {
-        selections.unshift(i);
-      }
-    });
-
-    const selected: DocumentItem[] = this.layout.items().filter(i => i.selected);
-    if (selections.length > 1) {
-      let newIndex = this.targetIndex;
-      selections.forEach(s => {
-        const item = this.layout.items().splice(s, 1);
-        if (s < this.targetIndex) {
-          newIndex--;
-          indexCounted = true;
-        }
-      });
-      if (indexCounted) {
-        newIndex++;
-      }
-      this.layout.items().splice(newIndex, 0, ...selected);
-
-    } else {
-      // If a single selection
-      moveItemInArray(this.layout.items(), this.sourceIndex, this.targetIndex);
-    }
+    const items = this.layout.items();
+    const selected = items.filter(item => item.selected);
+    // Convert the dragged thumbnail's final position to a boundary in the
+    // original array, then account for all selected items removed before it.
+    const boundary = to + (this.sourceIndex < to ? 1 : 0);
+    const insertionIndex = items.slice(0, boundary).filter(item => !item.selected).length;
+    const remaining = items.filter(item => !item.selected);
+    remaining.splice(insertionIndex, 0, ...selected);
+    this.layout.items.set(remaining);
+    this.layout.lastItemIdxClicked = insertionIndex;
     this.hasChanges = true;
 
     this.state = 'loading';

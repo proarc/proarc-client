@@ -100,7 +100,7 @@
             @for(item of layout.items(); let i = $index; track item.pid;) {
               <div (click)="rowClick(item, $event, i)"
                 (dblclick)="open(item)" class="app-item-wrapper" [class.app-selected]="item.selected"
-                [class.app-invalid]="item.invalid" draggable="true" (dragenter)="dragenter($event, i)"
+                [class.app-invalid]="item.invalid" draggable="true" (dragenter)="dragenter($event)"
                 (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)"
                 (dragend)="dragend($event)" (mousedown)="mousedown($event)"
                 [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
@@ -122,7 +122,7 @@
               @for(item of layout.items(); let i = $index; track item) {
                 <div class="app-item-wrapper cdk-drag"
                   [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
-                  (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"
+                  (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)"
                   (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)"
                   (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid"
                   [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
@@ -201,7 +201,7 @@
             <app-user-table [draggable]="true" (selectItem)="selectRow($event)"
               (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"
               [items]="layout.items()" (mousedown)="mousedown($event)"
-              (dragenter)="dragenter($event.e, $event.idx)"
+              (dragenter)="dragenter($event.e)"
               (dragstart)="dragstart($event.item, $event.idx, $event.e)"
               (dragover)="dragover($event)" [draggable]="true"
             (dragend)="dragFromTable($event)"></app-user-table>
