@@ -1,265 +1,202 @@
-<!-- Layout and responsive styles are kept here for direct editing. -->
-<style>
-  :host { display: block; }
-  .statistics-report { padding: 20px 0; }
-  .overview { display: grid; grid-template-columns: minmax(360px, 520px) minmax(0, 1fr); gap: 32px; align-items: stretch; }
-  .group-panel { min-width: 0; box-sizing: border-box; padding: 24px; border: 1px solid var(--mat-sys-outline-variant, #8885); border-radius: 12px; background: var(--mat-sys-surface-container-low, #8881); }
-  h2 { margin: 0 0 12px; font-size: 1.15rem; font-weight: 600; }
-  form { display: flex; flex-direction: column; gap: 12px; }
-  mat-form-field { width: 100%; min-width: 0; }
-  .date-range { display: flex; flex-direction: column; gap: 8px; }
-  .scope-note { margin: 0; }
-  form > button { align-self: flex-start; }
-  .summary-column { display: flex; flex-direction: column; gap: 20px; }
-  .panel-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .panel-header h2 { margin: 0; }
-  .panel-header button { margin-inline-start: auto; }
-  .summary { display: flex; flex-wrap: wrap; gap: 16px; }
-  .summary div { padding: 20px; background: transparent; border: 1px solid var(--mat-sys-outline-variant, #8885); border-radius: 8px; }
-  .summary strong { display: block; font-size: 2.5rem; margin-top: 12px; }
-  .summary p { width: 100%; margin: 0; }
-  .info-box { display: flex; align-items: start; gap: 12px; padding: 20px; border-radius: 8px; border-inline-start: 4px solid var(--statistics-primary); background: transparent; color: var(--app-color-gray-9); }
-  .info-box mat-icon { flex-shrink: 0; }
-  .info-box p { margin: 8px 0 0; line-height: 1.5; }
-  .warning { padding: 16px; border-inline-start: 4px solid #bf7300; background: #bf730015; }
-  .export-charts { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 24px; }
-  @media (max-width: 700px) { .overview { grid-template-columns: 1fr; gap: 24px; } }
-  @media (max-width: 480px) { .group-panel { padding: 16px; } }
-
-  .chart-mode { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .chart-mode mat-button-toggle-group { flex-wrap: wrap; }
-
-  .group-title { margin: 0 0 12px; font-size: 1.15rem; font-weight: 600; }
-  .filter-row { display: block; }
-  .results-table { margin-top: 24px; }
-  .table-scroll { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; }
-  caption { text-align: left; font-size: 1.15rem; font-weight: 600; padding-bottom: 16px; }
-  th, td { text-align: left; padding: 12px; border-bottom: 1px solid #8885; overflow-wrap: anywhere; }
-  .pagination { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
-  button[mat-stroked-button]:not(:disabled) { background-color: var(--statistics-primary); }
-</style>
-
-<section class="statistics-report" [attr.aria-busy]="loading">
-  <div class="overview">
-    <form class="group-panel" #filters="ngForm" (ngSubmit)="load()">
-      <h2>{{ 'statistics.csv.filters' | translate }}</h2>
-      <mat-checkbox [checked]="respectOrganization" (change)="respectOrganizationChange.emit($event.checked)" [disabled]="loading"
-          style="--mat-checkbox-selected-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-checkmark-color: #eaf3ff;
-            --mat-checkbox-selected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-state-layer-color: var(--statistics-primary);">{{ 'statistics.respectOrganization' | translate }}</mat-checkbox>
-      <p class="scope-note">{{ (respectOrganization ? 'statistics.organizationScope' : 'statistics.allOrganizations') | translate }}</p>
-      @if (optionsError) {
-        <p role="alert">{{ 'statistics.exports.optionsError' | translate }} <button mat-button type="button" (click)="loadOptions()"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.refresh' | translate }}</button></p>
+<div class="app-fxFlex app-fxLayout app-column" [attr.aria-busy]="loading">
+  <form class="app-formbar app-fxLayout app-row app-wrap app-baseline app-gap-2 app-mb-2" #filters="ngForm"
+    (ngSubmit)="load()" [attr.aria-label]="'statistics.csv.filters' | translate">
+    <button mat-stroked-button type="submit" [disabled]="filters.invalid || invalid || loading">
+      {{ 'statistics.productivity.calculate' | translate }}
+    </button>
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+      <mat-label>{{ 'statistics.exports.user' | translate }}</mat-label>
+      <mat-select name="users" [(ngModel)]="users" multiple [disabled]="loading">
+        @for (user of options.user; track user) {
+          <mat-option [value]="user">{{ user }}</mat-option>
+        }
+      </mat-select>
+      @if (users.length) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="users = []; load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
       }
-      <mat-form-field
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-        <mat-label>{{ 'statistics.exports.user' | translate }}</mat-label>
-        <mat-select name="users" [(ngModel)]="users" multiple [disabled]="loading">
-          @for (user of options.user; track user) { <mat-option [value]="user">{{ user }}</mat-option> }
-        </mat-select>
-        <mat-hint>{{ 'statistics.exports.optional' | translate }}</mat-hint>
-      </mat-form-field>
-      <div class="date-range">
-        <mat-form-field subscriptSizing="dynamic"
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-          <mat-label>{{ 'statistics.productivity.dateFrom' | translate }}</mat-label>
-          <input matInput type="text" [placeholder]="datePlaceholder" [matDatepicker]="fromPicker" name="from" [(ngModel)]="dateFrom" required [max]="dateTo" [disabled]="loading" />
-          <mat-datepicker-toggle matIconSuffix [for]="fromPicker" /><mat-datepicker #fromPicker />
-        </mat-form-field>
-        <mat-form-field subscriptSizing="dynamic"
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-          <mat-label>{{ 'statistics.productivity.dateTo' | translate }}</mat-label>
-          <input matInput type="text" [placeholder]="datePlaceholder" [matDatepicker]="toPicker" name="to" [(ngModel)]="dateTo" required [min]="dateFrom" [disabled]="loading" />
-          <mat-datepicker-toggle matIconSuffix [for]="toPicker" /><mat-datepicker #toPicker />
-        </mat-form-field>
-      </div>
-        <mat-form-field
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-          <mat-label>{{ 'statistics.exports.exportType' | translate }}</mat-label>
-          <mat-select name="types" [(ngModel)]="types" multiple [disabled]="loading">
-            @for (type of exportTypes; track type) { <mat-option [value]="type">{{ exportTypeLabel(type) }}</mat-option> }
-          </mat-select>
-          <mat-hint>{{ 'statistics.exports.optional' | translate }}</mat-hint>
-        </mat-form-field>
-      <mat-form-field
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-        <mat-label>{{ 'statistics.model' | translate }}</mat-label>
-        <mat-select name="models" [(ngModel)]="models" multiple [disabled]="loading">
-          @for (model of articleModels; track model) { <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option> }
-        </mat-select>
-        <mat-hint>{{ 'statistics.exports.optional' | translate }}</mat-hint>
-      </mat-form-field>
-      <mat-form-field
-          style="--mat-form-field-filled-container-color: var(--statistics-tint);
-            --mat-form-field-filled-disabled-container-color: var(--statistics-panel);
-            --mat-form-field-filled-container-shape: 8px;
-            --mat-form-field-filled-active-indicator-color: var(--statistics-border);
-            --mat-form-field-filled-hover-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-active-indicator-color: var(--statistics-primary);
-            --mat-form-field-filled-focus-label-text-color: var(--statistics-primary);
-            --mat-form-field-filled-caret-color: var(--statistics-primary);
-            --mat-select-enabled-arrow-color: var(--statistics-primary);
-            --mat-select-focused-arrow-color: var(--statistics-primary);
-            --mat-datepicker-toggle-icon-color: var(--statistics-primary);">
-        <mat-label>{{ 'statistics.sigla' | translate }}</mat-label>
-        <mat-select name="siglas" [(ngModel)]="siglas" multiple [disabled]="loading">
-          @for (sigla of options.sigla; track sigla) { <mat-option [value]="sigla">{{ sigla }}</mat-option> }
-        </mat-select>
-        <mat-hint>{{ 'statistics.exports.optional' | translate }}</mat-hint>
-      </mat-form-field>
-      <mat-checkbox name="unique" [(ngModel)]="unique" [disabled]="loading"
-          style="--mat-checkbox-selected-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-icon-color: var(--statistics-primary);
-            --mat-checkbox-selected-checkmark-color: #eaf3ff;
-            --mat-checkbox-selected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-hover-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-selected-pressed-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-icon-color: var(--statistics-primary);
-            --mat-checkbox-unselected-focus-state-layer-color: var(--statistics-primary);
-            --mat-checkbox-unselected-hover-state-layer-color: var(--statistics-primary);">{{ 'statistics.exports.unique' | translate }}</mat-checkbox>
-      <button mat-flat-button type="submit" [disabled]="filters.invalid || invalid || loading"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.productivity.calculate' | translate }}</button>
-      @if (invalidRange) { <p role="alert">{{ 'statistics.productivity.invalidRange' | translate }}</p> }
-    </form>
-    <div class="group-panel summary-column">
-      <div class="panel-header">
-        <h2>{{ 'statistics.results' | translate }}</h2>
-        <button mat-stroked-button type="button" [disabled]="loading || !result?.articles?.length" (click)="download()"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.articles.csvPage' | translate }}</button>
-      </div>
-      @if (loading) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" /> }
-      @if (error) { <p role="alert">{{ 'statistics.error' | translate }}</p> }
-      @if (result; as r) {
-        <div class="summary" role="status" aria-live="polite">
-          <div><span>{{ 'statistics.articles.count' | translate }}</span><strong>{{ r.count | statisticsNumber }}</strong></div>
-          <p>{{ r.filters.dateFrom | date:'dd.MM.yyyy' }} &ndash; {{ r.filters.dateTo | date:'dd.MM.yyyy' }}</p>
-          <p>{{ (r.filters.unique ? 'statistics.exports.unique' : 'statistics.exports.repeated') | translate }}</p>
-        </div>
+    </mat-form-field>
+    <mat-form-field [appearance]="settings.appearance" class="app-date">
+      <mat-label>{{ 'statistics.productivity.dateFrom' | translate }}</mat-label>
+      <input matInput [placeholder]="datePlaceholder" [matDatepicker]="fromPicker" name="dateFrom" [(ngModel)]="dateFrom"
+        required [max]="dateTo" [disabled]="loading" />
+      <mat-datepicker-toggle matIconSuffix [for]="fromPicker" />
+      <mat-datepicker #fromPicker />
+      @if (!dateFrom?.isSame(defaultDateFrom, 'day')) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="dateFrom = defaultDateFrom.clone(); load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
       }
-      <aside class="info-box" role="note">
-        <mat-icon aria-hidden="true">info_outline</mat-icon>
-        <div><strong>{{ 'statistics.information' | translate }}</strong><p>{{ 'statistics.articles.hint' | translate }}</p></div>
-      </aside>
-    </div>
-  </div>
-  @if (result; as r) {
-    <div class="group-panel results-table">
-      <div class="table-scroll"><table><caption>{{ 'statistics.articles.title' | translate }}</caption>
-        <thead><tr><th>PID</th><th>{{ 'statistics.model' | translate }}</th><th>DOI</th><th>{{ 'statistics.exports.exportType' | translate }}</th><th>{{ 'statistics.articles.date' | translate }}</th><th>{{ 'statistics.exports.user' | translate }}</th></tr></thead>
-        <tbody>@for (article of r.articles; track article.source) {
-          <tr><td>{{ article.pid }}</td><td>{{ 'model.' + article.model | translate }}</td>
-            <td>{{ article.dois.length ? article.dois.join(', ') : ('statistics.articles.missingDoi' | translate) }}</td>
-            <td>{{ exportTypeLabel(article.exportType) }}</td><td>{{ article.date | date:'dd.MM.yyyy HH:mm' }}</td><td>{{ article.username }}</td></tr>
-        } @empty { <tr><td colspan="6">{{ 'statistics.articles.empty' | translate }}</td></tr> }</tbody>
-      </table></div>
-      <div class="pagination">
-        <button mat-button [disabled]="loading || r.offset === 0" (click)="page(r.offset - r.limit)"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.articles.previous' | translate }}</button>
-        <span>{{ (r.count ? r.offset + 1 : 0) | statisticsNumber }}–{{ (r.offset + r.articles.length) | statisticsNumber }} / {{ r.count | statisticsNumber }}</span>
-        <button mat-button [disabled]="loading || r.offset + r.limit >= r.count" (click)="page(r.offset + r.limit)"
-          style="--mat-button-filled-container-color: var(--statistics-primary);
-            --mat-button-filled-label-text-color: #eaf3ff;
-            --mat-button-filled-state-layer-color: #eaf3ff;
-            --mat-button-outlined-label-text-color: #eaf3ff;
-            --mat-button-outlined-outline-color: var(--statistics-primary);
-            --mat-button-outlined-state-layer-color: #eaf3ff;
-            --mat-button-text-label-text-color: var(--statistics-primary);
-            --mat-button-text-state-layer-color: var(--statistics-primary);">{{ 'statistics.articles.next' | translate }}</button>
-      </div>
-    </div>
+    </mat-form-field>
+    <mat-form-field [appearance]="settings.appearance" class="app-date">
+      <mat-label>{{ 'statistics.productivity.dateTo' | translate }}</mat-label>
+      <input matInput [placeholder]="datePlaceholder" [matDatepicker]="toPicker" name="dateTo" [(ngModel)]="dateTo"
+        required [min]="dateFrom" [disabled]="loading" />
+      <mat-datepicker-toggle matIconSuffix [for]="toPicker" />
+      <mat-datepicker #toPicker />
+      @if (!dateTo?.isSame(defaultDateTo, 'day')) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="dateTo = defaultDateTo.clone(); load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+      <mat-label>{{ 'statistics.exports.exportType' | translate }}</mat-label>
+      <mat-select name="types" [(ngModel)]="types" multiple [disabled]="loading">
+        @for (type of exportTypes; track type) {
+          <mat-option [value]="type">{{ exportTypeLabel(type) }}</mat-option>
+        }
+      </mat-select>
+      @if (types.length) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="types = []; load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+      <mat-label>{{ 'statistics.model' | translate }}</mat-label>
+      <mat-select name="models" [(ngModel)]="models" multiple [disabled]="loading">
+        @for (model of articleModels; track model) {
+          <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
+        }
+      </mat-select>
+      @if (models.length) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="models = []; load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+      <mat-label>{{ 'statistics.sigla' | translate }}</mat-label>
+      <mat-select name="siglas" [(ngModel)]="siglas" multiple [disabled]="loading">
+        @for (sigla of options.sigla; track sigla) {
+          <mat-option [value]="sigla">{{ sigla }}</mat-option>
+        }
+      </mat-select>
+      @if (siglas.length) {
+        <button matSuffix mat-icon-button type="button" color="warn" [disabled]="loading"
+          [attr.aria-label]="'button.removeThisFilter' | translate" [matTooltip]="'button.removeThisFilter' | translate"
+          (click)="siglas = []; load(); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    <mat-checkbox [checked]="respectOrganization" (change)="respectOrganizationChange.emit($event.checked)"
+      [disabled]="loading" [matTooltip]="(respectOrganization ? 'statistics.organizationScope' : 'statistics.allOrganizations') | translate">
+      {{ 'statistics.respectOrganization' | translate }}
+    </mat-checkbox>
+    <mat-checkbox name="unique" [(ngModel)]="unique" [disabled]="loading" [matTooltip]="'statistics.articles.hint' | translate"
+      matTooltipClass="app-statistics-tooltip">
+      {{ 'statistics.exports.unique' | translate }}
+    </mat-checkbox>
+  </form>
+
+  @if (optionsError) {
+    <mat-card appearance="outlined" class="app-alert app-warn app-mb-2" role="alert">
+      <mat-card-content>
+        <mat-icon>warning</mat-icon>
+        <span>{{ 'statistics.exports.optionsError' | translate }}</span>
+        <button mat-button type="button" class="app-ml-2" (click)="loadOptions()">{{ 'statistics.refresh' | translate }}</button>
+      </mat-card-content>
+    </mat-card>
   }
-</section>
+  @if (invalidRange) {
+    <mat-card appearance="outlined" class="app-alert app-warn app-mb-2" role="alert">
+      <mat-card-content>
+        <mat-icon>warning</mat-icon>{{ 'statistics.productivity.invalidRange' | translate }}
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <div class="app-fxFlex app-fxLayout app-column app-oh app-border-wrapper" role="region"
+    [attr.aria-label]="'statistics.results' | translate">
+    <div class="app-toolbar app-fxLayout app-row app-wrap app-center-v app-pl-2" role="status" aria-live="polite">
+      @if (result; as r) {
+        <span>{{ 'statistics.articles.count' | translate }}: <strong>{{ r.count | statisticsNumber }}</strong></span>
+        <span class="app-fxFlex">
+          <span class="app-pipe"></span>
+          {{ r.filters.dateFrom | date:'dd.MM.yyyy' }} – {{ r.filters.dateTo | date:'dd.MM.yyyy' }}
+          <mat-icon class="app-result-separator app-va-middle app-ml-2 app-mr-2" aria-hidden="true">fiber_manual_record</mat-icon>
+          {{ (r.filters.unique ? 'statistics.exports.unique' : 'statistics.exports.repeated') | translate }}
+        </span>
+      } @else {
+        <span class="app-fxFlex"></span>
+      }
+      <button mat-icon-button type="button" [attr.aria-label]="'statistics.information' | translate"
+        matTooltipClass="app-statistics-tooltip" [matTooltip]="'statistics.articles.hint' | translate">
+        <mat-icon>info_outline</mat-icon>
+      </button>
+      <button mat-button type="button" [disabled]="loading || error || !result?.articles?.length" (click)="download()">
+        {{ 'statistics.articles.csvPage' | translate }}
+      </button>
+    </div>
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
+    }
+    @if (error) {
+      <mat-card appearance="outlined" class="app-alert app-warn app-m-2" role="alert">
+        <mat-card-content>
+          <mat-icon>warning</mat-icon>{{ 'statistics.error' | translate }}
+        </mat-card-content>
+      </mat-card>
+    }
+    @if (result; as r) {
+      <div class="app-toolbar app-fxLayout app-row app-center-v app-pl-2">
+        <strong class="app-fxFlex">{{ 'statistics.articles.title' | translate }}</strong>
+        <mat-paginator [length]="r.count" [pageIndex]="r.offset / r.limit" [pageSize]="r.limit" hidePageSize
+          [disabled]="loading" (page)="page($event.pageIndex * $event.pageSize)" />
+      </div>
+      <div class="app-fxFlex app-oa-y">
+        <table mat-table [dataSource]="r.articles" class="app-w-100 app-striped app-hover"
+          [attr.aria-label]="'statistics.articles.title' | translate">
+          <ng-container matColumnDef="pid">
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.pid' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ article.pid }}</td>
+          </ng-container>
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef>{{ 'statistics.model' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ 'model.' + article.model | translate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="doi">
+            <th mat-header-cell *matHeaderCellDef>{{ 'identifier.doi' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ article.dois.length ? article.dois.join(', ') : ('statistics.articles.missingDoi' | translate) }}</td>
+          </ng-container>
+          <ng-container matColumnDef="exportType">
+            <th mat-header-cell *matHeaderCellDef>{{ 'statistics.exports.exportType' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ exportTypeLabel(article.exportType) }}</td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ 'statistics.articles.date' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ article.date | date:'dd.MM.yyyy HH:mm' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef>{{ 'statistics.exports.user' | translate }}</th>
+            <td mat-cell *matCellDef="let article">{{ article.username }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+          <tr *matNoDataRow>
+            <td [attr.colspan]="columns.length" class="app-p-4">
+              <mat-card appearance="outlined" class="app-alert app-info" role="status">
+                <mat-card-content>
+                  <mat-icon>info</mat-icon>{{ 'statistics.articles.empty' | translate }}
+                </mat-card-content>
+              </mat-card>
+            </td>
+          </tr>
+        </table>
+      </div>
+    }
+  </div>
+</div>

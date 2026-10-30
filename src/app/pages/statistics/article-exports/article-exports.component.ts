@@ -12,6 +12,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -24,11 +28,14 @@ import { ExportFilters, ExportOptions } from '../../../model/export-statistic.mo
 import { ApiService } from '../../../services/api.service';
 import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
 import { StatisticsCsvService } from '../shared/statistics-csv.service';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   selector: 'app-article-exports',
-  imports: [StatisticsNumberPipe, MatIconModule, MatDatepickerModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule,
-    MatInputModule, MatSelectModule, MatProgressBarModule, TranslateModule],
+  host: { class: 'app-statistics-report' },
+  imports: [StatisticsNumberPipe, MatIconModule, MatDatepickerModule, CommonModule, FormsModule,
+    MatButtonModule, MatCheckboxModule, MatCardModule, MatPaginatorModule, MatTableModule, MatTooltipModule,
+    MatFormFieldModule, MatInputModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
     parse: { dateInput: ['D.M.YYYY', 'DD.MM.YYYY'] },
     display: { dateInput: 'DD.MM.YYYY', monthYearLabel: 'MMM YYYY', dateA11yLabel: 'LL', monthYearA11yLabel: 'MMMM YYYY' }
@@ -43,14 +50,18 @@ export class ArticleExportsComponent implements OnInit, OnChanges {
   private readonly filterOptions = inject(StatisticsFilterOptionsService);
   private readonly destroyRef = inject(DestroyRef);
   readonly csv = inject(StatisticsCsvService);
+  readonly settings = inject(UserSettings);
+  readonly columns = ['pid', 'model', 'doi', 'exportType', 'date', 'user'];
   private readonly dateAdapter = inject<DateAdapter<Moment>>(DateAdapter);
   private readonly datepickerIntl = inject(MatDatepickerIntl);
   datePlaceholder = 'DD.MM.RRRR';
   private readonly translator = inject(TranslateService);
   readonly articleModels = ['model:ndkarticle', 'model:ndkearticle', 'model:bdmarticle'];
   unique = true;
-  dateFrom: Moment | null = moment().startOf('year');
-  dateTo: Moment | null = moment().startOf('day');
+  readonly defaultDateFrom = moment().startOf('year');
+  readonly defaultDateTo = moment().startOf('day');
+  dateFrom: Moment | null = this.defaultDateFrom.clone();
+  dateTo: Moment | null = this.defaultDateTo.clone();
   models: string[] = []; types = ['exportProfile.crossref']; siglas: string[] = []; users: string[] = [];
   options: ExportOptions = { user: [], model: [], exportType: [], sigla: [], device: [], software: [] };
   exportTypes = ['exportProfile.crossref'];
@@ -73,6 +84,7 @@ export class ArticleExportsComponent implements OnInit, OnChanges {
   }
   loadOptions(): void {
     this.optionsRequest?.unsubscribe();
+    this.optionsError = false;
     this.optionsRequest = this.filterOptions.load(true, this.respectOrganization, true).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: result => { this.options = result.options; this.optionsError = result.incomplete;
         this.exportTypes = [...new Set(['exportProfile.crossref', ...result.options.exportType])]; },
