@@ -26,6 +26,7 @@ export class UsageComponent implements OnInit {
     event.stopPropagation();
     if (this.item.showHelp(this.field)) {
       this.dialog.open(HelpDialogComponent, { 
+      id: 'HelpDialogComponent',
         data: this.item.help(this.field, this.translator),
         panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
       });

@@ -341,6 +341,7 @@ export class ParentDialogComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -389,6 +390,7 @@ export class ParentDialogComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -417,6 +419,7 @@ export class ParentDialogComponent implements OnInit {
     this.state = 'saving';
     const bathId = parseInt(this.data.batchId);
     const dialogRef = this.dialog.open(IngestDialogComponent, { 
+        id: 'IngestDialogComponent',
       data: { batch: bathId, parent: parentPid },
       panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
     });

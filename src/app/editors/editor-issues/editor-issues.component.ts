@@ -96,6 +96,7 @@ export class EditorIssuesComponent {
 
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
+      id: 'HelpDialogComponent',
       data: this.translator.instant('editor.issues.updateHelp'),
       panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
     });

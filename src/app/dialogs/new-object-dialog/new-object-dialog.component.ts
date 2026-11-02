@@ -322,6 +322,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
+      id: 'CatalogDialogComponent',
       data: { type: 'full', create: true },
       width: '1200px',
       panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]

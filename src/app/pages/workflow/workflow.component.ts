@@ -167,6 +167,7 @@ export class WorkFlowComponent implements OnInit {
 
   showLayoutAdmin() {
     const dialogRef = this.dialog.open(LayoutAdminComponent, {
+        id: 'LayoutAdminComponent',
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
@@ -360,6 +361,7 @@ export class WorkFlowComponent implements OnInit {
       isJob: true
     }
     const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
+      id: 'NewObjectDialogComponent',
       data: data,
       width: '680px',
       panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
@@ -368,6 +370,7 @@ export class WorkFlowComponent implements OnInit {
       if (result && result['data']) {
         this.api.getWorkflowMods(result.data.id, result.data.model).subscribe(mods => {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+            id: 'NewMetadataDialogComponent',
             disableClose: true,
             height: '90%',
             width: '680px',
@@ -414,6 +417,7 @@ export class WorkFlowComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -500,6 +504,7 @@ export class WorkFlowComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -608,6 +613,7 @@ export class WorkFlowComponent implements OnInit {
 
     //this.api.getWorkflowMods(this.material.id, this.material.model).subscribe(mods => {
       const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+        id: 'NewMetadataDialogComponent',
         disableClose: true,
         height: '90%',
         width: '680px',
@@ -697,6 +703,7 @@ export class WorkFlowComponent implements OnInit {
 
   editJobs() {
     const dialogRef = this.dialog.open(JobsEditDialogComponent, {
+      id: 'JobsEditDialogComponent',
       // disableClose: true,
       height: '80%',
       width: '680px',

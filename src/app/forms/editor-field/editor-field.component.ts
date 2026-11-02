@@ -99,6 +99,7 @@ export class EditorFieldComponent implements OnInit {
 
   openHelpDialog() {
     this.dialog.open(HelpDialogComponent, {
+      id: 'HelpDialogComponent',
       data: this.field.help(this.translator),
       panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
     });

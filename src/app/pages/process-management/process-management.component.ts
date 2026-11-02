@@ -301,6 +301,7 @@ export class ProcessManagementComponent {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -343,6 +344,7 @@ export class ProcessManagementComponent {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -641,6 +643,7 @@ export class ProcessManagementComponent {
 
   onReloadBatch() {
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
+      id: 'ReloadBatchDialogComponent',
       data: { profile: this.selectedBatch?.profile },
       panelClass: ['app-dialog-reload-batch', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -657,6 +660,7 @@ export class ProcessManagementComponent {
       return;
     }
     const dialogRef = this.dialog.open(ResolveConflictDialogComponent, {
+        id: 'ResolveConflictDialogComponent',
       data: this.selectedBatch,
       panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -690,6 +694,7 @@ export class ProcessManagementComponent {
       return;
     }
     const dialogRef = this.dialog.open(ImportDialogComponent, {
+      id: 'ImportDialogComponent',
       data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
       panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -713,6 +718,7 @@ export class ProcessManagementComponent {
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, {
+      id: 'ImportDialogComponent',
         data: { batch: batch.id },
         panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'
@@ -746,6 +752,7 @@ export class ProcessManagementComponent {
       });
     }
     this.dialog.open(LogDialogComponent, {
+      id: 'LogDialogComponent',
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });
@@ -869,6 +876,7 @@ export class ProcessManagementComponent {
       const batch: Batch = Batch.fromJson(response['response']['data'][0]);
 
       const dialogRef = this.dialog.open(ImportDialogComponent, {
+      id: 'ImportDialogComponent',
         data: { batch: batch.id },
         panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'

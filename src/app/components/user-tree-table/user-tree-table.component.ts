@@ -182,6 +182,7 @@ export class UserTreeTableComponent {
 
   setColumns() {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      id: 'ColumnsSettingsDialogComponent',
       data: {
         colsSettingsName: this.type() === 'TreeWorkFlow' ? 'columnsWorkFlow' : 'columnsSearchTree',
         model: null,

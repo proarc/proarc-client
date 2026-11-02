@@ -271,6 +271,7 @@ export class ExportDialogComponent implements OnInit {
       content: error.pid + (error.log ? (': ' + error.log) : '')
     }
     this.dialog.open(LogDialogComponent, {
+      id: 'LogDialogComponent',
       data: [data],
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

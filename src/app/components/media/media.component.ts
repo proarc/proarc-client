@@ -327,6 +327,7 @@ export class MediaComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
     });

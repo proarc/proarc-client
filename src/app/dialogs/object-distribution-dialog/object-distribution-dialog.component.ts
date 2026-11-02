@@ -116,6 +116,7 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
 
   openHelpDialog(): void {
     this.dialog.open(HelpDialogComponent, {
+      id: 'HelpDialogComponent',
       data: this.translator.instant('editor.children.distribution.help'),
       panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
     });
@@ -123,6 +124,7 @@ export class ObjectDistributionDialogComponent implements OnInit, OnDestroy {
 
   addTarget(): void {
     const picker = this.dialog.open(ObjectTargetSelectionDialogComponent, {
+        id: 'ObjectTargetSelectionDialogComponent',
       data: {
         pages: this.data.pages,
         expandedPath: this.data.expandedPath,

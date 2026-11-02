@@ -267,6 +267,7 @@ export class ImportComponent implements OnInit {
 
     if (this.showPids()) {
       const dialogRef = this.dialog.open(ObjectTargetSelectionDialogComponent, {
+        id: 'ObjectTargetSelectionDialogComponent',
         data: {
           pages: [],
           expandedPath: [],
@@ -313,6 +314,7 @@ export class ImportComponent implements OnInit {
           }
         };
         const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -338,6 +340,7 @@ export class ImportComponent implements OnInit {
         }
 
         const dialogRef = this.dialog.open(ImportDialogComponent, {
+      id: 'ImportDialogComponent',
           data: { batch: batch.id },
           panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
           width: '600px'
@@ -369,6 +372,7 @@ export class ImportComponent implements OnInit {
           }
         };
         const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });

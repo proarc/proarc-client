@@ -147,6 +147,7 @@ export class BatchesComponent {
 
   showLayoutAdmin() {
     const dialogRef = this.dialog.open(LayoutAdminComponent, {
+        id: 'LayoutAdminComponent',
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
@@ -285,6 +286,7 @@ export class BatchesComponent {
         // },
       };
       const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
         data: data,
         panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
       });
@@ -316,7 +318,8 @@ export class BatchesComponent {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent', data: data });
     return dialogRef.afterClosed();
   }
 
@@ -328,6 +331,7 @@ export class BatchesComponent {
 
 
       const dialogRef = this.dialog.open(ParentDialogComponent, {
+      id: 'ParentDialogComponent',
         data: {
           btnLabel: 'editor.children.relocate_label',
           parent: null,
@@ -356,6 +360,7 @@ export class BatchesComponent {
     this.state = 'loading';
     const bathId = parseInt(this.batchId);
     const dialogRef = this.dialog.open(IngestDialogComponent, { 
+        id: 'IngestDialogComponent',
       data: { batch: bathId, parent: parentPid },
       panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
     });

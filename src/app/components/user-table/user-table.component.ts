@@ -153,6 +153,7 @@ export class UserTableComponent {
   setColumns() {
     const model = this.layout.selectedParentItem ? this.layout.selectedParentItem.model : this.items()[0].model
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      id: 'ColumnsSettingsDialogComponent',
       data: {
         colsSettingsName: this.colsSettingsName(),
         model: model,

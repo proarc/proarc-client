@@ -10,6 +10,7 @@ export class ConversionResultService {
 
   showAfterClosing(source: MatDialogRef<unknown>, result: ConversionResult) {
     const showResult = () => this.dialog.open(ConversionResultDialogComponent, {
+      id: 'ConversionResultDialogComponent',
       data: result,
       width: '700px',
       panelClass: ['app-form-view-' + this.settings.appearance]

@@ -82,6 +82,7 @@ export class NavbarComponent implements OnInit {
       fromNavbar: true
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, {
+      id: 'NewObjectDialogComponent',
       data: data,
       width: '680px',
       panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
@@ -100,6 +101,7 @@ export class NavbarComponent implements OnInit {
 
   showMetadataDialog(data: any) {
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+      id: 'NewMetadataDialogComponent',
       disableClose: true,
       height: '90%',
       width: '680px',
@@ -145,6 +147,7 @@ export class NavbarComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -176,6 +179,7 @@ export class NavbarComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -210,6 +214,7 @@ export class NavbarComponent implements OnInit {
     };
 
     const progressDialog = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -237,6 +242,7 @@ export class NavbarComponent implements OnInit {
   deleteMultiple() {
 
     const dialogRef = this.dialog.open(DeleteMultipleDialogComponent, {
+      id: 'DeleteMultipleDialogComponent',
     });
     dialogRef.afterClosed().subscribe(dresult => {
       console.log(dresult)
@@ -271,6 +277,7 @@ export class NavbarComponent implements OnInit {
       data.checkboxes = checkboxes;
 
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -313,6 +320,7 @@ export class NavbarComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -349,6 +357,7 @@ export class NavbarComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -377,6 +386,7 @@ export class NavbarComponent implements OnInit {
       btn2: { label: this.translator.instant('button.no'), value: 'no', color: 'default' }
     };
     this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data, panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     }).afterClosed().subscribe(result => {
       if (result !== 'yes') return;
@@ -419,6 +429,7 @@ export class NavbarComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });

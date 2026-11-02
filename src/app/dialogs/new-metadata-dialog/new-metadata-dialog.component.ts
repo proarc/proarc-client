@@ -225,6 +225,7 @@ export class NewMetadataDialogComponent implements OnInit {
       },
     };
     const d = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
     });
@@ -343,6 +344,7 @@ export class NewMetadataDialogComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
     });

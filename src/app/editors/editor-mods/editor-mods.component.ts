@@ -196,6 +196,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data, 
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
     });

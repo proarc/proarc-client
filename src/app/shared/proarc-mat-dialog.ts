@@ -22,6 +22,10 @@ export class ProarcMatDialog extends MatDialog {
     if (componentOrTemplateRef instanceof Type) {
       componentName = componentOrTemplateRef.name;
 
+      if (currentConfig.id) {
+        componentName = currentConfig.id
+      }
+
       const savedPosition = this.dialogPos?.[componentName];
       if (savedPosition) {
         currentConfig.position = {left: savedPosition.left +'px', top: savedPosition.top +'px', };

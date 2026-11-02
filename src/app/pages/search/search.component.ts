@@ -190,6 +190,7 @@ export class SearchComponent {
     };
 
     this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     }).afterClosed().subscribe(result => {
@@ -231,6 +232,7 @@ export class SearchComponent {
     };
 
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -486,6 +488,7 @@ export class SearchComponent {
       content: batch.failure
     }];
     this.dialog.open(LogDialogComponent, {
+      id: 'LogDialogComponent',
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

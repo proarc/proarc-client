@@ -133,6 +133,7 @@ export class EditorGenreComponent implements OnInit {
       rows: 10
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       width: '800px',
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]

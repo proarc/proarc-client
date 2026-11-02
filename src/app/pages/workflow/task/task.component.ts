@@ -456,6 +456,7 @@ export class TaskComponent implements OnInit {
 
   editTasks() {
     const dialogRef = this.dialog.open(TaskssEditDialogComponent, {
+      id: 'TaskssEditDialogComponent',
       // disableClose: true,
       height: '60%',
       width: '680px',

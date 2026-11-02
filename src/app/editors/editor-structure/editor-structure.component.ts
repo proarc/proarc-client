@@ -879,6 +879,7 @@ export class EditorStructureComponent implements OnInit {
 
   validateChildren() {
     const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
+      id: 'ChildrenValidationDialogComponent',
       data: {
         parent: this.layout.selectedParentItem,
         children: this.layout.items(),
@@ -909,6 +910,7 @@ export class EditorStructureComponent implements OnInit {
       fromNavbar: false
     }
     const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
+      id: 'NewObjectDialogComponent',
       data: data,
       width: '680px',
       panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
@@ -945,6 +947,7 @@ export class EditorStructureComponent implements OnInit {
           this.layout.refreshSelectedItem(false, 'pages');
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+            id: 'NewMetadataDialogComponent',
             disableClose: true,
             height: '90%',
             width: '680px',
@@ -994,6 +997,7 @@ export class EditorStructureComponent implements OnInit {
 
   showConvertDialog() {
     const dialogRef = this.dialog.open(ConvertDialogComponent, { 
+      id: 'ConvertDialogComponent',
       data: { pid: this.layout.item.pid, model: this.layout.item.model },
       panelClass: ['app-dialog-convert', 'app-form-view-' + this.settings.appearance]
     });
@@ -1032,6 +1036,7 @@ export class EditorStructureComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1095,6 +1100,7 @@ export class EditorStructureComponent implements OnInit {
   onRelocateOutside() {
 
     const dialogRef = this.dialog.open(ParentDialogComponent, {
+      id: 'ParentDialogComponent',
       data: {
         btnLabel: 'editor.children.relocate_label',
         parent: this.layout.item.parent,
@@ -1132,6 +1138,7 @@ export class EditorStructureComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(ObjectDistributionDialogComponent, {
+      id: 'ObjectDistributionDialogComponent',
       data: {
         source,
         sourcePid,
@@ -1176,6 +1183,7 @@ export class EditorStructureComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1225,6 +1233,7 @@ export class EditorStructureComponent implements OnInit {
       checkboxes: [checkbox]
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
      });
@@ -1371,6 +1380,7 @@ export class EditorStructureComponent implements OnInit {
       data.checkboxes = checkboxes;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1402,6 +1412,7 @@ export class EditorStructureComponent implements OnInit {
           }
         };
         const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -1471,6 +1482,7 @@ export class EditorStructureComponent implements OnInit {
       numberInput: input
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1498,6 +1510,7 @@ export class EditorStructureComponent implements OnInit {
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
+      id: 'MarkSequenceDialogComponent',
       panelClass: ['app-dialog-mark-sequence', 'app-form-view-' + this.settings.appearance],
       width: '95%',
       maxWidth: '100vw',

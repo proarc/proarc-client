@@ -257,6 +257,7 @@ export class EditorMetadataComponent implements OnInit {
 
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
+      id: 'CatalogDialogComponent',
       data: { type: 'full' },
       panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]
     });
@@ -438,6 +439,7 @@ export class EditorMetadataComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });

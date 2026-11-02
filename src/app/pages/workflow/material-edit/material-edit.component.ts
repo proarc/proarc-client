@@ -72,6 +72,7 @@ export class MaterialEditComponent implements OnInit {
     const material = this.material;
     this.catalogOpen = true;
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
+      id: 'CatalogDialogComponent',
       data: {type: 'full'},
       width: '1200px',
       panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]
@@ -88,6 +89,7 @@ export class MaterialEditComponent implements OnInit {
     
     //this.api.getWorkflowMods(this.material.id, this.material.model).subscribe(mods => {
       const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+        id: 'NewMetadataDialogComponent',
         disableClose: true,
         height: '90%',
         width: '680px',

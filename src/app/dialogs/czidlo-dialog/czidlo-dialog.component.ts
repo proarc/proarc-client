@@ -252,6 +252,7 @@ export class CzidloDialogComponent implements OnInit {
       content: error
     }
     this.dialog.open(LogDialogComponent, { 
+      id: 'LogDialogComponent',
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

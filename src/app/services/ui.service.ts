@@ -26,6 +26,7 @@ export class UIService {
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
     return this.dialog.open(AlertDialogComponent, {
+      id: 'AlertDialogComponent',
          data,
          width: '600px',
          panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]
@@ -39,6 +40,7 @@ export class UIService {
       message: [message]
     };
     const dialogRef = this.dialog.open(AlertDialogComponent, {
+      id: 'AlertDialogComponent',
          data,
          width: '400px',
          panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]

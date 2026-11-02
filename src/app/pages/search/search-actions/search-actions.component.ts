@@ -76,6 +76,7 @@ export class SearchActionsComponent {
       this.items().filter(i => i.selected).map(i => i.pid) :
       this.treeItems().filter(i => i.selected).map(i => i.pid);
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
+      id: 'UrnnbnDialogComponent',
       data: pids,
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -109,6 +110,7 @@ export class SearchActionsComponent {
       .filter(i => i.selected)
       .map(i => { return { pid: i.pid, model: i.model } });
     const dialogRef = this.dialog.open(ExportDialogComponent, {
+      id: 'ExportDialogComponent',
       disableClose: true,
       data: items,
       width: '600px',
@@ -159,6 +161,7 @@ export class SearchActionsComponent {
       checkboxes
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -223,6 +226,7 @@ export class SearchActionsComponent {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -261,6 +265,7 @@ export class SearchActionsComponent {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       width: '600px',
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
@@ -338,6 +343,7 @@ export class SearchActionsComponent {
   changeModel() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
+      id: 'ChangeModelDialogComponent',
       width: '520px',
       data: {
         pid: item.pid,
@@ -372,6 +378,7 @@ export class SearchActionsComponent {
   showConvertDialog() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ConvertDialogComponent, {
+      id: 'ConvertDialogComponent',
       data: { pid: item.pid, model: item.model },
       panelClass: ['app-dialog-convert', 'app-form-view-' + this.settings.appearance]
     });
@@ -391,6 +398,7 @@ export class SearchActionsComponent {
   czidlo() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
+      id: 'CzidloDialogComponent',
       data: { pid: item.pid, model: item.model },
       width: '400px',
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance]
@@ -410,6 +418,7 @@ export class SearchActionsComponent {
   updateInSource() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
+        id: 'UpdateInSourceDialogComponent',
       data: item.pid,
       width: '600px',
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance]

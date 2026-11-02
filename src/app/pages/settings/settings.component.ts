@@ -105,6 +105,7 @@ export class SettingsComponent implements OnInit {
                     labels?: Record<string, string>) {
     const top: string[] = this.curSettings[listName] || [];
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
+        id: 'PreferredTopsDialogComponent',
       data: { prefix, top, conf: [...conf], expanded, labels, relatedItemExpanded: this.curSettings.relatedItemExpanded },
       panelClass: ['app-dialog-preferred-tops', 'app-form-view-' + this.settings.appearance]
     });
@@ -158,6 +159,7 @@ export class SettingsComponent implements OnInit {
 
   changePassword() {
     this.dialog.open(NewPasswordDialogComponent, {
+      id: 'NewPasswordDialogComponent',
       width: '550px',
       panelClass: ['app-dialog-new-password', 'app-form-view-' + this.settings.appearance]
     });
@@ -190,6 +192,7 @@ export class SettingsComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });

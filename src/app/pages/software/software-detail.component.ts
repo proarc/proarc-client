@@ -100,6 +100,7 @@ export class SoftwareDetailComponent implements OnInit, OnDestroy {
       next: preview => {
         this.state = 'success';
         this.dialog.open(SoftwarePreviewDialogComponent, {
+        id: 'SoftwarePreviewDialogComponent',
           data: { title: this.software.label, xml: Software.formatXml(preview.description) },
           width: '90vw',
           maxWidth: '1200px',
@@ -118,6 +119,7 @@ export class SoftwareDetailComponent implements OnInit, OnDestroy {
       btn2: { label: this.translator.instant('common.no'), value: 'no', color: 'default' }
     };
     this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     }).afterClosed().subscribe(result => {

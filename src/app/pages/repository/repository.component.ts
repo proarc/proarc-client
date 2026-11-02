@@ -318,6 +318,7 @@ export class RepositoryComponent {
 
   onExport() {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
+      id: 'ExportDialogComponent',
       disableClose: true,
       data: [{ pid: this.layout.item.pid, model: this.layout.item.model }],
       width: '600px',
@@ -332,6 +333,7 @@ export class RepositoryComponent {
 
   onUrnnbn() {
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
+      id: 'UrnnbnDialogComponent',
       data: [this.layout.item.pid],
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -374,6 +376,7 @@ export class RepositoryComponent {
   czidlo() {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
+      id: 'CzidloDialogComponent',
       data: { pid: this.layout.item.pid, model: this.layout.item.model },
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -397,6 +400,7 @@ export class RepositoryComponent {
   updateInSource() {
 
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
+        id: 'UpdateInSourceDialogComponent',
       data: this.layout.item.pid,
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
@@ -427,6 +431,7 @@ export class RepositoryComponent {
     });
 
     this.dialog.open(LogDialogComponent, {
+      id: 'LogDialogComponent',
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });
@@ -449,6 +454,7 @@ export class RepositoryComponent {
 
   showLayoutAdmin() {
     const dialogRef = this.dialog.open(LayoutAdminComponent, {
+        id: 'LayoutAdminComponent',
       data: { layout: 'repo' },
       width: '1280px',
       height: '90%',

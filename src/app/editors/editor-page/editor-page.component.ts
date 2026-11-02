@@ -326,6 +326,7 @@ export class EditorPageComponent implements OnInit {
         },
       };
       const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
         autoFocus: true,
         data: data,
         panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]

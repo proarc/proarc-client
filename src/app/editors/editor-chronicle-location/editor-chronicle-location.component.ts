@@ -59,6 +59,7 @@ export class EditorChronicleLocationComponent implements OnInit {
           }
         };
         this.dialog.open(SimpleDialogComponent, { 
+      id: 'SimpleDialogComponent',
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -66,6 +67,7 @@ export class EditorChronicleLocationComponent implements OnInit {
       return;
     }
     const dialogRef = this.dialog.open(FundDialogComponent, { 
+      id: 'FundDialogComponent',
       data: archive,
       panelClass: ['app-dialog-fund', 'app-form-view-' + this.settings.appearance]
     });

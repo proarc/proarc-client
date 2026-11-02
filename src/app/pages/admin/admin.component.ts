@@ -118,6 +118,7 @@ export class AdminComponent implements OnInit {
 
   changeOwner(){
     const dialogRef = this.dialog.open(ChangeOwnerDialogComponent, {
+      id: 'ChangeOwnerDialogComponent',
       data: this.users,
       width: '680px',
       panelClass: ['app-dialog-change-owner', 'app-form-view-' + this.settings.appearance]
@@ -186,6 +187,7 @@ export class AdminComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      id: 'SimpleDialogComponent',
       data: data,
       width: '400px',
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance],
