@@ -74,7 +74,7 @@
         @if (selectedRootTreeItem()) {
           <div class="app-tree app-fill">
             <app-user-tree-table [inSearch]="false" [container]="'distribution-target'" [multiSelect]="true"
-              [expandOnSelection]="false"
+              [expandOnSelection]="settings.searchExpandTree"
               [initData]="{treePath: expandedPath(), rootTreeItem: selectedRootTreeItem()}"
               (onSelectTreeItem)="onTreeSelection($event)">
             </app-user-tree-table>
