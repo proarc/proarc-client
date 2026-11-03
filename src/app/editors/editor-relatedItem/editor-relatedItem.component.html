@@ -359,7 +359,13 @@
           </ng-template>
         </app-editor-field>
       }
-        <app-field-textarea field="note" [item]="physicalDescription" [(value)]="physicalDescription.note['_']" ></app-field-textarea>
+        @if (physicalDescription.available['note']) {
+          <app-editor-field [field]="physicalDescription.notes" [nested]='true'>
+            <ng-template let-note="item" #templateContent>
+              <app-field-textarea field="value" [item]="note" [(value)]="note.modsElement['_']"></app-field-textarea>
+            </ng-template>
+          </app-editor-field>
+        }
         <app-field-dropdown field="digitalOrigin" [item]="physicalDescription" [(value)]="physicalDescription.digitalOrigin['_']"></app-field-dropdown>
         @if (physicalDescription.available['form']) {
           <app-editor-field [field]="physicalDescription.forms" [nested]='true'>

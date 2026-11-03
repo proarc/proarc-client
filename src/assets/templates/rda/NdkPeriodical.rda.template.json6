@@ -1269,7 +1269,18 @@
         selector: 'physicalDescription/note',
         labelKey: 'physicalDescription/note',
         description: 'Poznámka o fyzickém stavu dokumentu<br/>\
-          zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)'
+          zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)',
+        fields: {
+          value: {
+            usage: 'RA',
+            label: 'Poznámka',
+            selector: 'physicalDescription/note/value',
+            labelKey: 'physicalDescription/note',
+            description: 'Poznámka o fyzickém stavu dokumentu<br/>\
+              zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)',
+            help: 'off'
+          }
+        }
       },
       form: {
         usage: 'M',
@@ -3189,7 +3200,18 @@
             selector: 'relatedItem/physicalDescription/note',
             labelKey: 'relatedItem/physicalDescription/note',
             description: 'Poznámka o fyzickém stavu dokumentu<br/>\
-          zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)'
+          zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)',
+            fields: {
+              value: {
+                usage: 'RA',
+                label: 'Poznámka',
+                selector: 'relatedItem/physicalDescription/note/value',
+                labelKey: 'relatedItem/physicalDescription/note',
+                description: 'Poznámka o fyzickém stavu dokumentu<br/>\
+              zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)',
+                help: 'off'
+              }
+            }
           },
           form: {
             usage: 'MA',

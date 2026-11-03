@@ -10,7 +10,13 @@
       </ng-template>
     </app-editor-field>
   }
-    <app-autocomplete field="note" [item]="item" [(value)]="item.note['_']" ></app-autocomplete>
+    @if (item.available['note']) {
+      <app-editor-field [field]="item.notes" [nested]='true'>
+        <ng-template let-note="item" #templateContent>
+          <app-autocomplete field="value" [item]="note" [(value)]="note.modsElement['_']"></app-autocomplete>
+        </ng-template>
+      </app-editor-field>
+    }
 
     <app-field-dropdown field="digitalOrigin" [item]="item" [(value)]="item.digitalOrigin['_']"></app-field-dropdown>
 @if (item.available['form']) {

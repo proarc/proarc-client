@@ -1216,6 +1216,16 @@
         selector: 'physicalDescription/note',
         labelKey: 'physicalDescription/note',
         description: 'Poznámka o fyzickém stavu dokumentu',
+        fields: {
+          value: {
+            usage: 'RA',
+            label: 'Poznámka',
+            selector: 'physicalDescription/note/value',
+            labelKey: 'physicalDescription/note',
+            description: 'Poznámka o fyzickém stavu dokumentu',
+            help: 'off'
+          }
+        }
       },
       form: {
         usage: 'M',
@@ -3154,6 +3164,16 @@
             selector: 'relatedItem/physicalDescription/note',
             labelKey: 'relatedItem/physicalDescription/note',
             description: 'Poznámka o fyzickém stavu dokumentu',
+            fields: {
+              value: {
+                usage: 'RA',
+                label: 'Poznámka',
+                selector: 'relatedItem/physicalDescription/note/value',
+                labelKey: 'relatedItem/physicalDescription/note',
+                description: 'Poznámka o fyzickém stavu dokumentu',
+                help: 'off'
+              }
+            }
           },
           form: {
             usage: 'MA',

@@ -4,10 +4,11 @@ import { ElementField } from './elementField.model';
 import { ModsForm } from './form.model';
 import {ModsInternetMediaType} from './internetMediaType.model';
 import {ModsPhysicalExtent} from './extentPhysical.model';
+import { ModsNote } from './note.mode';
 
 export class ModsPhysical extends ModsElement {
 
-    note: any;
+    notes: ElementField;
     digitalOrigin: any;
     forms: ElementField;
     extents : ElementField;
@@ -29,11 +30,11 @@ export class ModsPhysical extends ModsElement {
     private init() {
         this.addControl('displayLabel');
 
-        if (!this.modsElement['note']) {
-            this.modsElement['note'] = ModsUtils.createField(this, 'note');
+        if (this.available2('note')) {
+            this.notes = new ElementField(this.modsElement, ModsNote.getSelector(), this.getField('note'));
+            this.addSubfield(this.notes);
+            this.addControl('notes');
         }
-        this.note = this.modsElement['note'][0];
-        this.addControl('note');
 
         if (!this.modsElement['digitalOrigin']) {
             this.modsElement['digitalOrigin'] = ModsUtils.createField(this, 'digitalOrigin');

@@ -615,7 +615,27 @@
             'dosken',
             'dosken'
           ]
-        ]
+        ],
+        fields: {
+          value: {
+            usage: 'O',
+            label: 'Poznámka',
+            selector: 'physicalDescription/note/value',
+            labelKey: 'physicalDescription/note',
+            description: 'V případě doskenu se POVINNĚ vyplní hodnota <strong>dosken</strong>',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'dosken',
+                'dosken'
+              ]
+            ],
+            help: 'off'
+          }
+        }
       },
       form: {
         usage: 'RA',

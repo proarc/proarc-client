@@ -374,7 +374,18 @@
         selector: 'physicalDescription/note',
         labelKey: 'physicalDescription/note',
         description: 'Poznámka o fyzickém stavu dokumentu<br/>\
-          zapisují se zde defekty zjištěné při digitalizaci pro úroveň ročníku (např. chybějící čísla apod.)'
+          zapisují se zde defekty zjištěné při digitalizaci pro úroveň ročníku (např. chybějící čísla apod.)',
+        fields: {
+          value: {
+            usage: 'O',
+            label: 'Poznámka',
+            selector: 'physicalDescription/note/value',
+            labelKey: 'physicalDescription/note',
+            description: 'Poznámka o fyzickém stavu dokumentu<br/>\
+              zapisují se zde defekty zjištěné při digitalizaci pro úroveň ročníku (např. chybějící čísla apod.)',
+            help: 'off'
+          }
+        }
       }
     }
   },

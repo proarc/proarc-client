@@ -614,7 +614,16 @@
         usage: 'RA',
         label: 'Poznámka',
         selector: 'physicalDescription/note',
-        labelKey: 'physicalDescription/note'
+        labelKey: 'physicalDescription/note',
+        fields: {
+          value: {
+            usage: 'RA',
+            label: 'Poznámka',
+            selector: 'physicalDescription/note/value',
+            labelKey: 'physicalDescription/note',
+            help: 'off'
+          }
+        }
       },
       form: {
         usage: 'M',
