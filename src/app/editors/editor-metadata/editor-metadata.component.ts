@@ -228,7 +228,7 @@ export class EditorMetadataComponent implements OnInit {
     setTimeout(() => {
 
       this.setElStyles();
-      if (this.layout.moveFocus) {
+      if (this.layout.moveFocus && this.notSaved()) {
         setTimeout(() => {
           this.focusToFirstRequired();
         }, 100);

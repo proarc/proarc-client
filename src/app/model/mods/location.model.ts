@@ -51,6 +51,13 @@ export class ModsLocation extends ModsElement {
   }
 
     override validate(): boolean {
+      this.validationWarning = false;
+      const maxLocations = this.getField('physicalLocation')?.max;
+      if (maxLocations !== undefined && this.physicalLocations?.items.length > maxLocations) {
+        this.validationWarning = true;
+        this.collapsed = false;
+        return false;
+      }
       if (this.physicalLocations && this.physicalLocations.items) {
         for (const i in this.physicalLocations.items) {
           const item = this.physicalLocations.items[i];

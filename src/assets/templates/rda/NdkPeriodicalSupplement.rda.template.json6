@@ -1423,6 +1423,7 @@
     description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
     fields: {
       physicalLocation: {
+        max: 1,
         usage: 'M',
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
@@ -1468,6 +1469,7 @@
         }
       },
       shelfLocator: {
+        max: 1,
         usage: 'MA',
         label: 'Signatura',
         selector: 'location/shelfLocator',
@@ -1484,6 +1486,7 @@
         }
       },
       url: {
+        max: 1,
         usage: 'O',
         label: 'URL',
         selector: 'location/url',
@@ -3080,6 +3083,7 @@
         description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
         fields: {
           physicalLocation: {
+            max: 1,
             usage: 'MA',
             label: 'Místo uložení',
             selector: 'relatedItem/location/physicalLocation',
@@ -3125,6 +3129,7 @@
             }
           },
           shelfLocator: {
+            max: 1,
             usage: 'MA',
             label: 'Signatura',
             selector: 'relatedItem/location/shelfLocator',
@@ -3141,6 +3146,7 @@
             }
           },
           url: {
+            max: 1,
             usage: 'O',
             label: 'URL',
             selector: 'relatedItem/location/url',

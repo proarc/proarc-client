@@ -133,6 +133,7 @@ export class ModsAuthor extends ModsElement {
         } else {
             this.attrs['usage'] = 'primary';
         }
+        this.controls['usage'].setValue(this.attrs['usage']);
         this.setAsDirty();
     }
 

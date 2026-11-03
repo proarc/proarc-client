@@ -1262,6 +1262,7 @@
     "labelKey": "location",
     "fields": {
       "physicalLocation": {
+        max: 1,
         "usage": "M",
         "label": "Místo uložení",
         "selector": "location/physicalLocation",
@@ -1306,6 +1307,7 @@
         }
       },
       "shelfLocator": {
+        max: 1,
         "usage": "O",
         "label": "Signatura",
         "selector": "location/shelfLocator",
@@ -1321,6 +1323,7 @@
         }
       },
       "url": {
+        max: 1,
         "usage": "O",
         "label": "URL",
         "selector": "location/url",

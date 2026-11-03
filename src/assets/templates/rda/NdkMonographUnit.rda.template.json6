@@ -763,6 +763,7 @@
     description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
     fields: {
       physicalLocation: {
+        max: 1,
         usage: 'M',
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
@@ -809,6 +810,7 @@
         }
       },
       shelfLocator: {
+        max: 1,
         usage: 'MA',
         label: 'Signatura',
         selector: 'location/shelfLocator',
@@ -826,6 +828,7 @@
         }
       },
       url: {
+        max: 1,
         usage: 'O',
         label: 'URL',
         selector: 'location/url',
@@ -1663,19 +1666,6 @@
     labelKey: 'part',
     description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
     fields: {
-      type: {
-        usage: 'O',
-        label: 'Typ',
-        selector: 'part/@type',
-        labelKey: 'part/@type',
-        description: 'Hodnota bude vždy "volume" ',
-        options: [
-          [
-            'volume',
-            'volume'
-          ]
-        ]
-      },
       detail: {
         usage: 'RA',
         label: 'Detail',
@@ -2714,6 +2704,7 @@
         description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
         fields: {
           physicalLocation: {
+            max: 1,
             usage: 'MA',
             label: 'Místo uložení',
             selector: 'relatedItem/location/physicalLocation',
@@ -2759,6 +2750,7 @@
             }
           },
           shelfLocator: {
+            max: 1,
             usage: 'MA',
             label: 'Signatura',
             selector: 'relatedItem/location/shelfLocator',
@@ -2775,6 +2767,7 @@
             }
           },
           url: {
+            max: 1,
             usage: 'O',
             label: 'URL',
             selector: 'relatedItem/location/url',
@@ -3562,19 +3555,6 @@
         labelKey: 'relatedItem/part',
         description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
         fields: {
-          type: {
-            usage: 'O',
-            label: 'Typ',
-            selector: 'relatedItem/part/@type',
-            labelKey: 'relatedItem/part/@type',
-            description: 'Hodnota bude vždy "volume" ',
-            options: [
-              [
-                'volume',
-                'volume'
-              ]
-            ]
-          },
           detail: {
             usage: 'RA',
             label: 'Detail',

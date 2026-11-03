@@ -343,6 +343,7 @@
     description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
     fields: {
       physicalLocation: {
+        max: 1,
         usage: 'MA',
         label: 'Název archivu',
         selector: 'location/physicalLocation',

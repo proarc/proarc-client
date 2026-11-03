@@ -1376,6 +1376,7 @@
     description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
     fields: {
       url: {
+        max: 1,
         usage: 'MA',
         label: 'URL',
         selector: 'location/url',

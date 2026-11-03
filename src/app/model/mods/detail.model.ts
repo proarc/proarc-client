@@ -25,14 +25,13 @@ export class ModsDetail extends ModsElement {
       if (!this.modsElement['caption']) {
         this.modsElement['caption'] = ModsUtils.createField(this, 'caption');
       }
+      this.caption = this.modsElement['caption'][0];
       this.addControl('caption');
 
       if (!this.modsElement['number']) {
         this.modsElement['number'] = ModsUtils.createField(this, 'number');
       }
-      this.addControl('number');
-
-      this.caption = this.modsElement['caption'][0];
       this.number = this.modsElement['number'][0];
+      this.addControl('number');
     }
 }
