@@ -1,3 +1,6 @@
+import { StatisticsChartComponent } from '../shared/statistics-chart.component';
+import { buildPieLabels, PieLabel } from '../shared/pie-labels';
+import { PieLabelsComponent } from '../shared/pie-labels.component';
 import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { StatisticsFilterOptionsService } from '../shared/statistics-filter-options.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,7 +39,7 @@ interface ProductivityModel extends ModelStatistic {
 @Component({
   selector: 'app-productivity',
   host: { class: 'app-statistics-report' },
-  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatIconModule, MatTableModule, MatTooltipModule,
+  imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatIconModule, MatTableModule, MatTooltipModule,
     MatCheckboxModule, MatCardModule, CommonModule, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule,
     MatDatepickerModule, MatSelectModule, MatProgressBarModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
@@ -65,7 +68,8 @@ export class ProductivityComponent implements OnInit, OnChanges {
   readonly settings = inject(UserSettings);
   readonly columns = ['show', 'model', 'count', 'share'];
   models: ProductivityModel[] = [];
-  slices: { item: ProductivityModel; path: string }[] = [];
+  slices: { item: ProductivityModel; path: string; middle: number }[] = [];
+  chartLabels: PieLabel[] = [];
   visibleTotal = 0;
   selectedUsers: string[] = [];
   selectedModels: string[] = [];
@@ -194,8 +198,9 @@ export class ProductivityComponent implements OnInit, OnChanges {
       const middle = (angle + end) / 2;
       const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
       angle = end;
-      return { item, path };
+      return { item, path, middle };
     });
+    this.chartLabels = buildPieLabels(this.slices, item => item.count);
   }
 
   load(): void {

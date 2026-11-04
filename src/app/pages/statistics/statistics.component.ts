@@ -1,3 +1,6 @@
+import { StatisticsChartComponent } from './shared/statistics-chart.component';
+import { buildPieLabels, PieLabel } from './shared/pie-labels';
+import { PieLabelsComponent } from './shared/pie-labels.component';
 import { StatisticsNumberPipe, StatisticsPercentPipe } from './shared/statistics-number.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
@@ -42,7 +45,7 @@ interface StatisticsPreview {
 
 @Component({
   selector: 'app-statistics',
-  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
+  imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
             ArticleExportsComponent, ExportStatisticsComponent, MatIconModule,
             ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule,
             MatProgressBarModule, MatCardModule],
@@ -68,7 +71,7 @@ export class StatisticsComponent implements OnInit {
   models: ModelStatistic[] = [];
   readonly columns = ['show', 'model', 'count', 'share'];
   detailModels: StatisticsModel[] = [];
-  slices: { item: StatisticsModel; path: string }[] = [];
+  slices: { item: StatisticsModel; path: string; middle: number }[] = [];
   active = true;
   respectOrganization = false;
   resultRespectOrganization = false;
@@ -77,6 +80,7 @@ export class StatisticsComponent implements OnInit {
   loading = false;
   error = false;
   total = 0;
+  chartLabels: PieLabel[] = [];
   visibleTotal = 0;
   updatedAt: Date | null = null;
 
@@ -268,8 +272,9 @@ export class StatisticsComponent implements OnInit {
       const middle = (angle + end) / 2;
       const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
       angle = end;
-      return { item, path };
+      return { item, path, middle };
     });
+    this.chartLabels = buildPieLabels(this.slices, item => item.count);
   }
 
   updatedLabel(): string {

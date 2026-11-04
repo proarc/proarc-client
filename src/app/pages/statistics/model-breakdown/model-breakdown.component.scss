@@ -1,5 +1,11 @@
 :host {
+  .detail-pie-labeled { max-width: 784px; }
+
   .preview-pie {
+    &.preview-pie-labeled {
+      max-width: 420px;
+    }
+
     &.preview-pie-empty {
       color: var(--app-color-gray-4);
       opacity: 0.45;

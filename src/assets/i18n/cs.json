@@ -6,6 +6,14 @@
   "failed": "Doplnění metadat loggingCore se nepodařilo naplánovat."
 },
   "statistics": {
+    "chart": {
+      "type": "Typ grafu",
+      "pie": "Koláčový",
+      "bar": "Sloupcový",
+      "yAxis": "Osa Y",
+      "absolute": "Absolutní počty",
+      "percent": "Procenta"
+    },
     "articles": {
       "title": "Exportované články a DOI",
       "count": "Exporty článků",

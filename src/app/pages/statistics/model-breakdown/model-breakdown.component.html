@@ -26,12 +26,13 @@
 
 @if (preview) {
   @if (visibleTotal) {
-    <svg class="preview-pie" viewBox="0 0 300 300" role="img" [attr.aria-label]="titleKey | translate">
+    <svg class="preview-pie preview-pie-labeled" viewBox="-130 -20 560 340" role="img" [attr.aria-label]="titleKey | translate">
       @for (slice of slices; track slice.item.model) {
         <path [attr.d]="slice.path" [attr.fill]="slice.item.color">
           <title>{{ label(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
         </path>
       }
+      <g app-pie-labels [callouts]="chartLabels" [labels]="labels" />
     </svg>
   } @else {
     <svg class="preview-pie preview-pie-empty" viewBox="0 0 300 300" role="img" [attr.aria-label]="emptyKey | translate">
@@ -107,20 +108,24 @@
               </div>
               <figure>
                 @if (exportCounts) { <h3>{{ titleKey | translate }}</h3> }
-                @if (visibleTotal) {
-                  <svg viewBox="0 0 300 300" role="group" [attr.aria-label]="titleKey | translate">
-                    @for (slice of slices; track slice.item.model) {
-                      <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
-                        [attr.aria-label]="label(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
-                        (click)="toggle(slice.item)" (keydown.enter)="toggle(slice.item)"
-                        (keydown.space)="$event.preventDefault(); toggle(slice.item)">
-                        <title>{{ label(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
-                      </path>
-                    }
-                  </svg>
-                } @else {
-                  <p role="status">{{ (total ? 'statistics.noneSelected' : emptyKey) | translate }}</p>
-                }
+                <app-statistics-chart [slices]="slices" [titleKey]="titleKey" [labels]="labels"
+                  (modelClick)="toggle($event)">
+                  @if (visibleTotal) {
+                    <svg class="detail-pie-labeled" viewBox="-130 -20 560 340" role="group" [attr.aria-label]="titleKey | translate">
+                      @for (slice of slices; track slice.item.model) {
+                        <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
+                          [attr.aria-label]="label(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
+                          (click)="toggle(slice.item)" (keydown.enter)="toggle(slice.item)"
+                          (keydown.space)="$event.preventDefault(); toggle(slice.item)">
+                          <title>{{ label(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
+                        </path>
+                      }
+                      <g app-pie-labels [callouts]="chartLabels" [labels]="labels" />
+                    </svg>
+                  } @else {
+                    <p role="status">{{ (total ? 'statistics.noneSelected' : emptyKey) | translate }}</p>
+                  }
+                </app-statistics-chart>
                 <figcaption>{{ 'statistics.visibleTotal' | translate }}: {{ visibleTotal | statisticsNumber }}</figcaption>
               </figure>
             </div>

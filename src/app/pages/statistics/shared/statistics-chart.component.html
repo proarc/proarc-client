@@ -1,0 +1,48 @@
+<div class="chart-controls">
+  <mat-button-toggle-group [value]="chartType" (change)="chartType = $event.value"
+    [attr.aria-label]="'statistics.chart.type' | translate">
+    <mat-button-toggle value="pie">{{ 'statistics.chart.pie' | translate }}</mat-button-toggle>
+    <mat-button-toggle value="bar">{{ 'statistics.chart.bar' | translate }}</mat-button-toggle>
+  </mat-button-toggle-group>
+  @if (chartType === 'bar') {
+    <span>{{ 'statistics.chart.yAxis' | translate }}</span>
+    <mat-button-toggle-group [value]="percent" (change)="setPercent($event.value)"
+      [attr.aria-label]="'statistics.chart.yAxis' | translate">
+      <mat-button-toggle [value]="false">{{ 'statistics.chart.absolute' | translate }}</mat-button-toggle>
+      <mat-button-toggle [value]="true">{{ 'statistics.chart.percent' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  }
+</div>
+<div class="chart-content" [class.bar-content]="chartType === 'bar' && slices.length">
+  @if (chartType === 'pie' || !slices.length) {
+    <ng-content />
+  } @else {
+    <svg class="bar-chart" [attr.viewBox]="'0 0 ' + width + ' 410'" [style.width.px]="width"
+      height="410" role="group" [attr.aria-label]="titleKey | translate">
+      <text x="90" y="22">{{ (percent ? 'statistics.chart.percent' : 'statistics.chart.absolute') | translate }}</text>
+      @for (tick of ticks; track tick.value) {
+        <line class="grid-line" x1="90" [attr.x2]="width - 10" [attr.y1]="tick.y" [attr.y2]="tick.y" />
+        <text x="80" [attr.y]="tick.y + 4" text-anchor="end">
+          {{ percent ? (tick.value / 100 | statisticsPercent:'1.0-3') : (tick.value | statisticsNumber:'1.0-0') }}
+        </text>
+      }
+      <line class="axis" x1="90" x2="90" y1="50" y2="300" />
+      <line class="axis" x1="90" [attr.x2]="width - 10" y1="300" y2="300" />
+      @for (bar of bars; track bar.item.model) {
+        <rect [attr.x]="bar.x - 24" [attr.y]="bar.y" width="48" [attr.height]="bar.height"
+          [attr.fill]="bar.item.color" role="button" tabindex="0"
+          [attr.aria-label]="label(bar.item.model) + ': ' + (percent ? (bar.share | statisticsPercent:'1.1-1') : (bar.value | statisticsNumber)) + '. ' + ('statistics.hide' | translate)"
+          (click)="modelClick.emit(bar.item)" (keydown.enter)="modelClick.emit(bar.item)"
+          (keydown.space)="$event.preventDefault(); modelClick.emit(bar.item)">
+          <title>{{ label(bar.item.model) }}: {{ bar.value | statisticsNumber }} ({{ bar.share | statisticsPercent:'1.1-1' }})</title>
+        </rect>
+        <text [attr.x]="bar.x" [attr.y]="bar.y - 8" text-anchor="middle">
+          {{ percent ? (bar.share | statisticsPercent:'1.1-1') : (bar.value | statisticsNumber:'1.0-0') }}
+        </text>
+        <foreignObject [attr.x]="bar.x - 42" y="310" width="84" height="90">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="model-label">{{ label(bar.item.model) }}</div>
+        </foreignObject>
+      }
+    </svg>
+  }
+</div>

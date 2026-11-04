@@ -176,25 +176,29 @@
             <span>{{ 'statistics.visibleTotal' | translate }}: <strong>{{ visibleTotal | statisticsNumber }}</strong></span>
           </div>
           <div class="app-fxFlex app-fxLayout app-column app-center-h app-oh app-p-4">
-            @if (visibleTotal) {
-              <svg class="app-statistics-chart app-as-v" viewBox="0 0 300 300" role="group"
-                [attr.aria-label]="'statistics.productivity.byModel' | translate">
-                @for (slice of slices; track slice.item.model) {
-                  <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
-                    [attr.aria-label]="modelLabel(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
-                    (click)="toggleModel(slice.item)" (keydown.enter)="toggleModel(slice.item)"
-                    (keydown.space)="$event.preventDefault(); toggleModel(slice.item)">
-                    <title>{{ modelLabel(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
-                  </path>
-                }
-              </svg>
-            } @else {
-              <mat-card appearance="outlined" class="app-alert app-info app-as-v" role="status">
-                <mat-card-content>
-                  <mat-icon>info</mat-icon>{{ (result.count ? 'statistics.noneSelected' : 'statistics.productivity.empty') | translate }}
-                </mat-card-content>
-              </mat-card>
-            }
+            <app-statistics-chart [slices]="slices" [titleKey]="'statistics.productivity.byModel'"
+              (modelClick)="toggleModel($event)">
+              @if (visibleTotal) {
+                <svg class="app-statistics-chart app-as-v" viewBox="-130 -20 560 340" role="group"
+                  [attr.aria-label]="'statistics.productivity.byModel' | translate">
+                  @for (slice of slices; track slice.item.model) {
+                    <path [attr.d]="slice.path" [attr.fill]="slice.item.color" role="button" tabindex="0"
+                      [attr.aria-label]="modelLabel(slice.item.model) + ': ' + slice.item.count + '. ' + ('statistics.hide' | translate)"
+                      (click)="toggleModel(slice.item)" (keydown.enter)="toggleModel(slice.item)"
+                      (keydown.space)="$event.preventDefault(); toggleModel(slice.item)">
+                      <title>{{ modelLabel(slice.item.model) }}: {{ slice.item.count | statisticsNumber }} ({{ slice.item.count / visibleTotal | statisticsPercent:'1.1-1' }})</title>
+                    </path>
+                  }
+                  <g app-pie-labels [callouts]="chartLabels" />
+                </svg>
+              } @else {
+                <mat-card appearance="outlined" class="app-alert app-info app-as-v" role="status">
+                  <mat-card-content>
+                    <mat-icon>info</mat-icon>{{ (result.count ? 'statistics.noneSelected' : 'statistics.productivity.empty') | translate }}
+                  </mat-card-content>
+                </mat-card>
+              }
+            </app-statistics-chart>
           </div>
         </div>
       </div>

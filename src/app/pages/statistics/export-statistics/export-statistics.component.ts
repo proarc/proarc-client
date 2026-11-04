@@ -1,3 +1,6 @@
+import { StatisticsChartComponent } from '../shared/statistics-chart.component';
+import { buildPieLabels, PieLabel } from '../shared/pie-labels';
+import { PieLabelsComponent } from '../shared/pie-labels.component';
 import { PackageExportResult } from '../../../model/export-statistic.model';
 import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { exportTypeLabel as formatExportTypeLabel } from '../shared/export-type-label';
@@ -39,7 +42,7 @@ interface ExportModel extends ExportGroup {
 @Component({
   selector: 'app-export-statistics',
   host: { class: 'app-statistics-report' },
-  imports: [StatisticsNumberPipe, StatisticsPercentPipe, MatCardModule, MatPaginatorModule, MatTableModule,
+  imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatCardModule, MatPaginatorModule, MatTableModule,
     MatTooltipModule, CommonModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule,
     MatFormFieldModule, MatIconModule, MatInputModule, MatProgressBarModule, MatSelectModule, TranslateModule],
   providers: [MatDatepickerIntl, provideMomentDateAdapter({
@@ -90,7 +93,8 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
   optionsError = false;
   error = false;
   models: ExportModel[] = [];
-  slices: { item: ExportModel; path: string }[] = [];
+  slices: { item: ExportModel; path: string; middle: number }[] = [];
+  chartLabels: PieLabel[] = [];
   visibleTotal = 0;
   chartTotal = 0;
   private request?: Subscription;
@@ -232,8 +236,9 @@ export class ExportStatisticsComponent implements OnInit, OnChanges {
       const middle = (angle + end) / 2;
       const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
       angle = end;
-      return { item, path };
+      return { item, path, middle };
     });
+    this.chartLabels = buildPieLabels(this.slices, item => item.chartCount);
   }
 
   download(): void {

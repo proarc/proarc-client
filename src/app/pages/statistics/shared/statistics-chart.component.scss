@@ -1,0 +1,54 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.chart-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+
+  &.bar-content {
+    display: block;
+    overflow: auto;
+  }
+}
+
+.bar-chart {
+  display: block;
+  min-width: 100%;
+  margin: auto;
+  font-size: 12px;
+
+  text { fill: currentColor; }
+  .grid-line { stroke: currentColor; stroke-opacity: .15; }
+  .axis { stroke: currentColor; stroke-opacity: .5; }
+
+  rect {
+    cursor: pointer;
+    &:hover, &:focus-visible { opacity: .75; stroke: currentColor; stroke-width: 2; outline: none; }
+  }
+
+  .model-label {
+    text-align: center;
+    overflow-wrap: anywhere;
+    line-height: 15px;
+  }
+}

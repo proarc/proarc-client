@@ -1,3 +1,6 @@
+import { StatisticsChartComponent } from '../shared/statistics-chart.component';
+import { buildPieLabels, PieLabel } from '../shared/pie-labels';
+import { PieLabelsComponent } from '../shared/pie-labels.component';
 import { StatisticsNumberPipe, StatisticsPercentPipe } from '../shared/statistics-number.pipe';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, inject } from '@angular/core';
@@ -13,7 +16,7 @@ interface ModelCount extends ModelStatistic {
 
 @Component({
   selector: 'app-model-breakdown',
-  imports: [StatisticsNumberPipe, StatisticsPercentPipe, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule],
+  imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule],
   templateUrl: './model-breakdown.component.html',
   styleUrls: ['./model-breakdown.component.scss']
 })
@@ -30,7 +33,8 @@ export class ModelBreakdownComponent implements OnChanges {
   @Output() visibleTotalChange = new EventEmitter<number>();
   readonly translator = inject(TranslateService);
   models: ModelCount[] = [];
-  slices: { item: ModelCount; path: string }[] = [];
+  slices: { item: ModelCount; path: string; middle: number }[] = [];
+  chartLabels: PieLabel[] = [];
   total = 0;
   visibleTotal = 0;
 
@@ -77,7 +81,8 @@ export class ModelBreakdownComponent implements OnChanges {
       const middle = (angle + end) / 2;
       const path = `M150,150 L${point(angle)} A140,140 0 0,1 ${point(middle)} A140,140 0 0,1 ${point(end)} Z`;
       angle = end;
-      return { item, path };
+      return { item, path, middle };
     });
+    this.chartLabels = buildPieLabels(this.slices, item => item.count);
   }
 }

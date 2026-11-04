@@ -6,6 +6,14 @@
   "failed": "The loggingCore metadata backfill could not be scheduled."
 },
   "statistics": {
+    "chart": {
+      "type": "Chart type",
+      "pie": "Pie",
+      "bar": "Bar",
+      "yAxis": "Y axis",
+      "absolute": "Absolute counts",
+      "percent": "Percentages"
+    },
     "articles": {
       "title": "Exported articles and DOI",
       "count": "Article exports",
