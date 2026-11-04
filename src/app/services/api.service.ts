@@ -820,6 +820,9 @@ export class ApiService {
     if (options['model'] !== 'all') {
       params['queryModel'] = options['model'];
     }
+    if (options['typeOfResource']) {
+      params['typeOfResource'] = options['typeOfResource'];
+    }
 
 
 

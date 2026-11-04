@@ -58,6 +58,8 @@ export class SearchComponent {
   queryIdentifier: string;
   queryCreator: string
   queryModel: string;
+  typeOfResource = '';
+  readonly resourceTypes = ['text', 'cartographic', 'still image', 'notated music'];
   organization: string;
   owner: string;
   processor: string;
@@ -139,6 +141,7 @@ export class SearchComponent {
     this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
     this.resetSpecialSearchModel();
+    this.typeOfResource = this.canFilterByResourceType() ? (p['typeOfResource'] || '') : '';
     this.organization = p['organization'] ? p['organization'] : this.settings.searchOrganization;
     this.query = p['query'] ? p['query'] : null;
     this.queryField = p['queryField'] ? p['queryField'] : this.settings.searchQueryField;
@@ -160,6 +163,16 @@ export class SearchComponent {
   setSearchMode(searchMode: string): void {
     this.searchMode = searchMode;
     this.resetSpecialSearchModel();
+  }
+
+  canFilterByResourceType(): boolean {
+    return ['all', 'model:ndkmonographunit', 'model:ndkmonographtitle'].includes(this.model);
+  }
+
+  onSearchModelChange(): void {
+    if (!this.canFilterByResourceType()) {
+      this.typeOfResource = '';
+    }
   }
 
   isSpecialSearchMode(): boolean {
@@ -259,6 +272,7 @@ export class SearchComponent {
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
       queryCreator: this.queryCreator,
+      typeOfResource: this.canFilterByResourceType() ? (this.typeOfResource || null) : null,
       page: this.pageIndex,
       owner: this.owner || null,
       processor: this.processor,
@@ -352,6 +366,7 @@ export class SearchComponent {
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
       queryCreator: this.queryCreator,
+      typeOfResource: this.canFilterByResourceType() ? (this.typeOfResource || null) : null,
       page: this.pageIndex,
       owner: this.owner,
       processor: this.processor,

@@ -5,6 +5,7 @@
   .mat-mdc-form-field {
     &.app-model,
     &.app-owner,
+    &.app-resource-type,
     &.app-organization {
       $app-width: 150px;
       flex: 1 1 $app-width;

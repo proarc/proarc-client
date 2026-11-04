@@ -23,7 +23,7 @@
       @if (searchMode === 'phrase') {
         <mat-form-field [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
-          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model" (ngModelChange)="onSearchModelChange()">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             @for(model of config.models; track $index;) {
               <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
@@ -49,7 +49,7 @@
       @if (searchMode !== 'phrase') {
         <mat-form-field [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
-          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model" (ngModelChange)="onSearchModelChange()">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             @for(model of config.models; track $index;) {
               <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
@@ -137,6 +137,22 @@
             }
           </mat-form-field>
         }
+      }
+      @if (canFilterByResourceType()) {
+        <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
+          <mat-label>{{ 'search.typeOfResource' | translate }}</mat-label>
+          <mat-select name="typeOfResource" [(ngModel)]="typeOfResource">
+            <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
+            @for (resourceType of resourceTypes; track resourceType) {
+              <mat-option [value]="resourceType">{{ 'mods.option.' + resourceType | translate }}</mat-option>
+            }
+          </mat-select>
+          @if (typeOfResource) {
+            <button matSuffix mat-icon-button (click)="typeOfResource=''; filter(); $event.stopPropagation()" color="warn" [matTooltip]="'button.removeThisFilter' | translate" [attr.aria-label]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
       }
     </div>
     <div class="app-fxFlex app-oh app-border-wrapper">
