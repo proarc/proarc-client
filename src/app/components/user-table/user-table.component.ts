@@ -136,6 +136,10 @@ export class UserTableComponent {
 
     this.displayedColumns = this.selectedColumns.map(c => c.field);
     this.selectedColumns.forEach(c => {
+      // Older saved settings used a plain string column for resource types.
+      if (c.field === 'typeOfResource') {
+        c.type = 'translated';
+      }
       if (c.type === 'list') {
         if (!this.lists()[c.field]) {
           this.lists()[c.field] = this.getList(c.field);
@@ -195,7 +199,10 @@ export class UserTableComponent {
     return el ? el.value : code;
   }
 
-  translatedValue(field: string, code: string): string {
+  translatedValue(field: string, code: string | string[]): string {
+    if (Array.isArray(code)) {
+      return code.map(value => this.translatedValue(field, value)).join(', ');
+    }
     const value = this.translatedValues()[field]?.[code];
     if (value) {
       return value;
@@ -240,6 +247,7 @@ export class UserTableComponent {
     switch (f) {
       case 'status': return 'editor.atm.statuses.';
       case 'model': return 'model.';
+      case 'typeOfResource': return 'mods.option.';
       case 'priority': return 'formField.priorities.';
       case 'profile': return 'formField.profiles.';
       case 'pageType': return 'pageType.';

@@ -43,6 +43,7 @@ export class DocumentItem extends TableItem {
   validationStatus : string;
 
   descriptionStandard: string;
+  typeOfResource: string[] = [];
   urnNbn : string;
 
   public static fromJson(json: any): DocumentItem {
@@ -96,6 +97,7 @@ export class DocumentItem extends TableItem {
     item.validationProcess = json['validationProcess'];
     item.validationStatus = json['validationStatus'];
     item.descriptionStandard = json['descriptionStandard'];
+    item.typeOfResource = Array.isArray(json['typeOfResource']) ? json['typeOfResource'] : [];
     item.urnNbn = json['urnNbn'];
     return item;
   }

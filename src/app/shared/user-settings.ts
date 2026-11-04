@@ -142,7 +142,8 @@ export class UserSettingsService {
     { field: 'urnNbn', selected: true, width: 100, type: 'string' },
     { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
     { field: 'partNumber', selected: true, width: 100, type: 'string' },
-    { field: 'filename', selected: true, width: 100, type: 'string' },
+    { field: 'typeOfResource', selected: true, width: 130, type: 'translated' },
+    { field: 'filename', selected: false, width: 100, type: 'string' },
     { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
 ];
 
@@ -159,7 +160,8 @@ columnsEditingRepoDefault: TableColumn[] = [
     { field: 'owner', selected: true, width: 100, type: 'string' },
     { field: 'created', selected: true, width: 100, type: 'date' },
     { field: 'modified', selected: true, width: 100, type: 'date' },
-    { field: 'status', selected: true, width: 100, type: 'translated' }
+    { field: 'status', selected: true, width: 100, type: 'translated' },
+    { field: 'typeOfResource', selected: true, width: 130, type: 'translated' }
 ];
 
 columnsWorkFlowDefault: TableColumn[] = [
@@ -194,7 +196,7 @@ columnsWorkFlowDefault: TableColumn[] = [
 columnsWorkFlowTasksDefault: TableColumn[] = [
 
     // { field: 'profileLabel', selected: true, width: 150, type: 'string' },
-    // { field: 'typeRef', selected: true, width: 150, type: 'list' }, 
+    // { field: 'typeRef', selected: true, width: 150, type: 'list' },
     { field: 'state', selected: true, width: 150, type: 'list' },
     { field: 'profileName', selected: true, width: 150, type: 'list'},
     { field: 'jobLabel', selected: false, width: 150, type: 'string' },
@@ -215,7 +217,7 @@ public procMngColumnsDefault: TableColumn[] = [
     { field: 'create', selected: true, width: 100, type: 'date' },
     { field: 'itemUpdated', selected: true, width: 100, type: 'datetime' },
     { field: 'updated', selected: true, width: 100, type: 'datetime' },
-    { field: 'timestamp', selected: true, width: 100, type: 'datetime' },
+    { field: 'timestamp', selected: false, width: 100, type: 'datetime' },
     { field: 'state', selected: true, width: 100, type: 'state' },
     { field: 'profile', selected: true, width: 100, type: 'translated' },
     { field: 'user', selected: true, width: 100, type: 'string' },
@@ -381,7 +383,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.topCatalogs = [];
         this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers, this.translator, 'identifier');
 
-        
+
 
         this.settings.expandedModels = Utils.clone(this.config.expandedModels);
 

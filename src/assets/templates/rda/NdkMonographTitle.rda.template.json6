@@ -796,7 +796,7 @@
     label: 'Typ zdroje',
     selector: 'typeOfResource',
     labelKey: 'typeOfResource',
-    description: 'Pro monografie hodnota <strong>text</strong><br/>\
+    description: 'Typ dokumentu: <strong>text</strong>, <strong>cartographic</strong>, <strong>still image</strong> nebo <strong>notated music</strong><br/>\
       mělo by se vyčítat z MARC21 katalogizačního\
       záznamu, z pozice 06 návěští',
     fields: {
