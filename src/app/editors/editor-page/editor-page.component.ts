@@ -425,7 +425,7 @@ export class EditorPageComponent implements OnInit {
       this.layout.setPanelEditing(this.panel());
     } else {
       if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
+        //this.layout.clearPanelEditing();
       }
 
     }
