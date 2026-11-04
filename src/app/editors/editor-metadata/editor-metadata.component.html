@@ -24,7 +24,7 @@
 				[class.app-color-warn]="!isValidMetadata">
 				<mat-icon>check_circle</mat-icon>
 			</button> -->
-			<button mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
+			<button mat-icon-button (click)="onLoadFromCatalog()" [disabled]="!!layout.editingPanel" [matTooltip]="'button.metadataCatalog' | translate">
 				<mat-icon>local_library</mat-icon>
 			</button>
 			<button mat-icon-button (click)="validate()" [matTooltip]="'editor.children.validate' | translate"

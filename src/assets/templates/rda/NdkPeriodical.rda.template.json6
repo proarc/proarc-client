@@ -686,6 +686,8 @@
             <li>264_0 <strong>Produkce</strong> (production)</li>\
             <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
             <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+            <li>260/264 $3 (1. indikátor = 2) <strong>Dočasný údaj</strong> (intervening)</li>\
+            <li>260/264 $3 (1. indikátor = 3) <strong>Současný nebo poslední údaj</strong> (latest)</li>\
           </ul>',
         fields: {
           value: {
@@ -707,6 +709,8 @@
               <li>264_0 <strong>Produkce</strong> (production)</li>\
               <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
               <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+              <li>260/264 $3 (1. indikátor = 2) <strong>Dočasný údaj</strong> (intervening)</li>\
+              <li>260/264 $3 (1. indikátor = 3) <strong>Současný nebo poslední údaj</strong> (latest)</li>\
             </ul>',
             options: [
               [
@@ -720,6 +724,14 @@
               [
                 'manufacture',
                 'Výroba'
+              ],
+              [
+                'intervening',
+                'Dočasný údaj'
+              ],
+              [
+                'latest',
+                'Současný nebo poslední údaj'
               ]
             ]
           }
@@ -2643,6 +2655,8 @@
               <li><strong>Produkce</strong> (production)</li>\
               <li><strong>Distribuce</strong> (distribution)</li>\
               <li><strong>Výroba</strong> (manufacture)</li>\
+              <li>260/264 $3 (1. indikátor = 2) <strong>Dočasný údaj</strong> (intervening)</li>\
+              <li>260/264 $3 (1. indikátor = 3) <strong>Současný nebo poslední údaj</strong> (latest)</li>\
             </ul>',
                 options: [
                   [
@@ -2656,6 +2670,14 @@
                   [
                     'manufacture',
                     'Výroba'
+                  ],
+                  [
+                    'intervening',
+                    'Dočasný údaj'
+                  ],
+                  [
+                    'latest',
+                    'Současný nebo poslední údaj'
                   ]
                 ]
               }

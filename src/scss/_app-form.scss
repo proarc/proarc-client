@@ -94,7 +94,7 @@
             margin-right: 4px;
           }
 
-          &:not(.mat-primary) {
+          &:not(.mat-primary):not(:disabled) {
             color: var(--app-form-header-button-color);
           }
 

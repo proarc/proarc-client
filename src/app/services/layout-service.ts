@@ -13,7 +13,15 @@ export class LayoutService {
 
     type: string; // 'repo' | 'import'
     panels: ILayoutPanel[] = [];
-    editingPanel: string;
+    private editingPanelId = signal<string>('');
+
+    get editingPanel(): string {
+        return this.editingPanelId();
+    }
+
+    set editingPanel(id: string) {
+        this.editingPanelId.set(id);
+    }
     dragging: boolean;
     lastPageUpdateHolder: PageUpdateHolder;
     lastPagesSelection: string;

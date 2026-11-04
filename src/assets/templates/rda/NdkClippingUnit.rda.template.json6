@@ -587,6 +587,14 @@
               [
                 'manufacture',
                 'Výroba'
+              ],
+              [
+                'intervening',
+                'Dočasný údaj'
+              ],
+              [
+                'latest',
+                'Současný nebo poslední údaj'
               ]
             ]
           }
@@ -2295,6 +2303,14 @@
                   [
                     'manufacture',
                     'Výroba'
+                  ],
+                  [
+                    'intervening',
+                    'Dočasný údaj'
+                  ],
+                  [
+                    'latest',
+                    'Současný nebo poslední údaj'
                   ]
                 ]
               }
