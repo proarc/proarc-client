@@ -1341,10 +1341,10 @@ export class EditorStructureComponent implements OnInit {
           }, 1000);
         }
       }
-      setTimeout(() => {
-        this.refreshChildren([]);
-        this.layout.setShouldRefresh(false);
-      }, 100);
+      // setTimeout(() => {
+      //   this.refreshChildren([]);
+      //   this.layout.setShouldRefresh(true);
+      // }, 100);
     });
 
   }
