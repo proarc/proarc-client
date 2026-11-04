@@ -3715,7 +3715,7 @@
     "deleteSelectedChildren": {
       "error": {
         "title": "Chyba",
-        "message": "Článek s nadřazeným objektem nelze smazat"
+        "message": "Vybrané objekty se nepodařilo smazat."
       }
     },
     "updateInSource": {

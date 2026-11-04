@@ -192,7 +192,7 @@ export class EditorStructureComponent implements OnInit {
       this.startShiftClickIdx = 0;
     }
 
-    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe(() => {
       const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
       this.refreshChildren(selection);
     }));
@@ -1403,7 +1403,7 @@ export class EditorStructureComponent implements OnInit {
         //this.ui.showErrorDialogFromObject(response['response'].errors);
         const data: SimpleDialogData = {
           title: String(this.translator.instant('dialog.deleteSelectedChildren.error.title')),
-          message: String(this.translator.instant('dialog.deleteSelectedChildren.error.message')),
+          message: this.getDeletionErrorMessage(response.response),
           alertClass: 'app-warn',
           btn1: {
             label: String(this.translator.instant('button.close')),
@@ -1451,6 +1451,37 @@ export class EditorStructureComponent implements OnInit {
 
       setTimeout(() => {this.refreshChildren([])}, 100);
     });
+  }
+
+  private getDeletionErrorMessage(response: any): string {
+    const messages: string[] = [];
+    const collectMessages = (error: any): void => {
+      if (typeof error === 'string') {
+        const message = error.trim();
+        // Proxy errors may contain a complete HTML page instead of an API error.
+        if (message && !message.startsWith('<')) {
+          messages.push(message);
+        }
+      } else if (Array.isArray(error)) {
+        error.forEach(collectMessages);
+      } else if (error && typeof error === 'object') {
+        if (error.errorMessage || error.message) {
+          collectMessages(error.errorMessage || error.message);
+        } else {
+          Object.values(error).forEach(collectMessages);
+        }
+      }
+    };
+    collectMessages(response.errors);
+    if (messages.length === 0) {
+      collectMessages(response.errorMessage || response.message);
+    }
+    const message = messages.length > 0
+      ? [...new Set(messages)].join('; ')
+      : String(this.translator.instant('dialog.deleteSelectedChildren.error.message'));
+    return typeof response.status === 'number' && response.status >= 400
+      ? `HTTP ${response.status}: ${message}`
+      : message;
   }
 
   onMove() {

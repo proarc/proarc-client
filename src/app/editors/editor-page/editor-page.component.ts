@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChange, Output, EventEmitter, input, output, effect } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChange, Output, EventEmitter, input, output, effect, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -28,6 +29,8 @@ import { UserSettings } from '../../shared/user-settings';
   styleUrls: ['./editor-page.component.scss']
 })
 export class EditorPageComponent implements OnInit {
+
+  private readonly destroyRef = inject(DestroyRef);
 
   pid = input<string>();
   model = input<string>();
@@ -104,8 +107,11 @@ export class EditorPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //console.log(this.settings.pageTypes)
+    this.controls.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      if (this.controls.dirty) {
+        this.layout.setPanelEditing(this.panel());
+      }
+    });
   }
 
   private get supportedPageTypes(): string[] {
@@ -304,6 +310,7 @@ export class EditorPageComponent implements OnInit {
 
   additionalMetadataChanged() {
     this.controls.markAsDirty();
+    this.layout.setPanelEditing(this.panel());
   }
 
   onSave(from: string = null) {
@@ -415,21 +422,7 @@ export class EditorPageComponent implements OnInit {
   }
 
   public hasChanged() {
-    if (!this.page) {
-      return false;
-    }
-
-    //const hasChanges = this.page.hasChanged();
-    const hasChanges = this.controls.dirty;
-    if (hasChanges) {
-      this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        //this.layout.clearPanelEditing();
-      }
-
-    }
-    return hasChanges;
+    return !!this.page && this.controls.dirty;
   }
 
 

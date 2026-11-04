@@ -78,8 +78,8 @@ export class BatchesComponent {
       this.loadData(this.batchId, keepSelection);
     }));
 
-    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      this.refreshSelected(from);
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe(({ from, moveToNext }) => {
+      this.refreshSelected(from, moveToNext);
     }));
 
     const s = this.route.paramMap.pipe(
@@ -96,7 +96,7 @@ export class BatchesComponent {
 
   }
 
-  refreshSelected(from: string) {
+  refreshSelected(from: string, moveToNext = false) {
     if (from === 'pages') {
       this.refreshPages();
       return;
@@ -109,7 +109,7 @@ export class BatchesComponent {
       this.layout.lastSelectedItem.set(pages[0]);
       const index = this.layout.items().findIndex(i => i.pid === this.layout.lastSelectedItem().pid);
       
-      if (!!from) {
+      if (moveToNext) {
         this.layout.shouldMoveToNext(from, index);
       }
     });
@@ -218,7 +218,7 @@ export class BatchesComponent {
               item.selected = true;
             }
           })
-        } else if (this.layout.items.length > 0) {
+        } else if (this.layout.items().length > 0) {
           this.layout.items()[0].selected = true;
         }
 
@@ -269,7 +269,7 @@ export class BatchesComponent {
   tryIngest() {
     const invalidCount = this.validatePages();
     if (invalidCount > 0) {
-      let message = String(this.translator.instant('dialog.childrenValidation.alert.error', { value1: invalidCount, value2: this.layout.items.length }));
+      let message = String(this.translator.instant('dialog.childrenValidation.alert.error', { value1: invalidCount, value2: this.layout.items().length }));
       const data: SimpleDialogData = {
         title: 'Nevalidní data',
         message,
@@ -383,10 +383,10 @@ export class BatchesComponent {
   }
 
   formatPagesCount(): string {
-    if (!this.layout.items) {
+    if (!this.layout.items()) {
       return "";
     }
-    const c = this.layout.items.length;
+    const c = this.layout.items().length;
     if (c == 0) {
       return 'žádná strana';
     }

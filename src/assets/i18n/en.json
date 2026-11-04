@@ -3690,7 +3690,7 @@
     "deleteSelectedChildren": {
       "error": {
         "title": "Error",
-        "message": "An article with a parent object cannot be deleted"
+        "message": "Failed to delete the selected objects."
       }
     },
     "updateInSource": {

@@ -89,16 +89,16 @@ export class RepositoryComponent {
       this.loadData(false);
     }));
 
-    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe(({ from, moveToNext }) => {
       setTimeout(() => {
-        this.refreshSelected(from);
+        this.refreshSelected(from, moveToNext);
       }, 10)
 
     }));
 
   }
 
-  refreshSelected(from: string) {
+  refreshSelected(from: string, moveToNext = false) {
     if (from === 'metadata') {
       // this.layout.lastSelectedItemMetadata = null;
       // const pid = this.layout.lastSelectedItem.pid;
@@ -124,7 +124,7 @@ export class RepositoryComponent {
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem().selected = selected;
         const index = this.layout.items().findIndex(i => i.selected);
-        if (!!from) {
+        if (moveToNext) {
           this.layout.shouldMoveToNext(from, index);
         }
       });

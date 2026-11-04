@@ -129,7 +129,7 @@ export class UserTreeTableComponent {
 
   ngOnInit() {
     this.setSelectedTreeColumns();
-    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe(() => {
       const initData = this.initData();
       if (initData) {
         this.generateTree(this.currentTreePath.split('/'), initData.rootTreeItem);

@@ -161,16 +161,16 @@
                           <span class="app-form-title app-pl-2">{{ 'editor.page.identifier' | translate }}</span>
                         </div>
                         <div>
-                          <button mat-icon-button [matTooltip]="'editor.page.add_identifier' | translate" (click)="page.addIdentifierAfter(index)">
+                          <button mat-icon-button [matTooltip]="'editor.page.add_identifier' | translate" (click)="page.addIdentifierAfter(index); additionalMetadataChanged()">
                             <mat-icon>add</mat-icon>
                           </button>
-                          <button mat-icon-button [disabled]="first" [matTooltip]="'common.move_up' | translate" (click)="page.moveIdentifierUp(index)">
+                          <button mat-icon-button [disabled]="first" [matTooltip]="'common.move_up' | translate" (click)="page.moveIdentifierUp(index); additionalMetadataChanged()">
                             <mat-icon>arrow_drop_up</mat-icon>
                           </button>
-                          <button mat-icon-button [disabled]="last" [matTooltip]="'common.move_down' | translate" (click)="page.moveIdentifierDown(index)">
+                          <button mat-icon-button [disabled]="last" [matTooltip]="'common.move_down' | translate" (click)="page.moveIdentifierDown(index); additionalMetadataChanged()">
                             <mat-icon>arrow_drop_down</mat-icon>
                           </button>
-                          <button mat-icon-button [matTooltip]="'common.remove' | translate" (click)="page.removeIdentifier(index)">
+                          <button mat-icon-button [matTooltip]="'common.remove' | translate" (click)="page.removeIdentifier(index); additionalMetadataChanged()">
                             <mat-icon>delete</mat-icon>
                           </button>
                         </div>
@@ -178,7 +178,7 @@
                       <div class="app-form-content">
                         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                           <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
-                          <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
+                          <mat-select [(ngModel)]='identifier.type' (ngModelChange)="additionalMetadataChanged()" [placeholder]="'editor.identifier.type' | translate">
                             @for(identifier of settings.identifiers; track $index;) {
                               <mat-option [value]="identifier">{{ identifier }}</mat-option>
                             }
@@ -186,7 +186,7 @@
                         </mat-form-field>
                         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                           <mat-label>{{ 'editor.identifier.title' | translate }}</mat-label>
-                          <input autocomplete="off" matInput [(ngModel)]='identifier.value' [placeholder]="'editor.identifier.title' | translate">
+                          <input autocomplete="off" matInput [(ngModel)]='identifier.value' (ngModelChange)="additionalMetadataChanged()" [placeholder]="'editor.identifier.title' | translate">
                         </mat-form-field>
                       </div>
                     </div>

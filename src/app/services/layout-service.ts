@@ -8,6 +8,11 @@ import { Page } from "../model/page.model";
 import { UserSettings } from "../shared/user-settings";
 import { Metadata } from "../model/metadata.model";
 
+export interface SelectedItemRefresh {
+    moveToNext: boolean;
+    from: string;
+}
+
 @Injectable()
 export class LayoutService {
 
@@ -59,14 +64,14 @@ export class LayoutService {
     public lastSelectedItemMetadata: Metadata; // last selected child item
 
     public selectedChildItem: DocumentItem; // selected item in children
-    private refreshSelectedSubject = new Subject<string>();
-    shouldRefreshSelectedItem(): Observable<string> {
+    private refreshSelectedSubject = new Subject<SelectedItemRefresh>();
+    shouldRefreshSelectedItem(): Observable<SelectedItemRefresh> {
         return this.refreshSelectedSubject.asObservable();
     }
 
 
     refreshSelectedItem(moveToNext: boolean, from: string) {
-        this.refreshSelectedSubject.next(from);
+        this.refreshSelectedSubject.next({ moveToNext, from });
     }
 
     private refreshSubject = new Subject<boolean>();
