@@ -756,7 +756,7 @@
         "abbreviated": "Zkrácený název",
         "alternative": "Alternativní název",
         "translated": "Přeložený název",
-        "uniform": "Jednotný název"
+        "uniform": "Unifikovaný název"
       },
       "subtitle": "Vedlejší název",
       "partnumber": "Číslo části",
@@ -2699,7 +2699,7 @@
       "translation": "Překlad",
       "udc": "UDC",
       "ukn": "Úřední kniha",
-      "uniform": "Jednotný název",
+      "uniform": "Unifikovaný název",
       "unspecified": "Nespecifikováno",
       "vojenske": "Vojenské a jiné (ZV, odborové, ...",
       "volume": "Ročník",

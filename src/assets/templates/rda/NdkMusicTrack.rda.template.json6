@@ -19,7 +19,7 @@
           <ul>\
             <li>Alternativní název (alternative) – pole 246</li>\
             <li>Přeložený název (translated) – pole 242</li>\
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+            <li>Unifikovaný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
         options: [
           [
@@ -40,7 +40,7 @@
           ],
           [
             'uniform',
-            'Jednotný název'
+            'Unifikovaný název'
           ]
         ]
       },
@@ -730,7 +730,7 @@
           <ul>\
             <li>Alternativní název (alternative) – pole 246</li>\
             <li>Přeložený název (translated) – pole 242</li>\
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+            <li>Unifikovaný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
             options: [
               [
@@ -751,7 +751,7 @@
               ],
               [
                 'uniform',
-                'Jednotný název'
+                'Unifikovaný název'
               ]
             ]
           },
