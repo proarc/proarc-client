@@ -100,6 +100,8 @@ export class Configuration {
     config: boolean, database: string, languageCs: boolean, languageCsEn: boolean, languageEn: boolean, rdflowVersion: string,
     revision: string,
     storage: string,
+    datastoreSize?: number | null,
+    objectstoreSize?: number | null,
     timestamp: string,
     version: string
   };

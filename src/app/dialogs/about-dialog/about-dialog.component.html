@@ -18,6 +18,12 @@
   <div class="app-mb4">
     <h3 class="app-m-0">{{ 'desc.storage' | translate }}</h3>
     <span class="app-label app-mr-1">{{ 'desc.storage' | translate }}:</span><strong>{{ config.info.storage }}</strong><br/>
+    @if (config.info.datastoreSize != null) {
+      <span class="app-label app-mr-1">Data storage:</span><strong>{{ config.info.datastoreSize / 1073741824 | number : '1.2-2' : 'cs' }} GiB ({{ config.info.datastoreSize | number : '1.0-0' : 'cs' }} B)</strong><br/>
+    }
+    @if (config.info.objectstoreSize != null) {
+      <span class="app-label app-mr-1">Object storage:</span><strong>{{ config.info.objectstoreSize / 1073741824 | number : '1.2-2' : 'cs' }} GiB ({{ config.info.objectstoreSize | number : '1.0-0' : 'cs' }} B)</strong><br/>
+    }
     <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ config.info.database}}</strong><br/>
   </div>
 </div>
