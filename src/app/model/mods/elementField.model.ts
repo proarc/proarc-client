@@ -122,13 +122,13 @@ export class ElementField {
                 this.isPeerReviewed = true;
             } else if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
                 this.isPeerReviewed = false;
-            } else if (this.items[0].modsElement['_'] === 'electronic_article' && !this.items[0].attrs['type']) {
+            } else if (['electronic article', 'electronic_article'].includes(this.items[0].modsElement['_']) && !this.items[0].attrs['type']) {
                 this.isPeerReviewed = false;
             } else {
                 this.isPeerReviewed = false;
                 const peerRaw = JSON.parse(JSON.stringify(this.root[0]));
                 delete peerRaw['$']['type'];
-                if (peerRaw['_'] !== 'article' && peerRaw['_'] !== 'electronic_article') {
+                if (!['article', 'electronic article', 'electronic_article'].includes(peerRaw['_'])) {
                     // peerRaw['_'] = 'article';
                 }
                 const peerEl = this.newElement(id, peerRaw);

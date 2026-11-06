@@ -870,7 +870,7 @@
   },
   genre: {
     isElectronicArticle: true,
-    defaultValue: 'electronic_article',
+    defaultValue: 'electronic article',
     usage: 'M',
     label: 'Žánr',
     selector: 'genre',
@@ -879,7 +879,7 @@
     fields: {
       value: {
         usage: 'M',
-        defaultValue: 'electronic_article',
+        defaultValue: 'electronic article',
         required: true,
         selector: 'genre/value',
         labelKey: 'genre/value',
@@ -896,12 +896,44 @@
         description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
         options: [
           [
+            'cover',
+            'cover'
+          ],
+          [
+            'colophon',
+            'colophon'
+          ],
+          [
+            'obituary',
+            'obituary'
+          ],
+          [
+            'biographical portrait',
+            'biographical portrait'
+          ],
+          [
+            'interview',
+            'interview'
+          ],
+          [
+            'annotations',
+            'annotations'
+          ],
+          [
+            'title page',
+            'title page'
+          ],
+          [
+            'direktory',
+            'direktory'
+          ],
+          [
             'news',
             'news'
           ],
           [
-            'tableOfContents',
-            'tableOfContents'
+            'table of content',
+            'table of content'
           ],
           [
             'advertisement',
@@ -936,8 +968,8 @@
             'preface'
           ],
           [
-            'mainArticle',
-            'mainArticle'
+            'main article',
+            'main article'
           ],
           [
             'index',
@@ -946,58 +978,6 @@
           [
             'unspecified',
             'unspecified'
-          ],
-          [
-            'annotation',
-            'annotation'
-          ],
-          [
-            'afterword',
-            'afterword'
-          ],
-          [
-            'bibliographicalPortrait',
-            'bibliographicalPortrait'
-          ],
-          [
-            'obituary',
-            'obituary'
-          ],
-          [
-            'sheetMusic',
-            'sheetMusic'
-          ],
-          [
-            'contributors',
-            'contributors'
-          ],
-          [
-            'summary',
-            'summary'
-          ],
-          [
-            'interview',
-            'interview'
-          ],
-          [
-            'study',
-            'study'
-          ],
-          [
-            'technicalPlanScheme',
-            'technicalPlanScheme'
-          ],
-          [
-            'conclusion',
-            'conclusion'
-          ],
-          [
-            'otherNote',
-            'otherNote'
-          ],
-          [
-            'editorial',
-            'editorial'
           ]
         ]
       }
