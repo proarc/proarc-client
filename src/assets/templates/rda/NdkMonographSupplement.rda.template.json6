@@ -1306,6 +1306,35 @@
       hodnota <strong>supplement</strong>',
     fields: {
       authority: { usage: 'R', label: 'Autorita', selector: 'genre/@authority', labelKey: 'genre/@authority', options: [['', '-'], ['czenas', 'czenas'], ['rdacontent', 'rdacontent']] },
+      type: {
+        usage: 'R',
+        label: 'Typ obsahu',
+        cols: 2,
+        selector: 'genre/@type',
+        labelKey: 'genre/@type',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'cover',
+            'cover'
+          ],
+          [
+            'booklet',
+            'booklet'
+          ],
+          [
+            'imgdisc',
+            'imgdisc'
+          ],
+          [
+            'micrograph',
+            'micrograph'
+          ]
+        ]
+      },
       value: {
         usage: 'M',
         selector: 'genre/value',
