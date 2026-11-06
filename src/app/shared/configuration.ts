@@ -99,6 +99,7 @@ export class Configuration {
   public info: {
     config: boolean, database: string, languageCs: boolean, languageCsEn: boolean, languageEn: boolean, rdflowVersion: string,
     revision: string,
+    loginType?: string,
     storage: string,
     datastoreSize?: number | null,
     objectstoreSize?: number | null,

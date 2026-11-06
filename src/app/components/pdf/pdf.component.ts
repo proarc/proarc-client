@@ -1,4 +1,6 @@
 import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { ProtectedResourcePipe } from '../../shared/protected-resource.pipe';
 import { Component, OnInit, Input, ViewChild, ElementRef, input, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -15,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserSettings } from '../../shared/user-settings';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, 
+  imports: [AsyncPipe, ProtectedResourcePipe, CommonModule, TranslateModule, FormsModule,
     NgxExtendedPdfViewerModule, MatIconModule,
     MatCardModule, MatProgressBarModule, MatTooltipModule
   ],
@@ -120,10 +122,10 @@ onRemove() {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       id: 'SimpleDialogComponent',
       data: data,
-      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

@@ -180,7 +180,9 @@
   "login": {
     "username": "Uživatelské jméno",
     "password": "Heslo",
+    "keycloakPasswordError": "Nepodařilo se otevřít změnu hesla v Keycloaku. Zkuste to prosím znovu.",
     "error": {
+      "access_denied": "Uživatel nemá roli proarc nebo nemá propojený účet v ProArcu.",
       "login_failed": "Přihlášení se nezdařilo",
       "missing_credentials": "Nejdříve zadejte přihlašovací údaje",
       "service_unavailable": "API je nedostupné. Kontaktujte správce"
@@ -2836,6 +2838,7 @@
     "revision": "Revize",
     "storage": "Úložiště",
     "database": "Databáze",
+    "loginType": "Druh přihlášení",
     "settings": "Nastavení",
     "import": "Import",
     "repository": "Repozitář",

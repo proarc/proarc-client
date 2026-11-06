@@ -39,6 +39,18 @@ export class ApiService {
     public config: Configuration) {
   }
 
+  openAuthenticated(url: string, targetName = '_blank') {
+    const popup = window.open('', targetName);
+    return this.http.get(url, { responseType: 'blob' }).subscribe({
+      next: blob => {
+        const objectUrl = URL.createObjectURL(blob);
+        if (popup) popup.location.href = objectUrl;
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+      },
+      error: () => popup?.close()
+    });
+  }
+
   private getLang(): string {
     const lang = localStorage.getItem('lang');
     if (lang) {
@@ -1424,7 +1436,10 @@ export class ApiService {
   }
 
   newUser(user: User): Observable<any> {
-    let data = `name=${user.name}&surname=${user.surname}&password=${user.password}`;
+    let data = `name=${user.name}&surname=${user.surname}`;
+    if (user.password) {
+      data = `${data}&password=${user.password}`;
+    }
     if (user.forename) {
       data = `${data}&forename=${user.forename}`;
     }

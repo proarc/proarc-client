@@ -180,7 +180,9 @@
   "login": {
     "username": "User Name",
     "password": "Password",
+    "keycloakPasswordError": "Could not open the Keycloak password change page. Please try again.",
     "error": {
+      "access_denied": "The user lacks the proarc role or a linked ProArc account.",
       "login_failed": "Login failed",
       "missing_credentials": "Fill in User Name and Password",
       "service_unavailable": "Service Unavailable. Contact administrator"
@@ -2802,6 +2804,7 @@
     "revision": "Revision",
     "storage": "Storage",
     "database": "Database",
+    "loginType": "Authentication type",
     "settings": "Settings",
     "import": "Import",
     "repository": "Repozitory",

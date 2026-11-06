@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { ProtectedResourcePipe } from '../../shared/protected-resource.pipe';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,8 +30,8 @@ import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { Configuration } from '../../shared/configuration';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
-    CdkDrag, CdkDragHandle, 
+  imports: [CommonModule, ProtectedResourcePipe, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatCheckboxModule,
@@ -62,7 +63,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   rectSize: any = {};
 
   // název souboru, typ strany, číslo, index +přidat: pozice
-  displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']; // 
+  displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']; //
 
   constructor(
     private api: ApiService,
@@ -244,7 +245,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.settingsService.save();
   }
 
@@ -268,7 +269,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.settingsService.save();
   }
   // end

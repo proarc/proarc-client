@@ -48,7 +48,7 @@
                   [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     @if (config.isPage(item.model)) {
-                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + (thumb(item.pid) | protectedResource | async) + ')'"
                         [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     } @else {
                       <div class="app-item-thumb app-item-model" [style.height]="data.iconHeight['dest'] + 'px'">
@@ -185,7 +185,7 @@
                   [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     @if (config.isPage(item.model)) {
-                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + (thumb(item.pid) | protectedResource | async) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     } @else {
                       <div class="app-item-thumb app-item-model" [style.height]="data.iconHeight['dest'] + 'px'">
                         <div class="app-text">{{ 'model.' + item.model | translate }}</div>

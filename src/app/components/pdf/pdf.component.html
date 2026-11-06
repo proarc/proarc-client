@@ -11,11 +11,11 @@
 			<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 		}
 		@if (state === 'head' || state === 'ok') {
-		<ngx-extended-pdf-viewer #pdfViewer 
-			[src]="pdfUrl" [textLayer]="true" [handTool]="false"
-			[height]="'100%'" 
-			(pdfLoaded)="pdfRendered($event)" 
-			[enablePrint]="false" [showOpenFileButton]="false" 
+		<ngx-extended-pdf-viewer #pdfViewer
+			[src]="pdfUrl | protectedResource | async" [textLayer]="true" [handTool]="false"
+			[height]="'100%'"
+			(pdfLoaded)="pdfRendered($event)"
+			[enablePrint]="false" [showOpenFileButton]="false"
 			[language]="getLang()" ></ngx-extended-pdf-viewer>
 		} @else if(state == 'empty') {
 			<mat-card class="app-alert app-info app-m-4" appearance="outlined">

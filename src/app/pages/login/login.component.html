@@ -1,4 +1,4 @@
-<div class="app-fxLayout app-column app-fill app-form-field-dens-6">
+<div class="app-fxLayout app-column app-fill app-form-field-dens-6" [class.app-keycloak-login]="auth.keycloak.isKeycloak">
   <div class="app-fxFlex app-fxLayout app-column app-fill app-center-v  app-oa-y app-p-4">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="app-m-auto">
       <mat-card appearance="outlined">
@@ -6,9 +6,13 @@
           <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
         }
         <mat-card-header>
-          <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
+          @if (auth.keycloak.isKeycloak) {
+            <div class="app-login-icon" aria-hidden="true"><mat-icon>lock_outline</mat-icon></div>
+          }
+          <mat-card-title [class.app-mb-4]="!auth.keycloak.isKeycloak">{{ 'desc.login' | translate }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="app-mb-0">
+          @if (auth.keycloak.configured && !auth.keycloak.isKeycloak) {
           <mat-form-field class="app-w-100" appearance="outline">
             <mat-label>{{ 'desc.username' | translate }}</mat-label>
             <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
@@ -17,6 +21,7 @@
             <mat-label>{{ 'desc.password' | translate }}</mat-label>
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>
+          }
           @if (error) {
             <mat-card appearance="outlined" class="app-alert app-warn app-mb-4">
               <mat-card-content>
@@ -26,10 +31,10 @@
           }
         </mat-card-content>
         <mat-card-actions>
-          <button type="submit" matButton="filled">{{ 'button.logIn' | translate }}</button>
+          <button type="submit" matButton="filled" [disabled]="!auth.keycloak.configured || isAuthenticated || state === 'loading'">{{ 'button.logIn' | translate }}</button>
         </mat-card-actions>
       </mat-card>
-      <div class="app-fxLayout app-row app-center-v app-gap-4 app-p-2 app-login-footer">
+      <div class="app-login-footer">
         <div class="app-fxFlex">ProArc © {{ currentYear }}</div>
         <div>Developed by <a href="https://www.inovatika.cz" title="Inovatika" target="_blank"><img src="assets/img/logo-inovatika-black.png" alt="Inovatika" /></a></div>
       </div>

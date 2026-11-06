@@ -14,6 +14,9 @@
     <span class="app-label app-mr-1">{{ 'desc.build' | translate }}:</span><strong>{{ config.info.timestamp }}</strong><br />
     <span class="app-label app-mr-1">{{ 'desc.revision' | translate }}:</span><strong>{{ config.info.revision }}</strong><br />
     <span class="app-label app-mr-1">RDflow:</span><strong>{{ config.info.rdflowVersion }}</strong><br />
+    @if (config.info.loginType) {
+      <span class="app-label app-mr-1">{{ 'desc.loginType' | translate }}:</span><strong>{{ config.info.loginType === 'keycloak' ? 'Keycloak' : config.info.loginType === 'proarc' ? 'ProArc' : config.info.loginType }}</strong><br />
+    }
   </div>
   <div class="app-mb4">
     <h3 class="app-m-0">{{ 'desc.storage' | translate }}</h3>

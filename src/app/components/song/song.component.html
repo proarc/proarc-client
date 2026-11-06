@@ -4,23 +4,23 @@
         <div class="app-label">Nahrávka</div>
         <div class="app-actions-right">
         </div>
-    </div>  
-      
+    </div>
+
     <div class="app-editor-content">
         <div class="app-song-wrapper">
             <div class="app-controls">
-                <audio id="audiohtml" controls controlslist="noplaybackrate nodownload" [src]="audioUrl"></audio>
+                <audio id="audiohtml" controls controlslist="noplaybackrate nodownload" [src]="audioUrl | protectedResource | async"></audio>
                 <!-- <div class="app-track-position">
 
 
 
                     {{ formatTime(currentTime) }}
-                    <input 
+                    <input
                     [disabled]="!isSeekable"
-                        type="range" 
-                        min="0" 
-                        [max]="duration || 100" 
-                        [value]="currentTime" 
+                        type="range"
+                        min="0"
+                        [max]="duration || 100"
+                        [value]="currentTime"
                         (mousedown)="onSliderStart()"
                         (touchstart)="onSliderStart()"
                         (input)="onSliderInput($event)"

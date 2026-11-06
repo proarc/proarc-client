@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   url: string = '';
   currentYear: number = new Date().getFullYear();
 
-  constructor(private auth: AuthService,
+  constructor(public auth: AuthService,
     public settings: UserSettings,
     private router: Router,
     private route: ActivatedRoute,
@@ -43,15 +43,29 @@ export class LoginComponent implements OnInit {
     private api: ApiService) { }
 
   ngOnInit() {
-    this.error = null;
-    setTimeout(() => {
-      this.nameInput.focus();
-    }, 100);
+    this.error = this.auth.authenticationError;
     this.url = this.route.snapshot.queryParams['url'];
+    // The bootstrap has already processed the Keycloak callback and loaded the ProArc profile.
+    if (this.auth.isLoggedIn() && !this.error) {
+      this.navigateAfterLogin();
+      return;
+    }
+    setTimeout(() => {
+      this.nameInput?.focus();
+    }, 100);
 
   }
 
+  get isAuthenticated(): boolean {
+    return this.auth.keycloak.isKeycloak ? this.auth.keycloak.authenticated : this.auth.isLoggedIn();
+  }
+
   onSubmit(form: NgForm) {
+    if (!this.auth.keycloak.configured || this.isAuthenticated || this.state === 'loading') return;
+    if (this.auth.keycloak.isKeycloak) {
+      this.auth.keycloak.login().catch(() => this.error = 'service_unavailable');
+      return;
+    }
     this.error = null;
     const username = form.value.username;
     const password = form.value.password;
@@ -63,18 +77,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password, (result: boolean, error: any) => {
       this.state = 'none';
       if (result) {
-        // this.properties.setStringProperty('search.split.0', '60');
-            if (this.url) {
-              // split query params
-              const parts = this.url.split('?')
-              const params: any = Object.assign({}, this.route.snapshot.queryParams);
-              params.url = null;
-              this.router.navigate([this.url], { queryParams: params });
-            } else {
-              this.router.navigate(['/']);
-            }
-
-
+        this.navigateAfterLogin();
       } else {
         if (error.status === 503 || error.status === 504) {
           this.error = "service_unavailable";
@@ -84,6 +87,14 @@ export class LoginComponent implements OnInit {
 
       }
     });
+  }
+
+  private navigateAfterLogin() {
+    const target = this.router.parseUrl(this.url || '/search');
+    // Keep compatibility with login URLs that store the original query parameters separately.
+    const { url, ...queryParams } = this.route.snapshot.queryParams;
+    target.queryParams = { ...queryParams, ...target.queryParams };
+    this.router.navigateByUrl(target, { replaceUrl: true });
   }
 
 }

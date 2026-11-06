@@ -1,7 +1,90 @@
 .app-login-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
   color: var(--app-color-gray-5);
 
   img {
     height: 10px;
+  }
+}
+
+.app-keycloak-login {
+  background-color: var(--app-color-gray-0);
+
+  form {
+    width: 380px;
+    max-width: 100%;
+  }
+
+  mat-card {
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .06);
+    overflow: hidden;
+  }
+
+  mat-card-header {
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 0;
+    text-align: center;
+  }
+
+  .app-login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background-color: var(--palette-primary-50);
+    color: var(--app-color-primary);
+
+    mat-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 28px;
+    }
+  }
+
+  mat-card-content {
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .app-alert {
+    margin-top: 24px;
+    text-align: left;
+    box-shadow: none;
+  }
+
+  mat-card-actions {
+    justify-content: center;
+    padding: 24px;
+
+    button {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 8px;
+    }
+  }
+
+  .app-login-footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 16px;
+    padding: 20px 0 0;
+    font-size: 12px;
+
+    > div {
+      flex: none;
+      white-space: nowrap;
+    }
+
+    img {
+      vertical-align: baseline;
+    }
   }
 }

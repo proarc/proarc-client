@@ -7,7 +7,8 @@
     "build": "node git-version.js && ng build",
     "build.notag": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test.keycloak": "ng test --watch=false --browsers=ChromeHeadless --ts-config=tsconfig.keycloak.spec.json --include=src/app/services/keycloak-auth.service.spec.ts --include=src/app/shared/bearer.interceptor.spec.ts --include=src/app/pages/login/login.component.spec.ts"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "angular-split": "^19.0.0",
     "epubjs": "^0.3.93",
     "json-6": "^1.1.4",
+    "keycloak-js": "^26.2.4",
     "moment": "^2.30.1",
     "ngx-extended-pdf-viewer": "^23.0.0-alpha.6",
     "ngx-highlightjs": "^12.0.0",

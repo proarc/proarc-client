@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/app/pages/login/login.component.spec.ts",
+    "src/app/services/keycloak-auth.service.spec.ts",
+    "src/app/shared/bearer.interceptor.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

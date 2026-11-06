@@ -1,10 +1,11 @@
 
 
 import { Injectable } from '@angular/core';
+import { KeycloakAuthService } from './keycloak-auth.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
-import { firstValueFrom, forkJoin, Observable, of, Subject, tap } from 'rxjs';
+import { firstValueFrom, forkJoin, from, Observable, of, Subject, tap } from 'rxjs';
 import { catchError, finalize, map, retry, switchMap, takeUntil } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +20,7 @@ declare var APP_GLOBAL: any;
 export class AuthService {
 
     public user: User;
+    authenticationError: string;
     remaining = 0;
     remainingFormated = '00:00';
     remainingPercent = 100;
@@ -30,6 +32,7 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
+        public keycloak: KeycloakAuthService,
         public translator: TranslateService,
         public materialCssVarsService: MaterialCssVarsService,
         private dialogRef: MatDialog,
@@ -39,9 +42,11 @@ export class AuthService {
         private settings: UserSettingsService,
         private datePipe: DatePipe
     ) {
+        this.keycloak.loggedOut.subscribe(() => this.setLoggedOut());
     }
 
     public initializeApp() {
+        this.authenticationError = null;
         this.translator.use('cs');
         return firstValueFrom(
             this.http.get('assets/config.json5?v='+Date.now(), { responseType: 'text' }).pipe(
@@ -55,16 +60,22 @@ export class AuthService {
                         this.config.cssVars.forEach(css => {
                             r.style.setProperty(css.name, css.value);
                         });
-                        return this.http.get<User>(this.getApiUrl() + 'user?whoAmI=true').pipe(
-                            switchMap((user: any) => {
-                                this.user = user['response']['data'][0];
-                                return this.getUserConfig();
-                            })
-                        )
+                        return from(this.keycloak.initialize()).pipe(switchMap(() => {
+                            if (this.keycloak.isKeycloak && !this.keycloak.authenticated) return of(null);
+                            return this.http.get<User>(this.getApiUrl() + 'user?whoAmI=true').pipe(
+                                switchMap((user: any) => {
+                                    this.user = user['response']['data'][0];
+                                    return this.getUserConfig();
+                                })
+                            );
+                        }));
 
                     }),
                     catchError((e: any) => {
-                        // console.log(e);
+                        if (this.keycloak.isKeycloak || !this.keycloak.configured) {
+                            this.authenticationError = e?.status === 403 ? 'access_denied'
+                                : e?.status === 401 ? 'login_failed' : 'service_unavailable';
+                        }
                         return of(e)
                     }))
         );
@@ -92,7 +103,7 @@ export class AuthService {
 
                 this.config.valueMap = valueMapResp.response.data;
                 this.config.info = infoResp;
-                if (checkLoggedResp?.state === 'logged') {
+                if (checkLoggedResp?.state === 'logged' && !this.keycloak.isKeycloak) {
                     this.remaining = checkLoggedResp.remaining;
                     this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
                     this.formatRemaning();
@@ -117,6 +128,10 @@ export class AuthService {
 
 
     login(username: string, password: string, callback: (result: boolean, err: any) => void) {
+        if (!this.keycloak.configured || this.keycloak.isKeycloak) {
+            callback(false, { status: this.keycloak.configured ? 403 : 503 });
+            return undefined;
+        }
         const httpOptions = {
             responseType: 'text',
             headers: new HttpHeaders({
@@ -139,11 +154,16 @@ export class AuthService {
         this.stopSessionChecks();
         this.user = null;
         this.dialogRef.closeAll();
-        const queryParams = {url: document.location.pathname};
+        const queryParams = {url: this.router.url};
         this.router.navigate(['/login'], {queryParams});
     }
 
     logout() {
+        if (this.keycloak.isKeycloak) {
+            this.stopSessionChecks();
+            this.user = null;
+            return this.keycloak.logout();
+        }
         return this.http.delete(`${this.config.proarcUrl}/proarclogin`).subscribe((result) => {
             this.stopSessionChecks();
             this.user = null;
@@ -160,6 +180,7 @@ export class AuthService {
     }
 
     checkLogged(): Observable<any> {
+        if (this.keycloak.isKeycloak) return of({ state: 'logged', mode: 'keycloak' });
         const configuredRetries = this.config.sessionCheckRetryCount;
         const retryCount = Number.isInteger(configuredRetries) && configuredRetries >= 0 ? configuredRetries : 5;
         return this.http.get(`${this.config.proarcUrl}/isLogged`)
@@ -177,6 +198,7 @@ export class AuthService {
     }
 
     checkIsLogged() {
+        if (this.keycloak.isKeycloak) return;
         if (this.isLoggedIn() && !this.checkingLogged) {
             this.checkingLogged = true;
             this.checkLogged().pipe(

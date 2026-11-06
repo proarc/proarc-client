@@ -205,7 +205,7 @@ export class SearchActionsComponent {
 
   showFoxml() {
     const pid = this.forTree() ? this.selectedTreeItem().pid : this.selectedItem().pid;
-    window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + pid, 'foxml');
+    this.api.openAuthenticated(this.api.getApiUrl() + 'object/dissemination?pid=' + pid, 'foxml');
   }
 
   onRestore() {
@@ -225,7 +225,7 @@ export class SearchActionsComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]

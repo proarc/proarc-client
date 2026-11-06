@@ -128,7 +128,7 @@
                   [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     @if (config.isPage(item.model)) {
-                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + (thumb(item.pid) | protectedResource | async) + ')'" [style.height]="iconHeight + 'px'"></div>
                     } @else {
                       <div class="app-item-thumb app-item-model" [style.height]="iconHeight + 'px'">
                         <div class="app-text">{{ 'model.' + item.model | translate }}</div>

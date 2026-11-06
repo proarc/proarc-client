@@ -72,7 +72,7 @@ export class EditUserComponent implements OnInit {
       return;
     }
 
-    if (!this.selectedUser.password && this.selectedUser.userId === -1 ) {
+    if (!this.auth.keycloak.isKeycloak && !this.selectedUser.password && this.selectedUser.userId === -1 ) {
       this.setControleFieldTimeout(this.password);
       return;
     }

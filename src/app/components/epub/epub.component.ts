@@ -1,3 +1,5 @@
+import { inject } from '@angular/core';
+import { ProtectedResourceService } from '../../shared/protected-resource.pipe';
 import { Component, Input, OnInit, ElementRef, ViewChild, effect, input } from '@angular/core';
 import Book from 'epubjs/types/book';
 import { NavItem } from 'epubjs/types/navigation';
@@ -29,11 +31,14 @@ export class EpubComponent implements OnInit {
   book: Book;
   rendition: Rendition;
   chapters: NavItem[] = [];
-  
+
   currentChapter: any;
-  
+
   state: string;
   epubUrl: string;
+  private resources = inject(ProtectedResourceService);
+  private resource: { url: string; dispose: () => void };
+  private resourceGeneration = 0;
 
   subscriptions: Subscription[] = [];
   stream = input<string>();
@@ -41,13 +46,22 @@ export class EpubComponent implements OnInit {
   private currentStream: string;
   private currentPid: string;
 
-  onPidChanged(pid: string) {
+  async onPidChanged(pid: string) {
     this.state = 'loading';
     this.epubUrl = this.api.getStreamUrl(pid, this.currentStream);
     if (!pid) {
       return;
     }
-    this.loadBook();
+    const generation = ++this.resourceGeneration;
+    try {
+      const resource = await this.resources.load(this.epubUrl);
+      if (generation !== this.resourceGeneration) { resource.dispose(); return; }
+      this.book?.destroy();
+      this.resource?.dispose();
+      this.resource = resource;
+      this.epubUrl = resource.url;
+      this.loadBook();
+    } catch { if (generation === this.resourceGeneration) this.state = 'error'; }
   }
 
   constructor(
@@ -61,6 +75,9 @@ export class EpubComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.resourceGeneration++;
+    this.book?.destroy();
+    this.resource?.dispose();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
@@ -71,7 +88,7 @@ export class EpubComponent implements OnInit {
     //   }
     // }))
     document.addEventListener("keydown", (e: KeyboardEvent) => {
-      
+
       if (e.key === 'ArrowLeft') {
         // left arrow
         this.showPrev();
@@ -89,7 +106,7 @@ export class EpubComponent implements OnInit {
       this.bookTitle = meta.title;
     });
     this.storeChapters();
-    this.rendition = this.book.renderTo('epub_viewer', 
+    this.rendition = this.book.renderTo('epub_viewer',
     {
       width: "100%",
       height: "100%",

@@ -21,13 +21,15 @@
               <mat-error>{{ 'formField.users.error.username' | translate }}</mat-error>
             }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
-          <mat-label>{{ 'desc.password' | translate }}</mat-label>
-          <input (keyup.enter)="saveUser()" type="password" autocomplete="new-password" matInput [placeholder]="'desc.password' | translate" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="user.password" required #password>
-          @if (!user.password) {
-            <mat-error>{{ 'formField.users.error.password' | translate }}</mat-error>
-          }
-        </mat-form-field>
+        @if (!auth.keycloak.isKeycloak) {
+          <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+            <mat-label>{{ 'desc.password' | translate }}</mat-label>
+            <input (keyup.enter)="saveUser()" type="password" autocomplete="new-password" matInput [placeholder]="'desc.password' | translate" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="user.password" required #password>
+            @if (!user.password) {
+              <mat-error>{{ 'formField.users.error.password' | translate }}</mat-error>
+            }
+          </mat-form-field>
+        }
         <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
           <mat-label>{{ 'desc.forename' | translate }}</mat-label>
           <input (keyup.enter)="saveUser()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="user.forename">
@@ -104,7 +106,7 @@
           <mat-checkbox color="primary" [(ngModel)]="user.wfDeleteJobFunction">{{ 'desc.wfDeleteJobFunction' | translate }}</mat-checkbox>
         </div>
       </div>
-      
+
     </fieldset>
     <div class="app-mb-2">
       @if (auth.user.createUserFunction) {

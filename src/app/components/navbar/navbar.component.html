@@ -133,7 +133,7 @@
         </button>
       }
     </mat-menu>
-    @if (auth.isLoggedIn() && config.showLogoutCounter) {
+    @if (auth.isLoggedIn() && config.showLogoutCounter && !auth.keycloak.isKeycloak) {
       <a class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + auth.remainingFormated">
         <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
         <div class="app-line"></div>

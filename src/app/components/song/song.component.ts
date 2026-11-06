@@ -1,4 +1,6 @@
 
+import { AsyncPipe } from '@angular/common';
+import { ProtectedResourcePipe } from '../../shared/protected-resource.pipe';
 import { Component, OnInit, OnDestroy, Input, effect, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  imports: [TranslateModule, MatIconModule, MatProgressSpinnerModule, MatTooltipModule, FormsModule, MatSliderModule],
+  imports: [AsyncPipe, ProtectedResourcePipe, TranslateModule, MatIconModule, MatProgressSpinnerModule, MatTooltipModule, FormsModule, MatSliderModule],
   selector: 'app-song',
   templateUrl: './song.component.html',
   styleUrls: ['./song.component.scss']

@@ -1,4 +1,6 @@
 
+import { inject } from '@angular/core';
+import { ProtectedResourceService } from '../../shared/protected-resource.pipe';
 import { Component, OnInit, OnDestroy, Input, input, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,8 +32,8 @@ declare global {
 }
 
 @Component({
-  imports: [TranslateModule, FormsModule, RouterModule, 
-    //FlexLayoutModule, 
+  imports: [TranslateModule, FormsModule, RouterModule,
+    //FlexLayoutModule,
     MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, ResizedDirective],
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
@@ -71,6 +73,24 @@ export class ViewerComponent implements OnInit, OnDestroy {
   state = 'none';
 
   imageUrl: string;
+  private resources = inject(ProtectedResourceService);
+  private imageResource: { url: string; dispose: () => void };
+  private imageGeneration = 0;
+
+  private async setImageUrl(url: string): Promise<boolean> {
+    const generation = ++this.imageGeneration;
+    try {
+      const resource = await this.resources.load(url);
+      if (generation !== this.imageGeneration) { resource.dispose(); return false; }
+      this.imageResource?.dispose();
+      this.imageResource = resource;
+      this.imageUrl = resource.url;
+      return true;
+    } catch {
+      if (generation === this.imageGeneration) this.state = 'error';
+      return false;
+    }
+  }
   maxImageSize: number = 6000;
   viewOl = true;
 
@@ -131,11 +151,11 @@ export class ViewerComponent implements OnInit, OnDestroy {
     //this.loadImage();
   }
 
-  loadRawImage() {
+  async loadRawImage() {
     this.state = 'loading';
-    this.imageUrl = this.isKramerius ?
+    if (!await this.setImageUrl(this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
-      this.api.getStreamUrl(this.inputPid, this._imageInfo.dsid, this.layout.batchId);
+      this.api.getStreamUrl(this.inputPid, this._imageInfo.dsid, this.layout.batchId))) return;
     const image = new Image();
     image.onload = (() => {
       if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
@@ -186,15 +206,15 @@ export class ViewerComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadImage() {
+  async loadImage() {
     if (!this.inputPid) {
       return;
     }
     const stream = this._imageInfo ? this._imageInfo.dsid : 'FULL';
     this.state = 'loading';
-    this.imageUrl = this.isKramerius ?
+    if (!await this.setImageUrl(this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
-      this.api.getStreamUrl(this.inputPid, stream, this.layout.batchId);
+      this.api.getStreamUrl(this.inputPid, stream, this.layout.batchId))) return;
 
     if ((this._imageInfo.width > this.maxImageSize) || (this._imageInfo.height > this.maxImageSize) || (stream === 'THUMBNAIL')) {
       this.viewOl = false;
@@ -341,6 +361,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
   // }
 
   ngOnDestroy() {
+    this.imageGeneration++;
+    this.imageResource?.dispose();
     this.saveCurrentPosition();
     this.view.removeLayer(this.imageLayer);
   }

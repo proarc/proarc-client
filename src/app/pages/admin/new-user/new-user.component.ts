@@ -67,7 +67,7 @@ export class NewUserComponent implements OnInit {
       return;
     }
 
-    if (!this.user.password && this.user.userId === -1 ) {
+    if (!this.auth.keycloak.isKeycloak && !this.user.password && this.user.userId === -1 ) {
       this.setControleFieldTimeout(this.password);
       return;
     }

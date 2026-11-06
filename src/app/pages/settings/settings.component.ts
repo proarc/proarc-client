@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
     // public codebook: CodebookService,
     // public settings: UserSettings,
     public settingsService: UserSettingsService,
-    public settings: UserSettings, 
+    public settings: UserSettings,
     public config: Configuration,
     private auth: AuthService) { }
 
@@ -158,6 +158,12 @@ export class SettingsComponent implements OnInit {
   }
 
   changePassword() {
+    if (this.auth.keycloak.isKeycloak) {
+      this.auth.keycloak.changePassword().catch(() => {
+        this.ui.showErrorSnackBar(this.translator.instant('login.keycloakPasswordError'));
+      });
+      return;
+    }
     this.dialog.open(NewPasswordDialogComponent, {
       id: 'NewPasswordDialogComponent',
       width: '550px',
@@ -191,7 +197,7 @@ export class SettingsComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       id: 'SimpleDialogComponent',
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]

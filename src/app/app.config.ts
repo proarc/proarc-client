@@ -3,10 +3,11 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthService } from './services/auth.service';
+import { bearerInterceptor } from './shared/bearer.interceptor';
 import { Configuration } from './shared/configuration';
 import { ApiService } from './services/api.service';
 import { UserSettings, UserSettingsService } from './shared/user-settings';
@@ -37,7 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([bearerInterceptor])),
     provideAppInitializer(() => {
       const icons = inject(MatIconRegistry);
       const sanitizer = inject(DomSanitizer);
@@ -65,7 +66,7 @@ export const appConfig: ApplicationConfig = {
       fullLibraryLoader: () => import('highlight.js')
     }),
 
-     
+
 
     //{provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
     TranslateService, DatePipe, UserSettings,
