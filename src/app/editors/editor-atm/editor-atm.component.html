@@ -58,7 +58,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.device' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.atm.device' | translate" name="device" [(value)]="atm.device">
+                <mat-select [placeholder]="'editor.atm.device' | translate" name="device" [(value)]="atm.device" (valueChange)="onChange()">
                   <mat-option [value]="'null'">{{ 'editor.atm.no_device' | translate }}</mat-option>
                   @for(device of devices; track $index;) {
                     <mat-option [value]="device.id">{{ device.label }}</mat-option>
@@ -67,7 +67,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.software' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.atm.software' | translate" name="software" [(value)]="atm.software">
+                <mat-select [placeholder]="'editor.atm.software' | translate" name="software" [(value)]="atm.software" (valueChange)="onChange()">
                   <mat-option value="null">{{ 'editor.atm.no_software' | translate }}</mat-option>
                   @for(software of softwares; track $index) {
                     <mat-option [value]="software.id">{{ software.label }}</mat-option>
@@ -76,7 +76,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.organization' | translate }}</mat-label>
-                <mat-select [disabled]="!auth.user.allObjectsFunction" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization">
+                <mat-select [disabled]="!auth.user.allObjectsFunction" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization" (valueChange)="onChange()">
                   @for(organization of organizations; track $index;) {
                     <mat-option [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
                   }
@@ -84,7 +84,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.userProcessor' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
+                <mat-select [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor" (valueChange)="onChange()">
                   @for(user of users; track $index;) {
                     <mat-option [value]="user.name">{{ user.name }}</mat-option>
                   }
@@ -93,7 +93,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                 <mat-label>{{ 'editor.atm.status' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.atm.status' | translate" name="status" [(value)]="atm.status">
+                <mat-select [placeholder]="'editor.atm.status' | translate" name="status" [(value)]="atm.status" (valueChange)="onChange()">
                   @for(status of statuses; track $index;) {
                     <mat-option [value]="status">{{ 'editor.atm.statuses.' + status | translate }}</mat-option>
                   }
@@ -116,7 +116,7 @@
               }
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.donator' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator">
+                <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator" (valueChange)="onChange()">
                   <mat-option [value]="null">{{ 'editor.atm.donators.none' | translate }}</mat-option>
                   @for(donator of donators; track donator.code) {
                     <mat-option [value]="donator.code">{{ getDonatorLabel(donator) }}</mat-option>
@@ -125,7 +125,7 @@
               </mat-form-field>
               <mat-form-field [appearance]="settings.appearance" class="app-field-col" >
                 <mat-label>{{ 'editor.atm.archivalCopies' | translate }}</mat-label>
-                <input matInput [(ngModel)]="atm.archivalCopies">
+                <input matInput [(ngModel)]="atm.archivalCopies" (ngModelChange)="onChange()">
               </mat-form-field>
             </div>
           </div>

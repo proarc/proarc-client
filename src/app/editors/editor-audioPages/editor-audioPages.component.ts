@@ -51,16 +51,15 @@ export class EditorAudioPagesComponent implements OnInit {
   }
 
   canSave(): boolean {
-    const hasChanges = this.holder.editAny();
-    if (hasChanges) {
-      this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
-      }
-    }
+    return !!this.holder && this.holder.editAny();
+  }
 
-    return hasChanges
+  onChange() {
+    if (this.canSave()) {
+      this.layout.setPanelEditing(this.panel());
+    } else if (this.layout.editingPanel === this.panel()?.id) {
+      this.layout.clearPanelEditing();
+    }
   }
 
   onSave() {

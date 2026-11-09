@@ -22,7 +22,7 @@
           <div class="app-form">
             <div class="app-fxLayout app-row app-center-v app-form-header app-pl-2">
               <div class="app-text-cutter">
-                <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" class="app-form-title">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" (ngModelChange)="onChange()" class="app-form-title">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
               </div>
             </div>
             <div class="app-form-content">

@@ -115,15 +115,15 @@ export class EditorAtmComponent implements OnInit {
   }
 
   hasChanged() {
-    const hasChanges = this.atm.hasChanged()
-    if (hasChanges) {
+    return !!this.atm && this.atm.hasChanged();
+  }
+
+  onChange() {
+    if (this.hasChanged()) {
       this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
-      }
+    } else if (this.layout.editingPanel === this.panel()?.id) {
+      this.layout.clearPanelEditing();
     }
-    return hasChanges;
   }
 
   onRevert() {

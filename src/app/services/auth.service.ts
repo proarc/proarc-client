@@ -103,10 +103,12 @@ export class AuthService {
 
                 this.config.valueMap = valueMapResp.response.data;
                 this.config.info = infoResp;
-                if (checkLoggedResp?.state === 'logged' && !this.keycloak.isKeycloak) {
-                    this.remaining = checkLoggedResp.remaining;
-                    this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
-                    this.formatRemaning();
+                if (checkLoggedResp?.state === 'logged') {
+                    if (!this.keycloak.isKeycloak) {
+                        this.remaining = checkLoggedResp.remaining;
+                        this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
+                        this.formatRemaning();
+                    }
                     this.checkIsLogged();
                 }
 
@@ -198,7 +200,15 @@ export class AuthService {
     }
 
     checkIsLogged() {
-        if (this.keycloak.isKeycloak) return;
+        if (this.keycloak.isKeycloak) {
+            if (this.isLoggedIn()) {
+                this.updateKeycloakCounter();
+                if (!this.timerRemain) {
+                    this.timerRemain = setInterval(() => this.updateKeycloakCounter(), 1000);
+                }
+            }
+            return;
+        }
         if (this.isLoggedIn() && !this.checkingLogged) {
             this.checkingLogged = true;
             this.checkLogged().pipe(
@@ -226,6 +236,13 @@ export class AuthService {
                 }
             });
         }
+    }
+
+    private updateKeycloakCounter() {
+        const { remaining, maximum } = this.keycloak.tokenTiming;
+        this.remaining = remaining;
+        this.remainingPercent = maximum > 0 ? remaining * 100.0 / maximum : 0;
+        this.formatRemaning();
     }
 
     public getApiUrl(): string {

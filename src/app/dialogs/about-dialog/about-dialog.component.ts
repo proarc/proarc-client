@@ -6,8 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
-import { ApiService } from '../../services/api.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { versionInfo } from '../../../version-info';
 import { Configuration } from '../../shared/configuration';
 
@@ -26,7 +25,11 @@ export class AboutDialogComponent implements OnInit {
 
   clientInfo: any;
 
-  constructor(public config: Configuration) { }
+  constructor(public config: Configuration, private translator: TranslateService) { }
+
+  get locale(): string {
+    return this.translator.currentLang === 'en' ? 'en-US' : 'cs';
+  }
 
   ngOnInit() {
     this.clientInfo = versionInfo;

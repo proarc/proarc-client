@@ -81,15 +81,15 @@ export class EditorAudioPageComponent implements OnInit {
   }
 
   hasChanged() {
-    const hasChanges = this.audioPage.hasChanged()
-    if (hasChanges) {
+    return !!this.audioPage && this.audioPage.hasChanged();
+  }
+
+  onChange() {
+    if (this.hasChanged()) {
       this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
-      }
+    } else if (this.layout.editingPanel === this.panel()?.id) {
+      this.layout.clearPanelEditing();
     }
-    return hasChanges;
   }
 
   onRevert() {

@@ -127,7 +127,7 @@ export class NavbarComponent implements OnInit {
   }
 
   showAboutDialog() {
-    this.dialog.open(AboutDialogComponent);
+    this.dialog.open(AboutDialogComponent, { width: '960px', maxWidth: '95vw' });
   }
 
   reindex() {

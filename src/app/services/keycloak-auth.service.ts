@@ -42,6 +42,16 @@ export class KeycloakAuthService {
 
   get authenticated(): boolean { return !!this.client?.authenticated; }
 
+  get tokenTiming(): { remaining: number; maximum: number } {
+    const token = this.client?.tokenParsed;
+    if (!this.authenticated || !Number.isFinite(token?.exp) || !Number.isFinite(token?.iat)) {
+      return { remaining: 0, maximum: 0 };
+    }
+    const maximum = Math.max(0, token.exp - token.iat);
+    const remaining = token.exp - Math.ceil(Date.now() / 1000) + (this.client.timeSkew ?? 0);
+    return { remaining: Math.max(0, Math.min(maximum, remaining)), maximum };
+  }
+
   isApiUrl(value: string): boolean {
     const base = new URL(this.config.proarcUrl.replace(/\/$/, '') + '/', location.origin);
     const url = new URL(value, location.origin);

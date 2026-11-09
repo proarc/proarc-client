@@ -1,8 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { DatePipe } from '@angular/common';
 import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { KeycloakAuthService } from './keycloak-auth.service';
 import { Configuration } from '../shared/configuration';
+import { AuthService } from './auth.service';
 
 describe('Keycloak authentication mode', () => {
   let auth: KeycloakAuthService;
@@ -91,4 +93,61 @@ describe('Keycloak authentication mode', () => {
     await expectAsync(auth.accessToken()).toBeRejectedWithError('expired');
     expect(client.clearToken).toHaveBeenCalled();
   });
+
+  it('calculates token validity using the Keycloak clock skew and token lifetime', () => {
+    spyOn(Date, 'now').and.returnValue(1000000);
+    (auth as any).client = { authenticated: true, timeSkew: 20,
+      tokenParsed: { iat: 900, exp: 1200 } };
+    expect(auth.tokenTiming).toEqual({ remaining: 220, maximum: 300 });
+  });
+
+  it('clamps expired tokens and handles missing timing or authentication', () => {
+    spyOn(Date, 'now').and.returnValue(1000000);
+    const client = { authenticated: true, timeSkew: null as number | null, tokenParsed: { iat: 600, exp: 900 } };
+    (auth as any).client = client;
+    expect(auth.tokenTiming).toEqual({ remaining: 0, maximum: 300 });
+    client.tokenParsed = { iat: 1100, exp: 1400 };
+    expect(auth.tokenTiming).toEqual({ remaining: 300, maximum: 300 });
+    client.authenticated = false;
+    expect(auth.tokenTiming).toEqual({ remaining: 0, maximum: 0 });
+    client.authenticated = true;
+    client.tokenParsed = undefined;
+    expect(auth.tokenTiming).toEqual({ remaining: 0, maximum: 0 });
+  });
+
+  it('updates the displayed counter after token refresh without polling or refreshing Keycloak', fakeAsync(() => {
+    const now = Math.ceil(Date.now() / 1000);
+    const client = { authenticated: true, timeSkew: 0,
+      tokenParsed: { iat: now - 60, exp: now + 60 },
+      updateToken: jasmine.createSpy('updateToken') };
+    (auth as any).client = client;
+    auth.isKeycloak = true;
+    const httpClient = jasmine.createSpyObj('HttpClient', ['get']);
+    const router = jasmine.createSpyObj('Router', ['navigate']);
+    const dialogs = jasmine.createSpyObj('MatDialog', ['closeAll']);
+    const session = new AuthService(httpClient, auth, null, null, dialogs, null, router,
+      null, null, new DatePipe('en-US'));
+    session.user = {} as any;
+    try {
+      session.checkIsLogged();
+      expect(session.remainingFormated).toBe('01:00');
+      expect(session.remainingPercent).toBe(50);
+      const timer = session.timerRemain;
+      session.checkIsLogged();
+      expect(session.timerRemain).toBe(timer);
+      tick(1000);
+      expect(session.remainingFormated).toBe('00:59');
+      client.tokenParsed = { iat: now + 1, exp: now + 121 };
+      tick(1000);
+      expect(session.remainingFormated).toBe('01:59');
+      expect(session.remainingPercent).toBeCloseTo(119 * 100 / 120);
+      expect(httpClient.get).not.toHaveBeenCalled();
+      expect(client.updateToken).not.toHaveBeenCalled();
+      auth.loggedOut.next();
+      expect(session.timerRemain).toBeNull();
+      expect(session.isLoggedIn()).toBeFalse();
+    } finally {
+      session.setLoggedOut();
+    }
+  }));
 });

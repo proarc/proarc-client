@@ -103,6 +103,8 @@ export class Configuration {
     storage: string,
     datastoreSize?: number | null,
     objectstoreSize?: number | null,
+    usersSize?: number | null,
+    storageSizeCalculatedAt?: string | null,
     timestamp: string,
     version: string
   };
