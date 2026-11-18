@@ -6,6 +6,11 @@
   "failed": "The loggingCore metadata backfill could not be scheduled."
 },
   "statistics": {
+    "settings": {
+      "title": "Statistics settings",
+      "hint": "Select the charts to show on the dashboard.",
+      "noneSelected": "No charts selected. You can enable charts in statistics settings."
+    },
     "chart": {
       "type": "Chart type",
       "pie": "Pie",

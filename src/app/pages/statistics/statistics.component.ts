@@ -14,7 +14,9 @@ import { ModelBreakdownComponent } from './model-breakdown/model-breakdown.compo
 import { ModelStatistic } from '../../model/model-statistic.model';
 import { ProductivityComponent } from './productivity/productivity.component';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, TemplateRef, inject } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { StatisticsChart, UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -32,7 +34,7 @@ interface StatisticsModel extends ModelStatistic {
 }
 
 interface StatisticsPreview {
-  view: DetailView;
+  view: StatisticsChart;
   titleKey: string;
   totalKey: string;
   emptyKey: string;
@@ -48,7 +50,7 @@ interface StatisticsPreview {
   imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
             ArticleExportsComponent, ExportStatisticsComponent, MatIconModule,
             ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule,
-            MatProgressBarModule, MatCardModule],
+            MatProgressBarModule, MatCardModule, MatDialogModule],
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
@@ -59,6 +61,10 @@ export class StatisticsComponent implements OnInit {
   readonly csv = inject(StatisticsCsvService);
   private readonly destroyRef = inject(DestroyRef);
   readonly translator = inject(TranslateService);
+  private readonly dialog = inject(MatDialog);
+  private readonly settings = inject(UserSettings);
+  private readonly settingsService = inject(UserSettingsService);
+  chartOptions: { view: StatisticsChart; titleKey: string; visible: boolean }[] = [];
   view: 'home' | DetailView = 'home';
   readonly previews: StatisticsPreview[] = [
     { view: 'productivity', titleKey: 'statistics.productivity.title', totalKey: 'statistics.productivity.count', emptyKey: 'statistics.productivity.empty', counts: [], total: 0, loading: false, error: false, updatedAt: null },
@@ -100,7 +106,23 @@ export class StatisticsComponent implements OnInit {
   }
 
   get refreshing(): boolean {
-    return this.view === 'home' ? this.previews.some(item => item.loading) : this.loading;
+    return this.view === 'home' ? this.visiblePreviews.some(item => item.loading) : this.loading;
+  }
+
+  get visiblePreviews(): StatisticsPreview[] {
+    return this.previews.filter(item => this.settings.statisticsCharts?.[item.view] !== false);
+  }
+
+  openSettings(template: TemplateRef<unknown>): void {
+    this.chartOptions = this.previews.map(item => ({ view: item.view, titleKey: item.titleKey,
+      visible: this.settings.statisticsCharts?.[item.view] !== false }));
+    this.dialog.open(template, { width: '400px' }).afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(save => {
+        if (!save) return;
+        this.settings.statisticsCharts = Object.fromEntries(this.chartOptions.map(item => [item.view, item.visible]));
+        this.settingsService.save(true);
+        if (this.view === 'home') this.loadPreviews();
+      });
   }
 
   open(view: DetailView): void {
@@ -161,10 +183,11 @@ export class StatisticsComponent implements OnInit {
   private loadPreviews(): void {
     this.previewRequests.unsubscribe();
     this.previewRequests = new Subscription();
+    this.previews.forEach(preview => preview.loading = false);
     const today = moment();
     this.previewDateFrom = today.clone().startOf('year').format('YYYY-MM-DD');
     this.previewDateTo = today.format('YYYY-MM-DD');
-    for (const preview of this.previews) {
+    for (const preview of this.visiblePreviews) {
       preview.loading = true;
       preview.error = false;
       preview.updatedAt = null;

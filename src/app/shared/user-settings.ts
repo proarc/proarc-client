@@ -9,10 +9,13 @@ import { TranslateService } from "@ngx-translate/core";
 import { ModelTemplate } from "../model/modelTemplate";
 import { Catalogue } from "../model/catalogue.model";
 
+export type StatisticsChart = 'productivity' | 'exports' | 'articles' | 'active';
+
 @Injectable()
 export class UserSettings {
 
     lang: string;
+    statisticsCharts: Partial<Record<StatisticsChart, boolean>> = {};
 
     getModsLang(): string {
       return this.lang?.split('-')[1] || this.lang || 'cs';
@@ -340,6 +343,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
     }
 
     reset() {
+        this.settings.statisticsCharts = {};
       this.settings.lang = 'cs';
         this.settings.searchModel = this.config.defaultModel;
         this.settings.searchOrganization = '-';

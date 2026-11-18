@@ -6,6 +6,19 @@
   "failed": "The loggingCore metadata backfill could not be scheduled."
 },
   "statistics": {
+    "settings": {
+      "title": "Nastavení statistik",
+      "hint": "Vyberte grafy, které chcete zobrazovat v přehledu.",
+      "noneSelected": "Nemáte vybraný žádný graf. Grafy můžete zapnout v nastavení statistik."
+    },
+    "chart": {
+      "type": "Typ grafu",
+      "pie": "Koláčový",
+      "bar": "Sloupcový",
+      "yAxis": "Osa Y",
+      "absolute": "Absolutní počty",
+      "percent": "Procenta"
+    },
     "articles": {
       "title": "Exportované články a DOI",
       "count": "Exporty článků",
