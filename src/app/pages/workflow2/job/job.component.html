@@ -1,0 +1,62 @@
+@if (loading()) {
+<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+}
+<div class="pagehead">
+  <h1>Detail záměru – Výběr k digitalizaci</h1>
+  <div class="actions">
+    <button class="btn warn" id="btnFlag">⚠ Nahlásit k revizi</button>
+    <button class="btn warn" id="btnDiscard">🚫 Vyřadit</button>
+  </div>
+</div>
+@if(job) {
+<div class="headcard">
+    <span class="thumb"></span>
+    <div>
+        <h2>{{ job.label }}</h2>
+        <div class="meta">K 12345 · ČNB cnb002345678 · projekt NDK 2026</div>
+    </div>
+    <div class="stat">
+        <div>
+            <div class="k">Aktuální krok</div>
+            <div class="v" id="aktKrokVal" style="color:var(--pa-link)">{{ job.taskLabel }}</div>
+        </div>
+        <div>
+            <div class="k">Stav položky</div>
+            <div class="v"><span class="badge b-info" id="stavPolozky">{{ job.state }}</span><span id="revizeBadge"></span>
+            </div>
+        </div>
+        <div>
+            <div class="k">Priorita</div>
+            <div class="v"><select class="prio-sel">
+                    <option>Vysoká</option>
+                    <option>Normální</option>
+                    <option>Nízká</option>
+                </select></div>
+        </div>
+        <div>
+            <div class="k">Přiřazená skupina</div>
+            <div class="v"><select class="prio-sel" title="Změnit může uživatel s vyšším oprávněním">
+                    <option>Kurátoři DK</option>
+                    <option>Katalogizátoři</option>
+                    <option>Zpracovatelé</option>
+                    <option>Administrátoři</option>
+                </select></div>
+        </div>
+        <div>
+            <div class="k">Přiřazený uživatel</div>
+            <div class="v"><select class="prio-sel" title="Změnit může uživatel s vyšším oprávněním">
+                    <option>Lucie Benešová</option>
+                    <option>Petr Kovář</option>
+                    <option>— nepřiřazeno —</option>
+                </select></div>
+        </div>
+        <div>
+            <div class="k">Labely</div>
+            <div class="v" id="itemLabels"><span class="lbl" style="background:#c0392b">spěchá</span><span class="lbl"
+                    style="background:#7b3fa0">destruktivní</span><button class="lbl-add" id="addLbl"
+                    title="Přidat štítek">+ štítek</button></div>
+        </div>
+    </div>
+</div>
+
+}

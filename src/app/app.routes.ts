@@ -22,6 +22,8 @@ import { TaskComponent } from './pages/workflow/task/task.component';
 import { KrameriusComponent } from './pages/kramerius/kramerius.component';
 import { SoftwareListComponent } from './pages/software/software-list.component';
 import { SoftwareDetailComponent } from './pages/software/software-detail.component';
+import { Workflow2Component } from './pages/workflow2/workflow2.component';
+import { JobComponent } from './pages/workflow2/job/job.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -49,6 +51,8 @@ export const routes: Routes = [
             { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
             { path: 'admin/:id/edit-user', component: EditUserComponent },
             { path: 'admin/new-user', component: NewUserComponent },
+            { path: 'workflow2', component: Workflow2Component },
+            { path: 'workflow2/:id', component: JobComponent },
 
             { path: 'workflow',
                 loadChildren: () =>

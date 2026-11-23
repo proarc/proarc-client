@@ -41,6 +41,7 @@
       <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
       @if (config.showWorkflow) {
         <a mat-button [matMenuTriggerFor]="rd_menu">{{ "navbar.workflow" | translate }}</a>
+        <a mat-button [routerLink]="['/workflow2']" routerLinkActive="active">{{ "navbar.workflow" | translate }} - v2</a>
       }
       <mat-menu #rd_menu="matMenu">
         <button [routerLink]="['/workflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate }}</button>

@@ -1,0 +1,8 @@
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+}
+
+<app-user-table-colored [withFilters]="true" (sortBy)="sortJobsTable($event)" 
+    (selectItem)="jobClick($event)" (onFilter)="filter($event)"
+    (openItem)="openJob($event)"
+    [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" [lists]="lists"></app-user-table-colored>

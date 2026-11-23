@@ -1,0 +1,119 @@
+/* Sdílený ProArc styl pro wireframy Workflow – čistý, jednoduchý */
+:root{
+  --pa-blue:#4471aa; --pa-blue-dark:#3c6699; --pa-nav-active:rgba(255,255,255,.18);
+  --pa-link:#2b6cb0; --pa-text:#333; --pa-label:#7a7a7a;
+  --pa-border:#d4d4d4; --pa-border-light:#e6e6e6; --pa-toolbar:#f5f5f5;
+  --pa-head:#eef0f2; --pa-row-hover:#eef5fc; --pa-row-sel:#cfe1f7;
+  --ok:#2e7d32; --ok-bg:#e7f4e9; --warn:#c0392b; --warn-bg:#fbe9e7;
+  --info:#2b6cb0; --info-bg:#e6f0fb; --amber:#b7791f; --amber-bg:#fdf3e0;
+  --gray:#6a6a6a; --gray-bg:#eceded;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Arial,"Segoe UI",Helvetica,sans-serif;font-size:12.5px;color:var(--pa-text);background:#fff}
+a{color:var(--pa-link);text-decoration:none;cursor:pointer}
+a:hover{text-decoration:underline}
+button{font-family:inherit;font-size:12.5px;cursor:pointer}
+
+/* ---- horní navigace ---- */
+.topnav{background:var(--pa-blue);color:#fff;display:flex;align-items:center;height:46px;user-select:none}
+.topnav .logo{font-weight:bold;font-size:19px;letter-spacing:.5px;padding:0 18px}
+.topnav .logo .s{opacity:.6;font-weight:normal}
+.topnav nav{display:flex;align-items:stretch;height:100%}
+.topnav nav a{color:#fff;display:flex;align-items:center;padding:0 14px;font-size:13px}
+.topnav nav a:hover{background:rgba(255,255,255,.10);text-decoration:none}
+.topnav nav a.active{background:var(--pa-nav-active);font-weight:bold}
+.topnav .right{margin-left:auto;display:flex;align-items:center;gap:14px;padding:0 16px;font-size:12.5px}
+.topnav .right .timer{opacity:.85;font-variant-numeric:tabular-nums}
+.topnav .right .user{display:flex;flex-direction:column;line-height:1.15}
+.topnav .right .user .role{font-size:10.5px;opacity:.8}
+
+/* ---- proužek wireframu ---- */
+.wfbar{background:#fff7e6;border-bottom:1px solid #f0d9a8;color:#7a5b00;font-size:11.5px;padding:4px 16px}
+.wfbar a{color:#7a5b00;font-weight:bold}
+
+/* ---- hlavička stránky ---- */
+.pagehead{display:flex;align-items:center;gap:14px;padding:14px 18px 10px}
+.pagehead h1{font-size:19px;font-weight:600;margin:0}
+.pagehead .sub{color:var(--pa-label);font-size:12.5px}
+.pagehead .actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+/* ---- taby ---- */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--pa-border);padding:0 18px}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:9px 14px;color:var(--pa-text);font-size:13px}
+.tabs button:hover{color:var(--pa-blue-dark)}
+.tabs button.active{border-bottom-color:var(--pa-blue);font-weight:bold;color:var(--pa-blue-dark)}
+.tabs button .cnt{color:var(--pa-label);font-weight:normal}
+.tabs button.rev.active{border-bottom-color:var(--warn);color:var(--warn)}
+
+/* ---- filtry ---- */
+.filters{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;padding:10px 18px;background:#fbfbfc;border-bottom:1px solid var(--pa-border-light)}
+.filters .f{display:flex;flex-direction:column}
+.filters .f label{font-size:10.5px;color:var(--pa-label);margin-bottom:2px}
+.filters .f select,.filters .f input{border:1px solid var(--pa-border);background:#fff;padding:5px 7px;font-size:12.5px;min-width:120px}
+.filters .push{margin-left:auto;display:flex;gap:8px}
+
+/* ---- tlačítka ---- */
+.btn{border:1px solid var(--pa-border);background:#fff;padding:6px 12px;border-radius:3px;color:var(--pa-text)}
+.btn:hover{background:#f0f0f0}
+.btn.primary{background:var(--pa-blue);border-color:var(--pa-blue);color:#fff}
+.btn.primary:hover{background:var(--pa-blue-dark)}
+.btn.link{border:0;background:none;color:var(--pa-link);padding:6px 8px}
+.btn.sm{padding:4px 9px;font-size:12px}
+
+/* ---- tabulka ---- */
+.tablewrap{overflow:auto}
+table.grid{border-collapse:collapse;width:100%;white-space:nowrap}
+table.grid thead th{position:sticky;top:0;background:var(--pa-head);border-bottom:1px solid var(--pa-border);
+  text-align:left;font-weight:bold;color:#5c5c5c;font-size:11.5px;padding:8px 12px;z-index:2}
+table.grid tbody td{border-bottom:1px solid var(--pa-border-light);padding:9px 12px;vertical-align:middle}
+table.grid tbody tr{cursor:pointer}
+table.grid tbody tr:hover{background:var(--pa-row-hover)}
+table.grid tbody tr.sel{background:var(--pa-row-sel)}
+.subtle{color:var(--pa-label);font-size:11.5px}
+.strong{font-weight:600}
+
+/* ---- odznaky ---- */
+.badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;line-height:16px;white-space:nowrap}
+.b-ok{background:var(--ok-bg);color:var(--ok)}
+.b-info{background:var(--info-bg);color:var(--info)}
+.b-wait{background:var(--amber-bg);color:var(--amber)}
+.b-err{background:var(--warn-bg);color:var(--warn)}
+.b-gray{background:var(--gray-bg);color:var(--gray)}
+/* priorita */
+.prio{display:inline-flex;align-items:center;gap:5px;font-size:12px}
+.prio .ic{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:bold}
+.prio.high .ic{background:#c0392b} .prio.mid .ic{background:#d38b16} .prio.low .ic{background:#3a8a4a}
+
+/* ---- mini stepper v tabulce ---- */
+.mini{display:flex;flex-direction:column;gap:3px}
+.mini .dots{display:flex;align-items:center}
+.mini .dot{width:11px;height:11px;border-radius:50%;background:#dfe3e8}
+.mini .dot.done{background:#9bb7d8}
+.mini .dot.cur{background:var(--pa-blue);box-shadow:0 0 0 3px rgba(68,113,170,.18)}
+.mini .dot.err{background:var(--warn)}
+.mini .seg{width:14px;height:2px;background:#dfe3e8}
+.mini .seg.done{background:#9bb7d8}
+.mini .lab{font-size:11px;color:#555}
+
+/* ---- panel / karta ---- */
+.panel{border:1px solid var(--pa-border);background:#fff;margin:12px 18px;border-radius:3px}
+.panel .ph{background:var(--pa-toolbar);border-bottom:1px solid var(--pa-border);padding:8px 14px;font-weight:600;font-size:13px;display:flex;align-items:center;gap:10px}
+.panel .pb{padding:14px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px;align-items:center}
+.kv .k{color:var(--pa-label)}
+
+/* ---- rozvržení s pravým sloupcem ---- */
+.cols{display:grid;grid-template-columns:1fr 300px;gap:0}
+@media(max-width:1000px){.cols{grid-template-columns:1fr}}
+.rail{border-left:1px solid var(--pa-border-light);padding:14px 16px;background:#fbfbfc}
+.rail .card{border:1px solid var(--pa-border-light);background:#fff;border-radius:3px;padding:12px;margin-bottom:14px}
+.rail .card h3{margin:0 0 8px;font-size:13px}
+.rail .row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0}
+.rail .row .dotc{display:inline-flex;align-items:center;gap:7px}
+.rail .num{font-size:24px;font-weight:700;color:var(--pa-blue-dark)}
+
+.pager{display:flex;align-items:center;gap:10px;padding:10px 18px;color:var(--pa-label);font-size:12px}
+.pager .push{margin-left:auto}
+.foot-note{padding:10px 18px;color:var(--pa-label);font-size:11.5px}
+.pa-select{border:1px solid var(--pa-border);background:#fff;padding:5px 7px;font-size:12.5px}
