@@ -5,4 +5,4 @@
 <app-user-table-colored [withFilters]="true" (sortBy)="sortJobsTable($event)" 
     (selectItem)="jobClick($event)" (onFilter)="filter($event)"
     (openItem)="openJob($event)"
-    [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" [lists]="lists"></app-user-table-colored>
+    [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" [lists]="wfconfig.lists"></app-user-table-colored>

@@ -9,10 +9,12 @@ import { Configuration } from '../../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../../shared/user-settings';
 import { WorkFlow } from '../../../model/workflow.model';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule } from '@angular/forms';
+import { WfConfiguration } from '../wf-configuration';
 
 @Component({
   selector: 'app-job',
-  imports: [MatProgressBarModule],
+  imports: [FormsModule, MatProgressBarModule],
   templateUrl: './job.component.html',
   styleUrl: './job.component.scss'
 })
@@ -24,10 +26,10 @@ export class JobComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    //private dialog: MatDialog,
+    public wfconfig: WfConfiguration,
     private translator: TranslateService,
     public auth: AuthService,
-    private config: Configuration,
+    public config: Configuration,
     public settings: UserSettings,
     public settingsService: UserSettingsService,
     private api: ApiService,
@@ -36,7 +38,11 @@ export class JobComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getJob();
+    if (this.wfconfig.inited) {
+      this.getJob();
+    } else {
+      this.wfconfig.getWorkflowProfiles(() => {this.getJob()});
+    }
   }
 
   getJob() {

@@ -22,6 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProarcMatDialog } from './shared/proarc-mat-dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { WfConfiguration } from './pages/workflow2/wf-configuration';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -31,7 +32,6 @@ export function createTranslateLoader(http: HttpClient) {
 function initializeApp(auth: AuthService) {
   return auth.initializeApp();
 }
-
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -71,7 +71,7 @@ export const appConfig: ApplicationConfig = {
     //{provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: '+0000'}},
     TranslateService, DatePipe, UserSettings,
     Configuration, ApiService, AuthService, FundService, UIService, UserSettingsService,
-    LayoutService
+    LayoutService, WfConfiguration
   ]
 };
 

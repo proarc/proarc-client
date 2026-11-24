@@ -18,6 +18,7 @@ export interface Donator {
 @Injectable()
 export class Configuration {
 
+
   private static readonly PERIODICAL_PAGE_PARENTS = new Set([
     'model:ndkperiodicalissue',
     'model:ndkperiodicalsupplement'

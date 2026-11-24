@@ -27,10 +27,10 @@
         </div>
         <div>
             <div class="k">Priorita</div>
-            <div class="v"><select class="prio-sel">
-                    <option>Vysoká</option>
-                    <option>Normální</option>
-                    <option>Nízká</option>
+            <div class="v"><select class="prio-sel" [(ngModel)]="job.priority">
+                @for(pr of wfconfig.priorities; track pr) {
+                    <option [value]="pr.code">{{ pr.value }}</option>
+                }
                 </select></div>
         </div>
         <div>
@@ -57,6 +57,27 @@
                     title="Přidat štítek">+ štítek</button></div>
         </div>
     </div>
+</div>
+
+<div class="panel">
+  <div class="ph">Bibliografické údaje</div>
+  <div class="pb">
+    <div class="bib-grid">
+      <span class="k">Název</span><span>Dějiny národa českého v Čechách a v Moravě</span>
+      <span class="k">Rok vydání</span><span>1848–1876</span>
+      <span class="k">Signatura</span><span>K 12345</span>
+      <span class="k">Čárový kód</span><span>BC123456</span>
+      <span class="k">ČNB</span><span>cnb002345678</span>
+      <span class="k">ISBN</span><span>—</span>
+      <span class="k">Sysno</span><span>000123456</span>
+      <span class="k">Rozsah</span><span>5 sv.</span>
+      <span class="k">Licence</span><span>— (návrh se řeší v kroku 5)</span>
+      <span class="k">Sbírka</span><span>— (návrh se řeší v kroku 5)</span>
+      <span class="k">Digitalizační projekt</span><span>NDK 2026</span>
+      <span class="k">Datum vytvoření</span><span>20. 04. 2025 09:00</span>
+      <span class="k">Datum poslední úpravy</span><span>24. 04. 2025 09:01</span>
+    </div>
+  </div>
 </div>
 
 }

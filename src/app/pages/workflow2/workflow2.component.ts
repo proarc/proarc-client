@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 import { Device } from '../../model/device.model';
 import { User } from '../../model/user.model';
 import { TranslateService } from '@ngx-translate/core';
+import { WfConfiguration } from './wf-configuration';
 
 @Component({
   selector: 'app-workflow2',
@@ -25,10 +26,6 @@ export class Workflow2Component {
 
   loading = signal<boolean>(false);
 
-  
-  allTasks: any[];
-    profiles: WorkFlowProfile[];
-    devices: Device[];
 
     allJobs: WorkFlow[] = [];
     jobs: WorkFlow[] = [];
@@ -38,24 +35,7 @@ export class Workflow2Component {
   workflowJobsFilters: { [field: string]: string } = {};
 
 
-  states = [
-    { code: 'OPEN', value: 'Otevřený' },
-    { code: 'FINISHED', value: 'Hotový' },
-    { code: 'READY', value: 'Připraven' },
-    { code: 'STARTED', value: 'Probíhá' },
-    { code: 'CANCELED', value: 'Zrušený' },
-  ]
-
-  priorities = [
-    { code: 1, value: 'Spěchá' },
-    { code: 2, value: 'Normální' },
-    { code: 3, value: 'Nízká' },
-    { code: 4, value: 'Odloženo' },
-  ]
-
-  users: User[];
   filterFields: { [field: string]: string } = {};
-  lists: { [field: string]: { code: string, value: string }[] } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +44,7 @@ export class Workflow2Component {
     private translator: TranslateService,
     public auth: AuthService,
     private config: Configuration,
+    public wfconfig: WfConfiguration,
     public settings: UserSettings,
     public settingsService: UserSettingsService,
     private api: ApiService,
@@ -72,44 +53,45 @@ export class Workflow2Component {
   ) { }
 
   ngOnInit(): void {
-    this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
     this.getWorkflowProfiles();
   }
 
   getWorkflowProfiles() {
-      const profileNames = this.config.getValueMap('proarc.workflow.tasks');
-      const rUsers = this.api.getUsers();
-      const rProfiles = this.api.getWorkflowProfiles();
-      const rDevices = this.api.getDevices();
-      forkJoin([rUsers, rProfiles, rDevices]).subscribe(([users, profiles, devices]: [User[], any, Device[]]) => {
-        this.users = users;
+
+    this.wfconfig.getWorkflowProfiles(() => {this.getWorkflow()});
+      // const profileNames = this.config.getValueMap('proarc.workflow.tasks');
+      // const rUsers = this.api.getUsers();
+      // const rProfiles = this.api.getWorkflowProfiles();
+      // const rDevices = this.api.getDevices();
+      // forkJoin([rUsers, rProfiles, rDevices]).subscribe(([users, profiles, devices]: [User[], any, Device[]]) => {
+      //   this.wfconfig.users = users;
   
-        if (profiles['response'].errors) {
-          this.ui.showErrorDialogFromObject(profiles['response'].errors);
-          return;
-        }
-        this.profiles = profiles.response.data;
-        this.devices = devices;
-        this.lists['model'] = this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
-        this.lists['taskUser'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
-        this.lists['state'] = this.states.map(p => { return { code: p.code, value: p.value } });
-        this.lists['ownerId'] = this.users.map(p => { return { code: p.userId + '', value: p.name } });
-        this.lists['priority'] = this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-        this.lists['profileName'] = [...this.profiles.map(p => { return { code: p.name + '', value: p.title } })
-          , ...profileNames.map(p => { return { code: p.name + '', value: p.title } })
-        ];
+      //   if (profiles['response'].errors) {
+      //     this.ui.showErrorDialogFromObject(profiles['response'].errors);
+      //     return;
+      //   }
+      //   this.wfconfig.profiles = profiles.response.data;
+      //   this.wfconfig.devices = devices;
+      //   this.wfconfig.lists['model'] = this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      //   this.wfconfig.lists['taskUser'] = this.wfconfig.users.map(p => { return { code: p.userId + '', value: p.name } });
+      //   this.wfconfig.lists['state'] = this.wfconfig.states.map(p => { return { code: p.code, value: p.value } });
+      //   this.wfconfig.lists['ownerId'] = this.wfconfig.users.map(p => { return { code: p.userId + '', value: p.name } });
+      //   this.wfconfig.lists['priority'] = this.wfconfig.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      //   this.wfconfig.lists['profileName'] = [...this.wfconfig.profiles.map(p => { return { code: p.name + '', value: p.title } })
+      //     , ...profileNames.map(p => { return { code: p.name + '', value: p.title } })
+      //   ];
         
-        //this.lists['profileName'] = profileNames.map(p => { return { code: p.name + '', value: p.title } });
+      //   //this.lists['profileName'] = profileNames.map(p => { return { code: p.name + '', value: p.title } });
   
-        this.lists['deviceId'] = this.devices.map(p => { return { code: p.id + '', value: p.label } });
-        this.lists['taskName'] = this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
-        this.getWorkflow(false);
-      });
+      //   this.wfconfig.lists['deviceId'] = this.wfconfig.devices.map(p => { return { code: p.id + '', value: p.label } });
+      //   this.wfconfig.lists['taskName'] = this.wfconfig.allTasks.map(p => { return { code: p.name + '', value: p.title } });
+      //   this.getWorkflow(false);
+      // });
     }
 
   sortJobsTable(e: Sort) {
     this.workflowJobsSort = {active: e.active, direction: e.direction};
-    this.getWorkflow(false);
+    this.getWorkflow();
   }
 
   openJob(item: WorkFlow) {
@@ -154,10 +136,10 @@ export class Workflow2Component {
 
   filter(e : {field: string, value: string}) {
     this.workflowJobsFilters[e.field] = e.value;
-    this.getWorkflow(false);
+    this.getWorkflow();
   }
 
-  getWorkflow(keepSelection: boolean) {
+  getWorkflow() {
     this.loading.set(true);
     // let id = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : null;
     // if (keepSelection) {
