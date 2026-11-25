@@ -155,7 +155,8 @@
     'conclusion',
     "calibrationTable",
     "fragmentsOfBookbinding",
-    "scaleReference"
+    "scaleReference",
+    "booklet"
   ],
   topPageTypes: [
       'normalPage',
