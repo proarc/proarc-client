@@ -925,12 +925,12 @@ export class EditorStructureComponent implements OnInit {
           } else {
             this.layout.items().push(...items);
           }
-          
-          this.layout.items.set([...items]);
+
+          this.layout.items.set([...this.layout.items()]);
           const item = items[0];
           item.selected = true;
-          this.rowClick(item, null, this.lastClickIdx + 1);
-          
+          this.rowClick(item, null, this.layout.items().indexOf(item));
+
           if (result.objectPosition === 'after') {
             this.onSave(true);
           } else {
@@ -948,7 +948,7 @@ export class EditorStructureComponent implements OnInit {
             panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance]
           });
           dialogRef.afterClosed().subscribe(res => {
-            
+
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
               const items = this.layout.items();
@@ -958,16 +958,16 @@ export class EditorStructureComponent implements OnInit {
               } else {
                 items.push(item);
               }
-              
+
               this.layout.items.set([...items]);
-              
+
               if (res.gotoEdit) {
                 this.onSave(true);
                 this.router.navigate(['/repository', item.pid]);
               } else {
                 item.selected = true;
                 this.rowClick(item, null, items.length - 1);
-                
+
                 if (result.objectPosition === 'after') {
                   this.onSave(true);
                 } else {
@@ -976,11 +976,11 @@ export class EditorStructureComponent implements OnInit {
                   }, 1000);
                 }
                 //this.layout.refreshSelectedItem(true, 'pages');
-                
+
               }
 
             }
-            
+
           });
         }
 
@@ -989,7 +989,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { 
+    const dialogRef = this.dialog.open(ConvertDialogComponent, {
       data: { pid: this.layout.item.pid, model: this.layout.item.model },
       panelClass: ['app-dialog-convert', 'app-form-view-' + this.settings.appearance]
     });
@@ -1027,7 +1027,7 @@ export class EditorStructureComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1132,7 +1132,7 @@ export class EditorStructureComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1181,7 +1181,7 @@ export class EditorStructureComponent implements OnInit {
       },
       checkboxes: [checkbox]
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
      });
@@ -1327,7 +1327,7 @@ export class EditorStructureComponent implements OnInit {
     if (this.isRepo && this.auth.user.deleteActionFunction) {
       data.checkboxes = checkboxes;
     }
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -1358,7 +1358,7 @@ export class EditorStructureComponent implements OnInit {
             color: 'deffault'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        const dialogRef = this.dialog.open(SimpleDialogComponent, {
           data: data,
           panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
         });
@@ -1427,7 +1427,7 @@ export class EditorStructureComponent implements OnInit {
       },
       numberInput: input
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
