@@ -73,11 +73,13 @@ export class ExportDialogComponent implements OnInit {
   deleteRawScans = true;
   updateMods = false;
   updateCatalog = true;
-  cesnetLtpToken: string;
+
   //isBagit: boolean = false;
   target: string;
   errors: any[];
   canContinue = false;
+  cesnetWarnings: { pid: string; label?: string; model?: string }[] = [];
+  private confirmationIgnoreMissingUrnNbn = false;
 
   extendedType: string;
   noTifMessage: string;
@@ -97,7 +99,7 @@ export class ExportDialogComponent implements OnInit {
     private dialog: MatDialog,
     public settings: UserSettings,
     private auth: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}[]) { }
+    @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string, label?: string}[]) { }
 
   ngOnInit() {
     if (this.data[0].model.indexOf('oldprint') > -1) {
@@ -123,23 +125,38 @@ export class ExportDialogComponent implements OnInit {
   }
 
 
-  onExport(ignoreMissingUrnNbn: boolean) {
+  onExport(ignoreMissingUrnNbn: boolean, confirmCesnetUpload = false) {
+    if (['saving', 'done', 'done_nightOnly'].includes(this.state)) return;
+    if (confirmCesnetUpload !== (this.state === 'confirmation')) return;
+    this.cesnetWarnings = [];
+    this.canContinue = false;
     this.state = 'saving';
     const pids = this.data.map(p => p.pid);
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
     this.api.export(this.selectedType, pids, policy,
-      ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
+      ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', null, this.licenseName,
       this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly, this.selectedPriority, this.updateMods,
-      this.updateMods ? [] : this.selectedCollections, this.deleteRawScans, this.canUpdateCatalog && this.updateCatalog).subscribe((response: any) => {
-      if (response['response'].errors) {
+      this.updateMods ? [] : this.selectedCollections, this.deleteRawScans, this.canUpdateCatalog && this.updateCatalog, confirmCesnetUpload).subscribe((response: any) => {
+      if (response['response'].errors && Object.keys(response['response'].errors).length > 0) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
-      const data =  response['response']['data'];
+      const data = response['response']['data'] || [];
+      const confirmations = data.filter((item: any) => item.confirmationRequired === true);
+      if (confirmations.length > 0) {
+        this.cesnetWarnings = confirmations.flatMap((item: any) => item.warnings || [])
+          .map((warning: { pid: string }) => {
+            const object = this.data.find(item => item.pid === warning.pid);
+            return { pid: warning.pid, label: object?.label, model: object?.model };
+          });
+        this.confirmationIgnoreMissingUrnNbn = ignoreMissingUrnNbn;
+        this.state = 'confirmation';
+        return;
+      }
       for (const d of data) {
         if(d.ignoreMissingUrnNbn && this.data[0].model.indexOf('oldprint') > -1) {
           this.canContinue = true;
@@ -169,6 +186,19 @@ export class ExportDialogComponent implements OnInit {
     });
   }
 
+  confirmCesnetExport(): void {
+    if (this.state === 'confirmation') {
+      this.onExport(this.confirmationIgnoreMissingUrnNbn, true);
+    }
+  }
+
+  cancelCesnetConfirmation(): void {
+    if (this.state !== 'confirmation') return;
+    this.cesnetWarnings = [];
+    this.confirmationIgnoreMissingUrnNbn = false;
+    this.state = 'none';
+  }
+
   get canUpdateCatalog(): boolean {
     return this.config.exportUpdateCatalog === true
       && this.auth.user?.importToCatalogFunction === true
@@ -178,7 +208,7 @@ export class ExportDialogComponent implements OnInit {
   }
 
   formDisabled(): boolean {
-    return this.state === 'saving' || this.state === 'done' || this.state === 'done_nightOnly';
+    return this.state === 'confirmation' || this.state === 'saving' || this.state === 'done' || this.state === 'done_nightOnly';
   }
 
   get filteredCollections(): KrameriusCollection[] {

@@ -38,7 +38,7 @@ import { ProarcMatDialog } from '../../shared/proarc-mat-dialog';
     MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
   styleUrl: './repository.component.scss',
-  
+
     providers:[{ provide: MatDialog, useClass: ProarcMatDialog },]
 })
 export class RepositoryComponent {
@@ -320,7 +320,7 @@ export class RepositoryComponent {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       id: 'ExportDialogComponent',
       disableClose: true,
-      data: [{ pid: this.layout.item.pid, model: this.layout.item.model }],
+      data: [{ pid: this.layout.item.pid, model: this.layout.item.model, label: this.layout.item.label }],
       width: '600px',
       panelClass: ['app-dialog-export', 'app-form-view-' + this.settings.appearance]
     });

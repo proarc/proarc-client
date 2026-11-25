@@ -58,6 +58,9 @@ export class SearchComponent {
   queryIdentifier: string;
   queryCreator: string
   queryModel: string;
+  ltpState = '';
+  ltpId = '';
+  readonly ltpStates = ['REGISTERING', 'UPLOADING', 'UPLOADED', 'STORED', 'FAILED'];
   typeOfResource = '';
   readonly resourceTypes = ['text', 'cartographic', 'still image', 'notated music'];
   organization: string;
@@ -139,6 +142,8 @@ export class SearchComponent {
 
   processParams(p: any) {
     this.searchMode = p['type'] ? p['type'] : 'advanced';
+    this.ltpState = p['ltpState'] || '';
+    this.ltpId = p['ltpId'] || '';
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
     this.resetSpecialSearchModel();
     this.typeOfResource = this.canFilterByResourceType() ? (p['typeOfResource'] || '') : '';
@@ -272,6 +277,8 @@ export class SearchComponent {
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
       queryCreator: this.queryCreator,
+      ltpState: this.ltpState || null,
+      ltpId: this.ltpId || null,
       typeOfResource: this.canFilterByResourceType() ? (this.typeOfResource || null) : null,
       page: this.pageIndex,
       owner: this.owner || null,
@@ -366,6 +373,8 @@ export class SearchComponent {
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
       queryCreator: this.queryCreator,
+      ltpState: this.ltpState || null,
+      ltpId: this.ltpId || null,
       typeOfResource: this.canFilterByResourceType() ? (this.typeOfResource || null) : null,
       page: this.pageIndex,
       owner: this.owner,

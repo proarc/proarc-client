@@ -1,6 +1,8 @@
+import { DocumentItem, PreservationRecord } from './documentItem.model';
 
 export class Atm {
 
+    public archivInfo: PreservationRecord | null = null;
     public pid: string;
     public model: string;
     public device: string;
@@ -31,6 +33,7 @@ export class Atm {
 
   public static fromJson(json: any): Atm {
       const atm = new Atm();
+      atm.archivInfo = DocumentItem.fromJson(json).archivInfo;
       atm.pid = json['pid'];
       atm.model = json['model'];
       atm.state = json['state'];
@@ -74,12 +77,12 @@ export class Atm {
   }
 
   public hasChanged(): boolean {
-    return this.originalDevice !== this.device || 
+    return this.originalDevice !== this.device ||
            this.originalSoftware !== this.software ||
-           this.originalOrganization !== this.organization || 
-           this.originalUserProcessor !== this.userProcessor || 
-           this.originalStatus !== this.status || 
-           this.originalDonator !== this.donator || 
+           this.originalOrganization !== this.organization ||
+           this.originalUserProcessor !== this.userProcessor ||
+           this.originalStatus !== this.status ||
+           this.originalDonator !== this.donator ||
            this.originalArchivalCopies !== this.archivalCopies;
   }
 

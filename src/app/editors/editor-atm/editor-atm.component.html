@@ -127,6 +127,29 @@
                 <mat-label>{{ 'editor.atm.archivalCopies' | translate }}</mat-label>
                 <input matInput [(ngModel)]="atm.archivalCopies" (ngModelChange)="onChange()">
               </mat-form-field>
+              @if (atm.archivInfo; as archive) {
+                <div class="app-p-2 app-form app-archive-info">
+                  <strong>{{ 'ltp.archiveInfo' | translate }}</strong>
+                  <div class="app-form-content">
+                    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                      <mat-label>{{ 'ltp.fields.packageId' | translate }}</mat-label>
+                      <input matInput disabled [value]="archive.packageId || '-'">
+                    </mat-form-field>
+                    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                      <mat-label>{{ 'ltp.fields.state' | translate }}</mat-label>
+                      <input matInput disabled [value]="archive.state ? ('ltp.states.' + archive.state | translate) : '-'">
+                    </mat-form-field>
+                    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                      <mat-label>{{ 'ltp.fields.submittedAt' | translate }}</mat-label>
+                      <input matInput disabled [value]="archive.submittedAt ? (archive.submittedAt | date : 'dd.MM.yyyy HH:mm:ss') : '-'">
+                    </mat-form-field>
+                    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                      <mat-label>{{ 'ltp.fields.storedAt' | translate }}</mat-label>
+                      <input matInput disabled [value]="archive.storedAt ? (archive.storedAt | date : 'dd.MM.yyyy HH:mm:ss') : '-'">
+                    </mat-form-field>
+                  </div>
+                </div>
+              }
             </div>
           </div>
           <div class="app-gap-fixer"></div>

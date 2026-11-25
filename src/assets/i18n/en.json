@@ -1,4 +1,31 @@
 {
+  "importCesnet": {
+    "title": "Create BagIt and upload to CESNET",
+    "confirmation": "These folders already have a CESNET upload record. Create and upload a new package? History will be preserved.",
+    "scheduled": "Processes {{ids}} have been queued. Follow BagIt creation and CESNET upload in process management.",
+    "openProcesses": "Open process management"
+  },
+  "cesnetExportConfirmation": {
+    "message": "These objects have already been uploaded to CESNET. Uploading again creates a new package and replaces the recorded LTP package ID. Do you want to continue?",
+    "confirm": "Upload again anyway"
+  },
+  "cesnetCheck": {
+    "scheduled": "The CESNET check process has been queued. You can follow its progress in process management.",
+    "scheduledProcess": "CESNET check process {{id}} has been queued. You can follow its progress in process management.",
+    "title": "Check CESNET status",
+    "message": "Check all pending CESNET packages and retry unfinished catalog writes. Enter a CESNET token, or leave the field empty to use your saved token.",
+    "running": "Checking CESNET package status…",
+    "finished": "CESNET check completed. Objects checked successfully: {{count}}. Any individual object failures are in the server log.",
+    "failed": "The CESNET check could not be completed."
+},
+  "ltp": {
+    "archiveInfo": "Archive information",
+    "fields": {"provider":"Provider","endpoint":"Archive endpoint","group":"Group","packageId":"Package ID","version":"Version","state":"Archive status","integrityStatus":"Integrity status","uploadStatus":"Transfer status","submittedAt":"Submitted","storedAt":"Stored","catalogId":"Catalog ID","catalogState":"Catalog update"},
+    "catalogStates": {"PENDING":"Pending","DONE":"Done"},
+    "filterState": "LTP preservation status", "filterId": "LTP package ID",
+    "retry": "Retry the CESNET LTP upload? The server will authenticate using its configuration.",
+    "states": {"REGISTERING": "Registering", "UPLOADING": "Transferring", "UPLOADED": "Awaiting storage confirmation", "STORED": "Stored and verified", "FAILED": "Preservation failed"}
+  },
   "loggingMetadataBackfill": {
   "title": "Fill missing loggingCore metadata",
   "confirm": "Fill missing model and organization in older loggingCore records? This uses the current object model and current organization of the user recorded in the log. Backfilled fields will be marked; existing values, timestamps and operations will be preserved. The job runs in the background and reports its results in process management.",
@@ -242,6 +269,7 @@
     "NDK_USER": "User copy"
   },
   "search": {
+    "ltpId": "LTP package ID", "ltpStatus": "LTP status",
     "title": "Search",
     "orphansDialog": {
       "title": "Search in orphans",
@@ -2983,6 +3011,9 @@
     "userEditing": "User editing",
     "createUser": "Create a user",
     "registrar": "Registrar",
+    "batchLoadingFailed": "Could not load the batch list. Please try refreshing it.",
+    "resumeCesnet": "Enter a CESNET token to start all uploads waiting for a token, including other users’ batches and batches outside the current filter. Export and BagIt packaging will not be repeated.",
+    "retryCesnetToken": "Enter a fresh CESNET token. Only the retained BagIt packages will be uploaded again.",
     "ltpToken": "Ltp Cesnet token",
     "field": "Field",
     "query": "Query",
@@ -3045,6 +3076,9 @@
     }
   },
   "button": {
+    "retryBagit": "Recreate BagIt package",
+    "resumeCesnet": "Start all waiting CESNET uploads",
+    "retryCesnet": "Retry CESNET upload",
     "retryCatalogUpdate": "Retry catalog update",
     "setLayout": "Set layout",
     "close": "Close",
@@ -3302,6 +3336,7 @@
     "INGESTING": "Saving",
     "INGESTING_FAILED": "Saving failed",
     "INGESTED": "Saved",
+    "WAITING_CESNET_TOKEN": "Waiting for CESNET token",
     "STOPPED": "Stoped",
     "EXPORTING": "Exporting",
     "EXPORT_FAILED": "Export - Failed",
@@ -3582,6 +3617,7 @@
         "ndk_psp_upload_cesnet": "NDK PSP with Ltp Cesnet upload",
         "ndk_psp_upload_kramerius": "NDK PSP with Kramerius upload",
         "archive_bagit": "Archiving with BAGIT",
+        "archive_upload_cesnet": "Archiving with LTP CESNET upload",
         "archive_stt_bagit": "Archiving of old prints with BAGIT",
         "ndk_oldprint": "NDK STT",
         "ndk_oldprint_bagit": "NDK STT with BAGIT",
@@ -3769,6 +3805,11 @@
       "internalProfile.upgradeMods38": "Internal - Upgrade MODS to version 3.8",
       "uploadProfile.proarc": "External - Upload to ProArcu",
       "uploadProfile.kramerius": "External - Upload to Krameria",
+      "externalProfile.bagit": "External - BagIt creation",
+      "externalProfile.cesnet": "External - CESNET upload",
+      "externalProfile.cesnetCatalog": "External - Upload to catalog",
+      "externalProfile.cesnetCheck": "External - CESNET status check",
+      "externalProdile.cesnetCheck": "External - CESNET status check",
       "externalProfile.pero": "External - Pero",
       "externalProfile.pdfa": "External - Generate PDF-A",
       "externalProfile.thumbnail": "External - Generate PDF thumbnail"
@@ -3816,6 +3857,7 @@
       }
     },
     "search": {
+    "ltpId": "LTP package ID", "ltpStatus": "LTP status",
       "lockObject": "The object was successfully locked",
       "unlockObject": "The object was successfully unlocked"
     },
@@ -3906,6 +3948,7 @@
         "localSettings": "Local settings"
       },
       "search": {
+    "ltpId": "LTP package ID", "ltpStatus": "LTP status",
         "legend": "Search",
         "label": "Displayed fields in search results"
       },

@@ -19,7 +19,7 @@ import { UserSettings } from '../../shared/user-settings';
 @Component({
   standalone: true,
   imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
-    CdkDrag, CdkDragHandle, 
+    CdkDrag, CdkDragHandle,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
     FormsModule, MatFormFieldModule, MatCheckboxModule, MatProgressBarModule
   ],
@@ -38,6 +38,7 @@ export class SimpleDialogComponent implements OnInit {
   }
 
   btnEnabled() {
+    if (this.data.textInput?.required && !this.data.textInput.value?.trim()) return false;
     const num = this.data.numberInput;
     if (num) {
       return num.value >= num.min && num.value <= num.max;

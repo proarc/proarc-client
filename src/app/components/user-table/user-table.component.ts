@@ -25,6 +25,7 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TableItem } from '../../model/table-item.model';
+import { DocumentItem } from '../../model/documentItem.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -199,9 +200,17 @@ export class UserTableComponent {
     return el ? el.value : code;
   }
 
+  ltpHistory(item: DocumentItem): string {
+    return (item.ltpRecords || []).map(record => `${record.provider.toUpperCase()}: ${record.packageId || '-'} (v${record.version || '-'}) â€” ${this.translator.instant('ltp.states.' + record.state)}`).join('; ');
+  }
+
   translatedValue(field: string, code: string | string[]): string {
     if (Array.isArray(code)) {
       return code.map(value => this.translatedValue(field, value)).join(', ');
+    }
+    if (field === 'ltpStatus' && code) {
+      const [provider, state] = code.split(':');
+      return `${provider.toUpperCase()}: ${this.translator.instant('ltp.states.' + state)}`;
     }
     const value = this.translatedValues()[field]?.[code];
     if (value) {

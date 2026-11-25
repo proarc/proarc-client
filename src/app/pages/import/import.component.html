@@ -9,7 +9,7 @@
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-import">
     <div class="app-fxLayout app-row app-gap-2 app-formbar" [class.app-baseline]="settings.appearance === 'outline'">
-      <button mat-stroked-button (click)="onLoad()" [disabled]="showDevice() && selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import' || selectedProfile.id === 'profile.metacheck_import')">
+      <button mat-stroked-button (click)="onLoad()" [disabled]="cesnetPending || showDevice() && selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import' || selectedProfile.id === 'profile.metacheck_import')">
         {{ 'import.load' | translate }}
       </button>
       <mat-form-field [appearance]="settings.appearance"  class="app-fxFlex">
@@ -75,6 +75,11 @@
         <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="generatePageType">{{ 'import.generate_page_type' | translate }}</mat-checkbox>
       }
       <mat-checkbox class="app-import-index" [class.app-as-v]="settings.appearance === 'fill'" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
+      @if (showCesnetUpload()) {
+        <button mat-stroked-button (click)="onUploadCesnet()" [disabled]="!canUploadSelectedCesnet()">
+          {{ 'importCesnet.title' | translate }}
+        </button>
+      }
     </div>
 
     <div class="app-fxFlex app-tree app-oh app-oa-y app-border-wrapper">
@@ -94,7 +99,7 @@
               @if (!f.canExpand) {
                 <mat-icon>none</mat-icon>
               }
-              <mat-icon [class.app-disabled]="!canSelect(f)" class="app-mr-1" (click)="toggleSelected(f)" [color]="f.selected ? 'primary' : null">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
+              <mat-icon [class.app-disabled]="cesnetPending || (!canSelect(f) && !canUploadCesnet(f))" class="app-mr-1" (click)="toggleSelected(f)" [color]="f.selected ? 'primary' : null">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
               @if (canReread(f)) {
                 <mat-icon class="app-mr-1" title="Připravit ke znovunačtení" (click)="reRead(f)">refresh</mat-icon>
               }

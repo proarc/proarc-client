@@ -213,6 +213,22 @@ export class UserTreeTableComponent {
     }
   }
 
+  ltpStatusLabel(value: string | string[]): string {
+    if (Array.isArray(value)) {
+      return value.map(status => this.ltpStatusLabel(status)).join(', ');
+    }
+    if (!value) {
+      return '';
+    }
+    const [provider, state] = value.split(':');
+    if (!state) {
+      return value;
+    }
+    const key = 'ltp.states.' + state;
+    const translated = this.translator.instant(key);
+    return `${provider.toUpperCase()}: ${translated === key ? state : translated}`;
+  }
+
   columnType(f: string) {
     if (this.type() === 'TreeWorkFlow') {
       return this.settings.columnsWorkFlow.find(c => c.field === f).type;

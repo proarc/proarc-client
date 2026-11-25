@@ -337,7 +337,7 @@ export class ApiService {
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
     extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean, priority: string = 'medium', updateMods: boolean = false,
-    collections: string[] = [], deleteRawScans: boolean = true, updateCatalog: boolean = false): Observable<any> | undefined {
+    collections: string[] = [], deleteRawScans: boolean = true, updateCatalog: boolean = false, confirmCesnetUpload: boolean = false): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
@@ -392,6 +392,12 @@ export class ApiService {
         data = `${data}&isBagit=true`;
         break;
       }
+      case ProArc.EXPORT_ARCHIVE_CESNET_UPLOAD: {
+        path = 'export/archive';
+        data = `${data}&isBagit=true`;
+        data = `${data}&ltpCesnet=true`;
+        break;
+      }
       case ProArc.EXPORT_ARCHIVE_OLDPRINT: {
         data = `${data}&package=STT&isBagit=false`;
         path = 'export/archive'
@@ -400,6 +406,13 @@ export class ApiService {
       case ProArc.EXPORT_ARCHIVE_OLDPRINT_BAGIT: {
         data = `${data}&package=STT&isBagit=true`;
         path = 'export/archive'
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_OLDPRINT_CESNET_UPLOAD: {
+        path = 'export/archive';
+        data = `${data}&&package=STT`;
+        data = `${data}&isBagit=true`;
+        data = `${data}&ltpCesnet=true`;
         break;
       }
       case ProArc.EXPORT_NDK_PSP:
@@ -427,9 +440,10 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_NDK_PSP_CESNET_UPLOAD:
+      case ProArc.EXPORT_NDK_SIP_CESNET_UPLOAD:
       case ProArc.EXPORT_NDK_OLDPRINT_CESNET_UPLOAD: {
         path = 'export/ndk';
-        data = `${data}&ltpCesnet=true&ltpCesnetToken=${cesnetLtpToken}`;
+        data = `${data}&ltpCesnet=true`;
         break;
       }
       case ProArc.EXPORT_CEJSH: {
@@ -492,6 +506,9 @@ export class ApiService {
 
 
       default: return undefined;
+    }
+    if (confirmCesnetUpload && data.includes('&ltpCesnet=true')) {
+      data += '&confirmCesnetUpload=true';
     }
     return this.post(path, data);
   }
@@ -832,6 +849,8 @@ export class ApiService {
     if (options['model'] !== 'all') {
       params['queryModel'] = options['model'];
     }
+    if (options['ltpState']) params['ltpState'] = options['ltpState'];
+    if (options['ltpId']) params['ltpId'] = options['ltpId'];
     if (options['typeOfResource']) {
       params['typeOfResource'] = options['typeOfResource'];
     }
@@ -1183,6 +1202,27 @@ export class ApiService {
   reExportBatch(id: number): Observable<any> {
     let data = `id=${id}`;
     return this.post('export/reexport', data);
+  }
+
+  checkCesnet(token = ''): Observable<any> {
+    return this.post('export/cesnet/check', 'ltpCesnetToken=' + encodeURIComponent(token));
+  }
+
+  resumeCesnetBatches(token: string): Observable<any> {
+    return this.post('export/cesnet/resume', 'ltpCesnetToken=' + encodeURIComponent(token));
+  }
+
+  uploadImportFoldersCesnet(paths: string[], confirmed = false, priority = 'medium', nightOnly = false): Observable<any> {
+    let data = new HttpParams()
+      .set('confirmCesnetUpload', String(confirmed))
+      .set('priority', priority)
+      .set('nightOnly', String(nightOnly));
+    for (const folderPath of paths) data = data.append('folderPath', folderPath);
+    return this.post('import/cesnet', data.toString());
+  }
+
+  uploadCesnetBatch(sourceBatchId: number, confirmed = false): Observable<any> {
+    return this.post('export/cesnet', `sourceBatchId=${sourceBatchId}&confirmCesnetUpload=${confirmed}`);
   }
 
   resolveConflict(id: number, profile: string, isNew: boolean): Observable<any> {

@@ -33,7 +33,7 @@
         @if (data.textInput) {
           <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
             <mat-label>{{ data.textInput.label }}</mat-label>
-            <input type="text" step="1" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
+            <input [type]="data.textInput.type || 'text'" [required]="data.textInput.required || false" [attr.autocomplete]="data.textInput.type === 'password' ? 'new-password' : 'off'" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
           </mat-form-field>
         }
         @if (data.textAreaInput) {

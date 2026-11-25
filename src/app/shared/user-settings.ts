@@ -146,6 +146,8 @@ export class UserSettingsService {
     { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
     { field: 'partNumber', selected: true, width: 100, type: 'string' },
     { field: 'typeOfResource', selected: true, width: 130, type: 'translated' },
+    { field: 'ltpId', selected: true, width: 180, type: 'string' },
+    { field: 'ltpStatus', selected: true, width: 180, type: 'translated' },
     { field: 'filename', selected: false, width: 100, type: 'string' },
     { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
 ];
@@ -314,6 +316,14 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
     }
 
     setSettings(o: UserSettings) {
+        // Add LTP columns to older saved settings without resetting existing choices.
+        for (const key of ['columnsSearch', 'columnsSearchTree']) {
+          if (Array.isArray(o[key])) {
+            for (const column of this.columnsSearchDefault.filter(c => ['ltpId', 'ltpStatus'].includes(c.field))) {
+              if (!o[key].some(c => c.field === column.field)) o[key].push({ ...column });
+            }
+          }
+        }
         const keys = Object.keys(o);
         keys.forEach(k => {
             this.settings[k] = o[k];
@@ -420,6 +430,14 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
     }
 
     load(o: any) {
+        // Add LTP columns to older saved settings without resetting existing choices.
+        for (const key of ['columnsSearch', 'columnsSearchTree']) {
+          if (Array.isArray(o[key])) {
+            for (const column of this.columnsSearchDefault.filter(c => ['ltpId', 'ltpStatus'].includes(c.field))) {
+              if (!o[key].some(c => c.field === column.field)) o[key].push({ ...column });
+            }
+          }
+        }
         const keys = Object.keys(o);
         keys.forEach(k => {
           if (k !== 'columnsWorkFlowTasks')

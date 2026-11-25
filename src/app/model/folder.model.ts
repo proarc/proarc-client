@@ -4,6 +4,7 @@ export class Folder {
   public name: string;
   public state: string;
   public states: {profile: string, state: string, params?: any}[];
+  public actions: string[] = [];
   public path: string;
   public level: number;
   public parent: string;
@@ -21,6 +22,7 @@ export class Folder {
         profile.state = 'unknown';
       }
       profile.states = json['states'];
+      profile.actions = Array.isArray(json['actions']) ? json['actions'] : [];
       profile.path = json['path'];
       return profile;
   }

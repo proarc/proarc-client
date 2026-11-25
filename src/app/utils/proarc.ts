@@ -8,13 +8,16 @@ export class ProArc {
     public static EXPORT_KRAMERIUS = 'kramerius';
     public static EXPORT_KRAMERIUS_BAGIT = 'kramerius_bagit';
     public static EXPORT_ARCHIVE = 'archive';
+    public static EXPORT_ARCHIVE_CESNET_UPLOAD = 'archive_upload_cesnet';
     public static EXPORT_ARCHIVE_OLDPRINT = 'archive_stt';
+    public static EXPORT_ARCHIVE_OLDPRINT_CESNET_UPLOAD = 'archive_stt_upload_cesnet';
     public static EXPORT_NDK_PSP = 'ndk_psp';
     public static EXPORT_NDK_PSP_BAGIT = 'ndk_psp_bagit';
     public static EXPORT_NDK_PSP_CESNET_UPLOAD = 'ndk_psp_upload_cesnet';
     public static EXPORT_NDK_KRAMERIUS_UPLOAD = 'ndk_psp_upload_kramerius';
     public static EXPORT_NDK_SIP = 'ndk_sip';
     public static EXPORT_NDK_SIP_BAGIT = 'ndk_sip_bagit';
+    public static EXPORT_NDK_SIP_CESNET_UPLOAD = 'ndk_sip_upload_cesnet';
     public static EXPORT_NDK_SIP_KRAMERIUS_UPLOAD = 'ndk_sip_upload_kramerius';
     public static EXPORT_NDK_OLDPRINT = 'ndk_oldprint';
     public static EXPORT_NDK_OLDPRINT_BAGIT = 'ndk_oldprint_bagit';

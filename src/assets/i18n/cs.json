@@ -1,4 +1,31 @@
 {
+  "importCesnet": {
+    "title": "Vytvořit BagIt a odeslat do CESNETu",
+    "confirmation": "Tyto složky již mají záznam o odeslání do CESNETu. Vytvořit a odeslat nový balíček? Historie bude zachována.",
+    "scheduled": "Byly naplánovány procesy {{ids}}. Průběh vytvoření BagIt a odeslání do CESNETu můžete sledovat ve správě procesů.",
+    "openProcesses": "Otevřít správu procesů"
+  },
+  "cesnetExportConfirmation": {
+    "message": "Tyto objekty už byly nahrány do CESNETu. Opakované nahrání vytvoří nový balíček a nahradí evidované ID balíčku LTP. Chcete pokračovat?",
+    "confirm": "Přesto nahrát znovu"
+  },
+  "cesnetCheck": {
+    "scheduled": "Proces kontroly CESNETu byl zařazen ke zpracování. Jeho průběh najdete ve správě procesů.",
+    "scheduledProcess": "Proces kontroly CESNETu č. {{id}} byl zařazen ke zpracování. Jeho průběh najdete ve správě procesů.",
+    "title": "Zkontrolovat stav v CESNETu",
+    "message": "Zkontroluje všechny čekající balíčky v CESNETu a zopakuje případné nedokončené zápisy do katalogu. Zadejte CESNET token, nebo ponechte pole prázdné pro použití uloženého tokenu.",
+    "running": "Probíhá kontrola stavu balíčků v CESNETu…",
+    "finished": "Kontrola CESNETu dokončena. Úspěšně zkontrolovaných objektů: {{count}}. Případné chyby jednotlivých objektů jsou v logu serveru.",
+    "failed": "Kontrolu CESNETu se nepodařilo dokončit."
+},
+  "ltp": {
+    "archiveInfo": "Informace o archivaci",
+    "fields": {"provider":"Poskytovatel","endpoint":"Endpoint archivu","group":"Skupina","packageId":"ID balíčku","version":"Verze","state":"Stav archivace","integrityStatus":"Stav integrity","uploadStatus":"Stav přenosu","submittedAt":"Odesláno","storedAt":"Archivováno","catalogId":"ID v katalogu","catalogState":"Zápis do katalogu"},
+    "catalogStates": {"PENDING":"Čeká na zápis","DONE":"Zapsáno"},
+    "filterState": "Stav archivace v LTP", "filterId": "ID balíčku LTP",
+    "retry": "Opakovat odeslání do LTP CESNET? Přihlášení zajistí server podle konfigurace.",
+    "states": {"REGISTERING": "Registrace", "UPLOADING": "Přenos dat", "UPLOADED": "Čeká na potvrzení uložení", "STORED": "Uloženo a ověřeno", "FAILED": "Archivace selhala"}
+  },
   "loggingMetadataBackfill": {
   "title": "Doplnit metadata loggingCore",
   "confirm": "Doplnit chybějící model a organizaci ve starších záznamech loggingCore? Použije se současný model objektu a současná organizace uživatele uvedeného v logu. Doplněná pole budou označena; již vyplněné hodnoty, časy a operace zůstanou zachovány. Úloha poběží na pozadí a výsledek bude ve správě procesů.",
@@ -242,6 +269,7 @@
     "NDK_USER": "Uživatelská kopie"
   },
   "search": {
+    "ltpId": "ID balíčku LTP", "ltpStatus": "Stav LTP",
     "title": "Hledání",
     "orphansDialog": {
       "title": "Hledání v sirotcích",
@@ -3017,6 +3045,9 @@
     "userEditing": "Editace uživatele",
     "createUser": "Vytvoření uživatele",
     "registrar": "Registrátor",
+    "batchLoadingFailed": "Seznam dávek se nepodařilo načíst. Zkuste ho obnovit.",
+    "resumeCesnet": "Zadejte token CESNET pro spuštění všech přenosů čekajících na token, včetně dávek ostatních uživatelů a dávek mimo aktuální filtr. Export ani vytvoření BagIt balíčků se neopakují.",
+    "retryCesnetToken": "Zadejte nový token pro CESNET. Znovu se nahrají pouze uložené BagIt balíčky.",
     "ltpToken": "Ltp Cesnet token",
     "field": "Pole",
     "query": "Dotaz",
@@ -3079,6 +3110,9 @@
     }
   },
   "button": {
+    "retryBagit": "Znovu vytvořit BagIt",
+    "resumeCesnet": "Spustit všechny čekající přenosy na CESNET",
+    "retryCesnet": "Znovu nahrát na CESNET",
     "retryCatalogUpdate": "Opakovat zápis do katalogu",
     "setLayout": "nastavit rozložení",
     "close": "Zavřít",
@@ -3337,6 +3371,7 @@
     "INGESTING": "Ukládání",
     "INGESTING_FAILED": "Ukládání - Chyba",
     "INGESTED": "Uloženo",
+    "WAITING_CESNET_TOKEN": "Čeká na token CESNET",
     "STOPPED": "Zastaveno",
     "EXPORTING": "Exportování",
     "EXPORT_FAILED": "Chyba exportu",
@@ -3616,6 +3651,7 @@
         "ndk_psp_upload_cesnet": "NDK PSP s nahráním na Ltp Cesnetu",
         "ndk_psp_upload_kramerius": "NDK PSP s nahráním do Krameria",
         "archive_bagit": "Archivace s BAGIT balíčkem",
+        "archive_upload_cesnet": "Archivace s nahráním na LTP CESNET",
         "archive_stt_bagit": "Archivace starých tisků s BAGIT balíčkem",
         "ndk_oldprint": "NDK STT",
         "ndk_oldprint_bagit": "NDK STT s BAGIT balíčkem",
@@ -3803,6 +3839,11 @@
       "internalProfile.upgradeMods38": "Interní - převod MODS na verzi 3.8",
       "uploadProfile.proarc": "Externí - Upload do ProArcu",
       "uploadProfile.kramerius": "Externí - Upload do Krameria",
+      "externalProfile.bagit": "Externí - tvorba BagIt",
+      "externalProfile.cesnet": "Externí - nahrání na CESNET",
+      "externalProfile.cesnetCatalog": "Externí - Nahrání do katalogu",
+      "externalProfile.cesnetCheck": "Externí - Kontrola stavu v CESNETu",
+      "externalProdile.cesnetCheck": "Externí - Kontrola stavu v CESNETu",
       "externalProfile.pero": "Externí - Pero",
       "externalProfile.pdfa": "Externí - generování PDF-A",
       "externalProfile.thumbnail": "Externí - generování náhledu PDF"
@@ -3850,6 +3891,7 @@
       }
     },
     "search": {
+    "ltpId": "ID balíčku LTP", "ltpStatus": "Stav LTP",
       "lockObject": "Objekt byl úspěšně uzamčen",
       "unlockObject": "Objekt byl úspěšně odemčen"
     },
@@ -3940,6 +3982,7 @@
         "localSettings": "Lokální nastavení"
       },
       "search": {
+    "ltpId": "ID balíčku LTP", "ltpStatus": "Stav LTP",
         "legend": "Hledat",
         "label": "Zobrazená pole ve výsledcích hledání"
       },

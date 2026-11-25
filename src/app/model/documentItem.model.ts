@@ -1,6 +1,27 @@
 import { TableItem } from "./table-item.model";
 
+export interface PreservationRecord {
+  provider: string;
+  endpoint: string;
+  group: string;
+  packageId?: string;
+  version?: number;
+  state: string;
+  catalogState?: string;
+  operationId?: string;
+  previousPackageId?: string;
+  integrityStatus?: string;
+  uploadStatus?: string;
+  submittedAt?: string;
+  storedAt?: string;
+  catalogId?: string;
+}
+
 export class DocumentItem extends TableItem {
+  public archivInfo: PreservationRecord | null = null;
+  public ltpRecords: PreservationRecord[] = [];
+  public ltpId = '';
+  public ltpStatus: string[] = [];
 
 
   public parent: string;
@@ -99,6 +120,15 @@ export class DocumentItem extends TableItem {
     item.descriptionStandard = json['descriptionStandard'];
     item.typeOfResource = Array.isArray(json['typeOfResource']) ? json['typeOfResource'] : [];
     item.urnNbn = json['urnNbn'];
+    // The API exposes the current submission as archivInfo. Accept old responses too.
+    const legacy = Array.isArray(json['ltpRecords']) ? json['ltpRecords'] : [];
+    item.archivInfo = json['archivInfo'] !== undefined ? json['archivInfo'] : (legacy[legacy.length - 1] || null);
+    item.ltpRecords = item.archivInfo ? [item.archivInfo] : [];
+    item.ltpId = item.ltpRecords.filter(record => record.packageId)
+      .map(record => `${record.provider.toUpperCase()}: ${record.packageId}${record.version != null ? ' (v' + record.version + ')' : ''}`).join(', ');
+    const latest = new Map<string, PreservationRecord>();
+    item.ltpRecords.forEach(record => latest.set(`${record.provider}|${record.endpoint}|${record.group}`, record));
+    item.ltpStatus = [...latest.values()].map(record => `${record.provider}:${record.state}`);
     return item;
   }
 

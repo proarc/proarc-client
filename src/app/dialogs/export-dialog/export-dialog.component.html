@@ -132,12 +132,7 @@
   </div>
 
 
-@if (selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet') {
-  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
-    <input type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate"
-      [(ngModel)]="cesnetLtpToken">
-  </mat-form-field>
-}
+
 @if (selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit') {
   <div class="app-mb-4">
     <mat-radio-group aria-label="'standard'" [(ngModel)]="extendedType">
@@ -173,6 +168,23 @@
       {{ 'dialog.export.alert.exporting' | translate }}
     </mat-card-content>
   </mat-card>
+} @else if (state === 'confirmation') {
+  <mat-card class="app-alert app-warn app-mt-4" role="alert">
+    <mat-card-content>
+      <div class="app-cesnet-confirmation">
+        <p>{{ 'cesnetExportConfirmation.message' | translate }}</p>
+        <ul>
+          @for (warning of cesnetWarnings; track $index) {
+            <li>
+              <strong>{{ warning.pid }}</strong>
+              @if (warning.label) {<span> — {{ warning.label }}</span>}
+              @if (warning.model) {<span> ({{ 'model.' + warning.model | translate }})</span>}
+            </li>
+          }
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
 } @else if (state==='error') {
 
   <mat-card class="app-alert app-warn app-mt-4 app-fxLayout app-column app-gap-4">
@@ -196,11 +208,15 @@
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
-  @if (!canContinue && state !== 'error') {
+  @if (state === 'confirmation') {
+    <button matButton="filled" (click)="confirmCesnetExport()">{{ 'cesnetExportConfirmation.confirm' | translate }}</button>
+    <button mat-stroked-button (click)="cancelCesnetConfirmation()">{{ 'button.cancel' | translate }}</button>
+  }
+  @if (!canContinue && state !== 'error' && state !== 'confirmation') {
   <button matButton="filled" [disabled]="formDisabled()"
     (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
   }
-  @if (canContinue) {
+  @if (canContinue && state !== 'confirmation') {
   <button matButton="filled" [disabled]="formDisabled()" (click)="onExport(true)">{{
     'button.exportAnyway' | translate }}</button>
   }

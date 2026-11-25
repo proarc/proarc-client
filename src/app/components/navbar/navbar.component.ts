@@ -8,7 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 // import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.component';
 // import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
-import { Observable, Subscription } from 'rxjs';
+import { finalize, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
   sub: Subscription;
   isAkubra: boolean;
   state = signal<string>('');
+  cesnetCheckPending = false;
 
   constructor(public translator: TranslateService,
     public auth: AuthService,
@@ -374,6 +375,56 @@ export class NavbarComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  canCheckCesnet(): boolean {
+    return this.isAkubra && !!this.auth.user?.allObjectsFunction;
+  }
+
+  checkCesnet(): void {
+    if (!this.canCheckCesnet() || this.cesnetCheckPending || this.state() === 'loading') return;
+    this.cesnetCheckPending = true;
+    const data: SimpleDialogData = {
+      title: this.translator.instant('cesnetCheck.title'),
+      message: this.translator.instant('cesnetCheck.message'),
+      textInput: { label: this.translator.instant('desc.ltpToken'), value: '', type: 'password' },
+      btn1: { label: this.translator.instant('cesnetCheck.title'), value: 'check', color: 'primary' },
+      btn2: { label: this.translator.instant('button.cancel'), value: 'cancel', color: 'default' }
+    };
+    this.dialog.open(SimpleDialogComponent, {
+      data, width: '600px', panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+      const token = data.textInput.value.trim();
+      data.textInput.value = '';
+      if (result !== 'check' || !this.canCheckCesnet()) {
+        this.cesnetCheckPending = false;
+        return;
+      }
+      this.state.set('loading');
+      this.ui.showInfoSnackBar(this.translator.instant('cesnetCheck.running'));
+      this.api.checkCesnet(token).pipe(finalize(() => this.cesnetCheckPending = false)).subscribe({
+        next: (response: any) => {
+          if (response.response?.status !== 0) {
+            this.state.set('error');
+            this.ui.showErrorDialogFromObject(response.response?.errors || response);
+            return;
+          }
+          this.state.set('success');
+          const result = response.response.data?.[0];
+          if (typeof result === 'number') {
+            this.ui.showInfoSnackBar(this.translator.instant('cesnetCheck.finished', { count: result }));
+          } else {
+            this.ui.showInfoSnackBar(result?.exportId != null
+              ? this.translator.instant('cesnetCheck.scheduledProcess', { id: result.exportId })
+              : this.translator.instant('cesnetCheck.scheduled'));
+          }
+        },
+        error: () => {
+          this.state.set('error');
+          this.ui.showInfoSnackBar(this.translator.instant('cesnetCheck.failed'));
+        }
+      });
     });
   }
 

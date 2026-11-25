@@ -48,7 +48,11 @@
 					{{ listValue(c, element[c])}}
 				</ng-container>
 				<ng-container *ngSwitchCase="'translated'">
-					{{ prefixes[c] + element[c] | translate }}
+					@if (c === 'ltpStatus') {
+						{{ ltpStatusLabel(element[c]) }}
+					} @else {
+						{{ prefixes[c] + element[c] | translate }}
+					}
 				</ng-container>
 				<ng-container *ngSwitchCase="'boolean'">
 					<span class="app-pl-1 app-lr-2">

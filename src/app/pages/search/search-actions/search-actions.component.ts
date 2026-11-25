@@ -1,5 +1,5 @@
 
-import { Component, computed, effect, input, model, output } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +26,7 @@ import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   selector: 'app-search-actions',
+  standalone: true,
   imports: [TranslateModule, FormsModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatMenuModule],
   templateUrl: './search-actions.component.html',
   styleUrl: './search-actions.component.scss'
@@ -108,7 +109,7 @@ export class SearchActionsComponent {
     const sourceItems = this.forTree() ? this.treeItems() : this.items();
     const items = sourceItems
       .filter(i => i.selected)
-      .map(i => { return { pid: i.pid, model: i.model } });
+      .map(i => { return { pid: i.pid, model: i.model, label: i.label } });
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       id: 'ExportDialogComponent',
       disableClose: true,
@@ -126,7 +127,7 @@ export class SearchActionsComponent {
   onDeleteItem() {
     const pids = this.items().filter(i => i.selected).map(i => i.pid)
     this.onDelete(pids, true, (pids: string[]) => {
-      for (let i = this.items.length - 1; i >= 0; i--) {
+      for (let i = this.items().length - 1; i >= 0; i--) {
         if (pids.indexOf(this.items()[i].pid) > -1) {
           this.items().splice(i, 1);
         }
@@ -173,11 +174,8 @@ export class SearchActionsComponent {
   }
 
   onDeleteFromTree() {
-    const refresh = this.selectedTreeItem().parent ? false : true;
     const pids = this.treeItems().filter(i => i.selected).map(i => i.pid)
-    this.onDelete(pids, true, (pids: string[]) => {
-      // this.search.selectedTree.remove();
-    });
+    this.onDelete(pids, true);
   }
 
   private deleteObject(pids: string[], pernamently: boolean, nightOnly: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
@@ -283,7 +281,7 @@ export class SearchActionsComponent {
   }
 
   changeLockInTree(item: TreeDocumentItem, isLocked: boolean, idx: number) {
-    for (let i = idx; i < this.treeItems.length; i++) {
+    for (let i = idx; i < this.treeItems().length; i++) {
       const j = this.treeItems()[i]
       if (j.parentPid === item.pid) {
         j.isLocked = isLocked;
@@ -450,26 +448,28 @@ export class SearchActionsComponent {
 
   onCopyItem(treeItem: TreeDocumentItem) {
     this.state.update(() => 'loading');
-    this.api.copyObject(treeItem.pid, treeItem.model).subscribe((response: any) => {
-
-      if (response['response'].errors) {
-        console.log('error', response['response'].errors);
-        this.ui.showErrorDialogFromObject(response['response'].errors);
+    this.api.copyObject(treeItem.pid, treeItem.model).subscribe({
+      next: (response: any) => {
+        if (response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          this.state.update(() => 'error');
+          return;
+        } else if (response.response.data && response.response.data[0].validation) {
+          this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
+          this.state.update(() => 'error');
+        } else {
+          const newPid = response.response.data[0].pid;
+          this.state.update(() => 'success');
+          this.ui.showInfoSnackBar("Objekty byly zkopirovane");
+          this.reloadTree.emit(newPid);
+        }
+      },
+      error: error => {
+        console.log(error);
+        this.ui.showInfoSnackBar(error.statusText);
         this.state.update(() => 'error');
-        return;
-      } else if (response.response.data && response.response.data[0].validation) {
-        this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
-        this.state.update(() => 'error');
-      } else {
-        const newPid = response.response.data[0].pid;
-        this.state.update(() => 'success');
-        this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-        this.reloadTree.emit(newPid);
       }
-    }, error => {
-      console.log(error);
-      this.ui.showInfoSnackBar(error.statusText);
-      this.state.update(() => 'error');
     });
   }
 

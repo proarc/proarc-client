@@ -66,14 +66,17 @@
           <button [routerLink]="['/software/set']" routerLinkActive="active" mat-menu-item>{{ "software.type.set" | translate }}</button>
         </mat-menu>
       }
-      @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction || auth.user.sysAdminFunction) {
+      @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction || auth.user.sysAdminFunction || canCheckCesnet()) {
         <a mat-button [routerLink]="['/admin']" routerLinkActive="active" [class.app-pl-4]="auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction">
           {{ "navbar.admin" | translate }}
-          @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction) {
+          @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction || canCheckCesnet()) {
             <mat-icon [matMenuTriggerFor]="menuMore" iconPositionEnd (click)="$event.stopPropagation(); $event.preventDefault();" class="app-fxLayout app-h-100 app-center-v">more_vert</mat-icon>
           }
         </a>
         <mat-menu #menuMore="matMenu">
+          @if (canCheckCesnet()) {
+            <button mat-menu-item (click)="checkCesnet()" [disabled]="cesnetCheckPending || state() === 'loading'">{{ 'cesnetCheck.title' | translate }}</button>
+          }
           @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
             <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
             <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>

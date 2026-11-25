@@ -138,6 +138,19 @@
           </mat-form-field>
         }
       }
+      <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
+        <mat-label>{{ 'ltp.filterState' | translate }}</mat-label>
+        <mat-select name="ltpState" [(ngModel)]="ltpState">
+          <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
+          @for (status of ltpStates; track status) {
+            <mat-option [value]="'cesnet:' + status">CESNET: {{ 'ltp.states.' + status | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
+        <mat-label>{{ 'ltp.filterId' | translate }}</mat-label>
+        <input matInput name="ltpId" [(ngModel)]="ltpId" (keyup.enter)="filter()">
+      </mat-form-field>
       @if (canFilterByResourceType()) {
         <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
           <mat-label>{{ 'search.typeOfResource' | translate }}</mat-label>

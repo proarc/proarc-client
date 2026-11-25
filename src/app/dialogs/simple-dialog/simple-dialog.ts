@@ -27,6 +27,8 @@ export interface SimpleDialogCheckbox {
 export interface SimpleDialogTextInput {
   label: string;
   value: string;
+  type?: 'text' | 'password';
+  required?: boolean;
 }
 
 export interface SimpleDialogNumberInput {

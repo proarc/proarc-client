@@ -39,6 +39,7 @@ export class ImportComponent implements OnInit {
   generateIndex = true;
   generatePageType = true;
   nightOnly = false;
+  cesnetPending = false;
 
   devices: Device[];
   selectedDevice: Device;
@@ -218,7 +219,7 @@ export class ImportComponent implements OnInit {
 
   // Determine when can select folder by profile
   canSelect(folder: Folder): boolean {
-    if (!folder.states) {
+    if (!folder.states || !this.selectedProfile) {
       return false;
     }
     const p = folder.states.find(s => s.profile === this.selectedProfile.id);
@@ -248,11 +249,98 @@ export class ImportComponent implements OnInit {
   }
 
   toggleSelected(folder: Folder) {
+    if (this.cesnetPending || (!this.canSelect(folder) && !this.canUploadCesnet(folder))) return;
     folder.selected = !folder.selected;
     this.loadMetakatIfNeeded();
   }
 
+  canUploadCesnet(folder: Folder): boolean {
+    return folder.actions.includes('bagit_upload_cesnet');
+  }
+
+  showCesnetUpload(): boolean {
+    return this.folders.some(folder => this.canUploadCesnet(folder));
+  }
+
+  canUploadSelectedCesnet(): boolean {
+    const selected = this.folders.filter(folder => folder.selected);
+    return !this.cesnetPending && selected.length > 0 && selected.every(folder => this.canUploadCesnet(folder));
+  }
+
+  onUploadCesnet(): void {
+    if (!this.canUploadSelectedCesnet()) return;
+    const paths = this.folders.filter(folder => folder.selected).map(folder => folder.path);
+    this.cesnetPending = true;
+    this.submitCesnetFolders(paths, false, this.selectedPriority, this.nightOnly, []);
+  }
+
+  private submitCesnetFolders(paths: string[], confirmed: boolean, priority: string, nightOnly: boolean, scheduled: number[]): void {
+    this.api.uploadImportFoldersCesnet(paths, confirmed, priority, nightOnly).subscribe({
+      next: (response: any) => {
+        const errors = response.response?.errors;
+        if (errors && Object.keys(errors).length) this.ui.showErrorDialogFromObject(errors);
+        const results: {folderPath: string; batchId?: number; error?: string; confirmationRequired?: boolean;
+          warnings?: {pid: string; packageId: string; state: string; message: string}[]}[] = response.response?.data || [];
+        const failures = results.filter(result => result.error);
+        if (failures.length) {
+          this.ui.showErrorDialogFromObject(failures.map(result => ({errorMessage: result.folderPath + ': ' + result.error})));
+        }
+        for (const result of results) {
+          if (result.batchId != null && !result.error && !result.confirmationRequired) {
+            scheduled.push(result.batchId);
+            const folder = this.folders.find(folder => folder.path === result.folderPath);
+            if (folder) folder.selected = false;
+          }
+        }
+        const confirmations = results.filter(result => result.confirmationRequired && !result.error);
+        if (confirmations.length && !confirmed) {
+          const details = confirmations.map(result => result.folderPath + ': ' +
+            (result.warnings || []).map(warning => [warning.pid, warning.packageId, warning.state].filter(Boolean).join(' / ')).join(', '));
+          const data: SimpleDialogData = {
+            title: this.translator.instant('importCesnet.title'),
+            message: this.translator.instant('importCesnet.confirmation') + ' ' + details.join('; '),
+            alertClass: 'app-warn',
+            btn1: {color: 'primary', label: this.translator.instant('cesnetExportConfirmation.confirm'), value: 'confirm'},
+            btn2: {color: '', label: this.translator.instant('button.cancel'), value: 'cancel'}
+          };
+          this.dialog.open(SimpleDialogComponent, {
+            data, width: '650px', panelClass: ['app-form-view-' + this.settings.appearance]
+          }).afterClosed().subscribe(result => {
+            if (result === 'confirm') {
+              this.submitCesnetFolders(confirmations.map(item => item.folderPath), true, priority, nightOnly, scheduled);
+            } else {
+              this.finishCesnetUpload(scheduled);
+            }
+          });
+        } else {
+          this.finishCesnetUpload(scheduled);
+        }
+      },
+      error: error => {
+        this.ui.showErrorDialogFromObject([{errorMessage: error.message}]);
+        this.finishCesnetUpload(scheduled);
+      }
+    });
+  }
+
+  private finishCesnetUpload(scheduled: number[]): void {
+    this.cesnetPending = false;
+    if (!scheduled.length) return;
+    const data: SimpleDialogData = {
+      title: this.translator.instant('importCesnet.title'),
+      message: this.translator.instant('importCesnet.scheduled', {ids: scheduled.join(', ')}),
+      btn1: {color: 'primary', label: this.translator.instant('importCesnet.openProcesses'), value: 'open'},
+      btn2: {color: '', label: this.translator.instant('button.close'), value: 'close'}
+    };
+    this.dialog.open(SimpleDialogComponent, {
+      data, width: '600px', panelClass: ['app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+      if (result === 'open') this.router.navigate(['/process-management']);
+    });
+  }
+
   onLoad() {
+    if (this.cesnetPending) return;
     const selectedFolders: Folder[] = [];
 
     this.folders.forEach(f => {

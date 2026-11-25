@@ -113,6 +113,7 @@ export class ProcessManagementComponent {
     'EXTERNAL_DONE',
     'EXTERNAL_FAILED',
     'EXTERNAL_EDITING',
+    'WAITING_CESNET_TOKEN',
     'UPLOADING',
     'UPLOAD_DONE',
     'UPLOAD_FAILED',
@@ -556,13 +557,28 @@ export class ProcessManagementComponent {
     // modifiedTo modifiedTo
 
 
-    this.api.getImportBatches(params).subscribe((resp: any) => {
-      this.batches = resp.data.map((d: any) => Batch.fromJson(d));
-      this.totalSelected.set(this.batches.filter(i => i.selected).length);
-      this.resultCount = resp.totalRows;
-      this.state = 'success';
-      this.updateLoadingBatchesProgress(this.batches);
+    this.api.getImportBatches(params).subscribe({
+      next: (resp: any) => {
+        if ((resp?.errors && Object.keys(resp.errors).length) || resp?.status === -1 || !Array.isArray(resp?.data)) {
+          this.batchLoadingFailed(resp?.errors && Object.keys(resp.errors).length ? resp.errors
+            : [{ errorMessage: resp?.errorMessage || this.translator.instant('desc.batchLoadingFailed') }]);
+          return;
+        }
+        this.batches = resp.data.map((d: any) => Batch.fromJson(d));
+        this.totalSelected.set(this.batches.filter(i => i.selected).length);
+        this.resultCount = resp.totalRows;
+        this.state = 'success';
+        this.updateLoadingBatchesProgress(this.batches);
+      },
+      error: error => this.batchLoadingFailed([{ errorMessage: error.message }])
     });
+  }
+
+  private batchLoadingFailed(errors: any) {
+    this.batches = [];
+    this.resultCount = 0;
+    this.state = 'error';
+    this.ui.showErrorDialogFromObject(errors);
   }
 
   reloadLoadingQueue() {
@@ -797,6 +813,96 @@ export class ProcessManagementComponent {
       && this.isExportProfile(batch.profile);
   }
 
+  isPackageProfile(profile: string): boolean {
+    return ['externalProfile.bagit', 'externalProfile.cesnet'].includes(profile);
+  }
+
+  canRetryPackage(batch: Batch, profile: string): boolean {
+    return !!batch && batch.profile === profile && ['EXTERNAL_FAILED', 'STOPPED'].includes(batch.state)
+      && batch.userId === this.auth.user.userId;
+  }
+
+  canRetrySelectedBagit(): boolean {
+    return this.canApplyToSelection(batch => this.canRetryPackage(batch, 'externalProfile.bagit'));
+  }
+
+  canRetrySelectedCesnet(): boolean {
+    return this.canApplyToSelection(batch => this.canRetryPackage(batch, 'externalProfile.cesnet'));
+  }
+
+  onRetryBagit() {
+    this.runSelectedAction(batch => this.api.reExportBatch(batch.id),
+      batch => this.canRetryPackage(batch, 'externalProfile.bagit'));
+  }
+
+  onRetryCesnet() {
+    if (!this.canRetrySelectedCesnet()) return;
+    const selected = this.selectedBatches();
+    const data: SimpleDialogData = {
+      title: this.translator.instant('button.retryCesnet'),
+      message: this.translator.instant('ltp.retry'),
+      btn1: { color: 'primary', label: this.translator.instant('button.retryCesnet'), value: 'retry' },
+      btn2: { color: '', label: this.translator.instant('button.cancel'), value: 'cancel' }
+    };
+    this.actionPending = true;
+    this.dialog.open(SimpleDialogComponent, {
+      data, width: '500px', panelClass: ['app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+
+
+      this.actionPending = false;
+      if (result !== 'retry') return;
+      this.runSelectedAction(batch => this.api.uploadCesnetBatch(batch.id, true),
+        batch => this.canRetryPackage(batch, 'externalProfile.cesnet'), selected);
+    });
+  }
+
+  canResumeCesnet(): boolean {
+    return !!(this.auth.user?.allObjectsFunction && this.auth.user?.importToCatalogFunction)
+      && this.totalSelected() === 1 && this.selectedBatch?.state === 'WAITING_CESNET_TOKEN';
+  }
+
+  onResumeCesnet() {
+    if (!this.canResumeCesnet() || this.actionPending || this.state === 'loading') return;
+    const data: SimpleDialogData = {
+      title: this.translator.instant('button.resumeCesnet'),
+      message: this.translator.instant('desc.resumeCesnet'),
+      textInput: { label: this.translator.instant('desc.ltpToken'), value: '', type: 'password', required: true },
+      btn1: { color: 'primary', label: this.translator.instant('button.resumeCesnet'), value: 'resume' },
+      btn2: { color: '', label: this.translator.instant('button.cancel'), value: 'cancel' }
+    };
+    this.actionPending = true;
+    this.dialog.open(SimpleDialogComponent, {
+      data, width: '600px', panelClass: ['app-form-view-' + this.settings.appearance]
+    }).afterClosed().subscribe(result => {
+      const token = data.textInput.value.trim();
+      data.textInput.value = '';
+      if (result !== 'resume' || !token || !this.canResumeCesnet()) {
+        this.actionPending = false;
+        return;
+      }
+      this.api.resumeCesnetBatches(token).pipe(
+        catchError(error => of({ response: { errors: [{ errorMessage: error.message }] } })),
+        finalize(() => this.actionPending = false)
+      ).subscribe(response => {
+        const errors = response.response?.errors;
+        if (errors && Object.keys(errors).length) this.ui.showErrorDialogFromObject(errors);
+        const failures = response.response?.data?.[0]?.failures || [];
+        if (failures.length) {
+          this.ui.showErrorDialogFromObject(failures.map((failure: any) => ({
+            errorMessage: failure.batchId + ': ' + failure.message
+          })));
+        }
+        if (this.user) {
+          this.user = null;
+          this.router.navigate([], { queryParams: { userId: null }, queryParamsHandling: 'merge' });
+        } else {
+          this.reloadBatches();
+        }
+      });
+    });
+  }
+
   selectedBatches(): Batch[] {
     return (this.batches || []).filter(batch => batch.selected);
   }
@@ -826,16 +932,19 @@ export class ProcessManagementComponent {
     this.runSelectedAction(batch => this.api.retryCatalogUpdate(batch.id), batch => this.canRetryCatalogUpdate(batch));
   }
 
-  private runSelectedAction(action: (batch: Batch) => Observable<any>, condition: (batch: Batch) => boolean) {
-    if (!this.canApplyToSelection(condition)) return;
-    const selected = this.selectedBatches();
+  private runSelectedAction(action: (batch: Batch) => Observable<any>, condition: (batch: Batch) => boolean,
+                            selected = this.selectedBatches()) {
+    if (this.state === 'loading' || this.actionPending || !selected.length || !selected.every(condition)) return;
     this.actionPending = true;
     forkJoin(selected.map(batch => action(batch).pipe(
       catchError(error => of({ response: { errors: [{ errorMessage: error.message }] } }))
     ))).pipe(finalize(() => this.actionPending = false)).subscribe(responses => {
       for (const response of responses) {
-        const errors = response.response?.errors || response.response?.data?.[0]?.errors;
-        if (errors) this.ui.showErrorDialogFromObject(errors);
+        const errorSources = [response.response?.errors,
+          ...(response.response?.data || []).map((item: any) => item.errors)];
+        for (const errors of errorSources) {
+          if (errors && Object.keys(errors).length > 0) this.ui.showErrorDialogFromObject(errors);
+        }
       }
       this.reloadBatches();
     });
@@ -960,6 +1069,9 @@ export class ProcessManagementComponent {
   }
 
   canStopProcess(batch: Batch) {
+    if (batch && this.isPackageProfile(batch.profile)) {
+      return batch.userId === this.auth.user.userId && ['EXTERNAL_PLANNED', 'EXTERNAL_RUNNING'].includes(batch.state);
+    }
     return batch && (
       (
         this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction

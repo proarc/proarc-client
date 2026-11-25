@@ -44,7 +44,7 @@
           <button mat-stroked-button (click)="changeView('loadingQueue')">
             {{ 'button.showLoadingQueue' | translate }}
           </button>
-          @if (selectedBatch && totalSelected() === 1 && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED') && !isExportProfile(selectedBatch.profile)) {
+          @if (selectedBatch && totalSelected() === 1 && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED') && !isExportProfile(selectedBatch.profile) && !isPackageProfile(selectedBatch.profile)) {
             <button mat-stroked-button (click)="onReloadBatch()">
               {{ 'button.reload' | translate }}
             </button>
@@ -69,6 +69,16 @@
               {{ 'button.reexport' | translate }}
             </button>
           }
+          @if (canRetrySelectedBagit()) {
+            <button mat-stroked-button (click)="onRetryBagit()">
+              {{ 'button.retryBagit' | translate }}
+            </button>
+          }
+          @if (canRetrySelectedCesnet()) {
+            <button mat-stroked-button (click)="onRetryCesnet()">
+              {{ 'button.retryCesnet' | translate }}
+            </button>
+          }
           @if (selectedBatch && selectedBatch.state === 'LOADING_CONFLICT') {
             <button mat-stroked-button (click)="onResolveConflict()">
               {{ 'button.resolveconflict' | translate }}
@@ -89,6 +99,11 @@
               {{ 'button.saveAgain' | translate }}
             </button>
           }
+          @if (canResumeCesnet()) {
+            <button mat-stroked-button (click)="onResumeCesnet()" [disabled]="actionPending || state === 'loading'">
+              {{ 'button.resumeCesnet' | translate }}
+            </button>
+          }
         }
         @if (view == 'loadingQueue') {
           <button mat-stroked-button (click)="reload()">
@@ -103,7 +118,7 @@
         <div class="app-fxLayout app-row app-gap-2 app-formbar">
           <mat-form-field [appearance]="settings.appearance" class="app-pid">
             <mat-label>{{ 'formField.folderNamePid.placeholder' | translate }}</mat-label>
-            <input matInput [matTooltip]="'formField.folderNamePid.tooltip' | translate" [placeholder]="'formField.folderNamePid.placeholder' | translate" (keyup.enter)="filter()" [(ngModel)]="description" name="description">
+            <input matInput autocomplete="off" [matTooltip]="'formField.folderNamePid.tooltip' | translate" [placeholder]="'formField.folderNamePid.placeholder' | translate" (keyup.enter)="filter()" [(ngModel)]="description" name="description">
             @if (description) {
               <button matSuffix mat-icon-button aria-label="Clear" (click)="description=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
                 <mat-icon>close</mat-icon>
@@ -112,7 +127,7 @@
           </mat-form-field>
           <mat-form-field [appearance]="settings.appearance" class="app-datepicker">
             <mat-label>{{ 'desc.createFrom' | translate }}</mat-label>
-            <input matInput [matDatepicker]="dp1" [placeholder]="'desc.createFrom' | translate" [(ngModel)]="createFrom" name="createFrom" (keyup.enter)="filter()">
+            <input matInput autocomplete="off" [matDatepicker]="dp1" [placeholder]="'desc.createFrom' | translate" [(ngModel)]="createFrom" name="createFrom" (keyup.enter)="filter()">
             <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
             <mat-datepicker #dp1></mat-datepicker>
             @if (createFrom) {
@@ -123,7 +138,7 @@
           </mat-form-field>
           <mat-form-field [appearance]="settings.appearance" class="app-datepicker">
             <mat-label>{{ 'desc.createTo' | translate }}</mat-label>
-            <input matInput [matDatepicker]="dp2" [placeholder]="'desc.createTo' | translate" [(ngModel)]="createTo" name="createTo" (keyup.enter)="filter()">
+            <input matInput autocomplete="off" [matDatepicker]="dp2" [placeholder]="'desc.createTo' | translate" [(ngModel)]="createTo" name="createTo" (keyup.enter)="filter()">
             <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
             <mat-datepicker #dp2></mat-datepicker>
             @if (createTo) {
@@ -134,7 +149,7 @@
           </mat-form-field>
           <mat-form-field [appearance]="settings.appearance" class="app-datepicker">
             <mat-label>{{ 'desc.modifiedFrom' | translate }}</mat-label>
-            <input matInput [matDatepicker]="dp3" [placeholder]="'desc.modifiedFrom' | translate" [(ngModel)]="modifiedFrom" name="modifiedFrom" (keyup.enter)="filter()">
+            <input matInput autocomplete="off" [matDatepicker]="dp3" [placeholder]="'desc.modifiedFrom' | translate" [(ngModel)]="modifiedFrom" name="modifiedFrom" (keyup.enter)="filter()">
             <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
             <mat-datepicker #dp3></mat-datepicker>
             @if (modifiedFrom) {
@@ -145,7 +160,7 @@
           </mat-form-field>
           <mat-form-field [appearance]="settings.appearance" class="app-datepicker">
             <mat-label>{{ 'desc.modifiedTo' | translate }}</mat-label>
-            <input matInput [matDatepicker]="dp4" [placeholder]="'desc.modifiedTo' | translate" [(ngModel)]="modifiedTo" name="modifiedTo" (keyup.enter)="filter()">
+            <input matInput autocomplete="off" [matDatepicker]="dp4" [placeholder]="'desc.modifiedTo' | translate" [(ngModel)]="modifiedTo" name="modifiedTo" (keyup.enter)="filter()">
             <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
             <mat-datepicker #dp4></mat-datepicker>
             @if (modifiedTo) {
