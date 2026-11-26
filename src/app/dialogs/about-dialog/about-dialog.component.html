@@ -22,23 +22,9 @@
     <div class="app-mb-4">
       <h3 class="app-m-0">
         {{ 'desc.storage' | translate }}
-        @if (config.info.storage?.toLowerCase() === 'akubra' && config.info.storageSizeCalculatedAt) {
-          <span>({{ 'desc.storageSizeCalculatedAt' | translate : { date: (config.info.storageSizeCalculatedAt | date : 'medium' : undefined : locale) } }})</span>
-        }
       </h3>
       <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ config.info.database }}</strong><br/>
       <span class="app-label app-mr-1">{{ 'desc.storage' | translate }}:</span><strong>{{ config.info.storage }}</strong><br/>
-      @if (config.info.storage?.toLowerCase() === 'akubra') {
-        @if (config.info.datastoreSize != null) {
-          <span class="app-label app-mr-1">{{ 'desc.dataStorage' | translate }}:</span><strong>{{ config.info.datastoreSize / 1073741824 | number : '1.2-2' : locale }} GiB ({{ config.info.datastoreSize | number : '1.0-0' : locale }} B)</strong><br/>
-        }
-        @if (config.info.objectstoreSize != null) {
-          <span class="app-label app-mr-1">{{ 'desc.objectStorage' | translate }}:</span><strong>{{ config.info.objectstoreSize / 1073741824 | number : '1.2-2' : locale }} GiB ({{ config.info.objectstoreSize | number : '1.0-0' : locale }} B)</strong><br/>
-        }
-        @if (config.info.usersSize != null) {
-          <span class="app-label app-mr-1">{{ 'desc.userStorage' | translate }}:</span><strong>{{ config.info.usersSize / 1073741824 | number : '1.2-2' : locale }} GiB ({{ config.info.usersSize | number : '1.0-0' : locale }} B)</strong><br/>
-        }
-      }
     </div>
   </div>
 </div>
