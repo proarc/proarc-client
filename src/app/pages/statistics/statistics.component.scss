@@ -7,15 +7,9 @@
     text-align: center;
     transition: box-shadow 200ms ease, border-color 200ms ease;
 
-    &:not(.app-preview-disabled):hover {
+    &:hover {
       border-color: var(--app-color-gray-4);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
-    }
-
-    &.app-preview-disabled {
-      opacity: 0.55;
-      filter: grayscale(1);
-      cursor: not-allowed;
     }
 
     mat-card-header,
@@ -38,3 +32,11 @@
     }
   }
 }
+
+.app-statistics-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  overflow: auto;
+}
+.app-storage-preview app-server-usage { width: 100%; }

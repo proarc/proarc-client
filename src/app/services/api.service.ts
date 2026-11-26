@@ -3,6 +3,7 @@ import { ArticleExportResult } from '../model/article-export.model';
 import { ExportFilters, ExportOptions, ExportStatistic } from '../model/export-statistic.model';
 import { ProductivityStatistic } from '../model/productivity-statistic.model';
 import { ModelStatistic } from '../model/model-statistic.model';
+import { CurrentUsage, UsageHistory } from '../model/server-usage';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -49,6 +50,20 @@ export class ApiService {
       },
       error: () => popup?.close()
     });
+  }
+
+  public getServerUsage(): Observable<CurrentUsage> {
+    return this.get('statistics/server-usage').pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !result.response?.data?.[0]) throw new Error('Server usage unavailable');
+      return result.response.data[0] as CurrentUsage;
+    }));
+  }
+
+  public getServerUsageHistory(): Observable<UsageHistory> {
+    return this.get('statistics/server-usage/history').pipe(map((result: any) => {
+      if (result.response?.status !== 0 || !result.response?.data?.[0]) throw new Error('Server usage history unavailable');
+      return result.response.data[0] as UsageHistory;
+    }));
   }
 
   private getLang(): string {

@@ -1,0 +1,108 @@
+<main [class.preview]="preview" [attr.aria-busy]="loading || historyLoading">
+  @if (!preview) {
+    <div class="app-formbar app-mb-2">
+      <button mat-stroked-button (click)="refresh()" [disabled]="loading || historyLoading">{{ 'statistics.refresh' | translate }}</button>
+    </div>
+  }
+  @if (loading && !current) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'serverUsage.loading' | translate" /> }
+  @if (loadError) { <p role="alert" class="warning">{{ 'serverUsage.loadError' | translate }}</p> }
+  @if (current?.error) { <p role="status" class="warning">{{ ('serverUsage.' + current.error) | translate }}</p> }
+  @if (stale) { <p class="warning">{{ 'serverUsage.stale' | translate }}</p> }
+  @if (current?.actual) {
+    <p class="muted">{{ 'serverUsage.measuredAt' | translate }}: {{ current.actual.measuredAt | date:'dd.MM.yyyy HH:mm:ss' }}</p>
+    <section class="disks" [style.--disk-columns]="diskColumns" [attr.aria-label]="'serverUsage.title' | translate">
+      @for (disk of disks; track disk.id) {
+        <button class="disk" (click)="openDetail(disk)" [class.selected]="detail && disk.id === diskId">
+          <mat-icon class="disk-icon">storage</mat-icon>
+          <span class="disk-content">
+            <strong>{{ disk.name }}</strong>
+            <span class="path">{{ disk.path }}</span>
+            @if (percent(disk) !== null) {
+              <span class="meter" role="progressbar" [attr.aria-label]="disk.name" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="percent(disk)">
+                <span [style.width.%]="percent(disk)" [class.full]="percent(disk) >= 90"></span>
+              </span>
+              <span>{{ 'serverUsage.usedOf' | translate:{used: bytes(disk.usedBytes), total: bytes(disk.totalBytes)} }} · {{ percent(disk) | number:'1.0-1' }} %</span>
+            } @else {
+              <span class="warning">{{ 'serverUsage.unavailable' | translate }} @if (disk.error) { — {{ disk.error }} }</span>
+            }
+          </span>
+        </button>
+      } @empty { <p>{{ 'serverUsage.noDisks' | translate }}</p> }
+    </section>
+  }
+  @if (detail) {
+    <section class="store-sizes">
+      <h2>{{ 'serverUsage.stores' | translate }}</h2>
+      <dl>
+        <div><dt>datastore</dt><dd>{{ bytes(current?.storageUsage?.datastoreSize) }}</dd></div>
+        <div><dt>objectstore</dt><dd>{{ bytes(current?.storageUsage?.objectstoreSize) }}</dd></div>
+        <div><dt>users</dt><dd>{{ bytes(current?.storageUsage?.usersSize) }}</dd></div>
+      </dl>
+      @if (current?.storageUsage?.calculatedAt) {
+        <p class="muted">{{ 'serverUsage.measuredAt' | translate }}: {{ current.storageUsage.calculatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</p>
+      } @else { <p class="muted">{{ 'serverUsage.storesPending' | translate }}</p> }
+    </section>
+    <section class="detail">
+      <aside>
+        <h2>{{ 'serverUsage.current' | translate }}</h2>
+        <mat-form-field subscriptSizing="dynamic" [appearance]="settings.appearance"><mat-label>{{ 'serverUsage.disk' | translate }}</mat-label><mat-select [(ngModel)]="diskId" (ngModelChange)="selectDisk()">
+            @for (disk of diskOptions; track disk.id) { <mat-option [value]="disk.id">{{ disk.name }}</mat-option> }
+          </mat-select></mat-form-field>
+        @if (selectedDisk; as disk) {
+          <dl>
+            <dt>{{ 'serverUsage.used' | translate }}</dt><dd>{{ bytes(disk.usedBytes) }}</dd>
+            <dt>{{ 'serverUsage.free' | translate }}</dt><dd>{{ bytes(disk.freeBytes) }}</dd>
+            <dt>{{ 'serverUsage.total' | translate }}</dt><dd>{{ bytes(disk.totalBytes) }}</dd>
+          </dl>
+          @if (disk.error) { <p class="warning">{{ disk.error }}</p> }
+        } @else { <p>{{ 'serverUsage.unavailable' | translate }}</p> }
+      </aside>
+      <div class="history">
+        <div class="history-header">
+          <h2>{{ 'serverUsage.history' | translate }}</h2>
+          <div class="controls">
+            <mat-form-field subscriptSizing="dynamic" [appearance]="settings.appearance"><mat-label>{{ 'serverUsage.period' | translate }}</mat-label><mat-select [(ngModel)]="period" (ngModelChange)="rebuildChart()">
+                <mat-option value="day">{{ 'serverUsage.day' | translate }}</mat-option>
+                <mat-option value="week">{{ 'serverUsage.week' | translate }}</mat-option>
+                <mat-option value="month">{{ 'serverUsage.month' | translate }}</mat-option>
+              </mat-select></mat-form-field>
+            <mat-form-field subscriptSizing="dynamic" [appearance]="settings.appearance"><mat-label>{{ 'serverUsage.display' | translate }}</mat-label><mat-select [(ngModel)]="mode" (ngModelChange)="rebuildChart()">
+                <mat-option value="used">{{ 'serverUsage.used' | translate }}</mat-option>
+                <mat-option value="growth">{{ 'serverUsage.growth' | translate }}</mat-option>
+              </mat-select></mat-form-field>
+          </div>
+        </div>
+        @if (historyLoading) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'serverUsage.loading' | translate" /> }
+        @if (historyError) { <p role="alert" class="warning">{{ 'serverUsage.loadError' | translate }}</p> }
+        @if (history?.error) { <p class="warning">{{ ('serverUsage.' + history.error) | translate }}</p> }
+        @if (points.length && chartDots.length) {
+          <svg viewBox="0 0 800 265" role="img" [attr.aria-label]="('serverUsage.history' | translate) + ' — ' + diskId">
+            @for (tick of ticks; track $index) {
+              <line x1="90" x2="770" [attr.y1]="tick.y" [attr.y2]="tick.y" class="grid"/>
+              <text x="80" [attr.y]="tick.y + 4" text-anchor="end">{{ tick.label }}</text>
+            }
+            <line x1="90" x2="770" [attr.y1]="zeroY" [attr.y2]="zeroY" class="axis"/>
+            <path [attr.d]="chartPath" class="series"/>
+            @for (dot of chartDots; track $index) {
+              <circle [attr.cx]="dot.x" [attr.cy]="dot.y" r="3"><title>{{ dot.label }}</title></circle>
+            }
+            <text x="90" y="250">{{ points[0].date | date:'dd.MM.yyyy' }}</text>
+            <text x="770" y="250" text-anchor="end">{{ points[points.length - 1].date | date:'dd.MM.yyyy' }}</text>
+          </svg>
+        } @else if (!historyLoading && !history?.error && !historyError) { <p>{{ 'serverUsage.noHistory' | translate }}</p> }
+        <p class="muted">{{ 'serverUsage.historyHelp' | translate }}</p>
+        @if (points.length) {
+          <details>
+            <summary>{{ 'serverUsage.table' | translate }}</summary>
+            <div class="table-scroll"><table class="app-striped app-hover">
+              <thead><tr><th>{{ 'serverUsage.period' | translate }}</th><th>{{ 'serverUsage.measuredAt' | translate }}</th><th>{{ 'serverUsage.used' | translate }}</th><th>{{ 'serverUsage.growth' | translate }}</th></tr></thead>
+              <tbody>@for (point of points; track point.date) {
+                <tr><td>{{ point.date | date:'dd.MM.yyyy' }}</td><td>{{ point.measuredAt ? (point.measuredAt | date:'dd.MM.yyyy HH:mm:ss') : '—' }}</td><td>{{ bytes(point.usedBytes) }}</td><td>{{ bytes(point.growthBytes) }}</td></tr>
+              }</tbody>
+            </table></div>
+          </details>
+        }
+      </div>
+    </section>
+  }
+</main>
