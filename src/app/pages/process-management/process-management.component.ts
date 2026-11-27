@@ -1069,16 +1069,18 @@ export class ProcessManagementComponent {
   }
 
   canStopProcess(batch: Batch) {
+    if (!batch) {
+      return false;
+    }
     if (batch && this.isPackageProfile(batch.profile)) {
       return batch.userId === this.auth.user.userId && ['EXTERNAL_PLANNED', 'EXTERNAL_RUNNING'].includes(batch.state);
     }
-    return batch && (
-      (
-        this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
-      ) &&
-      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING'
-        || batch.state === 'IMPORT_PLANNED' || batch.state === 'INTERNAL_PLANNED')
-    )
+    const isOwner = this.auth.user.userId === batch.userId;
+    if (batch.state === 'LOADING' || batch.state === 'IMPORT_PLANNED') {
+      return isOwner || this.auth.user.prepareBatchFunction || this.auth.user.checkBatchFunction;
+    }
+    return isOwner && (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING'
+      || batch.state === 'INTERNAL_PLANNED');
   }
 
   isExportProfile(profile: string) {

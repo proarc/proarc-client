@@ -127,6 +127,10 @@
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'prepareBatchFunction')" [style.width]="getColumnWidth('prepareBatchFunction')">{{ 'desc.prepareBatchFunction' | translate }}</th>
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.prepareBatchFunction" [disabled]="true"></mat-checkbox></td>
         </ng-container>
+        <ng-container matColumnDef="checkBatchFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'checkBatchFunction')" [style.width]="getColumnWidth('checkBatchFunction')">{{ 'desc.checkBatchFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.checkBatchFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
         <ng-container matColumnDef="sysAdminFunction">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'sysAdminFunction')" [style.width]="getColumnWidth('sysAdminFunction')">{{ 'desc.sysAdminFunction' | translate }}</th>
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.sysAdminFunction" [disabled]="true"></mat-checkbox></td>
