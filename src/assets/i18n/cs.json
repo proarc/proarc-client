@@ -4094,5 +4094,38 @@
   "validityOptions": {
     "": "Platný",
     "yes": "Neplatný"
+  },
+  "serverUsage": {
+    "statistics": "Statistiky",
+    "general": "Obecné",
+    "title": "Využití úložiště",
+    "refresh": "Obnovit",
+    "loading": "Načítání…",
+    "loadError": "Data se nepodařilo načíst. Zkuste je obnovit.",
+    "missing": "Měření není k dispozici. Soubor s daty zatím nebyl vytvořen.",
+    "invalid": "Soubor s měřením není čitelný nebo má neplatný formát.",
+    "stale": "Měření je starší než jednu hodinu.",
+    "measuredAt": "Čas měření",
+    "freeOf": "Volné místo {{free}} z {{total}}",
+    "usedOf": "Obsazené místo {{used}} z {{total}}",
+    "unavailable": "Měření není dostupné",
+    "noDisks": "Nejsou k dispozici žádné disky.",
+    "stores": "Data ProArcu",
+    "storesPending": "Velikosti adresářů zatím nebyly spočítány.",
+    "current": "Aktuální využití",
+    "disk": "Disk",
+    "used": "Obsazené místo",
+    "free": "Volné místo",
+    "total": "Celková kapacita",
+    "history": "Historické využití",
+    "period": "Období",
+    "day": "Po dnech",
+    "week": "Po týdnech",
+    "month": "Po měsících",
+    "display": "Zobrazení",
+    "growth": "Přírůstky",
+    "noHistory": "Pro vybraný disk zatím nejsou dostupná měření.",
+    "historyHelp": "Obsazenost odpovídá poslednímu dni období. Přírůstky jsou součtem denních změn a mohou být záporné. Chybějící měření tvoří mezery; týdny začínají v pondělí. První a probíhající období mohou být neúplná.",
+    "table": "Zobrazit hodnoty v tabulce"
   }
 }

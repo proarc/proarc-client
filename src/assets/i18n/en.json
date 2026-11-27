@@ -4060,5 +4060,38 @@
   "validityOptions": {
     "": "Valid",
     "yes": "Invalid"
+  },
+  "serverUsage": {
+    "statistics": "Statistics",
+    "general": "General",
+    "title": "Storage usage",
+    "refresh": "Refresh",
+    "loading": "Loading…",
+    "loadError": "Could not load the data. Try refreshing.",
+    "missing": "Measurement unavailable. The data file has not been created yet.",
+    "invalid": "The measurement file cannot be read or has an invalid format.",
+    "stale": "The measurement is more than one hour old.",
+    "measuredAt": "Measured at",
+    "freeOf": "{{free}} free of {{total}}",
+    "usedOf": "Used space {{used}} of {{total}}",
+    "unavailable": "Measurement unavailable",
+    "noDisks": "No disks available.",
+    "stores": "ProArc data",
+    "storesPending": "Directory sizes have not been calculated yet.",
+    "current": "Current usage",
+    "disk": "Disk",
+    "used": "Used space",
+    "free": "Free space",
+    "total": "Total capacity",
+    "history": "Historical usage",
+    "period": "Period",
+    "day": "Daily",
+    "week": "Weekly",
+    "month": "Monthly",
+    "display": "Display",
+    "growth": "Growth",
+    "noHistory": "No measurements available for the selected disk yet.",
+    "historyHelp": "Occupancy uses the last day of each period. Growth sums daily changes and may be negative. Missing measurements leave gaps; weeks start on Monday. The first and current periods may be incomplete.",
+    "table": "Show values in a table"
   }
 }

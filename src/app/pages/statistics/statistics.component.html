@@ -46,12 +46,10 @@
       </div>
     }
     @if (view === 'home') {
-      <div class="app-fxLayout app-row app-gap-2">
+      <div class="app-statistics-previews">
         @for (preview of visiblePreviews; track preview.view) {
-          <mat-card appearance="outlined" (click)="preview.total !== 0 && open(preview.view)"
-            class="app-fxFlex app-fxLayout app-column app-cursor-pointer"
-            [class.app-preview-disabled]="preview.total === 0"
-            [attr.aria-disabled]="preview.total === 0">
+          <mat-card appearance="outlined" (click)="open(preview.view)"
+            class="app-fxFlex app-fxLayout app-column app-cursor-pointer">
             @if (preview.loading) {
               <mat-progress-bar mode="indeterminate" [attr.aria-label]="'statistics.loading' | translate" />
             }
@@ -77,13 +75,23 @@
               }
             </mat-card-content>
             <mat-card-actions>
-              <button matButton [disabled]="preview.total === 0">{{ 'statistics.openDetail' | translate }} →</button>
+              <button matButton>{{ 'statistics.openDetail' | translate }} →</button>
             </mat-card-actions>
           </mat-card>
-        } @empty {
+        }
+        @if (showStorage) {
+          <mat-card appearance="outlined" class="app-storage-preview app-fxLayout app-column">
+            <mat-card-header><mat-card-title>{{ 'serverUsage.title' | translate }}</mat-card-title></mat-card-header>
+            <mat-card-content class="app-fxFlex app-mt-4"><app-server-usage [preview]="true" /></mat-card-content>
+            <mat-card-actions><button matButton (click)="open('storage')">{{ 'statistics.openDetail' | translate }} &rarr;</button></mat-card-actions>
+          </mat-card>
+        }
+        @if (!visiblePreviews.length && !showStorage) {
           <p>{{ 'statistics.settings.noneSelected' | translate }}</p>
         }
       </div>
+    } @else if (view === 'storage') {
+      <app-server-usage />
     } @else if (view === 'articles') {
       <app-article-exports [respectOrganization]="respectOrganization" (respectOrganizationChange)="setOrganization($event)" />
     } @else if (view === 'exports') {

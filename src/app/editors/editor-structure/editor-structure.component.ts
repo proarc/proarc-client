@@ -933,10 +933,10 @@ export class EditorStructureComponent implements OnInit {
             this.layout.items().push(...items);
           }
 
-          this.layout.items.set([...items]);
+          this.layout.items.set([...this.layout.items()]);
           const item = items[0];
           item.selected = true;
-          this.rowClick(item, null, this.lastClickIdx + 1);
+          this.rowClick(item, null, this.layout.items().indexOf(item));
 
           if (result.objectPosition === 'after') {
             this.onSave(true);

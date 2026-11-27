@@ -4087,5 +4087,38 @@
   "validityOptions": {
     "": "Platný",
     "yes": "Neplatný"
+  },
+  "serverUsage": {
+    "statistics": "Statistiky / Statistics",
+    "general": "Obecné / General",
+    "title": "Využití úložiště / Storage usage",
+    "refresh": "Obnovit / Refresh",
+    "loading": "Načítání… / Loading…",
+    "loadError": "Data se nepodařilo načíst. Zkuste je obnovit. / Could not load the data. Try refreshing.",
+    "missing": "Měření není k dispozici. Soubor s daty zatím nebyl vytvořen. / Measurement unavailable. The data file has not been created yet.",
+    "invalid": "Soubor s měřením není čitelný nebo má neplatný formát. / The measurement file cannot be read or has an invalid format.",
+    "stale": "Měření je starší než jednu hodinu. / The measurement is more than one hour old.",
+    "measuredAt": "Čas měření / Measured at",
+    "freeOf": "Volné místo {{free}} z {{total}} / {{free}} free of {{total}}",
+    "usedOf": "Obsazené místo {{used}} z {{total}}",
+    "unavailable": "Měření není dostupné / Measurement unavailable",
+    "noDisks": "Nejsou k dispozici žádné disky. / No disks available.",
+    "stores": "Data ProArcu / ProArc data",
+    "storesPending": "Velikosti adresářů zatím nebyly spočítány. / Directory sizes have not been calculated yet.",
+    "current": "Aktuální využití / Current usage",
+    "disk": "Disk / Disk",
+    "used": "Obsazené místo / Used space",
+    "free": "Volné místo / Free space",
+    "total": "Celková kapacita / Total capacity",
+    "history": "Historické využití / Historical usage",
+    "period": "Období / Period",
+    "day": "Po dnech / Daily",
+    "week": "Po týdnech / Weekly",
+    "month": "Po měsících / Monthly",
+    "display": "Zobrazení / Display",
+    "growth": "Přírůstky / Growth",
+    "noHistory": "Pro vybraný disk zatím nejsou dostupná měření. / No measurements available for the selected disk yet.",
+    "historyHelp": "Obsazenost odpovídá poslednímu dni období. Přírůstky jsou součtem denních změn a mohou být záporné. Chybějící měření tvoří mezery; týdny začínají v pondělí. První a probíhající období mohou být neúplná. / Occupancy uses the last day of each period. Growth sums daily changes and may be negative. Missing measurements leave gaps; weeks start on Monday. The first and current periods may be incomplete.",
+    "table": "Zobrazit hodnoty v tabulce / Show values in a table"
   }
 }

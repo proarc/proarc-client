@@ -9,7 +9,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { ModelTemplate } from "../model/modelTemplate";
 import { Catalogue } from "../model/catalogue.model";
 
-export type StatisticsChart = 'productivity' | 'exports' | 'articles' | 'active';
+export type StatisticsChart = 'productivity' | 'exports' | 'articles' | 'active' | 'storage';
 
 @Injectable()
 export class UserSettings {

@@ -2,7 +2,8 @@ import { StatisticsChartComponent } from './shared/statistics-chart.component';
 import { buildPieLabels, PieLabel } from './shared/pie-labels';
 import { PieLabelsComponent } from './shared/pie-labels.component';
 import { StatisticsNumberPipe, StatisticsPercentPipe } from './shared/statistics-number.pipe';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ServerUsageComponent } from './server-usage/server-usage.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -14,7 +15,7 @@ import { ModelBreakdownComponent } from './model-breakdown/model-breakdown.compo
 import { ModelStatistic } from '../../model/model-statistic.model';
 import { ProductivityComponent } from './productivity/productivity.component';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { StatisticsChart, UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,7 +28,7 @@ import { Subscription, distinctUntilChanged, map } from 'rxjs';
 import moment from 'moment';
 import { ApiService } from '../../services/api.service';
 
-type DetailView = 'active' | 'inactive' | 'productivity' | 'exports' | 'articles';
+type DetailView = 'active' | 'inactive' | 'productivity' | 'exports' | 'articles' | 'storage';
 interface StatisticsModel extends ModelStatistic {
   visible: boolean;
   color: string;
@@ -47,7 +48,7 @@ interface StatisticsPreview {
 
 @Component({
   selector: 'app-statistics',
-  imports: [StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
+  imports: [ServerUsageComponent, RouterModule, StatisticsChartComponent, PieLabelsComponent, StatisticsNumberPipe, StatisticsPercentPipe, MatTableModule, MatTooltipModule, MatButtonToggleModule,
             ArticleExportsComponent, ExportStatisticsComponent, MatIconModule,
             ModelBreakdownComponent, ProductivityComponent, CommonModule, TranslateModule, MatButtonModule, MatCheckboxModule,
             MatProgressBarModule, MatCardModule, MatDialogModule],
@@ -65,6 +66,8 @@ export class StatisticsComponent implements OnInit {
   private readonly settings = inject(UserSettings);
   private readonly settingsService = inject(UserSettingsService);
   chartOptions: { view: StatisticsChart; titleKey: string; visible: boolean }[] = [];
+  @ViewChild(ServerUsageComponent) serverUsage?: ServerUsageComponent;
+  get showStorage(): boolean { return this.settings.statisticsCharts?.storage !== false; }
   view: 'home' | DetailView = 'home';
   readonly previews: StatisticsPreview[] = [
     { view: 'productivity', titleKey: 'statistics.productivity.title', totalKey: 'statistics.productivity.count', emptyKey: 'statistics.productivity.empty', counts: [], total: 0, loading: false, error: false, updatedAt: null },
@@ -94,7 +97,7 @@ export class StatisticsComponent implements OnInit {
     this.route.queryParamMap.pipe(
       map(params => {
         const view = params.get('view');
-        return view && ['active', 'inactive', 'productivity', 'exports', 'articles'].includes(view)
+        return view && ['active', 'inactive', 'productivity', 'exports', 'articles', 'storage'].includes(view)
           ? view as DetailView : 'home';
       }),
       distinctUntilChanged(),
@@ -116,6 +119,7 @@ export class StatisticsComponent implements OnInit {
   openSettings(template: TemplateRef<unknown>): void {
     this.chartOptions = this.previews.map(item => ({ view: item.view, titleKey: item.titleKey,
       visible: this.settings.statisticsCharts?.[item.view] !== false }));
+    this.chartOptions.push({ view: 'storage', titleKey: 'serverUsage.title', visible: this.showStorage });
     this.dialog.open(template, { width: '400px' }).afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(save => {
         if (!save) return;
@@ -138,7 +142,7 @@ export class StatisticsComponent implements OnInit {
   showHome(): void {
     void this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { view: null },
+      queryParams: { view: null, disk: null },
       queryParamsHandling: 'merge',
       replaceUrl: true
     });
@@ -148,7 +152,7 @@ export class StatisticsComponent implements OnInit {
     this.request?.unsubscribe();
     this.loading = false;
     this.view = view;
-    if (view === 'productivity' || view === 'exports' || view === 'articles') return;
+    if (view === 'productivity' || view === 'exports' || view === 'articles' || view === 'storage') return;
     this.active = view === 'active';
     const preview = this.previews.find(item => item.view === view);
     if (preview?.updatedAt && !preview.loading && !preview.error && !this.respectOrganization) {
@@ -175,6 +179,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   get titleKey(): string {
+    if (this.view === 'storage') return 'serverUsage.title';
     if (this.view === 'articles') return 'statistics.articles.title';
     if (this.view === 'exports') return 'statistics.exports.title';
     return this.active ? 'statistics.activeByModel' : 'statistics.inactiveByModel';
@@ -225,10 +230,11 @@ export class StatisticsComponent implements OnInit {
 
   load(): void {
     if (this.view === 'home') {
+      this.serverUsage?.refresh();
       this.loadPreviews();
       return;
     }
-    if (this.view === 'productivity' || this.view === 'exports' || this.view === 'articles') return;
+    if (this.view === 'productivity' || this.view === 'exports' || this.view === 'articles' || this.view === 'storage') return;
     this.request?.unsubscribe();
     const organization = this.respectOrganization;
     this.loading = true;
