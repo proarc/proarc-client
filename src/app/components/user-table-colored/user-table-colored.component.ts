@@ -322,6 +322,62 @@ export class UserTableColoredComponent {
     this.onColumnLink.emit({ field, value });
   }
 
+  colorsConfig: {field: string, color: string, bgcolor?: string, operator: string, scope: string, value: string}[] = [
+    {field: 'sigla', color: '', bgcolor: 'rgb(205, 218, 133)', scope: 'row', operator: 'equals', value: 'ABA007'},
+    {field: 'barcode', color: '#c00', bgcolor: '', scope: 'cell', operator: 'exists', value: '*'},
+    {field: 'signature', color: '#fff', bgcolor: 'rgb(36, 43, 2)', scope: 'cell', operator: 'contains', value: 'E '},
+    {field: 'year', color: '', bgcolor: 'rgb(134, 140, 192)', scope: 'cell', operator: 'greater', value: '1950'},
+  ]
+
+  rowColor(item: any): {color: string, bgcolor: string} {
+    
+    let ret = {color: '', bgcolor: ''};
+    this.displayedColumns.forEach(c => {
+      const fc = this.cellColor('row', item, c);
+      if (fc.color !== '' || fc.bgcolor !== '') {
+        ret = fc;
+      }
+    })
+    
+    return ret
+  }
+
+  cellColor(scope: string, item: any, field: string): {color: string, bgcolor: string} {
+    // if (this.colorsConfig[field]) {
+    //   return this.colorsConfig[field].color
+    // }
+    let ret = {color: '', bgcolor: ''};
+    this.colorsConfig.filter(cc => cc.field === field && cc.scope === scope).forEach(cc => {
+      switch(cc.operator) {
+        case 'exists': 
+          ret = {color: cc.color, bgcolor: cc.bgcolor};
+          break;
+        case 'equals': 
+          if (item[field] === cc.value) {
+            ret = {color: cc.color, bgcolor: cc.bgcolor};
+          }
+          break;
+        case 'contains': 
+          if (item[field]?.includes(cc.value)) {
+            ret = {color: cc.color, bgcolor: cc.bgcolor};
+          }
+          break;
+        case 'greater': 
+          if (parseInt(item[field]) > parseInt(cc.value)) {
+            ret = {color: cc.color, bgcolor: cc.bgcolor};
+          }
+          break;
+        case 'less': 
+          if (parseInt(item[field]) < parseInt(cc.value)) {
+            ret = {color: cc.color, bgcolor: cc.bgcolor};
+          }
+          break;
+        default:
+      }
+    })
+    return ret
+  }
+
 
   // batchProgress(batch_id: string): string {
   //   return this.progressMap[batch_id];
