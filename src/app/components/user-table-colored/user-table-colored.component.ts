@@ -361,7 +361,7 @@ export class UserTableColoredComponent {
           ret = {color: cc.color, bgcolor: cc.bgcolor};
           break;
         case 'equals': 
-          if (item[field] === cc.value) {
+          if (item[field]+'' === cc.value) {
             ret = {color: cc.color, bgcolor: cc.bgcolor};
           }
           break;

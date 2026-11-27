@@ -427,8 +427,10 @@ export class UserSettingsService {
   load(o: any) {
     const keys = Object.keys(o);
     keys.forEach(k => {
-      if (k !== 'columnsWorkFlowTasks')
+      //if (k !== 'colorsConfig') {
         this.settings[k] = o[k];
+      //}
+        
     });
   }
 

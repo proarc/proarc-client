@@ -16,6 +16,7 @@ import { Configuration } from '../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-colors-settings-dialog',
@@ -45,7 +46,7 @@ export class ColorsSettingsDialogComponent {
     public config: Configuration) { }
 
   ngOnInit(): void {
-    this.colorsConfig = this.settings.colorsConfig;
+    this.colorsConfig = Utils.clone(this.settings.colorsConfig);
     this.fields = this.settings.columnsWorkFlow.map(c => c.field);
   }
 
@@ -62,9 +63,8 @@ export class ColorsSettingsDialogComponent {
   }
 
    save() {
-    console.log(this.colorsConfig)
-    this.settings.colorsConfig = this.colorsConfig;
-    // this.settingsService.save();
+    this.settings.colorsConfig = Utils.clone(this.colorsConfig);
+    this.settingsService.save();
     this.dialogRef.close(true);
   }
 
