@@ -62,6 +62,9 @@
             <button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary" class="app-ml-n1">
               <mat-icon class="material-icons-outlined">view_column</mat-icon>
             </button>
+            <button (click)="setColors()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary" class="app-ml-n1">
+              <mat-icon class="material-icons-outlined">palette</mat-icon>
+            </button>
             <span  mat-sort-header>{{'search.' + c.field | translate}}</span>
           </div>
         } @else {

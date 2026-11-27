@@ -26,6 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TableItem } from '../../model/table-item.model';
 import { RouterModule } from '@angular/router';
+import { ColorsSettingsDialogComponent } from '../../dialogs/colors-settings-dialog/colors-settings-dialog.component';
 
 @Component({
   selector: 'app-user-table-colored',
@@ -170,6 +171,20 @@ export class UserTableColoredComponent {
         this.initColumns(this.colsSettingsName());
       }
     });
+  }
+
+  setColors() {
+    const dialogRef = this.dialog.open(ColorsSettingsDialogComponent, {
+      id: 'ColumnsSettingsDialogComponent',
+      //width: '900px',
+      panelClass: ['app-dialog-columns-settings', 'app-form-view-' + this.settings.appearance]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.table.renderRows();
+      }
+    });
+    
   }
 
   scrollToLastClicked(item: TableItem) {
@@ -322,13 +337,6 @@ export class UserTableColoredComponent {
     this.onColumnLink.emit({ field, value });
   }
 
-  colorsConfig: {field: string, color: string, bgcolor?: string, operator: string, scope: string, value: string}[] = [
-    {field: 'sigla', color: '', bgcolor: 'rgb(205, 218, 133)', scope: 'row', operator: 'equals', value: 'ABA007'},
-    {field: 'barcode', color: '#c00', bgcolor: '', scope: 'cell', operator: 'exists', value: '*'},
-    {field: 'signature', color: '#fff', bgcolor: 'rgb(36, 43, 2)', scope: 'cell', operator: 'contains', value: 'E '},
-    {field: 'year', color: '', bgcolor: 'rgb(134, 140, 192)', scope: 'cell', operator: 'greater', value: '1950'},
-  ]
-
   rowColor(item: any): {color: string, bgcolor: string} {
     
     let ret = {color: '', bgcolor: ''};
@@ -347,7 +355,7 @@ export class UserTableColoredComponent {
     //   return this.colorsConfig[field].color
     // }
     let ret = {color: '', bgcolor: ''};
-    this.colorsConfig.filter(cc => cc.field === field && cc.scope === scope).forEach(cc => {
+    this.settings.colorsConfig.filter(cc => cc.field === field && cc.scope === scope).forEach(cc => {
       switch(cc.operator) {
         case 'exists': 
           ret = {color: cc.color, bgcolor: cc.bgcolor};
@@ -367,7 +375,7 @@ export class UserTableColoredComponent {
             ret = {color: cc.color, bgcolor: cc.bgcolor};
           }
           break;
-        case 'less': 
+        case 'smaller': 
           if (parseInt(item[field]) < parseInt(cc.value)) {
             ret = {color: cc.color, bgcolor: cc.bgcolor};
           }

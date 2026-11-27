@@ -1,0 +1,103 @@
+<h1 mat-dialog-title>{{ 'dialog.colorsConfig.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event)">
+    <legend>{{ 'dialog.colorsConfig.legend' | translate }}</legend>
+    @for(cc of colorsConfig; track $index;) {
+    <mat-card cdkDropListOrientation="vertical" cdkDrag  class="app-fxLayout app-row app-baseline">
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'field' | translate }}</mat-label>
+        <mat-select [placeholder]="'field' | translate"  [(ngModel)]="cc.field" >
+          @for(f of fields; track $index;) {
+            <mat-option [value]="f">{{ 'search.' + f | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'color' | translate }}</mat-label>
+        <input matInput [placeholder]="'color' | translate" [id]="'color'+$index" [(ngModel)]="cc.color">
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'bgcolor' | translate }}</mat-label>
+        <input matInput [placeholder]="'bgcolor' | translate" [id]="'bgcolor'+$index" [(ngModel)]="cc.bgcolor">
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'operator' | translate }}</mat-label>
+        <mat-select [placeholder]="'operator' | translate"  [(ngModel)]="cc.operator" >
+          @for(op of operators; track $index;) {
+            <mat-option [value]="op">{{ 'operator.' + op | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'scope' | translate }}</mat-label>
+        <mat-select [placeholder]="'scope' | translate" [(ngModel)]="cc.scope" >
+          <mat-option value="row">{{ 'scope.row'| translate }}</mat-option>
+        <mat-option value="cell">{{ 'scope.cell' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'value' | translate }}</mat-label>
+        <input matInput [placeholder]="'value' | translate" [id]="'value'+$index" [(ngModel)]="cc.value">
+      </mat-form-field>
+    </mat-card>
+    }
+
+    <mat-card cdkDropListOrientation="vertical" cdkDrag  class="app-fxLayout app-row app-baseline">
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'field' | translate }}</mat-label>
+        <mat-select [placeholder]="'field' | translate"  [(ngModel)]="newColorConfig.field" >
+          @for(f of fields; track $index;) {
+            <mat-option [value]="f">{{ 'search.' + f | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'color' | translate }}</mat-label>
+        <input matInput [placeholder]="'color' | translate" [id]="'color'" [(ngModel)]="newColorConfig.color">
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'bgcolor' | translate }}</mat-label>
+        <input matInput [placeholder]="'bgcolor' | translate" [id]="'bgcolor'" [(ngModel)]="newColorConfig.bgcolor">
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'operator' | translate }}</mat-label>
+        <mat-select [placeholder]="'operator' | translate"  [(ngModel)]="newColorConfig.operator" >
+          @for(op of operators; track $index;) {
+            <mat-option [value]="op">{{ 'operator.' + op | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'scope' | translate }}</mat-label>
+        
+        <mat-select [placeholder]="'scope' | translate" [(ngModel)]="newColorConfig.scope" >
+          <mat-option value="row">{{ 'scope.row'| translate }}</mat-option>
+        <mat-option value="cell">{{ 'scope.cell' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
+        <mat-label>{{ 'value' | translate }}</mat-label>
+        <input matInput [placeholder]="'value' | translate" [id]="'value'" [(ngModel)]="newColorConfig.value">
+      </mat-form-field>
+
+      <button matButton="filled" [disabled]="!canAdd()" (click)="add()" >{{ 'button.add' | translate }}</button>
+    </mat-card>
+  
+  
+  </fieldset>
+  
+</div>
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button matButton="filled" (click)="save()" >{{ 'button.save' | translate }}</button>
+  <button matButton="outlined" [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
+</div>
