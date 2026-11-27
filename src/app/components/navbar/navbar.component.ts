@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IsActiveMatchOptions, Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,10 +35,9 @@ import { DeleteMultipleDialogComponent } from '../../dialogs/delete-multiple-dia
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   languages = ['cs', 'en', 'cs-en'];
   sub: Subscription;
-  isAkubra: boolean;
   state = signal<string>('');
 
   constructor(public translator: TranslateService,
@@ -51,8 +50,8 @@ export class NavbarComponent implements OnInit {
     private ui: UIService,
     private router: Router) { }
 
-  ngOnInit() {
-    this.isAkubra = this.config.info?.storage === 'Akubra';
+  get isAkubra(): boolean {
+    return this.config.info?.storage === 'Akubra';
   }
 
   ngOnDestroy() {
