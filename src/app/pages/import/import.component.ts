@@ -296,7 +296,7 @@ export class ImportComponent implements OnInit {
     const selectedSoftwareId = this.showSoftware() ? this.selectedSoftware?.id : null;
     const selectedPeroId = this.showPero() ? this.selectedPero?.id : null;
     const selectedMetakatId = this.showMetakat() ? this.selectedMetakat?.id : null;
-    if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
+    if (selectedFolders.length === 1 && this.nonStatusProfiles.includes(this.selectedProfile.id)) {
       this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, generatePageType, this.nightOnly, selectedDeviceId, selectedSoftwareId, this.selectedPriority, selectedPeroId, selectedMetakatId, pids).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
@@ -355,7 +355,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, generatePageType, selectedDeviceId, selectedSoftwareId, selectedPeroId, selectedMetakatId, pids).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, generatePageType, selectedDeviceId, selectedSoftwareId, selectedPeroId, selectedMetakatId, pids, this.nightOnly, this.selectedPriority).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",

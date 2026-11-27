@@ -1244,8 +1244,8 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, generatePageType: boolean, device: string, software: string, peroId: string, metakatId: string, pids: string[] = null) {
-    let data = `folderPath=[${paths}]&profile=${profile}`;
+  createImportBatches(paths: string[], profile: string, indices: boolean, generatePageType: boolean, device: string, software: string, peroId: string, metakatId: string, pids: string[] = null, nightOnly: boolean, priority: string) {
+    let data = `folderPath=[${paths}]&profile=${profile}&nightOnly=${nightOnly}&priority=${priority}`;
     if (indices !== null && indices !== undefined) {
       data += `&indices=${indices}`;
     }
