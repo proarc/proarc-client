@@ -309,7 +309,7 @@ export class ImportComponent implements OnInit {
       });
     } else {
       const paths = selectedFolders.map((folder: Folder) => folder.path);
-      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, selectedDeviceId, selectedPeroId, selectedMetakatId).subscribe(result => {
+      this.api.createImportBatches(paths, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe(result => {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
