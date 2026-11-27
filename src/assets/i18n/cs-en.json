@@ -2585,6 +2585,7 @@
     "changePagesFunction": "Převod stran",
     "deleteActionFunction": "Smazat trvale (Hledat ve smazaných, Obnovit smazaný objekt)",
     "prepareBatchFunction": "Příprava importních dávek",
+    "checkBatchFunction": "Kontrola importních dávek",
     "allObjectsFunction": "Vidí všechny objekty (vidí všechna data bez ohledu na organizaci)",
     "exportFunctions": "Funkce Exportů",
     "deviceFunctions": "Funkce Správa zařízení",

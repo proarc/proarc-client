@@ -58,6 +58,7 @@ export class AdminComponent implements OnInit {
     // { field: 'deleteActionFunction', selected: true, width: 100},
     // { field: 'changeObjectsOwnerFunction', selected: true, width: 100},
     // { field: 'prepareBatchFunction', selected: true, width: 100},
+    // { field: 'checkBatchFunction', selected: true, width: 100},
     // { field: 'allObjectsFunction', selected: true, width: 100},
     // { field: 'importToProdFunction', selected: true, width: 100},
     // { field: 'deviceFunction', selected: true, width: 100},
@@ -73,7 +74,7 @@ export class AdminComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'home',
     // 'changeModelFunction', 'changePagesFunction', 'lockObjectFunction', 'unlockObjectFunction',
-    // 'importToCatalogFunction', 'czidloFunction', 'deleteActionFunction', 'changeObjectsOwnerFunction', 'prepareBatchFunction',
+    // 'importToCatalogFunction', 'czidloFunction', 'deleteActionFunction', 'changeObjectsOwnerFunction', 'prepareBatchFunction', 'checkBatchFunction',
     // 'allObjectsFunction', 'importToProdFunction', 'deviceFunction', 'createUserFunction', 'updateUserFunction', 'deleteUserFunction',
     // 'solrFunction', 'sysAdminFunction', 'wfCreateJobFunction', 'wfDeleteJobFunction',
     'action'];

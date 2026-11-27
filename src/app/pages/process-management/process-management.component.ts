@@ -293,7 +293,7 @@ export class ProcessManagementComponent {
     if (batch.state === 'INGESTED' && batch.parentPid) {
       this.router.navigate(['/repository', batch.parentPid]);
     } else if (batch.state === 'LOADED') {
-      this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
+      this.router.navigate(['/process-management', 'edit', batch.id]);
     }
   }
 
@@ -913,13 +913,15 @@ export class ProcessManagementComponent {
   }
 
   canStopProcess(batch: Batch) {
-    return batch && (
-      (
-        this.auth.user.name === batch.user || this.auth.user.prepareBatchFunction
-      ) &&
-      (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING' || batch.state === 'LOADING'
-        || batch.state === 'IMPORT_PLANNED' || batch.state === 'INTERNAL_PLANNED')
-    )
+    if (!batch) {
+      return false;
+    }
+    const isOwner = this.auth.user.userId === batch.userId;
+    if (batch.state === 'LOADING' || batch.state === 'IMPORT_PLANNED') {
+      return isOwner || this.auth.user.prepareBatchFunction || this.auth.user.checkBatchFunction;
+    }
+    return isOwner && (batch.state === 'EXPORT_PLANNED' || batch.state === 'EXPORTING'
+      || batch.state === 'INTERNAL_PLANNED');
   }
 
   isExportProfile(profile: string) {
