@@ -33,6 +33,7 @@ export class User {
   public deleteActionFunction: boolean;
   public allObjectsFunction: boolean;
   public prepareBatchFunction: boolean;
+  public checkBatchFunction: boolean = false;
   public sysAdminFunction: boolean;
 
   public static fromJson(json: any): User {
@@ -65,6 +66,7 @@ export class User {
       user.deleteActionFunction = json['deleteActionFunction'];
       user.allObjectsFunction = json['allObjectsFunction'];
       user.prepareBatchFunction = json['prepareBatchFunction'];
+      user.checkBatchFunction = json['checkBatchFunction'] === true;
       user.sysAdminFunction = json['sysAdminFunction'];
       return user;
   }

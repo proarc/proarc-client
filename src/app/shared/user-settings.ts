@@ -253,6 +253,7 @@ public adminColumnsDefault = [
   // { field: 'deleteActionFunction', selected: true, width: 100, type: 'boolean'},
   // { field: 'changeObjectsOwnerFunction', selected: true, width: 100, type: 'boolean'},
   // { field: 'prepareBatchFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'checkBatchFunction', selected: true, width: 100, type: 'boolean'},
   // { field: 'allObjectsFunction', selected: true, width: 100, type: 'boolean'},
   // { field: 'importToProdFunction', selected: true, width: 100, type: 'boolean'},
   // { field: 'deviceFunction', selected: true, width: 100, type: 'boolean'},

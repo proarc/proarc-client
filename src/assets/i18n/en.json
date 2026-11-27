@@ -2933,6 +2933,7 @@
     "changePagesFunction": "Change pages model",
     "deleteActionFunction": "Delete actions (Purge object, Restore object)",
     "prepareBatchFunction": "Prepare import batch for all users",
+    "checkBatchFunction": "Review import batches",
     "allObjectsFunction": "All objects",
     "exportFunctions": "Export functions",
     "deviceFunctions": "Device functions",

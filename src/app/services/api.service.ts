@@ -1446,7 +1446,7 @@ export class ApiService {
     data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
     data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
     data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
-    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&checkBatchFunction=${user.checkBatchFunction === true}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
@@ -1473,7 +1473,7 @@ export class ApiService {
     data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
     data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
     data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
-    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&checkBatchFunction=${user.checkBatchFunction === true}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.post('user', data);
   }
 
