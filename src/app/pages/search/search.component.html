@@ -138,19 +138,23 @@
           </mat-form-field>
         }
       }
-      <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
-        <mat-label>{{ 'ltp.filterState' | translate }}</mat-label>
-        <mat-select name="ltpState" [(ngModel)]="ltpState">
-          <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
-          @for (status of ltpStates; track status) {
-            <mat-option [value]="'cesnet:' + status">CESNET: {{ 'ltp.states.' + status | translate }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
-        <mat-label>{{ 'ltp.filterId' | translate }}</mat-label>
-        <input matInput name="ltpId" [(ngModel)]="ltpId" (keyup.enter)="filter()">
-      </mat-form-field>
+      @if (isSearchColumnVisible('ltpStatus')) {
+        <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
+          <mat-label>{{ 'ltp.filterState' | translate }}</mat-label>
+          <mat-select name="ltpState" [(ngModel)]="ltpState">
+            <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
+            @for (status of ltpStates; track status) {
+              <mat-option [value]="'cesnet:' + status">CESNET: {{ 'ltp.states.' + status | translate }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      @if (isSearchColumnVisible('ltpId')) {
+        <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
+          <mat-label>{{ 'ltp.filterId' | translate }}</mat-label>
+          <input matInput name="ltpId" [(ngModel)]="ltpId" (keyup.enter)="filter()">
+        </mat-form-field>
+      }
       @if (canFilterByResourceType()) {
         <mat-form-field [appearance]="settings.appearance" class="app-resource-type">
           <mat-label>{{ 'search.typeOfResource' | translate }}</mat-label>
@@ -186,7 +190,7 @@
                 @if (state === 'loading') {
                   <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
                 }
-                <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)"  (openItem)="openItem($event)"  (getValidationError)="getValidationError($event)" [colsSettingsName]="'columnsSearch'" [items]="items" ></app-user-table>
+                <app-user-table (columnsChanged)="onSearchColumnsChanged()" (sortBy)="sortBy($event)" (selectItem)="selectRow($event)"  (openItem)="openItem($event)"  (getValidationError)="getValidationError($event)" [colsSettingsName]="'columnsSearch'" [items]="items" ></app-user-table>
               </div>
             </div>
           }

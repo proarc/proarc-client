@@ -57,6 +57,7 @@ export class UserTableComponent {
   getValidationError = output<string>();
   onFilter = output<{ field: string, value: string }>();
   onColumnLink = output<{ field: string, value: string }>();
+  columnsChanged = output<void>();
 
   draggable = input<boolean>();
   mousedown = output<any>();
@@ -156,7 +157,7 @@ export class UserTableComponent {
   }
 
   setColumns() {
-    const model = this.layout.selectedParentItem ? this.layout.selectedParentItem.model : this.items()[0].model
+    const model = this.layout.selectedParentItem ? this.layout.selectedParentItem.model : this.items()?.[0]?.model;
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       id: 'ColumnsSettingsDialogComponent',
       data: {
@@ -169,6 +170,7 @@ export class UserTableComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.initColumns(this.colsSettingsName());
+        this.columnsChanged.emit();
       }
     });
   }

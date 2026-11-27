@@ -146,8 +146,8 @@ export class UserSettingsService {
     { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
     { field: 'partNumber', selected: true, width: 100, type: 'string' },
     { field: 'typeOfResource', selected: true, width: 130, type: 'translated' },
-    { field: 'ltpId', selected: true, width: 180, type: 'string' },
-    { field: 'ltpStatus', selected: true, width: 180, type: 'translated' },
+    { field: 'ltpId', selected: false, width: 180, type: 'string' },
+    { field: 'ltpStatus', selected: false, width: 180, type: 'translated' },
     { field: 'filename', selected: false, width: 100, type: 'string' },
     { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
 ];

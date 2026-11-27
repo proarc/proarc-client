@@ -75,6 +75,7 @@ export class SearchComponent {
   users: User[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
+  @ViewChild(UserTableComponent) resultTable: UserTableComponent;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
 
   displayedColumns: string[] = [];
@@ -144,6 +145,19 @@ export class SearchComponent {
     this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.ltpState = p['ltpState'] || '';
     this.ltpId = p['ltpId'] || '';
+    // Keep filters from shared links visible, even when columns are hidden by default.
+    let columnsChanged = false;
+    for (const [field, value] of [['ltpId', this.ltpId], ['ltpStatus', this.ltpState]]) {
+      const column = this.settings.columnsSearch.find(c => c.field === field);
+      if (value && column && !column.selected) {
+        column.selected = true;
+        columnsChanged = true;
+      }
+    }
+    if (columnsChanged) {
+      this.settingsService.save();
+      this.resultTable?.initColumns('columnsSearch');
+    }
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
     this.resetSpecialSearchModel();
     this.typeOfResource = this.canFilterByResourceType() ? (p['typeOfResource'] || '') : '';
@@ -168,6 +182,28 @@ export class SearchComponent {
   setSearchMode(searchMode: string): void {
     this.searchMode = searchMode;
     this.resetSpecialSearchModel();
+  }
+
+  isSearchColumnVisible(field: string): boolean {
+    return this.settings.columnsSearch.some(c => c.field === field && c.selected);
+  }
+
+  onSearchColumnsChanged(): void {
+    const clearId = !this.isSearchColumnVisible('ltpId');
+    const clearState = !this.isSearchColumnVisible('ltpStatus');
+    if (clearId) this.ltpId = '';
+    if (clearState) this.ltpState = '';
+    if ((clearId && this.urlParams?.ltpId) || (clearState && this.urlParams?.ltpState)) {
+      // Remove only hidden filters; do not submit other unfinished form edits.
+      this.router.navigate([], {
+        queryParams: {
+          ltpId: clearId ? null : this.urlParams?.ltpId,
+          ltpState: clearState ? null : this.urlParams?.ltpState,
+          pageIndex: null
+        },
+        queryParamsHandling: 'merge'
+      });
+    }
   }
 
   canFilterByResourceType(): boolean {
