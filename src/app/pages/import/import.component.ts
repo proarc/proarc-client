@@ -252,7 +252,7 @@ export class ImportComponent implements OnInit {
     const selectedDeviceId = this.showDevice() ? this.selectedDevice?.id : null;
     const selectedPeroId = this.showPero() ? this.selectedPero?.id : null;
     const selectedMetakatId = this.showMetakat() ? this.selectedMetakat?.id : null;
-    if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
+    if (selectedFolders.length === 1 && this.nonStatusProfiles.includes(this.selectedProfile.id)) {
       this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, generateIndex, this.nightOnly, selectedDeviceId, this.selectedPriority, selectedPeroId, selectedMetakatId).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
